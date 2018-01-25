@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>自定义属性</h3>
+    <p>
+        给元素添加自己定义的属性。 <br/>
+        <mark>data-属性名=""</mark>     <br/>
+        标签添加属性。<br/>
+        <mark>dataset.属性名</mark>  <br/>
+        js读取属性值，或写入属性值。<br/>
+        例子：
+        <pre>
+        &ltdiv id="aa" data-hello-world="helloworld!">1&lt/div>
+        &ltdiv id="bb" data-hello="world!">1&lt/div>
+
+        var oaa = document.querySelector('#aa');
+        var obb = document.querySelector('#bb');
+
+        //alert(oaa.dataset.helloWorld)；
+
+        obb.dataset.world="haha";
+        alert(obb.dataset.world);
+
+        </pre><br/>
+
+
+        运用自定义属性的库<br/>
+        knockout.js<br/>
+        jQuery mobile.js<br/><br/>
+
+        问题：这种自定义属性的方法与以前学的自定义属性的方法有什么区别？<br/>
+        系统自带的的方法，js操作更简单。
+    </p>
+
+</div>
+
+</body>
+</html>

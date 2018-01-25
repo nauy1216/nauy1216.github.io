@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../vue.min.js"></script>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>1、常用事件</h3>
+    <p><h4> 1、鼠标事件</h4>
+        <mark>onmousemove</mark><br/>
+        触发频率不是像素而是时间间隔，在一个指定的事件，如果鼠标的位置
+        与上一次的位置发生改变时就会触发。<br/><br/>
+        <mark>onmouseover</mark><br/><br/>
+        <mark>onmouseout</mark><br/><br/>
+        <mark>鼠标滚轮事件</mark><br/><br/>
+        IE、chrome：onmousewheel<br/>
+        event.wheelDelta<br/>
+        IE：上 120  下-120（判断向上滚动还是向下滚动）<br/>
+        chrome：上 150  下-150<br/><br/>
+
+        ff：DOMMouseScroll（必须addEventListener()添加）<br/>
+        event.detail  上-3 下3<br/><br/>
+
+        <mark>onclick</mark><br/><br/>
+
+        <mark>ondblclick</mark><br/><br/>
+
+        <mark>onmousedown</mark><br/><br/>
+
+        <mark>onmouseup</mark>
+
+        <h4>2、键盘事件</h4>
+
+        <mark>onkeydown</mark><br/>
+        键盘按下的时候触发。<br/>
+        按下不弹起会连续触发,开始会停顿一下。<br/><br/>
+
+        <mark>onkeyup</mark><br/>
+        键盘弹起的时候触发。<br/>
+        1、event.keycode:键值（ascII码，判断按下的是哪个键）<br/>
+        左上右下：37 38 39 40
+
+        2、e.ctrlkey、shiftkey、altkey:均是bool值。<br/>
+
+        3、不是所有的元素都能接收键盘事件，能够响应用户操作
+        的元素才能接收键盘事件。<br/>
+
+        4、document可以接收。<br/><br/>
+
+        <mark>onkeypress</mark>
+
+        <h4>3、系统事件</h4>
+        <mark>oncontextmenu</mark><br/>
+        右键菜单事件，当右键菜单（环境菜单）显示出来的时候触发。
+
+
+        <h4>4、焦点事件</h4>
+        （1）onfocus:获取焦点事件。<br/>
+        不是所有的元素都有焦点事件，能响应用户操作的元素才有。<br/><br/>
+
+        （2）onblur：失去焦点事件。<br/>
+        obj.focus();给某个对象获取焦点。<br/>
+        obj.blur();取消某个对象的焦点。<br/>
+        obj.select();选择指定元素里的内容。<br/>
+
+        <h4> 5、表单事件</h4>
+        （1）onsubmit：表单提交时触发，return false；阻止表单提交。
+    </p>
+
+    <h3>2、event对象</h3>
+    <p> <h4>1、定义</h4>
+        当一个事件发生的时候，和当前这个对象发生的这个事件有关的一些详细的信息
+        都会被临时保存到一个指定的地方---event对象。供我们需要的时候调用。<br/><br/>
+
+        比喻：飞机--------黑匣子<br/><br/>
+
+        事件对象必须在事件调用函数内使用才有内容。
+
+        <h4>2、兼容</h4>
+        IE、chrome：event是一个内置全局对象。<br/>
+        ff：	事件对象是通过事件函数的第一个参数传进来的。<br/>
+        兼容写法：<br/>
+        function(ev){<br/>
+        var ev=ev||event;<br/>
+        }<br/>
+
+        <h4>3、event对象的常用属性</h4>
+        （1）<mark>事件目标</mark><br/>
+        标准：ev.target<br/>
+        非ff：ev.srcElement<br/><br/>
+
+        （2）<mark>event.keyCode</mark><br/>
+        返回按键的keyCode值。用于判断按下的是哪个按钮。<br/><br/>
+
+        （3）<mark>event.type</mark><br/>
+        发生的事件类型
+    </p>
+
+    <h3>3、事件冒泡</h3>
+    <p><mark>事件冒泡跟样式表现没有关系，跟html结构有关。</mark>
+        <h4>1、定义</h4>
+        当一个元素接收到事件的时候，会把他接受到的所有事件
+        传播给给他的父级，直到window。<br/><br/>
+
+        如果没有给元素的事件添加函数并不代表元素没有接收到事件。
+        理清事件与事件处理函数的关系。
+
+        <h4>2、阻止冒泡与默认事件</h4>
+        阻止冒泡：<br/>
+        标准：event.stopPropagation()<br/>
+        IE   :event.cancelBubble=true<br/>
+        兼容：<br/>
+        var e = e || event;<br/>
+        e.stopPropagation?e.stopPropagation():e.event.cancelBubble=true;<br/><br/>
+
+        阻止默认事件：<br/>
+        标准：event.preventDefault();<br/>
+        IE  ：e.returnValue=false;<br/>
+        兼容：var e = e || event;<br/>
+        e.preventDefault?e.preventDefault():e.returnValue=false;<br/>
+    </p>
+
+    <h3>4、事件捕获与事件绑定函数</h3>
+    <p> 事件绑定的两种形式。
+        <h4>赋值形式（没有兼容问题）</h4>
+        obj.onclick=fn;
+        <h4>事件绑定函数</h4>
+        <mark>可以同时给某个元素的某个事件添加多个函数。有兼容问题。</mark><br/><br/>
+        <mark>IE：obj.attachEvent(事件名称,函数);</mark><br/>
+
+        特点：<br/>
+        1、没有捕获<br/>
+        2、事件名称有“on”<br/>
+        3、事件函数执行的顺序：<br/>
+        标准IE---->正序<br/>
+        非标准IE---->反序<br/>
+        4、函数里面的this指向window。<br/>
+        解决办法：<br/>
+        使用call()改变this指向。call()方法的第一个
+        参数可以改变函数执行过程中的内部this指向。<br/>
+        例如：fn1.call(odiv1);
+        第二个参数开始就是函数原来的参数。
+        如果第一个参数是null那就不改变指向。<br/><br/>
+
+
+        <mark>标准：obj.addEventListener(事件名称,函数,是否捕获)</mark>；<br/>
+        1、有捕获<br/>
+        false------>冒泡<br/>
+        oDiv1.addEventListener(‘click’,fn1,fasle);<br/>
+        告诉浏览器如果有一个出去的事件触发了oDiv1
+        就去执行fn1。<br/>
+        true------>捕获<br/>
+        oDiv1.addEventListener(‘click’,fn1,true);<br/>
+        告诉浏览器如果有一个进去的事件触发了oDiv1
+        就去执行fn1。<br/>
+
+        2、事件名称没有“on”<br/>
+        3、事件函数执行顺序：正序<br/>
+        4、this指向触发该事件的对象
+    </p>
+
+    <h3>5、取消事件绑定函数</h3>
+    <p>第一种：<br/>
+        oDiv.onclick=fn1;<br/>
+        oDiv.onclick=null;------>取消事件函数绑定<br/><br/>
+
+       第二种：<br/>
+        IE：oDiv.detachEvent(事件名称,事件函数)<br/>
+        标准：obj.removeEventListener(事件名称,事件函数,是否捕获)
+    </p>
+
+    <h3>6、事件默认行为</h3>
+    <p> 1、定义：<br/>
+        当一个事件发生时，浏览器会默认做的事情。<br/><br/>
+
+        2、阻止默认事件：<br/>
+        标准：event.preventDefault();<br/>
+        IE   ：e.returnValue=false;<br/>
+
+        （1）addEventListener()绑定的事件需要通过e.preventDefault()阻止。<br/>
+        （2）attachEvent()绑定的事件用可以用return false阻止。<br/>
+        （3）赋值绑定的事件可以用return false阻止。<br/><br/>
+
+        3、分析当前这个行为是什么事件触发的，然后在这个事件中
+        阻止默认行为。<br/>
+        例如：自定义右键菜单。</p>
+</div>
+</body>
+</html>

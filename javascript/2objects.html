@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>1、Date对象</h3>
+    <p>1、var myDate= new Date();返回系统当前时间对象<br>
+        alert(myDate)返回utc时间<br>
+        <mark>时间对象下的方法：</mark><br>
+        getMonth()  月份0~11<br>
+        getDate()  日期<br>
+        getDay()  星期几0~6<br>
+        getHours()时<br>
+        getMinutes()分<br>
+        getSeconds()   秒<br>
+        <mark>2、date参数</mark><br>
+        数字形式：new Date(2017,7,29,19,35,56);<br>
+        字符串形式：new Date(‘      ??????’)<br>
+        <mark>3、时间戳</mark><br>
+        getTime()返回1970-1-1-0-0-0至今的毫秒数<br>
+        4、两个时间对象相减得到毫秒数
+    </p>
+<h3>2、String对象</h3>
+    <p><h4>0、Str.length</h4>
+        <mark>返回字符串长度</mark>。<br>
+        注意字符串的第几位是从0开始的。
+        <h4>1、charAt()</h4>
+        <mark>返回字符串中的第几个字符</mark>（0~str.length-1）<br>
+        '123 456'.charAt(1)-------->2
+
+        <h4>2、charCodeAt()</h4>
+        <mark>返回编码值</mark><br>
+        '123 456'.charCodeAt(1)----------->50
+
+        <h4>3、String.fromCharCode(编码值)</h4>
+        <mark>编码值对应的字符</mark><br>
+        String.fromCharCode(65)---------->A<br>
+        字符：编码值<br>
+        0~9:48~57<br>
+        a~z：97~122<br>
+        A~Z：65~90
+
+        <h4>4、str2.indexOf(str1)</h4>
+        返回某个字符或字符串在str2中<mark>第一次出现的位置</mark>。<br>
+        str2.indexOf(str1,m)----->str1在str2中的位置，从第m个位置开始查找。
+        返回-1时表示不存在。
+
+        <h4>5、str2.lastIndexOf(str1)</h4>
+        <mark>从后往前找</mark><br>
+        str2.lastIndexOf(str1,m)<br>
+        如果查找的起始位置是负数，默认当做0.
+
+        <h4>6、字符串的比较大小</h4>
+
+        <h4>7、substring()</h4>
+        <mark>返回截取的字符串。</mark><br>
+        Str1.substring()------->返回整个字符串<br>
+        Str1.substring(4)------->第4位往后<br>
+        Str1.substring(2,4)------>[2,4),也就是第2位和第3位，注意是前闭后开的区间
+        负数当做0处理。<br>
+        可以自动检测大小。例如：Str1.substring(4,2)是一样的结果。
+
+        <h4>8、slice()</h4>
+        <mark>截取字符串</mark><br>
+        Str.slice(0,2)----->[0,2)<br>
+        与substring的区别是：<br>
+        1、不能检测两个参数的大小<br>
+        2、参数可以是负数，右边第一个字符是-1，第二个是-2，以此类推。
+
+        <h4>9、str.toUpperCase()</h4>
+        str字符串所有的小写字母变大写
+        <h4>10、str.toLowerCase()</h4>
+        大写变小写
+
+        <h4>11、split()</h4>
+        字符串切片<br>
+        Str.split(‘,’)------>以逗号为切割符<br>
+        Str.split(‘’)------->空字符串切割<br>
+
+        <h4>11、search()</h4>
+        var str ="usihf dsa  hello";<br>
+        var s = str.search("hello");
+    </p>
+    <h3>3、数组与json</h3>
+    <p>
+        <h4>1、json</h4>
+        一种数据格式，可以与js对象之间进行数据交换。<br>
+        var json1={“name”:”lcy”,”age”:25}<br>
+        必须用双引号。<br>
+        Json里面可以包含数组，数组里面也可以包含json。
+
+        <h4>2、遍历json</h4>
+        只能用for in。<br>
+        for(var attr in json1){<br>
+        json1[atrr]........<br>
+        }
+
+        <h4>3、定义数组</h4>
+        var arr = [1,2,3];<br>
+        var arr = new Array(1,2,3);<br>
+
+        <h4>4、length</h4>
+        返回数组长度。<br>
+        arr.length<br>
+        这是一个可写可读的属性。<br>
+        例如arr.length=2;<br>
+        当数组长度大于2时，会进行切割。<br>
+
+        <h4>5、将数组清空的两种方式：</h4>
+        arr.length=0;<br>
+        arre=[];
+
+        <h4>6、push() 、unshift()</h4>
+         <mark>添加。</mark><br>
+        arr.push(1,2,3)------>数组后面添加<br>
+        arr.unshift(1,2,3)----->前面添加<br>
+        两个函数的返回值都是新数组的长度。IE6、7不支持。<br>
+
+        <h4>7、pop() 、shift()</h4>
+        <mark>删除。</mark><br>
+        arr.pop()-------------->删除最后一个<br>
+        arr.shift()--------------->删除数组的第一个<br>
+        返回值：删除的东西。
+
+        <h4>8、splice()</h4>
+        <mark>删除、替换、增加</mark><br>
+        arr.splice(0,2)-------------->删除[0,2)<br>
+        arr.splice(0,2,’m’)---------------->将[0,2)替换成m<br>
+        arr.splice(1,0,’m’)-------------->在第1个前面添加m
+
+        <h4>9、数组的去重</h4>
+        两种方法：
+
+        <h4>10、sort()</h4>
+        <mark>排序</mark><br>
+        var arr = [2,13,4]<br>
+        arr.sort()----->[13,2,4]   默认是比较字符串从小到大<br><br>
+
+        自定义比较函数：<br>
+        原理返回正数交换位置，负数和0不交换位置。<br>
+        arr.sort(function(a,b){return a-b;});---->小到大<br>
+        arr.sort(function(a,b){return b-a;});------>大到小<br>
+
+        <h4>11、join()</h4>
+        <mark>数组转换成字符串</mark>。<br>
+        var arr = [2,13,4]；
+        arr.join(‘’);---------->   ’2134’<br>
+        arr.join(‘-’);---------->   ’2-13-4’
+
+        <h4>12、concat()</h4>
+        <mark>数组相连</mark>。<br>
+        arr.concat(arr1);<br>
+        arr.concat(arr1,arr2);
+
+        <h4>13、reverse()</h4>
+        <mark>数组顺序颠倒</mark>。<br>
+        var arr = [2,13,4]；<br>
+        arr.reverse();----------------->[4,13,2]
+    </p>
+    <h4>4、Math对象</h4>
+    <p>
+        1、Math.random()    产生0~1之间的数<br>
+        2、Math.round(num)  四舍五入<br>
+        3、Math.floor(num)  向下取整</p>
+</div>

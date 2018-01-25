@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>新增语义化标签</h3>
+    <p>
+        <mark>header</mark><br/>
+        用于页面的顶部或板块的的顶部<br/>
+        <mark>nav</mark>  <br/>
+        导航条<br/>
+        <mark>hgroup</mark> <br/>
+        页面上的标题组合<br/>
+        <mark>section</mark> <br/>
+        页面上的版块用来划分区域<br/>
+        <mark>article</mark><br/>
+        用来表示一套结构完整且独立的内容部分<br/>
+        <mark>aside</mark>   <br/>
+        和主体相关的东西<br/>
+        <mark>figure</mark> <br/>
+        用于表示对元素进行组合，一般用于图片或视频<br/>
+        <mark>footer</mark>  <br/>
+        用于页面的底部或板块的的底部<br/>
+        <mark>time </mark> <br/>
+        用来表示时间<br/>
+    </p>
+
+    <h3>新增功能标签</h3>
+    <p>
+        注意：不同的浏览器在实现相同功能下，可能uI界面不一样，要注意浏览器的默认样式。<br/>
+
+        <mark>datalist</mark> <br/>
+        选项列表。一般配合input元素使用，来定义input可能的值。<br/>
+            <input type="text" list="valist">
+            <datalist id="valist">
+                <option value="html5">html5</option>
+                <option value="html">html</option>
+                <option value="css">css</option>
+                <option value="js">js</option>
+            </datalist>
+        <pre>
+            &ltinput type="text" list="valist">
+            &ltdatalist id="valist">
+                &ltoption value="html5">html5&lt/option>
+                &ltoption value="html">html&lt/option>
+                &ltoption value="css">css&lt/option>
+                &ltoption value="js">js&lt/option>
+            &lt/datalist>
+        </pre>
+
+
+        <mark>details</mark><br/>
+        用于描述文档或文档某个部分的细节（块元素）<br/>
+        <details>
+            <summary>html</summary>     //被描述的对象
+            <p>超文本标记语言</p>      //对象的细节，可以是任何标签
+        </details>
+        <pre>
+        &ltdetails>
+            &ltsummary>html&lt/summary>     //被描述的对象
+            &ltp>超文本标记语言&lt/p>      //对象的细节，可以是任何标签
+        &lt/details>
+        </pre>
+
+        <mark>dialog</mark><br/>
+        定义对话。（块元素，自动居中,脱离文档流）<br/>
+
+        <dialog open>
+            <dt>老师</dt>
+            <dd>1+1=？</dd>
+            <dt>小明</dt>
+            <dd>2</dd>
+            <dt>老师</dt>
+            <dd>你真聪明</dd>
+        </dialog>
+        <pre>
+        &ltdialog open>//open 属性决定是否展开对话
+            &ltdt>老师&lt/dt>
+            &ltdd>1+1=？&lt/dd>
+            &ltdt>小明&lt/dt>
+            &ltdd>2&lt/dd>
+            &ltdt>老师&lt/dt>
+            &ltdd>你真聪明&lt/dd>
+        &lt/dialog>
+        </pre>
+
+        <mark>adress</mark> <br/>
+        定义详细信息。<br/>
+        <address>address 定义详细信息</address>
+
+        <mark>mark</mark>  <br/>
+        标记（内联元素，背景颜色变化）<br/>
+
+        <mark>keygen???</mark><br/>
+        公钥<br/>
+        <form action="http://www.baidu.com" method="get">
+            用户: <input type="text" name="usr_name" />
+            公钥: <keygen name="security" />
+            <input type="submit" />
+        </form>
+
+        <mark>progress</mark><br/>
+        进度条（IE678不兼容）<br/>
+        两个属性：<br/>
+        max:总的值。<br/>
+        value:此时的值。<br/>
+        <progress max="100" value="25"></progress>
+
+    </p>
+
+    <h3>html5语义化标签的兼容</h3>
+    <p>
+        注意：只能用于语义化标签，功能化标签需要配合js实现。<br/>
+        下面以兼容header为例。<br/>
+        <mark>第一种方法：</mark><br/>
+        1、在script标签里加<br/>
+            document.createElement('header');//创建自定义标签<br/>
+        2、在style中定义样式。   //  为自定义标签添加样式<br/>
+        3、功能标签可以通过js，来添加功能。<br/>
+        然后就可以在低版本浏览器中使用了。<br/><br/>
+        下面的代码定义了header标签，并且给他增加了点击背景颜色变红的功能。<br/>
+
+        <pre>
+        &ltscript>
+            document.createElement('header');
+            window.onload=function(){
+                var ah = document.getElementsByTagName('header');
+                for(var i=0;i&ltah.length;i++){
+                    ah[i].onclick=function(){
+                        this.style.background='red';
+                    };
+                }
+            };
+        &lt/script>
+        &ltstyle>
+            header{display:block;}
+        &lt/style>
+        </pre>
+
+        <mark>第二种方法：</mark> <br/>
+        引入html5shiv.js。在实际工作中会引入这个文件，而不是使用第一种方法。
+    </p>
+</div>
+
+</body>
+</html>

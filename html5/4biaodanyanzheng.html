@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>h5表单验证</h3>
+    <p>
+        <mark>作用</mark><br/>
+        表单提交的时候验证表单数据。<br/>
+
+        <mark>validity属性</mark><br/>
+        控件的validity的valid属性。<br/>
+        valid：可以查看验证是否通过，如果八种验证都通过返回true，一种验证失败返回false。<br/>
+        某个表单控件是否验证通过，只要看以下的八种验证的结果。<br/>
+        1、valueMissing  :  输入值为空时,值为true，验证失败。<br/>
+        2、typeMismatch :  控件值与预期类型不匹配,值为true<br/>
+        3、patternMismatch  :  输入值不满足pattern正则,值为true<br/>
+        4、tooLong  :  超过maxLength最大限制,值为true<br/>
+        5、rangeUnderflow : 验证的range最小值,值为true<br/>
+        6、rangeOverflow：验证的range最大值,值为true<br/>
+        7、stepMismatch: 验证range 的当前值 是否符合min、max及step的规则,值为true<br/>
+        8、customError 不符合自定义验证,值为true<br/>
+
+        <mark>setCustomValidity()</mark>     <br/>
+        自定义验证信息。<br/>
+        定义：每个控件自带的方法。<br/>
+        作用：用于自定义控件的验证消息，当验证失败时弹出消息。<br/>
+        用法：oInput.setCustomValidity(message);<br/>
+
+        例子：
+        <pre>
+        var oText=document.getElementById("text");
+        oText.oninput=function(){
+            if(this.value=="55"){//可以定义很复杂的验证
+                this.setCustomValidity("请不要输入敏感词");
+            }
+            else{
+                this.setCustomValidity("");
+            }
+        };
+        </pre>
+
+        <mark>invalid事件</mark> <br/>
+        作用：验证失败，触发事件。<br/>
+        oInput.addEventListener('invalid',fn,false)<br/>
+        阻止默认验证：ev.preventDefault()。<br/>
+        formnovalidate属性  :  关闭验证<br/>
+
+        例1、输入不能为空，使用系统的验证。 <br/>
+        <form action="http://www.baidu.com" method="get">
+            <input type="text" required id="t2">
+            <input type="submit">
+        </form>
+        <script>
+            var oText=document.getElementById('t2');
+            oText.addEventListener('invalid',fn,false);
+            function fn(){
+                if(this.validity.valueMissing){
+                    alert("kong");
+                }
+                ev.preventDefault();
+            }
+        </script>
+
+        <pre>
+            var oText=document.getElementById('t2');
+
+            oText.addEventListener('invalid',fn,false);
+
+            function fn(){
+
+                if(this.validity.valueMissing){//输入值为空时，返回true。
+
+                    alert("kong");//弹出框会阻止消息提示。
+
+                }
+
+                ev.preventDefault();
+            }
+        </pre>
+
+        例2、自定义验证，自定义验证规则还有验证消息。 <br/>
+        <form action="">
+            <input type="text" placeholder="不能输入123" id="t3"/>
+            <input type="submit"/>
+        </form>
+        <script>
+            var oText=document.getElementById("t3");
+
+            oText.oninput=function(){//自定义验证
+
+                if(this.value=="123"){//定义验证规则
+
+                    this.setCustomValidity("请不要输入敏感词");
+
+                }else{
+
+                    this.setCustomValidity("");
+
+                }
+            };
+        </script>
+        <pre>
+            var oText=document.getElementById("t3");
+
+            oText.oninput=function(){//自定义验证
+
+                if(this.value=="敏感词"){//定义验证规则
+
+                    this.setCustomValidity("请不要输入敏感词");
+
+                }else{
+
+                    this.setCustomValidity("");
+
+                }
+            };
+
+        </pre>
+
+        例3、改变系统的提示消息，采用系统的验证，只是自定义消息。 <br/>
+        <form action="http://www.baidu.com" method="get">
+            <input type="text" required id="t4">
+            <input type="submit">
+        </form>
+        <script>
+            var oText=document.getElementById('t4');
+            oText.addEventListener('invalid',fn,false);
+            function fn(){
+                if(this.validity.valueMissing){
+                    this.setCustomValidity("老刘说不能为空哦！");
+                }else{
+                    this.setCustomValidity("");
+                }
+
+            }
+        </script>
+
+        <pre>
+            var oText=document.getElementById('t4');
+
+            oText.addEventListener('invalid',fn,false);
+
+            function fn(){
+
+                if(this.validity.valueMissing){
+
+                    this.setCustomValidity("老刘说不能为空哦！");
+
+                }else{
+
+                    this.setCustomValidity("");
+
+                }
+
+                ev.preventDefault();
+            }
+        </pre>
+
+        <mark>怎么使用表单验证呢？</mark> <br/>
+        原理：<br/>
+        表单提交时会自动验证表单自己提供的8中验证，其中一种是自定义验证。
+        使用方法：<br/>
+        只要给要验证的表单控件加上验证即可。<br/><br/>
+
+        在控制台输入;<br/>
+        oText=document.getElementById("text").validity//#text为要验证的控件<br/><br/>
+
+        结果：各种验证的结果，返回true表示验证不通过。<br/>
+        badInput:false<br/>
+        customError:true<br/>
+        patternMismatch:false<br/>
+        rangeOverflow:false<br/>
+        rangeUnderflow:false<br/>
+        stepMismatch：false<br/>
+        tooLong：false<br/>
+        tooShort:false<br/>
+        typeMismatch:false<br/>
+        valid:false<br/>
+        valueMissing:false<br/>
+        __proto__:ValidityState<br/><br/>
+
+        如果每个控件都验证成功，表单才会提交。<br/>
+
+        <mark>如何更改系统控件验证消息？</mark> <br/>
+        通过invalid事件监测验证结果，然后直接用setCustomValidity(),改成自己想要的声音就行。<br/><br/>
+
+
+        总结：<br/>
+        表单控件验证的步骤：<br/>
+        1、确定验证<br/>
+        2、监听验证消息（改变系统的验证消息时才需要）<br/>
+        oInput.addEventListener('invalid',fn,false)<br/>
+        3、根据验证消的值弹出验证信息<br/>
+        oInput.setCustomValidity(message);<br/><br/>
+
+        自己写的一个验证输入内容是否为数字：<br/><br/>
+        <form  >
+            <input type="text" requied id="t6"/>
+            <input type="submit"  id ="sub"/>
+        </form>
+        <script>
+            var oText=document.getElementById("t6");
+
+            var n=/[^\d]+/.test(this.value);//验证
+            if (n) {
+               oText.setCustomValidity('not a number');
+                //这里还可以增加一些改变样式的语句
+            }else{
+                oText.setCustomValidity('');//    ##必 须 清 空###
+            }
+
+        </script>
+
+        <pre>
+            var oText=document.getElementById("t6");
+
+            var n=/[^\d]+/.test(this.value);//验证
+
+            if (n) {
+
+               oText.setCustomValidity('not a number');
+                //这里还可以增加一些改变样式的语句
+
+            }else{
+
+                oText.setCustomValidity('');//    必须清空
+
+            }
+        </pre>
+        </p>
+
+</div>
+
+</body>
+</html>

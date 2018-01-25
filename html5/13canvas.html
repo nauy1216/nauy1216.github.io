@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>canvas</h3>
+    <p>
+        <mark>1、canvas:</mark> <br/>
+        画布。<br/>
+        所有画图设置都必须在在开始画之前设置好，所画图形有先后顺序。<br/><br/>
+
+       <mark> 2、用法：</mark><br/>
+       <pre>
+       &ltcanvas  width="400px" height="400px">
+            &ltspan>您的浏览器不支持canvas&lt/span>
+        &lt/canvas> &lt!--默认：宽300 高150-->
+        </pre>
+        注意：<br/>
+        画布的尺寸只能在行内设置，用内部样式，会按比例缩放。<br/><br/>
+
+        <mark>3、绘图环境</mark> <br/>
+        getContext('2d')<br/><br/>
+
+        用法：<br/>
+        var oC = document.querySelector('canvas');<br/>
+
+        var oGc = oC.getContext('2d');<br/>
+
+
+        <mark>4、绘制方块</mark> <br/>
+
+        oGc.fillRect(200,200,100,100);//填充方块<br/>
+        left、 top、 width、 height<br/>
+        默认颜色是黑色。<br/><br/>
+
+        oGc.strokeRect(0,0,100,100);//带边框的方块
+        left、 top、 width、 height<br/>
+        默认边框1px黑色，绘图是以边框的中间往两边画。<br/>
+        左右边框中点距离就是width。<br/><br/>
+
+        <canvas id="c4" style="width:400px;height:200px;background:#fff;"></canvas>
+        <script>
+            var oC4 = document.getElementById("c4");
+            var oGc4 = oC4.getContext("2d");
+            oGc4.fillRect(0,0,100,100);
+            oGc4.strokeRect(100,0,100,100);
+        </script>
+
+        <pre>
+            var oC4 = document.getElementById("c4");
+            var oGc4 = oC4.getContext("2d");
+            oGc4.fillRect(0,0,100,100);
+            oGc4.strokeRect(100,0,100,100);
+        </pre>
+
+        <mark>5、绘图设置</mark> <br/>
+
+        oGc.fillStyle="red";//设置填充颜色,填充图片，线性渐变。。。。。<br/>
+
+        oGc.lineWidth=10;//设置边框宽度<br/>
+
+        oGc.strokeStyle="red";//设置边框颜色<br/><br/>
+
+
+        <mark>6、边界绘制</mark> <br/>
+
+        oGc.lineJoin="round";//连接点样式 <br/>
+
+        oGc.lineCap="square";//端点样式<br/><br/>
+
+
+        <mark>7、绘制路径</mark><br/>
+
+        oGc.beginPath();//开始绘制路径<br/>
+        //<br/>
+        oGc.closePath();//结束绘制路径（将绘制路径闭合）<br/>
+
+        <pre>
+            oGc.beginPath();
+            oGc.moveTo(100,100);
+            oGc.lineTo(200,200);
+            oGc.lineTo(300,200);
+            oGc.closePath();//对比闭合和不闭合的区别
+            oGc.stroke();
+        </pre>
+
+
+        <h4>在填充时找到最后一次用beginPath()定义的路径。如果不同的图形路径没有用
+        beginPath隔开，那就会重复画一遍之前的图形。</h4>
+
+        oGc.moveTo(100,100);//笔尖挪到（100,100）<br/>
+        oGc.lineTo(200,200);//连接上一点<br/><br/>
+
+        oGc.stroke();//画线<br/>
+        oGc.fill();//填充<br/><br/>
+
+        oGc.rect(100,100,100,100);//绘制指定位置、尺寸的矩形区域<br/>
+
+        oGc.clearRect(100,100,50,50);//清除画布指定区域<br/>
+        L 、 T 、  W  、  H<br/><br/>
+
+        oGc.save();<br/>
+        //相当于定义局部作用域，
+        这里可以访问外面的画布设置（相当于全局作用域）<br/>
+        oGc.restore();//<br/>
+
+
+        <mark>8、绘制圆</mark><br/>
+
+        oGc.arc(100,100,40,0,360/180*Math.PI,true);<br/>
+        X  、  Y 、  R 、 起始弧度 、 结束弧度 、 旋转方向（默认false顺时针）<br/><br/>
+
+        oGc.arcTo(100,100,200,100,50);<br/>
+        第一个参数是控制点 、第二个参数是第二个切线方向 、半径<br/>
+        oGc.moveTo(100,200);<br/>  第一个第一个切线方向
+        oGc.arcTo(100,100,200,100,50);<br/>
+        oGc.stroke();<br/>
+
+        <canvas id="c8" width="400px;" height:200px; style="border:1px solid red;"></canvas>
+        <script>
+            var oC8 = document.getElementById("c8");
+            var oGc8 = oC8.getContext("2d");
+
+            oGc8.arc(100, 100, 50, 0, 90/180*Math.PI, true);
+            oGc8.moveTo(100,200);
+            oGc8.arcTo(100,100,0,0,50);
+            oGc8.stroke();
+
+        </script>
+        <pre>
+            var oC8 = document.getElementById("c8");
+            var oGc8 = oC8.getContext("2d");
+
+            oGc8.arc(100, 100, 50, 0, 90/180*Math.PI, true);
+            oGc8.moveTo(100,200);
+            oGc8.arcTo(100,100,0,0,50);
+            oGc8.stroke();
+
+        </pre>
+        <mark>9、其他曲线</mark>  <br/>
+
+        <h4>（1）oGC.quadraticCurveTo(100,100,200,100);</h4>
+        贝塞尔曲线：<br/>
+        第一组坐标：控制点<br/>
+        第二组坐标：结束点<br/>
+
+        <h4>（2）oGC.bezierCurveTo(100,100,200,200,200,100);</h4>
+        贝塞尔曲线：<br/>
+        第一组坐标：控制点<br/>
+        第二组坐标：控制点<br/>
+        第三组坐标：结束点<br/>
+
+        <h5>与arcTo一样都需要一个起始方向。</h5>
+
+
+        <mark>10、变换</mark>
+        <h4>（1）oGc.translate(100,100);</h4>
+        平移  X  、 Y<br/>
+        只作用下面的语句，对上面的语句不起作用。<br/><br/>
+
+        <h4>（2）oGc.rotate(45/180*Math.PI);</h4>
+
+        oGc.translate(100,100);//平移下面语句画的图形<br/>
+
+        oGc.rotate(45/180*Math.PI);//旋转下面语句画的图形<br/>
+
+        oGc.fillRect(0,0,100,100);<br/>
+
+        旋转基点是画布左上角。<br/><br/>
+
+
+        注意：<br/>
+        （1）语句的作用域是语句下面。<br/>
+        （2）上面两个语句的顺序不一样，效果也不一样，一个是先平移后旋转，另一个是先旋转后平移。<br/>
+        （3）可以看作是先执行下面的语句，然后执行现行上面的语句。<br/>
+        （4）相同的地方是都是以画布的左上角为基点旋转的。<br/><br/>
+        <canvas id="c10" width="400px" height="200px" style="border:1px solid red;"></canvas>
+        <script>
+            var oC10 = document.getElementById("c10");
+            var oGc10 = oC10.getContext('2d');
+
+            oGc10.save();
+                oGc10.translate(100,0);
+                oGc10.rotate(45/180*Math.PI);
+                oGc10.fillRect(0,0,100,100);
+            oGc10.restore();
+
+            oGc10.save();
+                oGc10.fillStyle = "red";
+                oGc10.rotate(45/180*Math.PI);
+                oGc10.translate(100,0);
+                oGc10.fillRect(0,0,100,100);
+            oGc10.restore();
+        </script>
+
+        <pre>
+            var oC10 = document.getElementById("c10");
+            var oGc10 = oC10.getContext('2d');
+
+            oGc10.save();//先旋转，然后平移。
+                oGc10.translate(100,0);
+                oGc10.rotate(45/180*Math.PI);
+                oGc10.fillRect(0,0,100,100);
+            oGc10.restore();
+
+            oGc10.save();//先平移，然后旋转。
+                oGc10.fillStyle = "red";
+                oGc10.rotate(45/180*Math.PI);
+                oGc10.translate(100,0);
+                oGc10.fillRect(0,0,100,100);
+            oGc10.restore();
+        </pre>
+
+        <mark>11、插入图片</mark> <br/>
+
+        <h4>oGc.drawImage(oImg,10,10,200,200);</h4>//插入图片<br/>
+        第一个参数是图片对象，第二、三个参数是图片的左上角，第三、四个是图片的宽和高。<br/>
+
+        var oImg = new Image();//效果和document.createElement('img')一样可以插入文档<br/>
+        oImg.src = "1.jpg";<br/>
+
+        oImg.onload=function(){<br/>
+        oGc.drawImage(oImg,10,10,100,100);<br/>
+        }<br/>
+        <canvas id="c11" width="400px" height="200px" style="border:1px solid red;"></canvas>
+        <script>
+            var oC11 = document.getElementById("c11");
+            var oGc11 = oC11.getContext('2d');
+
+            var oImg = new Image();
+            oImg.src = "../1.jpg";
+            oImg.onload = function(){
+               oGc11.drawImage(oImg,0,0,100,100);
+            }
+        </script>
+
+        <pre>
+            var oC11 = document.getElementById("c11");
+            var oGc11 = oC11.getContext('2d');
+
+            var oImg = new Image();
+            oImg.src = "../1.jpg";
+
+            oImg.onload = function(){
+               oGc11.drawImage(oImg,0,0,100,100);
+            }
+        </pre>
+
+        <mark>12、设置背景</mark>
+        <h4>oGc.createPattern(oImg,'no-repeat')</h4>
+        第二个参数：repeat、 repeat-x、 repeat-y、 no-repeat <br/>
+        注意：这里的背景图片方不会缩放，所以设置的宽度和高度都是裁剪，而不是缩放。<br/><br/>
+        var oImg = new Image();<br/>
+        oImg.src = "1.jpg";<br/>
+        oImg.style.width="100px";//在这里此语句失效<br/><br/>
+
+        oImg.onload=function(){<br/>
+        var bg = oGc.createPattern(oImg,'no-repeat');//创建填充样式<br/>
+        oGc.fillStyle= bg;<br/>
+        oGc.fillRect(10,10,200,200);<br/>
+        }<br/>
+
+        <canvas id="c12" width="400px" height="200px" style="border:1px solid red;"></canvas>
+        <script>
+            var oC12= document.getElementById("c12");
+            var oGc12 = oC12.getContext('2d');
+
+            var oImg1 = new Image();
+            oImg1.src = "../1.jpg";
+
+            oImg1.onload =  function(){
+                var bg = oGc12.createPattern(oImg1,'no-repeat');
+                oGc12.fillStyle =  bg;
+                oGc12.fillRect(0,0,200,200);
+            }
+        </script>
+
+        <pre>
+            var oC12= document.getElementById("c12");
+            var oGc12 = oC12.getContext('2d');
+
+            var oImg1 = new Image();
+            oImg1.src = "../1.jpg";
+
+            oImg1.onload =  function(){
+                var bg = oGc12.createPattern(oImg1,'no-repeat');
+                oGc12.fillStyle =  bg;
+                oGc12.fillRect(0,0,200,200);
+            }
+        </pre>
+
+        <mark>13、渐变</mark>
+        <h4>（1）线性渐变</h4>
+        var bg = oGc.createLinearGradient(0,0,0,100); <br/>
+        第一、二个参数是起点坐标，第三、四的参数是重点的坐标。起点指向重点的方向为渐变的方向。<br/><br/>
+
+        bg.addColorStop(0,'red');//渐变点0的颜色<br/>
+        bg.addColorStop(0.5,'green');//渐变点0.5的颜色，可以有任意个渐变点<br/>
+        bg.addColorStop(1,'blue');<br/>
+        oGc.fillStyle = bg;<br/>
+        oGc.fillRect(0,0,100,100);<br/>
+
+
+        <h4>（2）放射性渐变</h4>
+
+        var bg = oGc.createRadialGradient(100,100,50,100,100,100);<br/>
+        x1、yi、 r1、  x2、  y2 、 r2<br/>
+        x1、 y1 :第0个渐变点的中心<br/>
+        r1    :渐变点延径向的距离<br/><br/>
+
+        bg.addColorStop(0,'red');<br/>
+        bg.addColorStop(1,'green');<br/>
+        oGc.fillStyle=bg;<br/>
+        oGc.fillRect(0,0,200,200);<br/><br/>
+
+        <canvas id="c13" width="400px" height="200px" style="border:1px solid red;"></canvas>
+        <script>
+            var oC13 = document.getElementById("c13");
+            var oGc13 = oC13.getContext('2d');
+
+            var bg1 = oGc13.createLinearGradient(0,0,0,100);
+            bg1.addColorStop(0,'red');
+            bg1.addColorStop(1,'green');
+            oGc13.fillStyle = bg1;
+            oGc13.fillRect(0,0,50,200);
+
+            var bg2 = oGc13.createRadialGradient(100,100,50,200,100,50);
+            bg2.addColorStop(0,"red");
+            bg2.addColorStop(1,"blue");
+            oGc13.fillStyle = bg2;
+            oGc13.fillRect(50,50,400,400);
+        </script>
+
+        <pre>
+            var oC13 = document.getElementById("c13");
+            var oGc13 = oC13.getContext('2d');
+
+            var bg1 = oGc13.createLinearGradient(0,0,0,100);
+            bg1.addColorStop(0,'red');
+            bg1.addColorStop(1,'green');
+            oGc13.fillStyle = bg1;
+            oGc13.fillRect(0,0,50,200);
+
+            var bg2 = oGc13.createRadialGradient(100,100,50,200,100,50);
+            bg2.addColorStop(0,"red");
+            bg2.addColorStop(1,"blue");
+            oGc13.fillStyle = bg2;
+            oGc13.fillRect(50,50,400,400);
+        </pre>
+
+        <mark>14、文字</mark><br/>
+        （1）oGc.strokeText('H',0,0);<br/>
+        （2）oGc.fillText('H',60,0);<br/>
+        （3）oGc.font="60px inpact";<br/>
+        （4）oGc.textAlign="center";<br/>
+        （5）oGc.textBaseline = "top";<br/>
+        （6）oGc.measureText('H').width<br/>
+        //没有height，height通过font设置<br/><br/>
+
+        例子：<br/>
+        oGc.font="60px inpact";<br/>
+        //字体大小<br/>
+        oGc.textAlign="center";<br/>
+        //左右居中方式：left（默认）、 right、 center<br/>
+        oGc.textBaseline = "top";<br/>
+        //上下基准线：bottom（默认）、 middle、 top<br/>
+        oGc.strokeText('H',0,0);<br/>
+        //文字、 x 、y。边框字体。<br/>
+        oGc.fillText('H',60,0);<br/><br/>
+
+        例子2<br/>
+        oGc.font="60px inpact";<br/>
+        oGc.textBaseline = "top";<br/>
+        var w = oGc.measureText('H').width;<br/>
+        oGc.fillText('H',(400-w)/2,(400-60)/2);<br/><br/>
+
+
+        <mark>15、文字阴影</mark><br/>
+        oGc.shadowOffsetX = 10;//阴影偏移<br/>
+        oGc.shadowOffsetY = 10;<br/>
+        oGc.shadowBlur = 10;//阴影模糊<br/>
+        oGc.shadowColor = 'red';//阴影颜色<br/><br/>
+
+        <mark>16、画布区域的数据</mark><br/>
+        区域都是以一个一个像素组成的。<br/>
+        <h4>（1）获取某个区域数据（相当于复制）</h4>
+        var o = oGc.getImageData(0,0,100,100);//获取某个区域的数据对象<br/>
+        三个属性：width、 height、 data<br/><br/>
+
+        alert(o.width);//一行像素的个数<br/>
+        alert(o.height);//一列像素的个数<br/>
+        alert(o.data.length);//所有数据的长度40000<br/>
+        alert(o.data[0]);//<br/>
+        alert(o.data[1]);//<br/>
+        alert(o.data[2]);//<br/>
+        alert(o.data[3]);//<br/><br/>
+
+        o.data----->[0,1,2,3,...]每四个组成一个像素的Rgba数据<br/>
+
+        <h4>（2）设置某个区域数据（相当于粘贴）</h4>
+        oGc.putImageData(o,200,0);<br/>
+        o----像素数据对象<br/>
+        后两个-------区域左上角坐标<br/><br/>
+
+        <h4>（3）创建一个区域矩阵数据</h4>
+        <pre>
+        var a = oGc.createImageData(100,100);
+        //创建100*100的区域矩阵,初始时透明的黑色
+        //alert(a.width);
+        //alert(a.height);
+        //alert(a.data.length);
+
+        for(var i=0;i< a.width* a.height;i++){
+            //给区域矩阵设置数据
+            a.data[4*i]=255;
+            a.data[4*i+1]=0;
+            a.data[4*i+2]=0;
+            a.data[4*i+3]=255;
+        }
+
+        oGc.putImageData(a,0,0);//将矩阵的数据粘贴到画布指定区域
+        </pre>
+
+        <mark>17、合成</mark>
+        <h4>（1）oGc.globalAlpha = 0.5;</h4>
+        作用于下面的语句。图形透明度。
+
+        <mark>（2）oGc.globalCompositeOperation</mark><br/>
+        可取的值：<br/>
+        source-over<br/>
+        destination ：交叉部分显示先画的，还是后画的<br/>
+        source-atop<br/>
+        destination-astop：切割，只留下交叉部分和<br/>
+        source-in<br/>
+        destination-in<br/>
+        source-out<br/>
+        destination-out<br/>
+        lighter<br/>
+        copy<br/>
+        xor<br/>
+        source(源)：新的图形，后画的<br/>
+        destination（目标）：已经绘制过的图形，先画的<br/>
+
+
+        <mark>18、将画布导出png图片</mark>
+        var oImgD = oC.toDataURL();<br/>
+        canvas对象的方法。<br/>
+
+
+        <mark>19、判断坐标是否在某个图形内</mark>
+        oGc.isPointInPath(X,Y)<br/>
+        作用：<br/>
+        如果坐标（X,Y）是在最后定义的路径所画出的图形内则返回true，
+        否则false<br/>
+        注意：<br/>
+        （1）只作用于最后一次画的图形。<br/>
+        （2）画图只能是先定义路径，在画图的形式画出来的图形
+        用fillRect()画出来的图形不起作用。<br/>
+        （3）原理是根据路径来判断一个点是否在图形内。<br/>
+        即最后一次<br/>
+        oGc.beginPath();<br/>
+        oGc.closePath();<br/>
+        定义的路径<br/>
+        用法：点击时判断是否点击在图形上<br/>
+
+        例子：
+        <pre>
+            oGc.beginPath();
+            oGc.moveTo(0,0);
+            oGc.lineTo(100,0);
+            oGc.lineTo(100,100);
+            oGc.lineTo(0,100);
+            oGc.closePath();
+            oGc.stroke();
+            //oGc.fillRect(0,0,100,100);//不起作用
+
+            oC.onmousedown = function(ev){
+                var ev = ev||window.event;
+                var X = ev.clientX - oC.offsetLeft;
+                var Y = ev.clientY - oC.offsetTop;
+
+                if(oGc.isPointInPath(X,Y)){
+                        alert(123);
+                }
+            }
+        </pre>
+
+        <mark>20、库</mark><br/>
+        jCanvasScript.js<br/>
+
+        <mark>21、怎么解决只能点击最后一次画的图形的问题？？？</mark><br/>
+        重画所有的图形。
+    </p>
+
+</div>
+
+</body>
+</html>

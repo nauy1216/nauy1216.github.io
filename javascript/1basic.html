@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3><mark>1、js效果实现的步骤</mark></h3>
+    <p>1、实现静态页面布局，很重要，分析html结构。<br>
+        2、分析效果实现原理。<br>
+        3、js代码。<br>
+        4、兼容问题。</p>
+
+    <h3><mark>2、希望把某个元素消失在视线</mark></h3>
+    <p>1、display:none;显示为无（不占文档流）<br>
+        2、visibility:hidden;隐藏（占文档流）<br>
+        3、设置width/height为0px<br>
+        4、设置为完全透明<br>
+        5、设置left/top<br>
+        6、拿一个白色div盖住<br>
+        7、设置margin<br>
+        8、设置z-index值<br>
+        9、从DOM中删除<br>
+        ........</p>
+
+
+    <h3><mark>3、事件</mark></h3>
+    <p>鼠标事件、键盘事件、系统事件、表单事件、自定义事件......</p>
+
+    <h3><mark>4、注册事件的方法</mark></h3>
+    <p>1、在html代码中，添加属性onclick="";<br>
+        2、el.onmouseover=function(){};<br>
+        3、el.addEventListen("click",fn,false);<br>
+        注意兼容。</p>
+
+    <h3><mark>5、函数</mark></h3>
+    <p>定义函数的方式：<br>
+        1、function fn1(){}<br>
+        2、var fn1 = function(){}<br>
+        注意两者的区别。</p>
+    <p>调用函数的方式：<br>
+        函数不会主动执行。<br>
+        1、直接调用；函数名();<br>
+        2、事件调用；<br>
+        3、匿名函数；----自执行、事件调用<br>
+        4、定时器</p>
+
+    <h3><mark>6、测试</mark></h3>
+    <p>养成边写边测的习惯<br>
+        1、alert()<br>
+        2、console.log()</p>
+
+    <h3><mark>7、onload</mark></h3>
+    <p>对象加载完后执行<br>
+        window.onload<br>
+        img.onload<br>
+        body,onload<br>
+        .........</p>
+
+    <h3><mark>8、属性操作</mark></h3>
+    <p>读：元素.属性名;<br>
+        写:元素.属性名 = value;<br>
+        属性操作的注意事项<br>
+        1、元素.className。不是元素.class。这与元素.id不一样。<br>
+        2、js改变元素的样式是通过改变元素的属性来实现的。<br>
+        你可以改变单个的元素属性（比如width）来改变元素的样式。<br>
+        你也可以改变元素的className，来应用已经定义好的样式，比如换皮肤。。。。</p>
+
+    <h3><mark>9、innerHTML与innerText</mark></h3>
+    <p>element.innerHTML。<br>
+        innerHTML：能识别html标签，写的时候会覆盖原来的内容。<br>
+        innerText: 不能识别html标签，写的时候会覆盖原来的内容。</p>
+
+    <h3><mark>11、关于用作判断条件的几个注意事项</mark></h3>
+    <p>1、相对路径别拿来判断<br>
+        2、颜色值别拿来判断<br>
+        3、innerHTML的值别拿来判断<br>
+        4、背景别拿来判断<br>
+        解决办法：<br>
+        创造条件。js很多时候都是回避不能做的事情，通过别的办法来达到视觉上的效果。</p>
+
+    <h3><mark>12、js方式改浮动</mark></h3>
+    <p>1、通过更改className，这种方式需要提前写好样式文件。<br>
+        2、通过cssText改。<br>
+        3、IE：odiv.style.styleFloat="left";<br>
+        标准：odiv.style.cssFloat="left";
+    </p>
+
+    <h3><mark>13、[]与.</mark></h3>
+    <p>[]里面可以是变量，.后面不能是变量。能用.就能用[]。</p>
+
+    <h3><mark>14、for循环问题</mark></h3>
+    <p>性能问题：
+        循环内部代码尽量少涉及文档元素。
+        比如给innerHTML赋值时，应该先将循环的值添加到一个字符串
+        再赋值给innerHTML。</p>
+
+    <h3><mark>15、cssText属性</mark></h3>
+    <p>用法：odiv.style.cssText="";<br>
+        右边的值与css样式表的写法一样。<br>
+        后写的cssText后覆盖前面的cssText。常用cssText="";清空。
+        会覆盖样式表中的样式。<br>
+
+        外部样式 < 内部样式 < 行间样式 < js设置的样式</p>
+
+
+    <h3><mark>17、this的用法</mark></h3>
+    <p>函数里的this:<br>
+        指的是调用当前方法函数的对象。理解当前。<br>
+        this所在作用域的函数是谁调用的？<br>
+<pre>
+    function fn1(){
+        alert(this);
+    }
+
+    fn1();//window
+    odiv1.onclick=fn1;//odiv1
+    odiv1.onclick=function(){ fn1();};//window
+</pre>
+
+        方法里的this：<br>
+        方法是谁的就指向谁。</p>
+
+    <h3><mark>18、元素的自定义属性</mark></h3>
+    <p>自定义标签属性。<br>
+        可以给元素添加任意的属性。<br>
+        用法：给元元素添加索引值。</p>
+
+    <h3><mark>19、数据类型</mark></h3>
+    <p>五种基本类型：number(NaN) string boolean null undefined<br>
+        复合类型：object  function<br>
+        其他：[] {}<br>
+        判断数据类型：typeof<br>
+        typeof(null)==object   //返回true</p>
+
+    <h3><mark>20、null与undefined的区别</mark></h3>
+    <p>
+        null:空对象。也是一个对象。比如有钢铁侠这个人但现实中找不到。<br>
+        undefined：未定义。表示一种状态，此时写的程序应该出问题了。<br>
+        null==undefined;    返回true。<br>
+        null===undefined;  返回false； 为什么？？？</p>
+
+    <h3><mark>21、Number()</mark></h3>
+    <p>作用：将其他类型的数据转换成Number类型。<br>
+        特点：从整体上去检测。<br>
+<pre>
+    Number("100ggg") <span class="space"></span>      NaN<br>
+    Number("100")<span class="space"></span>    100<br>
+    Number("")<span class="space"></span>0(空字符串)<br>
+    Number(true)<span class="space"></span>1<br>
+    Number(false)<span class="space"></span>0<br>
+    Number(function(){alert(0);})<span class="space"></span>NaN<br>
+    Number([])<span class="space"></span>0<br>
+    Number(null)<span class="space"></span>0<br>
+    Number(undefined)<span class="space"></span>NaN
+</pre>
+    </p>
+
+
+    <h3><mark>22、ParseInt()与parseFloat()</mark></h3>
+    <p> ParseInt()：<br>
+        将字符串解析成整数，不认小数点，直到非数字为止。<br>
+<pre>
+    parseInt('w123')            //NaN
+    parseInt('123w123')         //123
+    parseInt('123.456w123')     //123
+</pre>
+
+        ParseFloat()：<br>
+        将字符串解析成浮点数，认小数点，<br>
+        直到非数字或第二个小数点为止,只认一个小数点。<br>
+<pre>
+    parseFloat('123.456w123')   //123.456
+    parseFloat('w123.456w123')  //NaN
+    parseFloat('123.4.56w123')  //123.4
+    parseInt(a)==parseFloat(a)  //用来判断是否是整数。
+</pre>
+    </p>
+
+    <h3><mark>23、显式转换与隐式转换</mark></h3>
+    <p>显式转换：上面讲的三种方式。<br>
+        隐式转换：<br>
+        -  *  /  %<span class="space"></span>字符串转数字<br>
+        + <span class="space"></span>数字转字符串<br>
+        ++  -- <span class="space"></span>字符串转数字<br>
+        <   >   <span class="space"></span>字符串转数字<br>
+
+        '10’>9;     true<br>
+        '10’>'9’;   false</p>
+
+
+    <h3><mark>24、数字的比较、字符串的比较</mark></h3>
+    <p> 数字的比较：比的是大小。<br>
+        字符串的比较： 比的是第一个字符的编码值。</p>
+
+    <h3><mark>25、==与===的区别</mark></h3>
+    <p> ==：只判断值，先转换再比较。<br>
+        ===：判断值和类型，不转换直接比较。先判断类型，再判断值。</p>
+
+    <h3><mark>26、isNaN()</mark></h3>
+    <p>原理是先用Number()转换参数再判断,转换后是number的返回false，是NaN则返回true。<br>
+        NaN:不是数字的Number类型。<br>
+<pre>
+    isNaN(100)      //false
+    isNaN("100")    //false
+    isNaN("100w")   //true
+    isNaN("w100w")  //true
+    isNaN([])       //false
+    isNaN(NaN)      //true
+</pre>
+    </p>
+
+    <h3><mark>27、NaN、 undefined、 null 、false之间的比较</mark></h3>
+    <p>
+        NaN和false<br>
+<pre>
+    if(!NaN){alert(0);}     //弹出0
+    NaN==NaN                //false
+    NaN==false              //false
+    NaN===false             //false
+</pre>
+        undefined和false<br>
+<pre>
+    if(!undefined){alert(0);}               //弹出0，
+    undefined==false                        //false
+    undefined==undefined                    //true
+    if(undefined==undefined){alert(0);}     //弹出0
+    undefined===undefined                   //true
+</pre>
+
+        null和false<br>
+<pre>
+    if(!null){alert(0);}    //弹出0，
+    null==false             //false
+    null==null              //true
+    null===null             //true
+</pre>
+
+        null和NaN、undefined<br>
+<pre>
+    null==NaN               //false
+    NaN==undefined          //false
+    null==undefined         //true
+    null===undefined        //false
+</pre>
+    </p>
+
+
+    <h3><mark>28、代码重用</mark></h3>
+    <p>
+        1、尽量保证HTML结构一致。<br>
+        2、把核心程序实现。<br>
+        3、把每组不同的值找出来作为参数，不能作为参数的就进行判断。<br>
+    </p>
+    <h3><mark>29、作用域</mark></h3>
+    <p>1、域：空间、范围、区域<br>
+        作用：读、写<br>
+        script作用域：全局作用域。自下而上，下面的script内可以访问上面的函数变量。<br>
+        函数：局部作用域。由里到外访问。</p>
+
+    <p>2、“js解析器”：姑且这么叫吧。<br>
+        （1）预解析(声明提升)<br>
+        找出作用域内的var和function：<br><br>
+
+        变量-----var开头<br>
+        初始值是undefined。<br>
+        var a=undefined;<br>
+        var b=undefined;<br><br>
+
+        函数-----function开头<br>
+        值是函数的代码块<br>
+        function b=function(){//代码}<br>
+        function c=function(){//代码}<br>
+        所有的函数在正式运行前都是函数块。<br><br>
+
+        遇到重名的只留一个：<br>
+        变量与函数重名取函数；<br>
+        变量与变量重名取后者；<br>
+        函数与函数重名取后者；<br>
+        （2）逐行解析代码</p>
+    <p>第一个例子：</p>
+<pre>
+    alert(a);   				//function a(){alert(4);}
+    var a=1;
+    alert(a);					//1
+    function a(){alert(2);}
+    alert(a);					//1
+    var a=3;
+    alert(a);					//3
+    function a(){alert(4);}
+    alert(a);					//3
+    a();						//报错
+</pre>
+
+<p>（1）浏览器先执行1区域，在执行2区域，单线程。<br>
+    （2）在区域1的变量可在区域2读写。<br>
+    （3）只要是域都会发生预解析和逐行解析代码两个步骤。</p>
+<pre>
+script作用域1
+var a=1;
+alert(b);       //报错
+
+script作用域2
+var b=2;
+alert(a);       //1
+</pre>
+
+<p>两个作用域两次解析。</p>
+<pre>
+    var a=1;
+    function fn1(){
+        alert(a);
+        var a=2;
+    }
+    fn1();          //undefined
+    alert(a);		//1
+</pre>
+
+
+
+<p>作用域链：从函数作用域到全局作用域搜索变量a。<br>
+    局部作用域可以访问全局作用域；<br>
+    全局作用域不可以直接访问局部作用域。</p>
+<pre>
+    alert(a);       //undefined
+    var a=1;
+    function fn1(){
+        alert(a);
+    }
+    fn1();			//1
+    alert(a);		//1
+</pre>
+
+<p>函数的参数相当于在函数内部定义了一个变量，不过是通过
+    传参的形式来赋值的。<br>
+    函数内部的局部变量必须使用var定义或参数；<br>
+</p>
+<pre>
+    var a=1;
+    function fn1(a){
+        alert(a);
+        a=2;
+    }
+    fn1(a);			    //1
+    alert(a);			//2
+</pre>
+
+
+<p>全局作用域获取局部作用域的方式：<br>
+    1、在局部作用域内使用全局作用域的变量，利用全局变量传递。<br>
+    2、另一种方式：在函数内部调用全局函数访问。
+<pre>
+    function fn1(){
+        var a="hello";
+        fn2(a);
+    }
+
+    fn1();
+
+    function fn2(a){
+        alert(a);
+    }
+</pre>
+</p>
+
+<p>if和for里面的大括号不是一个作用域。<br>
+    不能对if里面的函数解析（存在兼容问题）。
+    IE10以下可以。
+</p>
+
+<pre>
+    alert(a);		//1
+    if(true){
+        var a=1;
+    }
+    alert(b);		//报错
+    function fn(){
+        var b=1;
+    }
+</pre>
+<pre>
+    alert(fn1); //存在兼容问题
+    if(true){
+        var a=1;
+        function fn1(){
+            alert(123);
+        }
+    }
+</pre>
+
+
+
+
+    <h3><mark>30、运算符</mark></h3>
+    <p>
+        算术：+、 - 、* 、/ 、%<br>
+        赋值：= 、 +=  、-= 、 /=  、*=<br>
+        关系：< 、 > 、 <= 、 >= 、 ==  、!= 、 === 、 !===<br>
+        逻辑：&&  、|| 、！、 & 、 |
+    </p>
+    <p>&&与&的区别<br>
+        false&&alert(0);----->不弹0，当第一个表达式值为false时后面的表达式不执行。<br>
+        false&alert(0);----->弹0，当第一个表达式值为false时后面的表达式也会执行。<br><br>
+        ||与|的区别<br>
+        true||alert(0);------->不弹0，当第一个表达式值为true时后面的表达式不执行。<br>
+        true|alert(0);------->弹0，当第一个表达式值为false时后面的表达式也会执行。<br>
+    </p>
+
+    <h3><mark>31、流程控制</mark></h3>
+    <p>1、三种if语句<br>
+<pre>
+    if(){}
+    if(){}else{}
+    if(){}elseif(){}else{}
+</pre>
+
+        2、for循环<br>
+<pre>
+    for(初始化;一个boolean值;一个语句)
+        //循环代码
+    }
+</pre>
+        3、while()与do{}while()<br>
+
+        4、switch
+<pre>
+    switch(str){
+        case "str1":
+            Dosomething1();
+            Break;
+        case "str2":
+            Dosomething2();
+            Break;
+        default:
+            Dosomething3();
+    }
+</pre>
+
+        break:跳出所有的循环。<br>
+        continue：跳出这一次循环。<br>
+        return：结束函数的执行，并返回一个值</p>
+
+
+    <h3><mark>32、函数return返回值</mark></h3>
+    <p>返回值可以是：number、 string 、boolean、 function
+        对象（[] {} obj null ）、undefined.......<br/>
+
+        1、函数名+() == return后面的值 <br/>
+        2、所有函数默认的返回值：undefined<br/>
+        3、return后面的任何代码都不执行</p>
+
+    <h3><mark>33、函数arguments</mark></h3>
+    <p>arguments：<br>
+        函数实参的集合，这是一个对象，能读写。
+        当函数的参数个数不能确定时用arguments。</p>
+<pre>
+    function sum(){
+        var n = 0;
+        var len = arguments.length;
+
+        for(var i=0;i< len;i++){
+            n+=arguments[i];
+        }
+
+        return n;
+    }
+</pre>
+    <p>掌握好 this 、 return 、 arguments 、 event</p>
+
+    <h3><mark>34、获取元素样式的方法</mark></h3>
+    <p><h4>标准</h4>
+        getComputedStyle()-------------->方法<br>
+        例如：getComputedStyle(ele).width<br>
+        <h4>IE</h4>
+        currentStyle----------------->属性<br>
+        例如：el.currentStyle.width<br>
+
+        封装函数：function getStyle(obj , sty){
+
+        }</p>
+
+    <h3><mark>35、定时器</mark></h3>
+    <p>
+        <h4>1、setInterval(函数，时间)</h4>
+        循环执行<br>
+        开：var timer = setInterval(fn,t);<br>
+        关：clearInterval(timer);<br>
+        注意：如果定时器是由事件控制的，一定要先关再开。<br><br>
+        <h4>2、setTimeout(函数，时间)</h4>
+        只执行一次<br>
+        开：var timer = setTimeout(fn,t);<br>
+        关：clearTimeout(timer)</p><br>
+
+
+    <h3><mark>36、提示框、对话框</mark></h3>
+    <p><h4>1、alert</h4>
+        alert('message');
+        <h4>2、confirm</h4>
+        confirm(‘你确定？？’);   返回true和false
+        <h4>3、prompt</h4>
+        prompt("输入你的名字！");  返回输入的值
+    </p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+</div>

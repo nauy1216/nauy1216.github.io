@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>新增表单控件</h3>
+    <p>
+        <mark>email</mark><br/>
+        电子邮箱文本框，界面和普通文本输入框一样。<br/>
+        作用：在提交表单的时候验证邮箱的格式是否正确。<br/>
+        <form>
+            <input type="email">
+            <input type="submit">
+        </form>
+
+        <mark>tel</mark> <br/>
+        电话号码。pc端没有什么变化，移动端会切换到数字，没有验证。
+        <form action="http://www.baidu.com" method="get">
+            <input type="tel" name="tel">
+            <input type="submit">
+        </form>
+
+        <mark>url</mark><br/>
+        网址。<br/>
+        作用：验证网址。网址必须带http://或https://。<br/>
+        <form >
+            <input type="url" >
+            <input type="submit">
+        </form>
+
+        <mark>search</mark><br/>
+        搜索<br/>
+        作用：输入文本时，输入框带有一个‘X’，点击清除内容。<br/>
+        <form >
+            <input type="search" >
+            <input type="submit">
+        </form>
+
+        <mark>range</mark> <br/>
+        数值选择器。<br/>
+        作用：数值选择。<br/>
+        属性：<br/>
+        step:步值<br/>
+        min：最小值<br/>
+        max：最大值<br/>
+        value：当前值<br/>
+        <form action="http://www.baidu.com" method="get">
+            <input type="range" step="2" min="0" max="1000" value="500" name="range">
+            <input type="submit">
+        </form>
+
+        <mark>number</mark> <br/>
+        数字选择。<br/>
+        作用：界面和文本输入框一样，只是多了两个按钮，可以调整数字的大小。<br/>
+        step:步值<br/>
+        min：最小值<br/>
+        max：最大值<br/>
+        value：当前值<br/>
+        <form action="http://www.baidu.com" method="get">
+            <input type="number" step="2"  value="2" max="10" min="0" name="range">
+            <input type="submit">
+        </form>
+
+
+        <mark> color</mark><br/>
+        颜色选择器<br/>
+        作用：点击弹出一个颜色选择框。<br/>
+        <form action="http://www.baidu.com" method="get">
+            <input type="color" name="color">
+            <input type="submit">
+        </form>
+
+
+        <h1>时间相关的控件</h1>
+        <mark>datetime</mark><br/>
+        显示完整的时间。<br/>
+        <input type="datetime"><br/>
+
+        <mark>datetime-local</mark> <br/>
+        显示完整年月日时间, 不含时区。<br/>
+        作用：点击弹出一个时间选择器<br/>
+        <form action="http://www.baidu.com" method="get">
+            <input type="datetime-local" name="color">
+            <input type="submit">
+        </form>
+
+        <mark>time</mark>     <br/>
+        显示完整时间 不含时区<br/>
+        作用：和上面一样<br/>
+        <input type="time"/>    <br/>
+
+        <mark>date</mark><br/>
+        只显示日期，不显示时间<br/>
+        <form action="http://www.baidu.com" method="get">
+            <input type="date" name="color">
+            <input type="submit">
+        </form>
+
+        <mark>week</mark>    <br/>
+        显示‘2017年 第 20周’<br/>
+        <form action="http://www.baidu.com" method="get">
+            <input type="week" name="color">
+            <input type="submit">
+        </form>
+
+        <mark>month</mark>   <br/>
+        显示‘2017年 09月’<br/>
+        <form action="http://www.baidu.com" method="get">
+            <input type="month" name="color">
+            <input type="submit">
+        </form>
+
+    </p>
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>选择器</h3>
+    <p>
+        <mark>（1） querySelector()</mark>
+        参数是css选择器,可以写复杂的选择器。 <br/>
+        用法：<br/>
+        document.querySelector('.aa').style.background='red';//只能选择一组中的第一个<br/>
+        document.querySelector('.box #aa').style.background='red';<br/>
+        document.querySelector('.box').querySelector(' .aa').style.background='red';<br/>
+
+        <mark>（2）querySelectorAll()</mark><br/>
+        获取一组元素。适用所用的选择器包括id选择器，返回的是一个数组。<br/>
+        用法：<br/>
+        var aDiv = document.querySelectorAll('#aa')[0].style.background='red';<br/>
+
+        <mark>（3）getElementsByClassName()</mark><br/>
+        html5增加。
+    </p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>classList</h3>
+    <p>
+        <mark>classList </mark><br/>
+        返回某个元素的所有类的数组 <br/>
+
+        <mark>classList.length </mark>数组的长度<br/>
+        <mark>classList.add('类名')</mark>     添加类<br/>
+        <mark>classList.remove('类名')</mark>  删除某个类<br/>
+        <mark>classList.toggle('类名')</mark>  没有就添加，有就删除<br/><br/>
+        例子： class="aa bb cc"<br/>
+
+        var oDiv = document.querySelector('#aa');<br/>
+        //alert(oDiv.classList);//aa bb cc<br/>
+        //alert(oDiv.classList.length);//3<br/><br/>
+
+        //oDiv.classList.add('dd');//添加aa类<br/>
+        //alert(oDiv.classList);//aa bb cc dd<br/>
+        //alert(oDiv.classList.length);//4<br/><br/>
+
+        // oDiv.classList.remove('aa');<br/>
+        // alert(oDiv.classList);// bb cc<br/>
+        //alert(oDiv.classList.length);//2<br/><br/>
+
+        oDiv.classList.toggle('aa');<br/>
+        alert(oDiv.classList);// bb cc<br/>
+        alert(oDiv.classList.length);//2<br/><br/>
+
+        oDiv.classList.toggle('hh');<br/>
+        alert(oDiv.classList);// aa bb cc hh<br/>
+        alert(oDiv.classList.length);//4<br/>
+
+
+    </p>
+
+</div>
+
+</body>
+</html>
