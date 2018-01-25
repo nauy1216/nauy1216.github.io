@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../vue.min.js"></script>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>IE兼容写法</h3>
+    <p>
+        通过条件注释语句，给html标签添加不同的class，然后就可以用class添加不同的样式。
+    </p>
+    <pre>
+    &lt!DOCTYPE html>
+    &lt!--[if IE 8 ]> &lthtml class="ie8" lang="en"> &lt![endif]-->
+    &lt!--[if IE 9 ]> &lthtml class="ie9" lang="en"> &lt![endif]-->
+    &lt!--[if (gt IE 9)|!(IE)]>&lt!-->
+    &lthtml lang="en"> &lt!--&lt![endif]-->
+    </pre>
+
+    <h3>css兼容</h3>
+    <p>1、<mark>计算一定要准确</mark>，不要让内容的宽高超出我们设置的宽高，在IE6下会撑开设置好的宽高。<br/>
+
+        2、<mark>IE6下双边距问题</mark><br/>
+        在IE6下，块元素、float、横向margin在一起就会出横向margin值变成两倍的问题。<br/>
+        解决：块元素加display：inline；<br/>
+
+        3、IE6、7下要将两个元素同行显示i，如果其中一个元素加了浮动，则另一个也要加浮动。<br/>
+
+        4、IE6、7下ul下的li之间上下多出几像素间隙的问题<br/>
+        li本身没浮动，但是内容浮动了li就会多出来几个像素的间隙<br/>
+        解决：1、给li加浮动<br/>
+        2、给li加vertical-align：top；<br/>
+
+        5、图片下面的空隙问题<br/>
+        vertical-align：top；<br/>
+
+        6、IE6下高度小于19px的元素会当做19px来处理<br/>
+        解决：overflow：hiden；</p>
+
+    1、Ie6会子级宽高大于父级时会撑开父级的宽度，所以尺寸一定要计算精确。<br/><br/>
+
+    2、在IE6元素浮动，如果需要内容撑开浮动元素的宽度，那么浮动元素里的块元素会将浮动元素，<br/>
+    的宽度撑开到最大，想要解决这个问题需要给内部块元素也加浮动。<br/><br/>
+
+    3、在IE6，7下元素要通过浮动并在一行，就给这行元素都加浮动。<br/>
+    比如：在有些时候，我们只给左边的元素加左浮动，右边的元素加margin-left,<br/>
+    在IE6,7下就会有三像素的间隙。<br/><br/>
+
+
+    4、注意标签嵌套规范。<br/><br/>
+
+    5、IE6下元素的高度小于19px的时候，会被当做19px来处理。<br/>
+    解决办法：overflow:hidden;<br/><br/>
+
+    6、1px dotted 在IE6下不支持。<br/>
+    解决办法：其背景平铺。<br/><br/>
+
+    7、解决margin传递<br/>
+    （1）父级有边框：<br/>
+    其他浏览器没问题。<br/>
+    IE6父元素有边框的的时候，子元素的margin值消失，采用zoom触发haslayout。<br/>
+    （2）zoom:1； overflow:hidden;能解决Ie6下的margin传递问题。<br/>
+    （3）父级或子级其中一个加浮动。<br/><br/>
+
+
+    Float:<br/>
+    8、IE6下块元素双边距问题<br/>
+    float + margin ,左右margin值会变成两倍(只有第一个的margin-left 和最后一个的margin-right会变化)。<br/>
+    解决：display:inline;<br/><br/>
+
+    9、在IE67下，li本身没浮动但是内容有浮动，li下边就会产生一个间隙。<br/>
+    解决：<br/>
+    （1）给li加浮动；<br/>
+    （2）给li加vertical-align:top;<br/>
+    如果这个问题和最小间隙问题共存的时候，给li加浮动;<br/><br/>
+
+    10、当一行float子元素占有的宽度之和和父级的宽度相差超过3px，或者有不满行的时候，<br/>
+    最后一行的margin-bottom会失效。<br/><br/>
+
+    11、IE6下的文字溢出问题<br/>
+    当float子元素宽度和父级的宽度相差小于3px而且两个浮动元素中间有注释或内联元素时会出现文字溢出。<br/><br/>
+
+    12、当浮动元素和绝对定位元素是兄弟（并列）关系时，在IE6下绝对定位元素会消失。<br/>
+    解决：给绝对定位元素套一层父级。<br/><br/>
+
+
+
+    relative<br/>
+
+    13、在IE67下，子元素有相对定位，父元素overflow就包不住子元素了。<br/>
+    解决：给父级也加相对定位。<br/><br/>
+
+
+    14、在IE6下绝对定位元素的父级宽高是奇数时，绝对定位元素的right、bottom值会有1px的偏差。<br/><br/>
+
+    15、IE6不支持固定定位。<br/><br/>
+
+    16、透明度的问题<br/>
+    opacity:0.5;<br/>
+    filter:alpha(opacity:50);<br/><br/>
+
+    17、在IE67下输入类型的表单控件上下默人占有一个像素。<br/>
+    解决：加浮动。<br/><br/>
+
+
+    18、在IE67下输入类型的表单控件border:none;无效。<br/>
+    解决：<br/>
+    （1）给input重加背景。<br/><br/>
+
+
+    19、在IE67下输入类型的表单控件，输入文字时背景图片会跟着移动。<br/>
+    解决：把背景给父级，在清除自己的背景。<br/><br/>
+
+    20、在IE67下label标签不加for是无效的。<br/><br/>
+
+    21、png的问题<br/>
+    gif<br/>
+    jpg<br/>
+    png-8<br/>
+    png-24<br/><br/>
+
+    IE6不支持png图片<br/>
+
+    解决：<br/>
+    （1）DD_...js库<br/><br/>
+
+    &lt!--[if IE 6]>//条件注释，iE9以下能识别<br/>
+    &lt!--[endif]--><br/>
+
+    （2）filter，有局限<br/><br/>
+
+    22、css hack<br/>
+
+    \9: 在css语句分号前加，包括Ie10以下的浏览器起作用。<br/>
+    +，*：在css语句最前面加，包括IE67的浏览器<br/>
+    _：Ie6<br/><br/>
+
+
+    23、important<br/>
+    在IE6下，important后面加了一条同样的样式，important不起作用，此时会按照优先级来走。<br/>
+
+    24、圣杯布局<br/>
+
+    左右宽度固定，中间宽度自适应伸缩，并且中间先加载。<br/>
+
+    &ltdiv class="center">&lt/div><br/>
+    &ltdiv class="left">&lt/div><br/>
+    &ltdiv class="right">&lt/div><br/>
+
+    中间margin:0 200px; 两边定位。<br/><br/>
+
+    25、等高布局<br/>
+    左右两边的div无论什么时候都会一样高。<br/>
+    两个div都加上<br/>
+    padding-bottom:10000px; margin-bottom:-10000px;<br/>
+    父级加：<br/>
+    overflow:hidden ;<br/><br/>
+
+    26、在IE6下使用margin负值，超出父级外的部分会被截掉。<br/>
+
+</div>
+
+</body>
+</html>

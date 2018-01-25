@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../babel.js"></script>
+    <script  type="text/babel">
+    </script>
+</head>
+<body >
+
+<div class="box">
+    <h3>extends</h3>
+    <p>
+        Class 可以通过extends关键字实现继承。 <br/>
+    </p>
+    <pre>
+        class  Person {
+            constructor(name){
+                this.name = name;
+            }
+
+            sayName(){
+                console.log(this.name);
+            }
+        }
+
+        class Student extends Person {
+            constructor(name,age){
+                super(name);// 调用父类的constructor(name),并且this的指向也变了。
+                this.age = age;
+            }
+            sayAge(){
+                console.log(this.age);
+            }
+        }
+
+    </pre>
+
+    <h3>super</h3>
+    <p>
+        super这个关键字，既可以当作函数使用，也可以当作对象使用。<br/>
+        <strong>两种用法：</strong><br/>
+        1、在构造函数内部调用super(),执行父类的构造函数。<br/>
+        2、super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。
+
+    <h4>
+        由于super指向父类的原型对象，所以定义在父类实例上的方法或属性，是无法通过super调用的。
+    </h4>
+    </p>
+    <p>
+        super是父类的构造函数，用来新建父类的this对象。 <br/><br/>
+        子类必须在constructor方法中调用super方法，否则新建实例时会报错。
+        这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。
+        如果不调用super方法，子类就得不到this对象。<br/><br/>
+        在子类内部可以通过super调用父类的方法，super()就是调用父类的构造方法。
+    </p>
+
+    <h3>es5与es6继承的区别</h3>
+    <p>
+        ES5 的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）。<br/>
+        ES6 的继承机制完全不同，实质是先创造父类的实例对象this（所以必须先调用super方法），
+        然后再用子类的构造函数修改this。
+    </p>
+
+
+    <h3>父类的静态方法，也会被子类继承。</h3>
+    <pre>
+        class Person {
+            static sayHello(){
+                console.log("hello");
+            }
+        }
+
+        class Student extends Person {
+            //如果不写构造函数，会默认有一个带有super()的构造函数。
+        }
+
+        Student.sayHello();//hello
+    </pre>
+
+    <h3>Object.getPrototypeOf()</h3>
+    <p>
+        用于获取某个实例对象的原型。也可以获取子类的父类。 <br/>
+        注意prototype是获取构造函数的原型对象，是一个属性。
+    </p>
+    <pre>
+        class Person {
+        }
+
+        class Student extends Person {
+            //如果不写构造函数，会默认有一个带有super()的构造函数。
+        }
+        let s = new Student();
+        /*** 1、Person 与 Student 的关系***/
+        //console.log( Student.prototype === Person )//false,结果与es5一致
+        //console.log( Student.prototype instanceof Person  )//true,结果与es5一致
+
+        /***  2、实例 s 与 Student 及 Student.prototype的关系 ***/
+        //console.log( s instanceof Student )//true,结果与es5一致
+        //console.log( s.constructor === Student )//true,结果与es5一致
+        //console.log( s.constructor.prototype === Student.prototype )//true,结果与es5一致
+        //console.log( s.__proto__ === Student.prototype )//true,结果与es5一致
+
+        /*** 5、获取类的原型的方式 ***/
+        //console.log(s.constructor.prototype === Object.getPrototypeOf(s)) //true,结果与es5一致
+        //console.log(Object.getPrototypeOf(Student) === Person);//ture.,结果与es5不一致
+        //console.log(Object.getPrototypeOf(B) === A);//false
+
+        /*** 为什么会不一样呢？？***/
+        //因为 B 和 A 都是构造函数。
+        //A 、B之间没有直接的关系。
+
+        //Student 、Person都是类，同时也是对象，这个对象的作用是创造特定类的对象。
+        //在这里Student对象实例是由Person类创建的。
+        //也就是说es6的子类是由父类创建并由自己扩展的。这也能解释通为什么子类的构造函数内要用super().
+        //由此可知Student是由Person扩展来的。
+    </pre>
+    <h4>那么es5的继承与es6的继承有什么区别呢？？？</h4>
+    <pre>
+        function A( name ){
+            this.name = name;
+        }
+        A.prototype.sayName = function(){
+           console.log(this.name);
+        };
+
+        function B(name,age){
+            A.call(this,name);
+            this.age = age;
+        }
+        B.prototype = Object.create(A.prototype);
+        B.prototype.constructor = B;
+
+        /*** 1、简单的测试下是否继承成功 ****/
+        var a = new A("a");
+        var b = new B("b",12);
+        //b.sayName();//b
+        //console.log(b instanceof A);//true
+        //console.log(b instanceof B);//true
+        //console.log(a instanceof A);//true
+        //console.log(a instanceof B);//false
+        /***  通过上面的的测试可知 B 继承了 A ***/
+
+        //console.log( Object.getPrototypeOf( B ) === A );//false
+        /*  这与class方式的结果不一样 */
+
+        /***  2、首先搞清楚 A 与 B 的关系  ***/
+        //console.log( B.prototype === A )//false
+        //console.log( B.prototype instanceof A )//true
+        /***  由此可知，B 的原型是 A 的一个实例  ***/
+
+        /***  3、实例 b 与 B 及 B.prototype的关系 ***/
+        //console.log( b instanceof B )//true
+        //console.log( b.constructor === B )//true
+        //console.log( b.constructor.prototype === B.prototype )//true
+        //console.log( b.__proto__ === B.prototype )//true
+
+        /***  4、实例 b 与 A 的关系 ***/
+        //console.log(b instanceof B)//true
+
+        /*** 5、获取类的原型的方式 ***/
+        //console.log(b.constructor.prototype === Object.getPrototypeOf(b)) //true
+        //console.log(Object.getPrototypeOf(B) === A);//false
+
+        /*** 6、Object.getPrototypeOf() 与 prototype 的区别 ***/
+        //Object.getPrototypeOf() ：获取实例的原型，参数是作为一个实例来访问实例的构造函数的原型。
+       // prototype: 获取构造函数的原型，操作对象是构造函数。
+
+        /** 7、构造函数本身是一个对象***/
+        //console.log(B.prototype === Object.getPrototypeOf(B))//false
+
+        /***
+         *  总结：
+         *  1、通过这种方式继承，B与A之间的唯一关系就是，B的原型是A的一个实例。
+         * ***/
+    </pre>
+
+    <h3>类的 prototype 属性和__proto__属性 </h3>
+    <p>
+        prototype:指向当前类创造的实例的原型。从构造函数的角度。
+        __proto__:指向当前类的父类的原型。从实例的角度。
+    </p>
+    <pre>
+        class A {
+        }
+
+        class B extends A {
+        }
+
+        //console.log( B.__proto__ === A )// true
+        //把B当做一个实例，那么B对象就是由A对象构造出来的
+
+        //console.log(  B.prototype.__proto__ === A.prototype ) // true
+        //B 的原型是用 A 的原型构造出的一个实例。
+    </pre>
+
+    <p>
+        这两条继承链，可以这样理解：作为一个对象，子类（B）的原型（__proto__属性）是父类（A）；
+        作为一个构造函数，子类（B）的原型对象（prototype属性）是父类的原型对象（prototype属性）的实例。
+    </p>
+
+    <h3>extends 的继承目标</h3>
+    <p>
+        只要是一个有prototype属性的函数，就能被B继承。
+        由于函数都有prototype属性（除了Function.prototype函数），因此A可以是任意函数。
+    </p>
+
+    <h3>继承原生类</h3>
+    <pre>
+        class MyArray extends Array {
+          constructor(...args) {
+            super(...args);
+          }
+        }
+
+        var arr = new MyArray();
+        arr[0] = 12;
+        arr.length // 1
+
+        arr.length = 0;
+        arr[0] // undefined
+    </pre>
+
+    <h3>怎样实现同时继承多个类？？？</h3>
+</div>
+</body>
+</html>

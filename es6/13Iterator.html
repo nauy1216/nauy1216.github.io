@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../index.js"></script>
+    <script src="../babel.js"></script>
+    <script>
+
+    </script>
+</head>
+<body >
+
+<div class="box">
+    <h3>Iterator（遍历器）的概念</h3>
+    <p>
+        它是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署 Iterator 接口，就可以完成遍历操作（即依次处理该数据结构的所有成员）。
+    </p>
+    <p>
+        Iterator 的遍历过程是这样的。 <br/>
+
+        （1）创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。 <br/>
+
+        （2）第一次调用指针对象的next方法，可以将指针指向数据结构的第一个成员。 <br/>
+
+        （3）第二次调用指针对象的next方法，指针就指向数据结构的第二个成员。 <br/>
+
+        （4）不断调用指针对象的next方法，直到它指向数据结构的结束位置。 <br/>
+    </p>
+
+    <h4>下面是一个模拟next方法返回值的例子。</h4>
+    <pre>
+        var it = makeIterator(['a', 'b']);
+
+        it.next() // { value: "a", done: false }
+        it.next() // { value: "b", done: false }
+        it.next() // { value: undefined, done: true }
+
+        function makeIterator(array) {
+        //改变操作的对象。
+          var nextIndex = 0;
+        //返回一个对象，对象的next方法用于操作遍历的每一个项目。
+          return {
+            next: function() {
+              return nextIndex < array.length ?
+                {value: array[nextIndex++], done: false} :
+                {value: undefined, done: true};
+            }
+          };
+        }
+    </pre>
+
+    <h3>默认 Iterator 接口</h3>
+    <p>
+        一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是“可遍历的”（iterable）。
+    </p>
+    <p>
+        ES6 规定，默认的 Iterator 接口部署在数据结构的Symbol.iterator属性，或者说，一个数据结构只要具有Symbol.iterator属性，就可以认为是“可遍历的”（iterable）。    </p>
+    <p>
+        Symbol.iterator属性本身是一个函数，就是当前数据结构默认的遍历器生成函数。执行这个函数，就会返回一个遍历器。
+    </p>
+    <p>
+        至于属性名Symbol.iterator，它是一个表达式，返回Symbol对象的iterator属性，这是一个预定义好的、类型为 Symbol 的特殊值，所以要放在方括号内
+    </p>
+    <p>
+        下面的例子是数组的Symbol.iterator属性。
+    </p>
+    <pre>
+        let arr = ['a', 'b', 'c'];
+        let iter = arr[Symbol.iterator]();
+
+        iter.next() // { value: 'a', done: false }
+        iter.next() // { value: 'b', done: false }
+        iter.next() // { value: 'c', done: false }
+        iter.next() // { value: undefined, done: true }
+    </pre>
+
+
+    <h3>给对象部署遍历器接口</h3>
+    <p>对象默认是没有遍历器接口的。</p>
+    <p>
+        对象（Object）之所以没有默认部署 Iterator 接口，是因为对象的哪个属性先遍历，哪个属性后遍历是不确定的，需要开发者手动指定。
+    </p>
+    <p>
+        for...of的本质就是调用默认的遍历器方法。
+        有了遍历器接口，数据结构就可以用for...of循环遍历（详见下文），也可以使用while循环遍历。
+    </p>
+    <p>
+        下面是一个类似数组的对象调用数组的Symbol.iterator方法的例子。
+    </p>
+    <pre>
+        let iterable = {
+          0: 'a',
+          1: 'b',
+          2: 'c',
+          length: 3,
+          [Symbol.iterator]: Array.prototype[Symbol.iterator]
+        };
+        for (let item of iterable) {
+          console.log(item); // 'a', 'b', 'c'
+        }
+    </pre>
+    <p>利用while循环实现遍历的例子。</p>
+    <pre>
+        var $iterator = ITERABLE[Symbol.iterator]();
+
+        var $result = $iterator.next();
+        while (!$result.done) {
+          var x = $result.value;
+          // ...
+          $result = $iterator.next();
+        }
+    </pre>
+
+    <h3>字符串的 Iterator 接口</h3>
+    <pre>
+        var someString = "hi";
+
+        typeof someString[Symbol.iterator]
+        // "function"
+        //说明字符串对象的Symbol.iterator函数返回一个遍历器对象。
+
+        var iterator = someString[Symbol.iterator]();
+
+        //通过遍历器的next()函数遍历对象。
+        iterator.next()  // { value: "h", done: false }
+        iterator.next()  // { value: "i", done: false }
+        iterator.next()  // { value: undefined, done: true }
+    </pre>
+</div>
+</body>
+</html>

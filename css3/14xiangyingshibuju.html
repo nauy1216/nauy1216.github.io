@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>响应式布局</h3>
+    <p>
+        定义：<br/>
+        建立不同尺寸下的样式表，根据媒体查询不同的屏幕尺寸使用不同的样式表。
+        先写最需要满足的设备的样式，再同果媒体查询来重新写其它设备的样式。
+        比如bootstrap就是移动设备优先。
+        <br/><br/>
+        用法：<br/>
+        引入样式表时的两种方式<br/>
+        第一种：通过link直接在html文档引入<br/>
+        通过添加media属性来分别。<br/><br/>
+
+        语法：<br/><br/>
+
+        media = " screen and (min-width:800px)"//表示显示屏最小800px<br/>
+        media = " screen and (main-width:600px) and (max-width 800px)"//屏幕大小在600到800之间<br/>
+
+        media = "all and corientation:portrait"//竖屏<br/>
+        media = "all and corientation:landscape"//横屏<br/>
+
+        第二种：不通过link,直接在样式表中定义样式<br/>
+        @media screen and (min-width:800px){
+
+        }<br/>
+        <br/>
+        或者：<br/>
+
+        @import url("index.css") screen and (min-width:800px){
+
+        }
+
+        <br/><br/>
+        例子：<br/>
+
+        <pre>
+        @media screen and (max-width:400px){
+            #box{	//里面写css代码
+                padding:20px;
+                -webkit-columns:40px 1;
+            }
+        }
+        </pre>
+    </p>
+</div>
+
+</body>
+</html>
+</body>
+</html>
