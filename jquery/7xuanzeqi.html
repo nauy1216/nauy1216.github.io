@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../jquery.min.js"></script>
+</head>
+<body >
+<div class="box">
+    <h3>基本选择器</h3>
+        <ul>
+            <li>#id</li>
+            <li>element </li>
+            <li>.class</li>
+            <li>*</li>
+            <li>selector1,selector2,selectorN</li>
+        </ul>
+
+    <h3>层级</h3>
+    <ul>
+        <li>
+            ancestor descendant <br/>
+            指定祖先元素的指定的后代元素（包括嵌套的）。
+        </li>
+        <li>
+            parent > child <br/>
+            指定祖先元素的指定的直接子元素（不包括嵌套的）。
+        </li>
+        <li>
+            prev + next <br/>
+            紧接prev的下一个next元素。
+        </li>
+        <li>
+            prev ~ siblings <br/>
+            匹配prev后面的所有兄弟元素，siblings用于过滤。
+        </li>
+    </ul>
+
+    <h3>属性</h3>
+    <ul>
+        <li>
+            [attribute] <br/>
+            选择所有具有指定属性的元素，该属性可以是任何值。
+        </li>
+        <li>
+            [attribute=value] <br/>
+            选择指定属性是给定值的元素。
+        </li>
+        <li>
+            [attribute!=value] <br/>
+            选择不存在指定属性，或者指定的属性值不等于给定值的元素。
+        </li>
+        <li>
+            [attribute^=value] <br/>
+            选择指定属性是以给定字符串开始的元素
+        </li>
+        <li>
+            [attribute$=value]<br/>
+            选择指定属性是以给定字符串结尾的元素
+        </li>
+        <li>
+            [attribute*=value]<br/>
+            选择指定属性具有包含一个给定的子字符串的元素。
+        </li>
+        <li>
+            [attribute~=value]<br/>
+            选择指定属性用空格分隔的值中包含一个给定值的元素。
+        </li>
+        <li>
+            [attribute|=value]<br/>
+            选择指定属性值等于给定字符串或以该字符串为前缀（该字符串后跟一个连字符“-” ）的元素。
+        </li>
+        <li>
+            [attrSel1][attrSel2][attrSelN] <br/>
+            选择匹配所有指定的属性筛选器的元素,满足所有选择器。
+        </li>
+    </ul>
+
+    <h3>基本伪类</h3>
+
+    <ul>
+        <li>
+            :first <br/>
+            选择第一个匹配的DOM元素。
+        </li>
+        <li>
+            :not(selector) <br/>
+            选择所有元素去除匹配给定的选择器的元素。
+        </li>
+        <li>
+            :even <br/>
+            偶数。
+        </li>
+        <li>
+            :odd <br/>
+            奇数。
+        </li>
+        <li>
+            :eq(index) <br/>
+            在匹配的集合中选择索引值为index的元素。
+        </li>
+        <li>
+            :gt(index) <br/>
+            选择匹配集合中所有大于给定index（索引值）的元素。
+        </li>
+        <li>
+            :lang <br/>
+            选择指定语言的所有元素。<br/>
+            $( "div:lang(es-es)" ).addClass( "spain" );
+        </li>
+        <li>
+            :last <br/>
+            最后一个元素。
+        </li>
+        <li>
+            :lt(index) <br/>
+            选择匹配集合中所有小于给定index（索引值）的元素。
+        </li>
+        <li>
+            :header <br/>
+            选择所有标题元素。
+        </li>
+        <li>
+            :animated <br/>
+            选择所有正在执行动画效果的元素.
+        </li>
+        <li>
+            :focus <br/>
+            选择当前获取焦点的元素。
+        </li>
+        <li>
+            :root <br/>
+            选择该文档的根元素。
+        </li>
+        <li>
+            :target <br/>
+            选择由文档URI的格式化识别码表示的目标元素(锚的目标元素)。
+        </li>
+
+    </ul>
+
+    <h3>内容</h3>
+    <ul>
+        <li>
+            :contains(text) <br/>
+            选择所有包含指定文本的元素。
+        </li>
+        <li>
+            :empty <br/>
+            选择所有没有子元素的元素（包括文本节点）。
+        </li>
+        <li>
+            :has(selector) <br/>
+            选择包含匹配选择器的元素的元素。
+        </li>
+        <li>
+            :parent <br/>
+            选择所有含有子元素或者文本的父级元素。
+        </li>
+    </ul>
+
+    <h3>是否可见</h3>
+    <ul>
+        <li>
+            :hidden <br/>
+            选择所有隐藏的元素。<br/><br/>
+            他们的CSS display值是none。 <br/>
+            他们是type="hidden"的表单元素。<br/>
+            它们的宽度和高度都显式设置为0。<br/>
+            一个祖先元素是隐藏的，因此该元素是不会在页面上显示。<br/>
+
+        </li>
+
+        <li>
+            :visible <br/>
+            选择所有可见的元素。 <br/>
+            如果元素中占据文档中一定的空间,元素被认为是可见的。可见元素的宽度或高度，是大于零。
+            元素的visibility: hidden 或 opacity: 0被认为是可见的，因为他们仍然占用空间布局。
+
+        </li>
+    </ul>
+
+    <h3>子元素</h3>
+
+    <ul>
+        <li>
+            :first-child <br/>
+            选择所有父级元素下的第一个子元素。
+        </li>
+        <li>
+            :last-child <br/>
+            选择所有父级元素下的最后一个子元素。
+        </li>
+        <li>
+            :first-of-type <br/>
+            选择相同的元素名称的第一个兄弟元素。
+        </li>
+        <li>
+            :last-of-type <br/>
+            选择相同的元素名称的最后一个兄弟元素。
+        </li>
+        <li>
+            :nth-child
+        </li>
+        <li>
+            :nth-last-child()
+        </li>
+        <li>
+            :nth-of-type()
+        </li>
+        <li>
+            :nth-last-of-type()
+        </li>
+        <li>
+            :only-child
+        </li>
+        <li>
+            :only-of-type
+        </li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+</body>
+</html>

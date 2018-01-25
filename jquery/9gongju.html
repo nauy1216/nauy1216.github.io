@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../jquery.min.js"></script>
+</head>
+<body >
+<div class="box">
+    <h1>函数操作</h1>
+    <h3>jQuery.proxy()</h3>
+    <p>
+        作用： <br/>
+        接受一个函数，然后返回一个新函数，并且这个新函数始终保持了特定的上下文语境。 <br/> <br/>
+
+        用法： <br/>
+        1、本质是将this的指向改变，生成了一个新的函数。与call不同。 <br/>
+    </p>
+
+    <button type="button" id="btn1"> you </button>
+    <button type="button" id="btn2"> me </button>
+
+    <script>
+        var you = {
+            name:"hahah",
+            sayName:function(){
+                alert(this.name);
+            }
+        }
+
+        $("#btn1").click(you.sayName);
+
+        $("#btn2").click($.proxy(you.sayName,you));
+
+    </script>
+
+    <pre>
+        //这里的this是指#btn1
+        $("#btn1").click(you.sayName);
+
+        //这里的this是指you
+        $("#btn2").click($.proxy(you.sayName,you));
+    </pre>
+
+
+    <h1>数组和对象操作</h1>
+    <h3>jQuery.each()</h3>
+    <p>
+        作用：<br/>
+        迭代数组或对象。<br/>
+        用法;<br/>
+        1、第一个参数是一个数组或是一个对象，第二个参数是回调函数。<br/>
+        2、回调函数第一个参数是数组的索引或是对象的key,第二个是相应的value。<br/>
+    </p>
+    <script>
+
+
+    </script>
+    <pre>
+        var arr = ["A", "B", "C"];
+
+        $.each(arr, function(index, val){
+
+            alert(index +""+ val)
+            //0A 1B 3C
+
+        })
+    </pre>
+
+    <h3>jQuery.extend()</h3>
+    <p>
+        作用：<br/>
+        将两个或更多对象的内容合并到第一个对象。<br/>
+
+        用法：<br/>
+        1、jQuery.extend( target [, object1 ] [, objectN ] )<br/>
+        将后面对象参数合并到第一个参数上。<br/>
+
+        2、jQuery.extend( [deep ], target, object1 [, objectN ] )<br/>
+        如果第一个参数是true,则是深拷贝，不支持第一个参数是false。<br/>
+
+        3、如果只有一个参数提供给$.extend()，这意味着目标参数被省略。<br/>
+        在这种情况下，jQuery对象本身被默认为目标对象。这样，我们可以在jQuery的命名空间下添加新的功能。<br/>
+        这对于插件开发者希望向 jQuery 中添加新函数时是很有用的。<br/>
+
+        4、目标对象（第一个参数）将被修改。<br/>
+
+        5、如果有相同属性，后面对象会重写。<br/>
+    </p>
+    <script>
+    </script>
+
+    <pre>
+        var obj1 = {
+            a:"A",
+            b:"B",
+            c:{
+                aaa:{
+                    aaa:"aaaaaa"
+                }
+            }
+        }
+
+        var obj2 = {
+            a:"AAAAA",
+            d:"D",
+            c:{
+                aa:"AA",
+                bb:"BB"
+            }
+        }
+
+        var o1 = $.extend({}, obj1, obj2);
+        var o2 = $.extend(true, {}, obj1, obj2);
+
+        alert( JSON.stringify(o1) );
+        //{"a":"AAAAA","b":"B","c":{"aa":"AA","bb":"BB"},"d":"D"}
+        //重写C.没有遍历。
+
+        alert( JSON.stringify(o2) );
+        //{"a":"AAAAA","b":"B","c":{"aaa":{"aaa":"aaaaaa"},"aa":"AA","bb":"BB"},"d":"D"}
+
+    </pre>
+
+    <h3>jQuery.grep()</h3>
+    <p>
+        作用：<br/>
+        查找满足过滤函数的数组元素。原始数组不受影响。<br/>
+
+        用法：<br/>
+        1、jQuery.grep( array, function [, invert ] )<br/>
+        第一个参数是一个数组<br/>
+        第二参数是回调函数，函数的第一个参数是value,第二个是对应的索引。this指向window。返回true则加入返回的新数组里。<br/>
+        第三个参数true可选，表示返回false的值的数组。
+
+    </p>
+    <pre>
+        var arr = [1,2,3,4,5];
+
+        var NEW  = $.grep(arr, function(val){
+            return val%2 == 0;
+        })
+
+        alert(NEW);//2,4
+    </pre>
+
+    <h3>jQuery.makeArray()</h3>
+    <p>
+        作用：
+        转换一个类似数组的对象成为真正的JavaScript数组。
+    </p>
+    <pre>
+        var h = $('h3');
+        var arr = $.makeArray(h);
+
+        //alert(arr);
+        //alert(arr[0].text());//报错
+
+        //将一个jQuery对象装换成一个数组后，将变成原生的jS元素数组。
+    </pre>
+
+    <h3>jQuery.map()</h3>
+    <p>
+        作用： <br/>
+        将一个数组中的所有元素转换到另一个数组中。 <br/>
+        在数组的每一个元素或对象上应用一个函数并将结果映射到一个新的数组中。 <br/>
+
+        用法： <br/>
+        1、接受两个参数。 <br/>
+        第一个参数：数组中元素或对象的值 <br/>
+        第二个参数：是该元素在数组中的索引值或该对象的键。
+
+    </p>
+
+    <pre>
+
+        var arr = [1, 2, 3, 4, 5];
+
+        var newarr = $.map(arr, function(val){
+            return 2*val;
+        });
+
+        alert(newarr)//2、4、6、8、10
+    </pre>
+
+    <h3>jQuery.inArray()</h3>
+    <p>
+        作用： <br/>
+        在数组中查找指定值并返回它的索引（如果没有找到，则返回-1）。 <br/>
+        用法： <br/>
+        jQuery.inArray( value, array [, fromIndex ] ) <br/>
+        第一个参数： 要查找的值 <br/>
+        第二个参数： 数组 <br/>
+        第三个参数： 开始查找的位置
+    </p>
+    <pre>
+        var arr = [1, 23, 55, 77];
+        alert($.inArray(23, arr));//1
+    </pre>
+
+    <h3>jQuery.toArray()</h3>
+    <p>
+        作用： <br/>
+        返回一个包含jQuery对象集合中的所有DOM元素的数组。
+        用法： <br/>
+        不接受参数。
+    </p>
+    <pre>
+        var arr = $("h3").toArray();
+        //alert(arr[0].innerHTML);
+        //返回原生的DOM元素
+    </pre>
+
+    <h3>jQuery.merge()</h3>
+    <p>
+        作用： <br/>
+        合并两个数组内容到第一个数组。 <br/>
+        用法： <br/>
+        jQuery.merge( first, second ) <br/>
+        只有两个参数。
+    </p>
+    <script>
+
+    </script>
+
+    <h3>jQuery.uniqueSort()</h3>
+    <p>
+        排序一个DOM元素的数组，恰当的除去重复项。
+        请注意，这仅适用于DOM元素数组，而不能处理字符串或者数字数组。
+    </p>
+    <pre>
+        jQuery.uniqueSort(document.getElementsByTagName("h3"));
+    </pre>
+
+    <h3>jQuery.parseXML()</h3>
+    <p>
+        解析一个字符串到一个XML文档。
+    </p>
+
+    <h1>测试操作</h1>
+    <h3>jQuery.isWindow()</h3>
+    <p>
+        作用： <br/>
+        判断参数是否是window对象。
+    </p>
+    <h3>jQuery.contains()</h3>
+    <p>
+        作用： <br/>
+        检查一个DOM元素是另一个DOM元素的后代。<br/>
+
+        用法：<br/>
+        jQuery.contains( container, contained )<br/>
+        第一个参数：容器<br/>
+        第二个参数：要查的子元素。<br/>
+    </p>
+    <pre>
+        $.contains(document.documentElement, document.body);
+    </pre>
+
+    <h3>jQuery.type()</h3>
+    <p>
+        作用：
+        确定JavaScript 对象的类型[[Class]] 。
+    </p>
+    <pre>
+        alert($.type(function(){})) //function
+    </pre>
+
+    <h3>jQuery.isArray()</h3>
+    <p>
+        作用：
+        确定参数是一个数组。
+    </p>
+    <pre>
+        alert(jQuery.isArray([1, 2]));//true
+    </pre>
+    <h3>jQuery.isFunction()</h3>
+    <p>
+        作用：
+        确定参数是一个函数。
+    </p>
+    <h3>jQuery.isEmptyObject()</h3>
+    <p>
+        作用：
+        检查对象是否为空（不包含任何属性）。
+    </p>
+    <pre>
+        //alert($.isEmptyObject({}));//true
+        alert($.isEmptyObject(null));//true
+    </pre>
+
+    <h3>jQuery.isNumeric()</h3>
+    <p>
+        作用：
+        确定它的参数是否是一个JavaScript数字。
+    </p>
+    <pre>
+        alert($.isNumeric(123));//true
+    </pre>
+
+    <h1>字符串操作</h1>
+    <h3>jQuery.trim()</h3>
+    <p>
+        作用：
+        去掉字符串起始和结尾的空格。
+    </p>
+
+
+
+
+</div>
+</body>
+</html>

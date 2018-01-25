@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../jquery.min.js"></script>
+</head>
+<body >
+<div class="box">
+    <h3>show()</h3>
+    <ol>
+        <li>
+            作用：
+            <ul>
+                <li>显示隐藏的匹配元素。</li>
+            </ul>
+        </li>
+        <li>
+            用法：
+            <ol>
+                <li>没有参数：匹配的元素将被立即显示，没有动画。</li>
+                <li>
+                    show( [duration ] [, complete ] ) <br/>
+                    第一个参数：运动时间 <br/>
+                    第二个参数：运动完后执行的函数。
+                </li>
+            </ol>
+        </li>
+    </ol>
+
+    <button type="button" id="btn">显示div</button>
+    <div style="width:500px; height:100px; background:red; display:none;" id="div1"></div>
+    <script>
+        $("#btn").click(function(){
+            $("#div1").show(1000,function(){
+                alert("hello");
+            })
+        });
+    </script>
+
+    <h3>hide()</h3>
+    <ol>
+        <li>
+            作用：
+            <ul>
+                <li>隐藏匹配的元素。</li>
+            </ul>
+        </li>
+        <li>
+            用法：
+            <ol>
+                <li>没有参数：匹配的元素将被立即隐藏，没有动画。</li>
+                <li>
+                    hide( [duration ] [, complete ] ) <br/>
+                    第一个参数：运动时间 <br/>
+                    第二个参数：运动完后执行的函数。
+                </li>
+                <li>
+                   .hide()方法将为匹配元素的宽度，高度，以及不透明度，同时执行动画。
+                    一旦透明度达到0，display样式属性将被设置为none
+                </li>
+            </ol>
+        </li>
+    </ol>
+    <button type="button" id="btn2">显示div</button>
+    <div style="width:500px; height:100px; background:red;" id="div2"></div>
+    <script>
+        $("#btn2").on("click",function(){
+            $("#div2").hide(3000,function(){
+                alert("hide")
+            });
+        })
+    </script>
+
+
+    <h3>animate()</h3>
+    <ol>
+        <li>
+            作用：
+            <ul>
+                <li>自定义动画。</li>
+            </ul>
+        </li>
+        <li>
+            用法：
+            <ol>
+                <li>
+                    animate( properties [, duration ] [, easing ] [, complete ] ) <br/>
+                    properties : 要运动到的目标状态。<br/>
+                    duration ：运动时间。<br/>
+                    easing ：运动形式。<br/>
+                    complete ：运动完执行的函数。<br/>
+                </li>
+                <li>
+                    hide( [duration ] [, complete ] ) <br/>
+                    第一个参数：运动时间 <br/>
+                    第二个参数：运动完后执行的函数。
+                </li>
+                <li>
+                    不能运动背景颜色。
+                </li>
+            </ol>
+        </li>
+    </ol>
+
+    <button type="button" id="btn3">显示div</button>
+    <div style="width:500px; height:100px; background:red;" id="div3"></div>
+    <script>
+        $("#btn3").on("click",function(){
+            $("#div3").animate({width:"1px",height:"2px",opacity:0},2000,function(){
+                alert("ok")
+            })
+        })
+    </script>
+
+    <h3>stop()</h3>
+    <ol>
+        <li>
+            作用：
+            <ul>
+                <li>
+                    停止匹配元素当前正在运行的动画。
+                </li>
+            </ul>
+        </li>
+        <li>
+            用法：
+            <ol>
+                <li>
+                    stop() <br/>
+                    默认只会阻止当前运动。<br/>
+                    当前运动没有到目的地，而后续会继续运动到达目的地。<br/>
+                    相当于stop(false,false)
+                </li>
+                <li>
+                    stop(true) <br/>
+                    当前运动没到目的地，后续运动取消。<br/>
+                    相当于stop(true,false)
+                </li>
+                <li>
+                    stop(true，true) <br/>
+                    当前运动立即停止并且到达目的地，后续运动取消。
+                </li>
+                <li>
+                    连个参数：<br/>
+                    第一个：是否取消以列队动画<br/>
+                    第二个;是否当前动画立即完成。<br/>
+                    默认均为false。<br/>
+                </li>
+            </ol>
+        </li>
+    </ol>
+    <button type="button" id="btn4">go</button>
+    <button type="button" id="btn5">stop()</button>
+    <button type="button" id="btn6">stop(true)</button>
+    <button type="button" id="btn7">stop(true,true)</button>
+    <div style="width:500px; height:100px; background:red;" id="div4"></div>
+    <script>
+        var oDIv = $("#div4");
+        $("#btn4").on("click",function(){
+            oDIv.animate({width:"1px"},2000,function(){
+                alert("1")
+            }).animate({height:"2px"},1000,function(){
+                alert("2")
+            })
+        })
+        $("#btn5").click(function(){
+            oDIv.stop();
+        })
+        $("#btn6").click(function(){
+            oDIv.stop(true);
+        })
+        $("#btn7").click(function(){
+            oDIv.stop(true, true);
+        })
+    </script>
+
+    <h3>delay()</h3>
+    <p>
+        作用： <br/>
+        设置一个延时来推迟执行队列中后续的项。
+    </p>
+
+    <h3>finish()</h3>
+    <p>
+        作用：<br/>
+        停止当前正在运行的动画，删除所有排队的动画，并完成匹配元素所有的动画。
+    </p>
+</div>
+
+</body>
+</html>
