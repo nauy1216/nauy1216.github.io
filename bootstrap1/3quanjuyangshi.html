@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../cbontent.css">
+    <style>
+        .g { background:#e0e0e0; }
+        h1 { background:rgba(255,0,0,0.2); }
+    </style>
+</head>
+<body >
+<div class="container">
+    <h1>标题<small>小标题</small></h1>
+    <h1>h1. Bootstrap heading<small>small</small></h1>
+    <h2>h2. Bootstrap heading<small>Secondary text</small></h2>
+    <h3>h3. Bootstrap heading<small>Secondary text</small></h3>
+    <h4>h4. Bootstrap heading<small>Secondary text</small></h4>
+    <h5>h5. Bootstrap heading<small>Secondary text</small></h5>
+    <h6>h6. Bootstrap heading<small>Secondary text</small></h6>
+
+
+
+    <h1>页面主体</h1>
+    <p>
+        全局 font-size 设置为 14px，line-height 设置为 1.428。 <br/>
+        p元素还被设置了等于 1/2 行高（即 10px）的底部外边距（margin）。
+    </p>
+
+    <h1>.lead</h1>
+    <p class="lead">通过添加 .lead 类可以让段落突出显示。 </p>
+    <p> p元素还被设置了等于 1/2 行高（即 10px）的底部外边距（margin）。</p>
+
+    <h1>mark</h1>
+    <p> <mark>p元素</mark>还被设置了等于 1/2 行高（即 10px）的底部外边距（margin）。</p>
+
+
+    <h1>del</h1>
+    <p> <del>del删除文本</del></p>
+
+    <h1>s</h1>
+    <p> <s>无用的文本</s></p>
+
+    <h1>ins</h1>
+    <p> <ins>插入的文本</ins></p>
+
+    <h1>u</h1>
+    <p> <u>带下划线的的文本</u></p>
+
+    <h1>small、.small</h1>
+    <p>其内的文本将被设置为父容器字体大小的 85% <small>其内的文本将被设置为父容器字体大小的 85%</small></p>
+
+
+    <h1>strong</h1>
+    <p> <strong>通过增加 font-weight 值强调一段文本。</strong></p>
+
+
+    <h1>em</h1>
+    <p> <em>在 HTML5 中可以放心使用 &ltb> 和 &lti> 标签。
+        &ltb> 用于高亮单词或短语，不带有任何着重的意味；而 &lti> 标签主要用于发言、技术词汇等</em>
+    </p>
+
+    <h1>文本对齐类</h1>
+    <p class="text-left">text-left</p>
+    <p class="text-center">text-center</p>
+    <p class="text-right">text-right</p>
+    <p class="text-justify">text-justify text-justify text-justify text-justify text-justify text-justify text-justify text-justify text-justify text-justify text-justify text-justify text-justify text-justify text-justify text-justify text-justify </p>
+    <p class="text-nowrap">text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap text-nowrap </p>
+
+
+    <h1>改变文字大小写</h1>
+    <p class="text-lowercase">text-lowercase</p>
+    <p class="text-uppercase">text-uppercase</p>
+    <p class="text-capitalize">text-capitalize</p>
+
+    <h1>缩略语abbr</h1>
+    <abbr title="attribute">attr</abbr>
+
+    <h1>address</h1>
+    <address>让联系信息以最接近日常使用的格式呈现。</address>
+
+    <h1>blockquote</h1>
+    <blockquote>将任何 HTML 元素包裹在 blockquote 中即可表现为引用样式。</blockquote>
+
+    <blockquote>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+    </blockquote>
+
+    <blockquote class="blockquote-reverse">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+    </blockquote>
+
+
+    <h1>列表</h1>
+    <ul>
+        <li>无序列表</li>
+        <li>
+            <ul>
+                <li>无序列表</li>
+                <li>无序列表</li>
+                <li>无序列表</li>
+            </ul>
+        </li>
+        <li>
+            无序列表
+            <ul>
+                <li>无序列表</li>
+                <li>无序列表</li>
+                <li>无序列表</li>
+            </ul>
+        </li>
+    </ul>
+    <ol>
+        <li>有序列表</li>
+        <li>有序列表</li>
+        <li>有序列表</li>
+    </ol>
+
+
+    <h3>.list-unstyled 无样式</h3>
+    <ul class="list-unstyled">
+        <li>无序列表</li>
+        <li>
+            <ul>
+                <li>无序列表</li>
+                <li>无序列表</li>
+                <li>无序列表</li>
+            </ul>
+        </li>
+        <li>
+            无序列表
+            <ul>
+                <li>无序列表</li>
+                <li>无序列表</li>
+                <li>无序列表</li>
+            </ul>
+        </li>
+    </ul>
+    <ol class="list-unstyled">
+        <li>有序列表</li>
+        <li>有序列表</li>
+        <li>有序列表</li>
+    </ol>
+
+    <h3>.list-inline 内联列表样式</h3>
+    <ul class="list-inline">
+        <li>无序列表</li>
+        <li>
+            <ul>
+                <li>无序列表</li>
+                <li>无序列表</li>
+                <li>无序列表</li>
+            </ul>
+        </li>
+        <li>
+            无序列表
+            <ul>
+                <li>无序列表</li>
+                <li>无序列表</li>
+                <li>无序列表</li>
+            </ul>
+        </li>
+    </ul>
+    <ol class="list-inline">
+        <li>有序列表</li>
+        <li>有序列表</li>
+        <li>有序列表</li>
+    </ol>
+
+
+    <h3>定义列表dl</h3>
+    <dl>
+        <dt>标题</dt>
+        <dd>dldldl</dd>
+        <dt>标题</dt>
+        <dd>dldldl</dd>
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>.dl-horizontal</dt>
+        <dd>dldldl</dd>
+        <dt>标题</dt>
+        <dd>dldldl</dd>
+    </dl>
+
+
+    <h1>code</h1>
+    <p>
+        通过 <code>&ltcode></code> 标签包裹内联样式的代码片段。
+    </p>
+
+
+    <h1>kbd</h1>
+    <p>
+        通过 &ltkbd> 标签标记用户通过键盘输入的内容。
+        <kbd>shift</kbd>
+    </p>
+
+    <h1>pre</h1>
+    <p>
+        多行代码可以使用 &ltpre> 标签。为了正确的展示代码，注意将尖括号做转义处理。<br/>
+        还可以使用 .pre-scrollable 类，其作用是设置 max-height 为 350px ，并在垂直方向展示滚动条。
+    </p>
+
+    <pre>
+        &lth1> HELLO &lt/h1>
+    </pre>
+
+    <h1>var</h1>
+    <p>
+        通过 &ltvar> 标签标记变量。例如：
+        <var>y</var> = <var>m</var><var>x</var> + <var>b</var>
+    </p>
+
+
+    <h1>samp</h1>
+    <p>
+        通过 &ltsamp> 标签来标记程序输出的内容。
+        <samp>这是输出内容！！！</samp>
+    </p>
+
+
+    <h1>表格.table类</h1>
+    <table class="table">
+        <caption>
+            表格基本样式
+        </caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>姓名</th>
+                <th>年龄</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>张三</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>李四</td>
+                <td>19</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pre>
+        &lttable class="table">
+            &ltcaption>
+                表格基本样式
+            &lt/caption>
+
+            &ltthead>
+            &lttr>
+                &ltth>#&lt/th>
+                &ltth>姓名&lt/th>
+                &ltth>年龄&lt/th>
+            &lt/tr>
+            &lt/thead>
+
+            &lttbody>
+            &lttr>
+                &lttd>1&lt/td>
+                &lttd>张三&lt/td>
+                &lttd>19&lt/td>
+            &lt/tr>
+            &lttr>
+                &lttd>2&lt/td>
+                &lttd>李四&lt/td>
+                &lttd>19&lt/td>
+            &lt/tr>
+            &lt/tbody>
+        &lt/table>
+    </pre>
+
+
+
+    <h1>条纹状表格.table-striped类</h1>
+    <table class="table table-striped">
+        <caption>
+            表格基本样式
+        </caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>姓名</th>
+                <th>年龄</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>张三</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>李四</td>
+                <td>19</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pre>
+        &lttable class="table table-striped">//必须加基本table类
+            &ltcaption>
+                表格基本样式
+            &lt/caption>
+
+            &ltthead>
+            &lttr>
+                &ltth>#&lt/th>
+                &ltth>姓名&lt/th>
+                &ltth>年龄&lt/th>
+            &lt/tr>
+            &lt/thead>
+
+            &lttbody>
+            &lttr>
+                &lttd>1&lt/td>
+                &lttd>张三&lt/td>
+                &lttd>19&lt/td>
+            &lt/tr>
+            &lttr>
+                &lttd>2&lt/td>
+                &lttd>李四&lt/td>
+                &lttd>19&lt/td>
+            &lt/tr>
+            &lt/tbody>
+        &lt/table>
+    </pre>
+
+
+    <h1>带边框表格.table-bordered类</h1>
+    <table class="table table-bordered">
+        <caption>
+            表格基本样式
+        </caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>姓名</th>
+                <th>年龄</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>张三</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>李四</td>
+                <td>19</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pre>
+        &lttable class="table table-striped">//必须加基本table类
+            &ltcaption>
+                表格基本样式
+            &lt/caption>
+
+            &ltthead>
+            &lttr>
+                &ltth>#&lt/th>
+                &ltth>姓名&lt/th>
+                &ltth>年龄&lt/th>
+            &lt/tr>
+            &lt/thead>
+
+            &lttbody>
+            &lttr>
+                &lttd>1&lt/td>
+                &lttd>张三&lt/td>
+                &lttd>19&lt/td>
+            &lt/tr>
+            &lttr>
+                &lttd>2&lt/td>
+                &lttd>李四&lt/td>
+                &lttd>19&lt/td>
+            &lt/tr>
+            &lt/tbody>
+        &lt/table>
+    </pre>
+
+
+
+    <h1>鼠标悬停表格.table-hover类</h1>
+    <table class="table table-hover">
+        <caption>
+            表格基本样式
+        </caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>姓名</th>
+                <th>年龄</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>张三</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>李四</td>
+                <td>19</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pre>
+        &lttable class="table table-hover">//必须加基本table类
+            &ltcaption>
+                表格基本样式
+            &lt/caption>
+
+            &ltthead>
+            &lttr>
+                &ltth>#&lt/th>
+                &ltth>姓名&lt/th>
+                &ltth>年龄&lt/th>
+            &lt/tr>
+            &lt/thead>
+
+            &lttbody>
+            &lttr>
+                &lttd>1&lt/td>
+                &lttd>张三&lt/td>
+                &lttd>19&lt/td>
+            &lt/tr>
+            &lttr>
+                &lttd>2&lt/td>
+                &lttd>李四&lt/td>
+                &lttd>19&lt/td>
+            &lt/tr>
+            &lt/tbody>
+        &lt/table>
+    </pre>
+
+
+
+
+
+    <h1>紧缩表格表格.table-condensed类</h1>
+    <table class="table table-condensed">
+        <caption>
+            表格基本样式
+        </caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>姓名</th>
+                <th>年龄</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>张三</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>李四</td>
+                <td>19</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pre>
+        &lttable class="table table-condensed">//必须加基本table类
+            &ltcaption>
+                表格基本样式
+            &lt/caption>
+
+            &ltthead>
+            &lttr>
+                &ltth>#&lt/th>
+                &ltth>姓名&lt/th>
+                &ltth>年龄&lt/th>
+            &lt/tr>
+            &lt/thead>
+
+            &lttbody>
+            &lttr>
+                &lttd>1&lt/td>
+                &lttd>张三&lt/td>
+                &lttd>19&lt/td>
+            &lt/tr>
+            &lttr>
+                &lttd>2&lt/td>
+                &lttd>李四&lt/td>
+                &lttd>19&lt/td>
+            &lt/tr>
+            &lt/tbody>
+        &lt/table>
+    </pre>
+
+    <h1>表格状态类</h1>
+    <table class="table ">
+        <thead>
+            <tr>
+                <td>Class</td>
+                <td>描述</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>.active</td>
+                <td>鼠标悬停在行或单元格上时所设置的颜色</td>
+            </tr>
+            <tr>
+                <td>.success</td>
+                <td>标识成功或积极的动作</td>
+            </tr>
+            <tr>
+                <td>.info</td>
+                <td>标识普通的提示信息或动作</td>
+            </tr>
+            <tr>
+                <td>.warning</td>
+                <td>标识警告或需要用户注意</td>
+            </tr>
+            <tr>
+                <td>.danger</td>
+                <td>标识危险或潜在的带来负面影响的动作</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h1>响应式表格</h1>
+    <p>将任何 .table 元素包裹在 .table-responsive 元素内，即可创建响应式表格，
+        其会在小屏幕设备上（小于768px）水平滚动。当屏幕大于 768px 宽度时，水平滚动条消失。</p>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Class</td>
+                <td>描述</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>.active</td>
+                <td>鼠标悬停在行或单元格上时所设置的颜色</td>
+            </tr>
+            <tr>
+                <td>.success</td>
+                <td>标识成功或积极的动作</td>
+            </tr>
+            <tr>
+                <td>.info</td>
+                <td>标识普通的提示信息或动作</td>
+            </tr>
+            <tr>
+                <td>.warning</td>
+                <td>标识警告或需要用户注意</td>
+            </tr>
+            <tr>
+                <td>.danger</td>
+                <td>标识危险或潜在的带来负面影响的动作</td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+
+</body>
+</html>

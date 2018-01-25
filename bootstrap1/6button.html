@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../cbontent.css">
+    <style>
+        .g { background:#e0e0e0; }
+        h1 { background:rgba(255,0,0,0.2); }
+    </style>
+</head>
+<body >
+<div class="container">
+    <h1>按钮</h1>
+    <p>
+        可作为按钮使用的标签或元素
+        为 a、button 或 input 元素添加按钮类（button class）即可使用 Bootstrap 提供的样式。
+        最好使用botton元素，以免出现不必要的问题。
+    </p>
+    <p>
+        .btn <br/>
+    </p>
+
+    <a class="btn btn-default" href="#" role="button">Link</a>
+    <button class="btn btn-default" type="submit">Button</button>
+    <input class="btn btn-default" type="button" value="Input">
+    <input class="btn btn-default" type="submit" value="Submit">
+
+    <pre>
+        &lta class="btn btn-default" href="#" role="button">Link&lt/a>
+        &ltbutton class="btn btn-default" type="submit">Button&lt/button>
+        &ltinput class="btn btn-default" type="button" value="Input">
+        &ltinput class="btn btn-default" type="submit" value="Submit">
+    </pre>
+
+
+    <h1>颜色</h1>
+    <button type="button" class="btn btn-default">（默认样式）Default</button>
+
+    <button type="button" class="btn btn-primary">（首选项）Primary</button>
+
+    <button type="button" class="btn btn-success">（成功）Success</button>
+
+    <button type="button" class="btn btn-info">（一般信息）Info</button>
+
+    <button type="button" class="btn btn-warning">（警告）Warning</button>
+
+    <button type="button" class="btn btn-danger">（危险）Danger</button>
+
+    <button type="button" class="btn btn-link">（链接）Link</button>
+
+    <pre>
+    &ltbutton type="button" class="btn btn-default">（默认样式）Default&lt/button>
+
+    &ltbutton type="button" class="btn btn-primary">（首选项）Primary&lt/button>
+
+    &ltbutton type="button" class="btn btn-success">（成功）Success&lt/button>
+
+    &ltbutton type="button" class="btn btn-info">（一般信息）Info&lt/button>
+
+    &ltbutton type="button" class="btn btn-warning">（警告）Warning&lt/button>
+
+    &ltbutton type="button" class="btn btn-danger">（危险）Danger&lt/button>
+
+    &ltbutton type="button" class="btn btn-link">（链接）Link&lt/button>
+
+
+    </pre>
+
+    <h1>尺寸</h1>
+    <p>
+        使用 .btn-lg、.btn-sm 或 .btn-xs 就可以获得不同尺寸的按钮。
+    </p>
+    <p>
+        通过给按钮添加 .btn-block 类可以将其拉伸至父元素100%的宽度，而且按钮也变为了块级（block）元素。
+
+    </p>
+    <p>
+        <button type="button" class="btn btn-primary btn-lg">（大按钮）Large button</button>
+        <button type="button" class="btn btn-default btn-lg">（大按钮）Large button</button>
+    </p>
+    <p>
+        <button type="button" class="btn btn-primary">（默认尺寸）Default button</button>
+        <button type="button" class="btn btn-default">（默认尺寸）Default button</button>
+    </p>
+    <p>
+        <button type="button" class="btn btn-primary btn-sm">（小按钮）Small button</button>
+        <button type="button" class="btn btn-default btn-sm">（小按钮）Small button</button>
+    </p>
+    <p>
+        <button type="button" class="btn btn-primary btn-xs">（超小尺寸）Extra small button</button>
+        <button type="button" class="btn btn-default btn-xs">（超小尺寸）Extra small button</button>
+    </p>
+
+    <h1>禁用</h1>
+    <p>
+        为 button 元素添加 disabled 属性，使其表现出禁用状态。
+    </p>
+    <p>
+        为基于 a 元素创建的按钮添加 .disabled 类。
+    </p>
+
+    <h1>激活</h1>
+    <p>
+        为 button 元素添加:active伪类，使其表现出禁用状态。
+    </p>
+    <p>
+        为基于 a 元素创建的按钮添加 .active 类。
+    </p>
+
+    <h1>图片</h1>
+    <h4>响应式图片:</h4>
+    <p>
+        通过为图片添加 .img-responsive 类可以让图片支持响应式布局。
+        其实质是为图片设置了 max-width: 100%;、 height: auto; 和 display: block;
+        属性，从而让图片在其父元素中更好的缩放。
+    </p>
+    <p>
+        如果想让图片水平居中用.center-block。
+    </p>
+    <h4>图片的形状</h4>
+
+    <p>
+        img-rounded、img-circle、img-thumbnail
+    </p>
+
+
+    <h1>情境文本颜色</h1>
+    <p class="text-muted">text-muted</p>
+    <p class="text-primary">text-primary</p>
+    <p class="text-success">text-success</p>
+    <p class="text-info">text-info</p>
+    <p class="text-warning">text-warning</p>
+    <p class="text-danger">text-danger</p>
+
+    <h1>情境背景颜色</h1>
+    <p class="bg-primary">bg-primary</p>
+    <p class="bg-success">bg-success</p>
+    <p class="bg-info">bg-info</p>
+    <p class="bg-warning">bg-warning</p>
+    <p class="bg-danger">bg-danger</p>
+
+    <h1>关闭按钮</h1>
+    <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+    <pre>
+    &ltbutton type="button" class="close" aria-label="Close">
+        &ltspan aria-hidden="true">&times;&lt/span>
+    &lt/button>
+    </pre>
+
+    <h1>三角符号</h1>
+    <span class="caret"></span>
+    <pre>
+        &ltspan class="caret">&lt/span>
+    </pre>
+
+    <h1>快速浮动</h1>
+    <p>
+        通过添加一个类，可以将任意元素向左或向右浮动。!important 被用来明确 CSS 样式的优先级。
+    </p>
+
+    <h1>块元素居中</h1>
+    <p>
+        .center-block <br/>
+
+    </p>
+    <pre>
+        .center-block {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </pre>
+
+    <h1>清除浮动</h1>
+    <p>
+        .clearfix <br/>
+        通过为父元素添加 .clearfix 类可以很容易地清除浮动（float）。
+    </p>
+    <pre>
+        .clearfix:after{
+            content:"";
+            display:table;
+            clear:both;
+        }
+    </pre>
+
+
+    <h1>显示或隐藏内容</h1>
+
+    <p>
+        .show 和 .hidden   、 .invisible
+    </p>
+
+    <pre>
+        .show {
+          display: block !important;
+        }
+        .hidden {
+          display: none !important;
+        }
+        .invisible {
+          visibility: hidden;
+        }
+    </pre>
+
+
+</div>
+
+
+</body>
+</html>

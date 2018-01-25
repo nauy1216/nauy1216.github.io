@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../cbontent.css">
+    <style>
+        .g { background:#e0e0e0; }
+        h1 { background:rgba(255,0,0,0.2); }
+    </style>
+</head>
+<body >
+<div class="container">
+    <h1>标签页</h1>
+    <ul class="nav nav-tabs">
+        <li ><a href="#">Home</a></li>
+        <li class="active"><a href="#">Profile</a></li>
+        <li ><a href="#">Messages</a></li>
+    </ul>
+    <br/>
+    <pre>
+    &ltul class="nav nav-tabs">
+        &ltli >&lta href="#">Home&lt/a>&lt/li>
+        &ltli class="active">&lta href="#">Profile&lt/a>&lt/li>
+        &ltli >&lta href="#">Messages&lt/a>&lt/li>
+    &lt/ul>
+    </pre>
+
+
+    <h1>胶囊式标签页</h1>
+    <ul class="nav nav-pills">
+        <li  class="active"><a href="#">Home</a></li>
+        <li ><a href="#">Profile</a></li>
+        <li ><a href="#">Messages</a></li>
+    </ul>
+    <br/>
+    <pre>
+        &ltul class="nav nav-pills">
+          &ltli role="presentation" class="active">&lta href="#">Home&lt/a>&lt/li>
+          &ltli role="presentation">&lta href="#">Profile&lt/a>&lt/li>
+          &ltli role="presentation">&lta href="#">Messages&lt/a>&lt/li>
+        &lt/ul>
+    </pre>
+
+    <p>
+        胶囊是标签页也是可以垂直方向堆叠排列的。只需添加 .nav-stacked 类。
+    </p>
+    <ul class="nav nav-pills nav-stacked">
+        <li  class="active"><a href="#">Home</a></li>
+        <li ><a href="#">Profile</a></li>
+        <li ><a href="#">Messages</a></li>
+    </ul>
+
+    <p>
+        <strong>禁用的导航</strong>
+        对任何导航组件（标签页、胶囊式标签页），都可以添加 .disabled 类，从而实现链接为灰色且没有鼠标悬停效果。
+    </p>
+
+    <ul class="nav nav-tabs">
+        <li  class="active"><a href="#">Home</a></li>
+        <li ><a href="#">Profile</a></li>
+        <li class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                Dropdown
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h1>导航条</h1>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" >
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Brand</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Link1 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Link2</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <pre>
+    &ltnav class="navbar navbar-default">
+        &ltdiv class="container-fluid">
+            &lt!-- Brand and toggle get grouped for better mobile display -->
+            &ltdiv class="navbar-header">
+                &ltbutton type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" >
+                    &ltspan class="icon-bar">&lt/span>
+                    &ltspan class="icon-bar">&lt/span>
+                    &ltspan class="icon-bar">&lt/span>
+                &lt/button>
+                &lta class="navbar-brand" href="#">Brand&lt/a>
+            &lt/div>
+
+            &lt!-- Collect the nav links, forms, and other content for toggling -->
+            &ltdiv class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                &ltul class="nav navbar-nav">
+                    &ltli class="active">&lta href="#">Link1 &ltspan class="sr-only">(current)&lt/span>&lt/a>&lt/li>
+                    &ltli>&lta href="#">Link2&lt/a>&lt/li>
+                    &ltli class="dropdown">
+                        &lta href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown &ltspan class="caret">&lt/span>&lt/a>
+                        &ltul class="dropdown-menu">
+                            &ltli>&lta href="#">Action&lt/a>&lt/li>
+                            &ltli>&lta href="#">Another action&lt/a>&lt/li>
+                            &ltli>&lta href="#">Something else here&lt/a>&lt/li>
+                            &ltli role="separator" class="divider">&lt/li>
+                            &ltli>&lta href="#">Separated link&lt/a>&lt/li>
+                            &ltli role="separator" class="divider">&lt/li>
+                            &ltli>&lta href="#">One more separated link&lt/a>&lt/li>
+                        &lt/ul>
+                    &lt/li>
+                &lt/ul>
+            &lt/div>&lt!-- /.navbar-collapse -->
+        &lt/div>&lt!-- /.container-fluid -->
+    &lt/nav>
+    </pre>
+
+    <p>
+        <strong>导航条中的form</strong>
+    </p>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" >
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Brand</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <pre>
+        &ltform class="navbar-form navbar-right" role="search">
+            &ltdiv class="form-group">
+                &ltinput type="text" class="form-control" placeholder="Search">
+            &lt/div>
+            &ltbutton type="submit" class="btn btn-default">Submit&lt/button>
+        &lt/form>
+    </pre>
+
+    <p>
+        <strong>导航条中的button</strong>
+    </p>
+
+    <pre>
+        &ltbutton type="button" class="btn btn-default navbar-btn">Sign in&lt/button>
+    </pre>
+
+    <p>
+        <strong>导航条中的文本</strong>
+    </p>
+
+    <pre>
+        &ltp class="navbar-text">Signed in as Mark Otto&lt/p>
+    </pre>
+
+    <p>
+        <strong>导航条中的非导航的链接</strong>
+    </p>
+
+    <pre>
+         &lta href="#" class="navbar-link">Mark Otto&lt/a>
+    </pre>
+
+    <p>
+        <strong>导航条中的组件排列</strong>
+    </p>
+
+    <pre>
+        通过添加 .navbar-left 和 .navbar-right 工具类让导航链接、表单、按钮或文本对齐。
+        两个类都会通过 CSS 设置特定方向的浮动样式。
+    </pre>
+
+    <p>
+        <strong>导航条中的固定在顶部或底部</strong>
+    </p>
+
+    <pre>
+        添加 .navbar-fixed-top 类可以让导航条固定在顶部，
+        还可包含一个 .container 或 .container-fluid 容器，从而让导航条居中，并在两侧添加内补（padding）。
+    </pre>
+
+    <p>
+        <strong>导航条中的静止在顶部或底部</strong>
+    </p>
+
+    <pre>
+       通过添加 .navbar-static-top 类即可创建一个与页面等宽度的导航条，它会随着页面向下滚动而消失。
+    </pre>
+
+
+    <p>
+        <strong>导航条中的反色的导航条</strong>
+    </p>
+
+    <pre>
+       通过添加 .navbar-inverse 类可以改变导航条的外观。
+    </pre>
+
+    <h1>路径导航</h1>
+    <p>
+        各路径间的分隔符已经自动通过 CSS 的 :before 和 content 属性添加了。
+    </p>
+    <ol class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Library</a></li>
+        <li class="active">Data</li>
+    </ol>
+    <pre>
+    &ltol class="breadcrumb">
+        &ltli>&lta href="#">Home&lt/a>&lt/li>
+        &ltli>&lta href="#">Library&lt/a>&lt/li>
+        &ltli class="active">Data&lt/li>
+    &lt/ol>
+    </pre>
+
+    <h1>分页导航</h1>
+    <p>
+        链接在不同情况下可以定制。你可以给不能点击的链接添加 .disabled 类、给当前页添加 .active 类。
+        想要更小或更大的分页？.pagination-lg 或 .pagination-sm 类提供了额外可供选择的尺寸。
+
+    </p>
+    <nav>
+        <ul class="pagination pagination-lg">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li class="disabled"><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <pre>
+     &ltnav>
+        &ltul class="pagination pagination-lg">
+            &ltli>
+                &lta href="#" aria-label="Previous">
+                    &ltspan aria-hidden="true">&laquo;&lt/span>
+                &lt/a>
+            &lt/li>
+            &ltli>&lta href="#">1&lt/a>&lt/li>
+            &ltli class="disabled">&lta href="#">2&lt/a>&lt/li>
+            &ltli>&lta href="#">3&lt/a>&lt/li>
+            &ltli>&lta href="#">4&lt/a>&lt/li>
+            &ltli>&lta href="#">5&lt/a>&lt/li>
+            &ltli>
+                &lta href="#" aria-label="Next">
+                    &ltspan aria-hidden="true">&raquo;&lt/span>
+                &lt/a>
+            &lt/li>
+        &lt/ul>
+    &lt/nav>
+    </pre>
+
+    <h1>翻页</h1>
+    <p>
+       添加 .previous 、 .next 类可以使啊你按钮左右对齐。 <br/>
+        .disabled 禁用状态。
+    </p>
+
+    <nav>
+        <ul class="pager">
+            <li><a href="#">Previous</a></li>
+            <li><a href="#">Next</a></li>
+        </ul>
+    </nav>
+
+    <pre>
+        &ltnav>
+          &ltul class="pager">
+            &ltli>&lta href="#">Previous&lt/a>&lt/li>
+            &ltli>&lta href="#">Next&lt/a>&lt/li>
+          &lt/ul>
+        &lt/nav>
+    </pre>
+
+    <h1>标签</h1>
+    <p>
+        .label <br/>
+        .label-default<br/>
+        .label-primary<br/>
+        .label-success<br/>
+        .label-info<br/>
+        .label-warning<br/>
+        .label-danger<br/>
+    </p>
+    <span class="label label-default">New</span>
+
+    <h1>徽章</h1>
+    <a href="#">hello<span class="badge">11</span></a>
+
+    <button class="btn btn-primary" type="button">
+        Messages <span class="badge">4</span>
+    </button>
+
+    <pre>
+    &lta href="#">hello&ltspan class="badge">11&lt/span>&lt/a>
+
+    &ltbutton class="btn btn-primary" type="button">
+        Messages &ltspan class="badge">4&lt/span>
+    &lt/button>
+    </pre>
+
+
+    <h1>巨幕</h1>
+    <p>
+        它能延伸至整个浏览器视口来展示网站上的关键内容。 <br/>
+        class="jumbotron"<br/>
+        如果需要让巨幕组件的宽度与浏览器宽度一致并且没有圆角，<br/>
+        请把此组件放在所有 .container 元素的外面，并在组件内部添加一个 .container 元素。<br/>
+    </p>
+
+    <div class="jumbotron" width="200px" height="200px">
+
+    </div>
+
+
+    <h1>页头</h1>
+
+    <div class="page-header">
+        <h2>Example page header <small>Subtext for header</small></h2>
+    </div>
+
+    <pre>
+        &ltdiv class="page-header">
+          &lth2>Example page header &ltsmall>Subtext for header&lt/small>&lt/h2>
+        &lt/div>
+    </pre>
+
+
+    <h1>缩略图</h1>
+    <p>
+        展示带链接的图片。
+    </p>
+
+            <a href="#" class="thumbnail">
+                <img src="" alt="100X100" style="width:100px; height:100px;" >
+            </a>
+
+
+    <pre>
+        &lta href="#" class="thumbnail">
+            &ltimg src="" alt="100X100" style="width:100px; height:100px;" >
+        &lt/a>
+    </pre>
+
+</div>
+
+
+<script src="../jquery.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

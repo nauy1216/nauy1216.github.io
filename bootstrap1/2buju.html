@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <style>
+        .g { background:#e0e0e0; }
+    </style>
+</head>
+<body >
+<div class="container">
+    <h3>移动设备优先</h3>
+    <p>
+        Bootstrap 是移动设备优先的。针对移动设备的样式融合进了框架的每个角落，而不是增加一个额外的文件。
+    </p>
+
+    <h3>viewport??</h3>
+    <pre>
+       &ltmeta name="viewport" content="width=device-width, initial-scale=1">
+    </pre>
+    <p>
+        user-scalable=no :  可以禁用其缩放（zooming）功能。
+        这样禁用缩放功能后，用户只能滚动屏幕，就能让你的网站看上去更像原生应用的感觉。
+    </p>
+
+    <h3>Normalize.css</h3>
+    <p>
+        一个CSS 重置样式库。
+    </p>
+
+
+    <h3>布局容器</h3>
+    <p>
+        .container 类用于固定宽度并支持响应式布局的容器。容器设置了宽度。 <br/>
+        .container-fluid 类用于 100% 宽度，占据全部视口（viewport）的容器。 容器没有设置宽度。 <br/>
+    </p>
+
+    <h3>栅格系统</h3>
+    <p>
+        一套响应式、移动设备优先的流式栅格系统，
+        随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多12列。 <br/><br/>
+
+        通过一系列的行（row）与列（column）的组合来创建页面布局，你的内容就可以放入这些创建好的布局中。 <br/><br/>
+
+        行必须放在布局容器中。 <br/><br/>
+
+        通过“行（row）”在水平方向创建一组“列（column）”。 <br/><br/>
+
+        内容应当放置于“列（column）”内，并且，只有“列（column）”可以作为行（row）”的直接子元素。 <br/><br/>
+
+        栅格系统中的列是通过指定1到12的值来表示其跨越的范围。<br/><br/>
+
+        如果一“行（row）”中包含了的“列（column）”大于 12，
+        多余的“列（column）”所在的元素将被作为一个整体另起一行排列。<br/><br/>
+
+
+        通过媒体查询，将大屏幕设备的样式覆盖小屏幕的样式。
+    </p>
+
+    <h3>媒体查询</h3>
+    <p>
+        /* 超小屏幕（手机，小于 768px） */<br/><br/>
+        /* 没有任何媒体查询相关的代码，因为这在 Bootstrap 中是默认的（还记得 Bootstrap 是移动设备优先的吗？） */
+        <br/><br/>
+        /* 小屏幕（平板，大于等于 768px） */<br/>
+        @media (min-width: @screen-sm-min) { ... }<br/><br/>
+
+        /* 中等屏幕（桌面显示器，大于等于 992px） */<br/>
+        @media (min-width: @screen-md-min) { ... }<br/><br/>
+
+        /* 大屏幕（大桌面显示器，大于等于 1200px） */<br/>
+        @media (min-width: @screen-lg-min) { ... }<br/><br/>
+    </p>
+
+    <h3>栅格参数</h3>
+    <p>
+        <mark>类前缀:</mark>	.col-xs- 、	.col-sm- 、	.col-md- 、 .col-lg-<br/><br/>
+        每列均有左右15px的padding。<br/><br/>
+        最多有12列。<br/><br/>
+    </p>
+
+   <h3>列偏移</h3>
+    <p>
+       <mark> .col-*-offset-*</mark>实际上为当前元素增加了左侧的边距（margin）。
+    </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 g "> col-xs-4</div>
+            <div class="col-xs-4 g"> col-xs-4</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 g col-xs-offset-2"> col-xs-4  col-xs-offset-2</div>
+            <div class="col-xs-4 g "> col-xs-4</div>
+        </div>
+    </div>
+
+
+    <h3>列嵌套</h3>
+    <p>
+        可以将row直接嵌套在col里面，而不需在添加一层容器。
+    </p>
+
+
+    <h3>列排序</h3>
+    <p>
+        实际上就是相对定位。相对定位是可以和float一起使用的。<br/>
+        <mark>.col-*-push-*</mark>往右移动<br/>
+        <mark>.col-*-pull-*</mark>往左移动<br/>
+    </p>
+
+    <div class="container">
+        <div class="row">
+            <div class="g col-xs-4">1</div>
+            <div class="g col-xs-4">2</div>
+        </div>
+        <div class="row">
+            <div class="g col-xs-4 col-xs-push-4">1</div>
+            <div class="g col-xs-4 col-xs-pull-4">2</div>
+        </div>
+    </div>
+
+
+    <h1>响应式工具</h1>
+    <p>
+        通过单独或联合使用以下列出的类，可以针对不同屏幕尺寸隐藏或显示页面内容。
+    </p>
+
+    <div class="table-responsive ">
+        <table class="table table-bordered ">
+            <caption>
+                形如 .visible-*-* 的类针对每种屏幕大小都有了三种变体。 <br/>
+                以超小屏幕（xs）为例，可用的 .visible-*-* 类是： <br/>
+                .visible-xs-block、.visible-xs-inline 和 .visible-xs-inline-block。
+            </caption>
+            <thead>
+            <tr>
+                <th></th>
+                <th>超小屏幕 <br/><small class="text-muted">手机 (<768px)</small></th>
+                <th>小屏幕 <br/><small class="text-muted">平板 (≥768px)</small></th>
+                <th>中等屏幕<br/><small class="text-muted">桌面 (≥992px)</small></th>
+                <th>大屏幕<br/><small class="text-muted">桌面 (≥1200px)</small></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>.visible-xs-*</td>
+                    <td class="bg-success">可见</td>
+                    <td>影藏</td>
+                    <td>影藏</td>
+                    <td>影藏</td>
+                </tr>
+                <tr>
+                    <td>.visible-sm-*</td>
+                    <td>影藏</td>
+                    <td class="bg-success">可见</td>
+                    <td>影藏</td>
+                    <td>影藏</td>
+                </tr>
+               <tr>
+                    <td>.visible-md-*</td>
+                    <td>影藏</td>
+                    <td>影藏</td>
+                    <td class="bg-success">可见</td>
+                    <td>影藏</td>
+                </tr>
+               <tr>
+                    <td>.visible-lg-*</td>
+                    <td>影藏</td>
+                    <td>影藏</td>
+                    <td>影藏</td>
+                    <td class="bg-success">可见</td>
+                </tr>
+            </tbody>
+            <tbody >
+            <tr>
+                <td>.hidden-xs</td>
+                <td class="bg-success">影藏</td>
+                <td>可见</td>
+                <td>可见</td>
+                <td>可见</td>
+            </tr>
+            <tr>
+                <td>.hidden-sm</td>
+                <td>可见</td>
+                <td class="bg-success">影藏</td>
+                <td>可见</td>
+                <td>可见</td>
+            </tr>
+            <tr>
+                <td>.hidden-md</td>
+                <td>可见</td>
+                <td>可见</td>
+                <td class="bg-success">影藏</td>
+                <td>可见</td>
+            </tr>
+            <tr>
+                <td>.hidden-lg</td>
+                <td>可见</td>
+                <td>可见</td>
+                <td>可见</td>
+                <td class="bg-success">影藏</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
