@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../index.js"></script>
+    <script src="../vue.js"></script>
+</head>
+<body >
+<div class="box">
+    <h3>什么是指令</h3> <br/>
+    指令带有前缀 v-，以表示它们是 Vue 提供的特殊属性。 <br/>
+    1、参数 <br/>
+    比如v-on:click="fn",冒号后面的click就是参数。 <br/>
+    2、修饰符 <br/>
+    是以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。 <br/>
+    例如，.prevent 修饰符告诉 v-on 指令对于触发的事件调用 event.preventDefault()： <br/>
+    3、值 <br/>
+    等号右边的。 <br/>
+    4、缩写 <br/>
+    v-on:click：缩写为@click <br/>
+    v-bind:class ：缩写为:class <br/>
+    <h3>{{ }}</h3>
+    <div>
+        {{msg}}		数据更新模板变化 <br/>
+
+        {{*msg}}	数据只绑定一次 <br/>
+
+        {{{msg}}}	HTML转义输出	//推荐使用v-html
+    </div>
+    <div id="demo1">
+        {{message}}{{message1}}
+    </div>
+    <script>
+        new Vue({
+            el:"#demo1",
+            data:{
+                message:"{{}}指令用于输出文本",
+                message1:"<p>hello</p>"
+            }
+        });
+    </script>
+    <pre>
+    &ltdiv id="demo1">
+        {{message}}{{message1}}
+    &lt/div>
+
+        new Vue({
+            el:"#demo1",
+            data:{
+                message:"{{}}指令用于输出",
+                message1:"&ltp>hello&lt/p>"
+            }
+        });
+    </pre>
+
+    <h3>v-once</h3>
+    <p>
+        执行一次性地插值，当数据改变时，插值处的内容不会更新。
+        该属性不用赋值。
+    </p>
+    <div id="demo7">
+        <p v-once>{{msg}}</p>
+        <input type="text" v-model="msg"/>
+    </div>
+    <script>
+        new Vue({
+            el:"#demo7",
+            data:{
+                msg:"hllo"
+            }
+        })
+    </script>
+
+    <pre>
+    &ltdiv id="demo7">
+        &ltp v-once>{{msg}}&lt/p>
+        &ltinput type="text" v-model="msg"/>
+    &lt/div>
+    &ltscript>
+        new Vue({
+            el:"#demo7",
+            data:{
+                msg:"hllo"
+            }
+        })
+    &lt/script>
+    </pre>
+
+    <h3>v-html</h3>
+    <p>
+
+    </p>
+    <div id="demo8" v-html="message">
+    </div>
+    <script>
+        new Vue({
+            el:"#demo8",
+            data:{
+                message:"<p>能识别html代码</p>"
+            }
+        });
+    </script>
+    <pre>
+    &ltdiv id="demo8" v-html="message">
+    &lt/div>
+    &ltscript>
+        new Vue({
+            el:"#demo8",
+            data:{
+                message:"&ltp>能识别html代码&lt/p>"
+            }
+        });
+    &lt/script>
+    </pre>
+
+
+    <h3>v-bind</h3>
+    <div id="demo2">
+        <span v-bind:title="msg">绑定属性，查看title</span>
+    </div>
+    <script>
+        new Vue({
+            el:"#demo2",
+            data:{
+                msg:"绑定了title"
+            }
+        })
+    </script>
+    <pre>
+    &ltdiv id="demo2">
+        &ltspan v-bind:title="msg">绑定属性，查看title&lt/span>
+    &lt/div>
+
+
+    new Vue({
+        el:"#demo2",
+        data:{
+            msg:"绑定了title"
+        }
+    })
+    </pre>
+
+    <h3>v-if</h3>
+    <ol>
+        <li>可配合v-else使用。</li>
+        <li>可配合v-else-if使用。</li>
+        <li>
+            在v-if和v-else之间切换时，
+            Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。
+            通过给相同元素添加不同属性值的key就会重新渲染。
+        </li>
+    </ol>
+    <div id="demo3">
+        <span v-if="a">v-if的值是true则显示，false隐藏</span>
+        <span v-if="b">v-if</span>
+    </div>
+    <script>
+        new Vue({
+            el:"#demo3",
+            data:{
+                a:true,
+                b:false
+            }
+        })
+    </script>
+    <strong>例子一：</strong>
+    <pre>
+        &ltdiv id="demo3">
+            &ltspan v-if="a">v-if的值是true则显示，false隐藏&lt/span>
+            &ltspan v-if="b">display:none;&lt/span>
+        &lt/div>
+
+        new Vue({
+            el:"#demo3",
+            data:{
+                a:true,
+                b:false
+            }
+        })
+    </pre>
+    <strong>例子二：</strong>
+    <p>
+        默认切换组件时相同的部分不会重新渲染。
+    </p>
+    <div id="demo10">
+        <div v-if="show">
+            手机登陆： <input type="text"value="请输入手机号"/>
+        </div>
+        <div v-else>
+            邮箱登陆： <input type="text"value="请输入邮箱号"/>
+        </div>
+        <button @click="change">切换登陆方式</button>
+    </div>
+    <script>
+        new Vue({
+            el:"#demo10",
+            data:{
+                show:false
+            },
+            methods:{
+                change:function(){
+                    this.show = !this.show;
+                }
+            }
+        })
+    </script>
+    <pre>
+    &ltdiv id="demo10">
+        &ltdiv v-if="show">
+            手机登陆： &ltinput type="text"value="请输入手机号"/>
+        &lt/div>
+        &ltdiv v-else>
+            邮箱登陆： &ltinput type="text"value="请输入邮箱号"/>
+        &lt/div>
+        &ltbutton @click="change">切换登陆方式&lt/button>
+    &lt/div>
+    &ltscript>
+        new Vue({
+            el:"#demo10",
+            data:{
+                show:false
+            },
+            methods:{
+                change:function(){
+                    this.show = !this.show;
+                }
+            }
+        })
+    &lt/script>
+    </pre>
+
+    <strong>例子三：</strong>
+    <p>
+        如果想要重新渲染相同的某个元素，则加上不同的key就可以。
+    </p>
+    <div id="demo11">
+        <div v-if="show" >
+            手机登陆： <input type="text" value="请输入手机号" key="key1"/>
+        </div>
+        <div v-else>
+            邮箱登陆： <input type="text" value="请输入邮箱号"  key="key2"/>
+        </div>
+        <button @click="change">切换登陆方式</button>
+    </div>
+    <script>
+        new Vue({
+            el:"#demo11",
+            data:{
+                show:false
+            },
+            methods:{
+                change:function(){
+                    this.show = !this.show;
+                }
+            }
+        })
+    </script>
+    <pre>
+    &ltdiv id="demo11">
+        &ltdiv v-if="show" >
+            手机登陆： &ltinput type="text" value="请输入手机号" key="key1"/>
+        &lt/div>
+        &ltdiv v-else>
+            邮箱登陆： &ltinput type="text" value="请输入邮箱号"  key="key2"/>
+        &lt/div>
+        &ltbutton @click="change">切换登陆方式&lt/button>
+    &lt/div>
+
+    &ltscript>
+        new Vue({
+            el:"#demo11",
+            data:{
+                show:false
+            },
+            methods:{
+                change:function(){
+                    this.show = !this.show;
+                }
+            }
+        })
+    &lt/script>
+    </pre>
+
+    <h3>v-show</h3>
+    <p>
+        v-show 是简单地切换元素的 CSS 属性 display 。
+    </p>
+    <ol>
+        与v-if的区别是：
+        <li>v-if 是惰性的：如果在初始渲染时条件为假，则什么也不做</li>
+        <li>v-show 不管初始条件是什么，元素总是会被渲染，并且只是简单地基于 CSS 进行切换。</li>
+    </ol>
+
+
+
+    <h3>v-for</h3>
+    <ol>
+        <li> v-for="(item, index) in list",第一个参数表示数组的值，第二个参数表示索引</li>
+        <li> v-for="(item, key, index) in list",第一个参数表示对象的value，第二个参数表示key，第三个参数表示索引</li>
+        <li>如果想要重复输出或输出相同的项目，需要加key属性，一般项目的索引值给他即可</li>
+    </ol>
+    <div id="demo4">
+        <ul>
+            <li v-for="(item, index) in list">{{item}}{{index}}</li>
+        </ul>
+        <ul>
+            <li v-for="item in list1">{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        new Vue({
+            el:"#demo4",
+            data:{
+                list:["html","css","js"],
+                list1:{h:"html",c:"css",j:"js"}
+            }
+        })
+    </script>
+
+    <pre>
+    &ltdiv id="demo4">
+        &ltul>
+            &ltli v-for="item in list">{{item}}&lt/li>
+        &lt/ul>
+        &ltul>
+            &ltli v-for="item in list1">{{item}}&lt/li>
+        &lt/ul>
+    &lt/div>
+
+        new Vue({
+            el:"#demo4",
+            data:{
+                list:["html","css","js"],
+                list1:{h:"html",c:"css",j:"js"}
+            }
+        })
+    </pre>
+
+    <h3>v-on</h3>
+    <h4>注意事件里的this指向Vue实例对象。</h4>
+
+    <ul>
+        <li>
+            <strong>（1）事件: </strong><br/>
+            全写： 	v-on:click/mouseover......<br/>
+            简写的:	@click=""	（推荐）	<br/>
+        </li>
+
+        <li>
+            <strong>（2）事件对象</strong><br/>
+            事件对象:<br/>
+            @click="show($event)"//必须用$event,而且调用时必须传参数<br/><br/>
+
+            阻止冒泡:<br/>
+            a). ev.cancelBubble=true;（原生）<br/>
+            b). @click.stop	<br/><br/>
+
+            默认行为(默认事件):<br/>
+            阻止默认行为:<br/>
+            a). ev.preventDefault();<br/>
+            b). @contextmenu.prevent (推荐)
+        </li>
+
+        <li>
+            <strong>（3）键盘事件</strong><br/>
+            常用键:<br/>
+            回车<br/>
+            a). @keyup.13<br/>
+            b). @keyup.enter<br/>
+            上、下、左、右<br/>
+            @keyup/keydown.left<br/>
+            @keyup/keydown.right<br/>
+            @keyup/keydown.up<br/>
+            @keyup/keydown.down<br/>
+            .....
+        </li>
+    </ul>
+    <div id="demo5">
+        <p>{{message}}</p>
+        <button v-on:click="reverse($event)">逆转消息</button>
+    </div>
+
+    <script>
+        new Vue({
+            el:"#demo5",
+            data:{
+                message:"hello world"
+            },
+            methods:{
+                reverse:function($event){
+                    this.message = this.message.split("").reverse().join("");
+                    alert($event.target)
+                }
+            }
+        })
+    </script>
+
+    <pre>
+        &ltdiv id="demo5">
+            &ltp>{{message}}&lt/p>
+            &ltbutton v-on:click="reverse($event)">逆转消息&lt/button>
+        &lt/div>
+
+        new Vue({
+            el:"#demo5",
+            data:{
+                message:"hello world"
+            },
+            methods:{
+                reverse:function(){
+                    this.message = this.message.split("").reverse().join("");
+                    alert($event.target)
+                }
+            }
+        })
+    </pre>
+
+    <h3>v-model</h3>
+    <h4>双向绑定。用于表单。
+        用 v-model 指令在表单控件元素上创建双向数据绑定。它会根据控件类型自动选取正确的方法来更新元素。
+    </h4>
+    <ol>
+        <li>
+            v-model 会忽略所有表单元素的 value、checked、selected 特性的初始值。
+            因为它会选择 Vue 实例数据来作为具体的值。
+            你应该通过 JavaScript 在组件的 data 选项中声明初始值。
+        </li>
+    </ol>
+    <div id="demo6">
+    <p>{{msg}}</p>
+    <input type="text" v-model="msg"/>
+    </div>
+    <script>
+
+        new Vue({
+            el:"#demo6",
+            data:{
+                msg:"hllo"
+            }
+        })
+    </script>
+    <pre>
+        &ltdiv id="demo6">
+             &ltp>{{msg}}&lt/p>
+             &ltinput type="text" v-model="msg"/>
+        &lt/div>
+
+        new Vue({
+            el:"#demo6",
+            data:{
+                msg:"hllo"
+            }
+        })
+    </pre>
+
+
+    <div id="div1">
+        <!--绑定输入框-->
+        <h4>姓名：</h4><input v-model="name">
+        <h1>{{name}}</h1>
+
+        <!--绑定单选框-->
+        <h4>性别：</h4>
+        男：<input type="radio" name="sex" value="男" v-model="sex">
+        女：<input type="radio" name="sex" value="女" v-model="sex">
+        <h1>{{sex}}</h1>
+
+        <!--绑定多选框-->
+        <input type="checkbox" name="ins" value="看电影" v-model="ins">看电影
+        <input type="checkbox" name="ins" value="听音乐" v-model="ins">听音乐
+        <input type="checkbox" name="ins" value="看小说" v-model="ins">看小说
+        <h1>{{ins}}</h1>
+
+        <!--绑定下拉选框-->
+        <select v-model="sel['option']" multiple >
+            <option v-for="v in sel['city']" v-bind:value="v">{{v}}</option>
+        </select>
+        <h1>{{sel["option"]}}</h1>
+
+    </div>
+
+    <script>
+        new Vue({
+            el:'#div1',
+            data: {
+                name: '',
+                sex: '女',
+                ins: [],
+                sel: {
+                    city:["北京", "上海", "广州"],
+                    option:[]
+                }
+            }
+
+        });
+
+        //    作用： 双向绑定（适用于表单元素）
+        //    用法： v-model = "message"
+        //
+        //    表单元素的值改变了也会影响message的值。
+        //    当绑定单选、每一个选项都要绑定。绑定的数据就是所选的那个选项的value。
+
+        //      多选：
+        //          同时绑定一个数据
+        //          绑定的可以是一个数组，将选定的value添加到这个数组中。
+
+        //          分别绑定：
+        //          也可以是布尔值，表示选中或不选，此时一般分别绑定不同的数据，以免出现
+        //            全选和全不选的情况。
+        //
+
+
+
+    </script>
+
+    <pre>
+    &ltdiv id="div1">
+        &lt!--绑定输入框-->
+        &lth4>姓名：&lt/h4>
+        &ltinput v-model="name">
+        &lth1>{{name}}&lt/h1>
+
+        &lt!--绑定单选框-->
+        &lth4>性别：&lt/h4>
+        男：&ltinput type="radio" name="sex" value="男" v-model="sex">
+        女：&ltinput type="radio" name="sex" value="女" v-model="sex">
+        &lth1>{{sex}}&lt/h1>
+
+        &lt!--绑定多选框-->
+        &ltinput type="checkbox" name="ins" value="看电影" v-model="ins">看电影
+        &ltinput type="checkbox" name="ins" value="听音乐" v-model="ins">听音乐
+        &ltinput type="checkbox" name="ins" value="看小说" v-model="ins">看小说
+        &lth1>{{ins}}&lt/h1>
+
+        &lt!--绑定下拉选框-->
+        &ltselect v-model="sel['option']" multiple >
+            &ltoption v-for="v in sel['city']" v-bind:value="v">{{v}}&lt/option>
+        &lt/select>
+        &lth1>{{sel["option"]}}&lt/h1>
+
+    &lt/div>
+
+        new Vue({
+            el:'#div1',
+            data: {
+                name: '',
+                sex: '女',
+                ins: [],
+                sel: {
+                    city:["北京", "上海", "广州"],
+                    option:[]
+                }
+            }
+
+        });
+    </pre>
+
+    <h3>在模板中可以使用简单独个的js表达式和三目运算符</h3>
+
+    <h3>修饰符</h3>
+    <h4>.lazy</h4>
+    <p>转变为在 change 事件中同步</p>
+    <div id="demo9">
+        <input v-model.lazy="msg" >
+        <p>{{msg}}</p>
+    </div>
+    <script>
+        new Vue({
+            el:"#demo9",
+            data:{
+                msg:""
+            }
+        })
+    </script>
+
+    <h4>.number</h4>
+    <p>
+        自动将用户的输入值转为 Number 类型 (如果原值的转换结果为 NaN 则返回原值)，
+        可以添加一个修饰符 number 给 v-model 来处理输入值
+    </p>
+
+    <h4>.trim</h4>
+    <p>
+        去掉首尾空格。
+    </p>
+
+</div>
+
+</body>
+</html>

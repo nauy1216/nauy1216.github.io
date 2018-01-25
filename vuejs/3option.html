@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../vue.min.js"></script>
+</head>
+<body >
+<div class="box">
+    <h1>DOM</h1>
+
+    <h3>el</h3>
+    <h4>vm实例对应的属性：vm.$el</h4>
+    <h4>vm实例对应的方法：vm.$mount()</h4>
+
+    <ol>
+        <li>Vue 实例使用的根 DOM 元素。</li>
+        <li>提供的元素只能作为挂载点。所有的挂载元素不会被 Vue 生成的 DOM 替换。</li>
+        <li>如果 render 函数和 template 属性都不存在，挂载 DOM 元素的 HTML 会被提取出来用作模板，</li>
+        <li>使用模板的优先顺序是：render > template > innerHTMl</li>
+    </ol>
+
+    <h3>template</h3>
+    <ol>
+        <li>一个字符串模板作为 Vue 实例的标识使用。模板将会 替换 挂载的元素。挂载元素的内容都将被忽略，除非模板的内容有分发插槽。</li>
+    </ol>
+
+    <h3>render</h3>
+
+    <h1>数据</h1>
+    <h3>data</h3>
+    <h4>vm实例对应的属性：vm.$data</h4>
+    <h4>组件的data必须以一个函数返回一个json的形式定义</h4>
+    <p>
+        当一个 Vue 实例被创建时，它向 Vue 的响应式系统中加入了其 data 对象中能找到的所有的属性。
+        当这些属性的值发生改变时，视图将会产生“响应”，即匹配更新为新的值。
+    </p>
+    <p>
+        值得注意的是只有当实例被创建时 data 中存在的属性是响应式的。后来添加的不会更新视图。
+    </p>
+    <pre>
+        var vm = new Vue({
+            data:{
+                a:12,
+                b:13
+            }
+        })
+
+        alert(vm.a === 12);//true
+
+        alert(vm.data)//undefined
+
+        alert(vm.$data.a)//12
+    </pre>
+
+    <h3>watch</h3>
+    <strong>对应的vm实例的方法是：$watch()</strong>
+    <p>
+        监听数据变化: <br/>
+
+        vm.$watch(dataname,fnCb);  //浅度 基本数据类型<br/>
+        vm.$watch(dataname,fnCb,{deep:true});  //深度监视 对象<br/>
+    </p>
+    <div id="demo1">
+        <input type="text" v-model="msg"/>
+        <h4>{{msg}}</h4>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#demo1",
+            data:{
+                msg:""
+            },
+            watch:{
+                msg:function(){
+                    console.log("watch");
+                }
+            }
+        });
+
+        vm.$watch("msg",function(){
+            console.log("$watch");
+        });
+
+        vm.$watch("msg",function(){
+            console.log("$watch!!!");
+        });
+
+        //当输入框的值改变时3个函数都执行。
+
+    </script>
+
+    <h3>props</h3>
+    <h4>props 可以是数组或对象，用于接收来自父组件的数据。</h4>
+
+    <h3>computed</h3>
+    <h4>计算属性将被混入到 Vue 实例中。所有 getter 和 setter 的 this 上下文自动地绑定为 Vue 实例。</h4>
+
+    <h3>methods</h3>
+    <h4>可以直接通过 VM 实例访问这些方法，或者在指令表达式中使用。方法中的 this 自动绑定为 Vue 实例。</h4>
+
+
+    <h1>生命周期钩子</h1>
+
+    <h1>资源</h1>
+    <h3>directives</h3>
+    对应的方法：Vue.directive()
+    <h3>filters</h3>
+    对应的方法：Vue.filter()
+    <h3>components</h3>
+    对应的方法：Vue.directive() <br/>
+    不在实例内部定义的组件是全局组件。
+
+
+    <h1>组合</h1>
+
+
+    <h1>其它</h1>
+</div>
+
+</body>
+</html>

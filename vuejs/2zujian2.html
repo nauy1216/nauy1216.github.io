@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../vue.min.js"></script>
+</head>
+<body >
+<div class="box">
+    <h3>父组件与子组件之间的数据通信</h3>
+    <h4>父组件通过 props 向下传递数据给子组件，子组件通过 events 给父组件发送消息。</h4>
+    <p>
+        props down, events up。
+    </p>
+
+    <mark>父组件到子组件</mark>
+    <h4>用法：</h4>
+    <ol>
+        <li>
+            在使用子组件时必须绑定用于传递数据的属性。 <br/>
+            比如： <br/>
+            v-bind:a = "hello",<br/>
+            也可以直接绑定一个对象。<br/>
+            v-bind = obj,<br/>
+            obj = { a;"hello" };<br/>
+        </li>
+        <li>
+            在组件内部通过访问属性来访问父组件传递过来的数据。<br/>
+            比如： <br/>
+            props:["a", "b"]<br/>
+            或props:{ a:String, b:Number }<br/>
+            使用数据时和使用data的数据一样直接使用。<br/>
+        </li>
+        <li>
+            子组件的属性起到中间者的作用。
+        </li>
+    </ol>
+
+
+    <div id="app">
+        <my-outer></my-outer>
+    </div>
+
+    <template id="inner">
+        <div>
+            <slot></slot>
+            <span>{{message}}</span>
+        </div>
+    </template>
+
+    <template id="outer">
+        <div>
+            <my-inner v-for="item in name" :message="msg">{{item}}</my-inner>
+            <button @click="send">给小伙伴们发消息！</button>
+        </div>
+    </template>
+
+    <script>
+        var inner = Vue.extend({
+            data:function(){
+                return {
+
+                }
+            },
+            props:["message"],
+            template:"#inner"
+        })
+
+        var outer = Vue.extend({
+            data:function(){
+                return{
+                    msg:"",
+                    name:["小明","小红","小虎"]
+                }
+            },
+            template:"#outer",
+            components:{
+                "my-inner":inner
+            },
+            methods:{
+                send:function(){
+                    this.msg = "你好！";
+                }
+            }
+        })
+
+        Vue.component("my-outer",outer);
+
+        new Vue({
+            el:"#app"
+        })
+
+    </script>
+
+
+    <pre>
+        &ltdiv id="app">
+            &ltmy-outer>&lt/my-outer>
+        &lt/div>
+
+        // <strong>注意一定要用一个DIV把模板内的内容包住。</strong>
+        &lttemplate id="inner">
+            &ltdiv>
+                &ltslot>&lt/slot>
+                &ltspan>{{message}}&lt/span>
+            &lt/div>
+        &lt/template>
+
+        &lttemplate id="outer">
+            &ltdiv>
+                &ltmy-inner v-for="item in name" :message="msg">{{item}}&lt/my-inner>
+                &ltbutton @click="send">给小伙伴们发消息！&lt/button>
+            &lt/div>
+        &lt/template>
+
+
+        //定义子组件
+        var inner = Vue.extend({
+            data:function(){
+                return {
+
+                }
+            },
+            props:["message"],
+            template:"#inner"
+        })
+
+        //定义父组件，注意一定要在父组件内部注册子组件。
+        var outer = Vue.extend({
+            data:function(){
+                return{
+                    msg:"",
+                    name:["小明","小红","小虎"]
+                }
+            },
+            template:"#outer",
+            components:{
+                "my-inner":inner
+            },
+            methods:{
+                send:function(){
+                    this.msg = "你好！";
+                }
+            }
+        })
+
+        //注册父组件
+        Vue.component("my-outer",outer);
+
+        //将Vue实例挂载到指定的元素。
+        new Vue({
+            el:"#app"
+        })
+    </pre>
+
+    <h4>注意：</h4>
+    <ol>
+        <li>prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是不会反过来。</li>
+        <li>Prop 验证：我们可以为组件的 props 指定验证规格</li>
+    </ol>
+
+
+    <h4>验证父组件的数据(搞不清楚)</h4>
+    <pre>
+       Vue.component('example', {
+          props: {
+            // 基础类型检测 (`null` 意思是任何类型都可以)
+            propA: Number,
+            // 多种类型
+            propB: [String, Number],
+            // 必传且是字符串
+            propC: {
+              type: String,
+              required: true
+            },
+            // 数字，有默认值
+            propD: {
+              type: Number,
+              default: 100
+            },
+            // 数组/对象的默认值应当由一个工厂函数返回
+            propE: {
+              type: Object,
+              default: function () {
+                return { message: 'hello' }
+              }
+            },
+            // 自定义验证函数
+            propF: {
+              validator: function (value) {
+                return value > 10
+              }
+            }
+          }
+       })
+    </pre>
+
+    <div id="app1">
+        <aa :name="name" :age="age"></aa>
+    </div>
+    <script>
+
+        new Vue({
+            el:"#app1",
+            data:function(){
+                return {
+                    name:"liuchengyaun",
+                    age:"hhhdsf"
+                }
+            },
+            components:{
+                aa:{
+                    props:{ name:{type:String} ,age:{type:Number} },
+                    template:"<p>name ：{{name}} <br/> age ：{{age}}</p>"
+                }
+            }
+        })
+
+    </script>
+
+    <mark>子组件到父组件</mark>
+    <p>
+        子组件到父组件的数据是通过自定义事件传递的。 <br/>
+        父组件可以在使用子组件的地方直接用 v-on 来监听子组件触发的事件。<br/>
+        <strong>自定义事件：</strong><br/>
+        使用 $on(eventName) 监听事件<br/>
+        使用 $emit(eventName，data) 触发事件<br/>
+    </p>
+
+    <h4>用法：</h4>
+    <ol>
+        <li>
+            在使用子组件时绑定自定义事件，事件函数是在父组件的配置内定义的，参数是子组件传给父组件的参数。
+        </li>
+       <li>
+           在子组件内部调用$emit()触发事件，并传递数据。
+       </li>
+    </ol>
+
+
+    <h4>注意：</h4>
+    <ol>
+        <li>
+            .native：某个组件的根元素上监听一个原生事件。
+        </li>
+    </ol>
+
+
+
+    <div id="counter-event-example">
+        <p>{{ total }}</p>
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+    </div>
+
+    <script>
+        Vue.component('button-counter', {
+            template: '<button v-on:click="incrementCounter">{{ counter }}</button>',
+            data: function () {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                incrementCounter: function () {
+                    this.counter += 1
+                    this.$emit('increment')
+                }
+            },
+        })
+
+        new Vue({
+            el: '#counter-event-example',
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal: function () {
+                    this.total += 1
+                }
+            }
+        })
+    </script>
+
+    <pre>
+    &ltdiv id="counter-event-example">
+        &ltp>{{ total }}&lt/p>
+        &ltbutton-counter v-on:increment="incrementTotal">&lt/button-counter>
+        &ltbutton-counter v-on:increment="incrementTotal">&lt/button-counter>
+    &lt/div>
+
+    &ltscript>
+        Vue.component('button-counter', {
+            template: '&ltbutton v-on:click="incrementCounter">{{ counter }}&lt/button>',
+            data: function () {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                incrementCounter: function () {
+                    this.counter += 1
+                    this.$emit('increment')
+                }
+            },
+        })
+
+
+        new Vue({
+            el: '#counter-event-example',
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal: function () {
+                    this.total += 1
+                }
+            }
+        })
+    &lt/script>
+    </pre>
+
+    <div id="app2">
+        <app2-inner @up="upmsg"></app2-inner>
+        <p>
+            注意我：{{msg}}
+        </p>
+    </div>
+
+    <template id="app2inner">
+        <div>
+            <button @click="up">click me</button>
+        </div>
+    </template>
+
+    <script>
+        var app2inner = {
+            template:"#app2inner",
+            data:function(){
+                return{
+                    msg:["你好","hello","我","很","开","心","认","识","你"],
+                    index:0
+                }
+            },
+            methods:{
+                up : function(){
+                    this.$emit("up",this.msg[this.index]);
+
+                    if( this.index++ == this.msg.length ) {this.index=0};
+                }
+            }
+        };
+
+        new Vue({
+            el:"#app2",
+            data:{
+                msg:""
+            },
+            components:{
+                "app2-inner":app2inner
+            },
+            methods:{
+                upmsg:function(msg){
+                   this.msg = msg;
+                }
+            }
+        })
+    </script>
+
+    <pre>
+    &ltdiv id="app2">
+        &ltapp2-inner @up="upmsg">&lt/app2-inner>
+        &ltp>
+            注意我：{{msg}}
+        &lt/p>
+    &lt/div>
+
+    &lttemplate id="app2inner">
+        &ltdiv>
+            &ltbutton @click="up">click me&lt/button>
+        &lt/div>
+    &lt/template>
+
+
+        var app2inner = {
+            template:"#app2inner",
+            data:function(){
+                return{
+                    msg:["你好","hello","我","很","开","心","认","识","你"],
+                    index:0
+                }
+            },
+            methods:{
+                up : function(){
+                    //触发组件的up事件，将会调用父级的up函数，并传递数据
+                    this.$emit("up",this.msg[this.index]);
+
+                    if( this.index++ == this.msg.length ) {this.index=0};
+                }
+            }
+        };
+
+        new Vue({
+            el:"#app2",
+            data:{
+                msg:""
+            },
+            components:{
+                "app2-inner":app2inner
+            },
+            methods:{
+                upmsg:function(msg){
+                   this.msg = msg;
+                }
+            }
+        })
+
+
+    </pre>
+
+
+
+    <h3>非父子组件间的传递</h3>
+    <pre>
+        var bus = new Vue()
+
+
+        // 触发组件 A 中的事件
+        bus.$emit('id-selected', 1)
+
+
+        // 在组件 B 创建的钩子中监听事件
+        bus.$on('id-selected', function (id) {
+          // ...
+        })
+    </pre>
+
+    <div id="app3">
+        <my-component ref="app1"></my-component>
+        <my-component ref="app2"></my-component>
+    </div>
+
+    <template id="mycomponent">
+        <div style="width:400px; height:100px; border:2px solid red;">
+            消息 ：{{msg}} <br/>
+            <button @click="send">send</button>
+        </div>
+    </template>
+
+    <script>
+
+
+        var mycomponent = Vue.extend({
+            template:"#mycomponent",
+            data:function(){
+                return {
+                    msg:""
+                }
+            },
+            props:["ref"],
+            methods:{
+                send:function(){
+                    empty.$emit("message","helolo")
+                },
+                res:function(msg){
+                    this.msg = msg;
+                }
+            }
+        });
+
+        Vue.component("my-component",mycomponent);
+
+        var vm = new Vue({
+            el:"#app3"
+        });
+
+        var empty =  new Vue();
+        empty.$on("message",function(msg){
+            vm.$refs.app1.msg = msg;
+        });
+
+
+    </script>
+
+    <pre>
+    &ltdiv id="app3">
+        &ltmy-component ref="app1">&lt/my-component>
+        &ltmy-component ref="app2">&lt/my-component>
+    &lt/div>
+
+    &lttemplate id="mycomponent">
+        &ltdiv style="width:400px; height:100px; border:2px solid red;">
+            消息 ：{{msg}} &ltbr/>
+            &ltbutton @click="send">send&lt/button>
+        &lt/div>
+    &lt/template>
+
+
+
+        var mycomponent = Vue.extend({
+            template:"#mycomponent",
+            data:function(){
+                return {
+                    msg:""
+                }
+            },
+            props:["ref"],
+            methods:{
+                send:function(){
+                    empty.$emit("message","helolo")
+                },
+                res:function(msg){
+                    this.msg = msg;
+                }
+            }
+        });
+
+        Vue.component("my-component",mycomponent);
+
+        var vm = new Vue({
+            el:"#app3"
+        });
+
+        var empty =  new Vue();
+        empty.$on("message",function(msg){
+            vm.$refs.app1.msg = msg;
+        });
+
+    </pre>
+
+</div>
+
+</body>
+</html>

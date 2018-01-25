@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../vue.min.js"></script>
+    <style>
+        .red{
+            width:400px;
+            height:100px;
+            background:red;
+        }
+        .blue{
+            width:400px;
+            height:100px;
+            background:blue;
+        }
+    </style>
+</head>
+<body >
+<div class="box">
+    <h3>class</h3>
+    <ol>
+        <li>
+            <mark>用数组表示</mark><br/>
+
+            :class="[red]"	<br/>
+            //red是vue对象的属性数据，data:{ red:"classred" }, classred是提前定义好的类<br/><br/>
+
+            :class="[red,b,c,d]" //可以添加多个类<br/>
+
+        </li>
+        <li>
+            <mark>用json表示</mark><br/>
+
+            :class="{red:a, blue:false}"<br/>
+            //red,blue是定义好的css类，
+            用true、false作为值决定是否使用样式<br/><br/>
+
+
+            :class="json"	//需要在data里先定义好json<br/>
+
+            data:{ json:{ red:true, blue:false } }
+        </li>
+    </ol>
+
+    <div id="div1" :class="json">
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#div1",
+            data:{
+                json:{red:false,blue:true}
+            }
+        });
+    </script>
+
+    <pre>
+        &ltdiv id="div1" :class="[name]">
+
+        var vm = new Vue({
+            el:"#div1",
+            data:{
+                name:"red"
+            }
+        });
+        vm.name="blue";
+    </pre>
+    <pre>
+        &ltdiv id="div1" :class="{red:true,blue:false}">
+
+        var vm = new Vue({
+            el:"#div1"
+        });
+    </pre>
+    <pre>
+        &ltdiv id="div1" :class="json">
+
+        var vm = new Vue({
+            el:"#div1",
+            data:{
+                json:{red:false,blue:true}
+            }
+        });
+    </pre>
+
+    <h3>style</h3>
+    <ol>
+        <li>
+            <mark>用数组表示</mark> <br/>
+            :style="[c]"<br/>
+            :style="[c,d]"//c、d均是json<br/>
+        </li>
+        <li>
+            <mark>用json表示</mark> <br/>
+            :style="json"<br/>
+            复合样式，采用驼峰命名法<br/>
+            注意:  <br/>
+            在data定义以json的形式定义样式<br/>
+        </li>
+    </ol>
+
+    <div id="div2" :style="json">
+    </div>
+
+    <script>
+        var sty = {
+            width:"300px",
+            height:"50px",
+            background:"red"
+        };
+
+        new Vue({
+            el:"#div2",
+            data:{
+                json:sty
+            }
+        })
+    </script>
+
+
+    <pre>
+        &ltdiv id="div2" :style="json">
+        &lt/div>
+
+        var sty = {
+            width:"300px",
+            height:"50px",
+            background:"red"
+        };
+
+        new Vue({
+            el:"#div2",
+            data:{
+                json:sty
+            }
+        })
+
+    </pre>
+
+</div>
+
+</body>
+</html>
