@@ -1,136 +1,398 @@
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Liu ChengYuan</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700' rel='stylesheet' type='text/css'>
-        <style>
-            html, body {
-                overflow: hidden;
-                margin: 0;
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            padding:0;
+            margin:0;
+        }
+        .box>div{
+            margin-bottom:10px;
+            padding-bottom:20px;
+            border-radius:10px;
+            display:none;
+            background:rgba(255,50,0,0.4);
+        }
+
+        div{
+            clear:both;
+        }
+
+        .box>div:after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+
+        h3{
+            /*background:#2B3A42;*/
+            /*color:#fff;*/
+            font-size:30px;
+            /*line-height:60px;*/
+            /*text-align:center;*/
+            /*border-radius:10px;*/
+            padding-left:20px;
+        }
+
+        h3::after{
+            content:"×";
+            color:#fff;
+        }
+
+       .box div a{
+            display:inline-block;
+            text-decoration:none;
+            padding:6px 14px;
+            margin:10px 10px;
+            border-radius:5px;
+            color:#fff;
+        }
+        a:hover{
+            transform:scale(1.1);
+        }
+
+
+        ul,li{
+            padding:0;
+            margin:0;
+            list-style:none;
+        }
+
+        ul{
+            background:rgba(255,100,20,0.6);
+        }
+        li{
+            text-align:center;
+        }
+
+        li a{
+            line-height:8vh;
+            font-size:4vh;
+            font-weight:900;
+            color:#000;
+            text-decoration:none;
+        }
+        li a:hover{
+            background:red;
+            border-radius:5px;
+        }
+        .hidden{
+            display:none;
+        }
+
+        .show {
+            display:block;
+        }
+
+        .deep1{
+            background:rgb(201, 48, 44);
+        }
+        .deep2{
+            background:rgb(236, 151, 31);
+        }
+        .deep3{
+            background:rgb(40, 96, 144);
+        }
+        .deep4{
+            background:rgb(68, 157, 68);
+        }
+
+        @media (min-width:992px){
+            .box{
+                width:800px;
+                margin:0 auto;
             }
-            body {
-                font-family: 'Open Sans', 'Helvetica Neue', 'Hiragino Sans GB', 'LiHei Pro', Arial, sans-serif;
-                color: #333;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            function show(){
+                var ah3 = document.querySelectorAll(".box h3");
+                var adiv = document.querySelectorAll(".box>div");
+                var list = document.getElementById("list");
+                var arr = list.getElementsByTagName("a");
+                var str = '';
+                var showNow = list;//当前显示的对象
+                var hash = window.location.hash;
+
+                for(var i=0; i<ah3.length; i++){//生成列表
+                    str += '<li><a href="#div'+i + '">'+ah3[i].innerHTML+'</a></li>';
+                    adiv[i].id = "div"+i;
+
+                    ah3[i].onclick = function(){
+                        showNow.style.cssText = "display:none";
+
+                        showNow = list;
+
+                        showNow.style.cssText = "display:block";
+
+                    }
+                }
+                list.innerHTML = str;
+
+                if(hash){//如果地址后面有hash值就显示hash值指定的内容
+                    showNow.style.cssText = "display:none";
+
+                    showNow = document.getElementById(hash.substring(1));
+
+                    showNow.style.cssText = "display:block";
+                }
+
+                for(var i=0; i<arr.length; i++){//显示指定的内容
+                    arr[i].onclick = function(){
+
+                        showNow.style.cssText = "display:none";
+
+                        showNow = adiv[this.href.split("#div")[1]];
+
+                        showNow.style.cssText = "display:block";
+                    }
+                }
+
             }
-            #wrapper {
-                position: absolute;
-                left: 0;
-                width: 320px;
-                text-align: center;
-                top: 50%;
-                left: 50%;
-                margin-left: -160px;
-                margin-top: -160px;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                user-select: none;
-            }
-            h1 {
-                font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
-                font-weight: 700;
-                font-size: 22px;
-                letter-spacing: 9px;
-                text-transform: uppercase;
-                margin: 12px 0;
-                left: 4px;
-            }
-            h2 {
-                color: #999;
-                font-weight: normal;
-                font-size: 15px;
-                letter-spacing: .12em;
-                left: 3px;
-            }
-            .space {
-                margin-bottom: 30px;
-            }
-            h1, h2 {
-                position: relative;
-            }
-            p {
-                font-size: 14px;
-                line-height: 2em;
-                margin: 0;
-                letter-spacing: 2px;
-            }
-            canvas {
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-            }
-            p a {
-                color: #999;
-                transition: color .2s ease;
-                color: red;
-                font-weight: bold;
-            }
-            p a:hover {
-                color: #42b983;
-                font-size: 1.1em;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="wrapper">
-            <h1>Liu ChengYuan</h1>
-            <h2>一个热爱技术的人。</h2>
-            <h2>email: 836623330@qq.com</h2>
-            <h2><a href="tel:13257978105">phone: 132-5797-8105</a></h2>
-            <p><a href="/LiuChengYuan-frontend.doc">点击下载我的简历(word)</a></p>
-        </div>
-        <canvas></canvas>
-        <script>
-            document.addEventListener('touchmove', function (e) {
-                e.preventDefault()
-            })
-            var c = document.getElementsByTagName('canvas')[0],
-                x = c.getContext('2d'),
-                pr = window.devicePixelRatio || 1,
-                w = window.innerWidth,
-                h = window.innerHeight,
-                f = 90,
-                q,
-                m = Math,
-                r = 0,
-                u = m.PI*2,
-                v = m.cos,
-                z = m.random
-            c.width = w*pr
-            c.height = h*pr
-            x.scale(pr, pr)
-            x.globalAlpha = 0.6
-            function i(){
-                x.clearRect(0,0,w,h)
-                q=[{x:0,y:h*.7+f},{x:0,y:h*.7-f}]
-                while(q[1].x<w+f) d(q[0], q[1])
-            }
-            function d(i,j){   
-                x.beginPath()
-                x.moveTo(i.x, i.y)
-                x.lineTo(j.x, j.y)
-                var k = j.x + (z()*2-0.25)*f,
-                    n = y(j.y)
-                x.lineTo(k, n)
-                x.closePath()
-                r-=u/-50
-                x.fillStyle = '#'+(v(r)*127+128<<16 | v(r+u/3)*127+128<<8 | v(r+u/3*2)*127+128).toString(16)
-                x.fill()
-                q[0] = q[1]
-                q[1] = {x:k,y:n}
-            }
-            function y(p){
-                var t = p + (z()*2-1.1)*f
-                return (t>h||t<0) ? y(p) : t
-            }
-            document.onclick = i
-            document.ontouchstart = i
-            i()
-        </script>
-    </body>
+
+            show();
+        }
+    </script>
+</head>
+<body>
+<ul id="list">
+</ul>
+<div class="box">
+    <!-- 练习作品 -->
+<div>
+    <h3>练习作品</h3>
+    <a>豆瓣首页</a>
+    <a>淘宝首页</a>
+</div>
+
+    <!-- 工具篇 -->
+<div>
+    <h3>工具</h3>
+    <a class="deep2" href="tool/1ps.html">photoshop</a>
+    <a class="deep1" href="tool/2firebug.html">firebug</a>
+</div>
+
+    <!-- 兼容 -->
+<div>
+    <h3>兼容</h3>
+    <a class="deep2" href="css/jianron.html">css兼容</a>
+</div>
+
+
+
+
+    <!-- html -->
+<div>
+    <h3>html</h3>
+    <a class="deep3" href="html/changyongbiaoqian.html">常用标签</a>
+</div>
+    <!-- html5 -->
+<div>
+    <h3>html5</h3>
+    <a class="deep1" href="html5/1tag.html">h5新增标签</a>
+    <a class="deep2" href="html5/2biaodankongjian.html">新增表单控件</a>
+    <a class="deep2" href="html5/3biaodanshuxing.html">新增表单属性</a>
+    <a class="deep2" href="html5/4biaodanyanzheng.html">表单验证</a>
+    <a class="deep4" href="html5/5xuanzeqi.html">新增选择器</a>
+    <a class="deep4" href="html5/6classlist.html">classList</a>
+    <a class="deep4" href="html5/7json.html">json的两个方法</a>
+    <a class="deep4" href="html5/8dataset.html">dataset</a>
+    <a class="deep2" href="html5/9jsjiazai.html">js加载</a>
+    <a class="deep1" href="html5/10history.html">历史管理</a>
+    <a class="deep3" href="html5/11drag.html">draggable</a>
+    <a class="deep2" href="html5/12files.html">FileReader对象</a>
+    <a class="deep2" href="html5/13canvas.html">canvas</a>
+    <a class="deep2" href="html5/14postMessage.html">跨文档通信</a>
+    <a class="deep1" href="html5/15ajax.html">XMLHttpRequest</a>
+    <a class="deep1" href="html5/16websocket.html">websocket</a>
+    <a class="deep1" href="html5/17lixiancunchu.html">离线存储</a>
+    <a class="deep1" href="html5/18webworkers.html">webworkers</a>
+</div>
+
+    <!-- css、css3 -->
+<div>
+    <h3>css</h3>
+    <a class="deep4" href="css/style.html">常用样式</a>
+    <a class="deep4" href="css/inherit.html">继承与重写</a>
+    <a class="deep4" href="css/class.html">class</a>
+    <a class="deep4" href="css/selector.html">选择器</a>
+    <a class="deep4" href="css/danwei.html">css单位</a>
+    <a class="deep4" href="css/color.html">css颜色</a>
+    <a class="deep4" href="css/box.html">盒模型</a>
+    <a class="deep4" href="css/liu.html">流</a>
+    <a class="deep4" href="css/float.html">float</a>
+    <a class="deep4" href="css/absolute.html">绝对定位</a>
+    <a class="deep4" href="css/relative.html">相对定位</a>
+    <a class="deep4" href="css/fixed.html">固定定位</a>
+    <a class="deep3" href="css/table.html">表格布局</a>
+    <a class="deep3" href="css/reset.html">样式重置</a>
+    <a class="deep4" href="css/100cssmodule.html">css的模块化写法</a>
+
+</div>
+
+<div>
+    <h3>css3</h3>
+    <a class="deep4" href="css3/1qianzhui.html">浏览器前缀</a>
+    <a class="deep3" href="css3/2xuanzeqi.html">新增选择器</a>
+    <a class="deep4" href="css3/3rgba.html">rgba</a>
+    <a class="deep4" href="css3/4textshadow.html">text-shadow</a>
+    <a class="deep4" href="css3/5textstroke.html">text-stroke</a>
+    <a class="deep4" href="css3/6direction.html">direction</a>
+    <a class="deep2" href="css3/7fontface.html">@font-face</a>
+    <a class="deep1" href="css3/8flex.html">flex</a>
+    <a class="deep2" href="css3/9whitespace.html">white-space??</a>
+    <a class="deep3" href="css3/10boxshadow.html">box-shadow</a>
+    <a class="deep3" href="css3/11boxreflect.html">box-reflect</a>
+    <a class="deep3" href="css3/12resize.html">resize</a>
+    <a class="deep4" href="css3/13boxsizing.html">box-sizing</a>
+    <a class="deep3" href="css3/14column.html">column</a>
+    <a class="deep3" href="css3/14xiangyingshibuju.html">响应式布局</a>
+    <a class="deep4" href="css3/15borderradius.html">border-radius</a>
+    <a class="deep4" href="css3/16borderimage.html">border-image</a>
+    <a class="deep1" href="css3/17bordercolors.html">border-colors???????</a>
+    <a class="deep3" href="css3/18lineargradient.html">linear-gradient</a>
+    <a class="deep2" href="css3/19radialgradient.html">radial-gradient</a>
+    <a class="deep3" href="css3/20background.html">background(多背景)</a>
+    <a class="deep1" href="css3/21mask.html">mask</a>
+    <a class="deep3" href="css3/22transition.html">transition</a>
+    <a class="deep3" href="css3/23transform2D.html">transform2D</a>
+    <a class="deep1" href="css3/24transform3D.html">transform3D</a>
+    <a class="deep2" href="css3/25animate.html">animation</a>
+    <a class="deep2" href="question/css.html">问题及其他</a>
+
+</div>
+
+
+
+    <!-- javascript -->
+<div>
+    <h3>javascript</h3>
+    <a class="deep4" href="javascript/1basic.html">基础知识</a>
+    <a class="deep3" href="javascript/2objects.html">内置对象</a>
+    <a class="deep4" href="javascript/dom.html">DOM</a>
+    <a class="deep2" href="javascript/4bom.html">BOM</a>
+    <a class="deep4" href="javascript/5whd.html">宽高距离</a>
+    <a class="deep4" href="javascript/6event.html">事件</a>
+    <a class="deep4" href="javascript/7object.html">面向对象</a>
+    <a class="deep2" href="javascript/8regexp.html">正则表达式</a>
+    <a class="deep3" href="javascript/9dingshiqi.html">定时器与队列</a>
+    <a class="deep2" href="javascript/10ajax.html">ajax</a>
+    <a class="deep3" href="javascript/11cookie.html">cookie</a>
+    <a class="deep3" href="javascript/12shijimoshi.html">观察者模式</a>
+</div>
+
+
+
+    <!-- bootstrap -->
+<div>
+    <h3>bootstrap</h3>
+    <a class="deep1" href="bootstrap1/1begin.html">起步</a>
+    <a class="deep3" href="bootstrap1/2buju.html">栅格布局</a>
+    <a class="deep3" href="bootstrap1/3quanjuyangshi.html">全局样式</a>
+    <a class="deep3" href="bootstrap1/4table.html">表格</a>
+    <a class="deep3" href="bootstrap1/5form.html">表单</a>
+    <a class="deep3" href="bootstrap1/6button.html">按钮</a>
+    <a class="deep3" href="bootstrap1/7zujian.html">组件-按钮、菜单</a>
+    <a class="deep3" href="bootstrap1/8daohang.html">组件-导航</a>
+    <a class="deep3" href="bootstrap1/9qita.html">组件-警告框、</a>
+    <a class="deep2" href="bootstrap1/10modal.html">模态框</a>
+    <a class="deep2" href="bootstrap1/11scrollspy.html">滚动监听</a>
+    <a class="deep2" href="bootstrap1/12tabs.html">标签页</a>
+
+
+    <span style="width:100%; height:6px; background:#fff; float:left;"></span>
+    <a class="deep3" href="bootstrap1/21gewang.html">网格布局</a>
+    <a class="deep3" href="bootstrap1/22responsive.html">响应式布局</a>
+</div>
+
+
+
+    <!-- jquery -->
+<div>
+    <h3>jquery</h3>
+    <a class="deep3" href="jquery/1hexin.html">核心</a>
+    <a class="deep3" href="jquery/2event.html">事件</a>
+    <a class="deep3" href="jquery/3shuxing.html">属性</a>
+    <a class="deep3" href="jquery/4wendang.html">文档处理</a>
+    <a class="deep3" href="jquery/5shaixuan.html">筛选</a>
+    <a class="deep2" href="jquery/6shijianduixiang.html">事件对象</a>
+    <a class="deep3" href="jquery/7xuanzeqi.html">选择器</a>
+    <a class="deep3" href="jquery/8animate.html">动画</a>
+    <a class="deep3" href="jquery/9gongju.html">工具</a>
+    <a class="deep2" href="jquery/10yanchiduixiang.html">延迟对象</a>
+    <a class="deep3" href="jquery/11huidiaohanshu.html">回调函数</a>
+</div>
+
+
+
+
+    <!-- vuejs -->
+<div>
+    <h3>vuejs</h3>
+    <a class="deep4" href="vuejs/1zhiling.html">模板语法</a>
+    <a class="deep2" href="vuejs/2zujian.html">组件定义与注册</a>
+    <a class="deep2" href="vuejs/2zujian2.html">组件通信</a>
+    <a class="deep2" href="vuejs/2zujian3.html">组件slot</a>
+
+    <a class="deep3" href="vuejs/3option.html">配置</a>
+    <a class="deep3" href="vuejs/3shili.html">实例属性和方法</a>
+    <a class="deep3" href="vuejs/4life.html">实例的生命周期</a>
+    <a class="deep3" href="vuejs/5jisuanshuxing.html">计算属性和观察者</a>
+    <a class="deep4" href="vuejs/6classstyle.html">class和style</a>
+    <a class="deep4" href="vuejs/7filter.html">过滤器</a>
+    <a class="deep3" href="vuejs/8directive.html">自定义指令</a>
+    <a class="deep2" href="vuejs/9animation.html">过渡与动画</a>
+    <a class="deep2" href="vuejs/10globalAPI.html">全局API</a>
+    <a class="deep2" href="vuejs/11vueresource.html">vue_resource插件</a>
+    <a class="deep2" href="vuejs/12router.html">vue_router插件</a>
+    <a class="deep2" href="vuejs/13vue-cli.html">vue cli</a>
+    <a class="deep2" href="vuejs/100wenti.html">问题</a>
+</div>
+
+    <!-- es6 -->
+<div>
+    <h3>es6</h3>
+    <a class="deep3" href="es6/1before.html">简介</a>
+    <a class="deep3" href="es6/2const.html">let 和 const 命令</a>
+    <a class="deep3" href="es6/3class.html">class</a>
+    <a class="deep3" href="es6/4classextend.html">class继承</a>
+    <a class="deep1" href="es6/5moudle.html">moudle</a>
+    <a class="deep2" href="es6/6promise.html">promise</a>
+    <a class="deep2" href="es6/7destructuring.html">变量的结构赋值</a>
+    <a class="deep2" href="es6/8function.html">箭头函数</a>
+    <a class="deep2" href="es6/9symbol.html">Symbol数据类型</a>
+    <a class="deep2" href="es6/10Set_Map.html">Set、Map</a>
+    <a class="deep1" href="es6/11proxy.html">Proxy</a>
+    <a class="deep1" href="es6/12reflect.html">reflect</a>
+    <a class="deep1" href="es6/13Iterator.html">遍历器和for...of</a>
+</div>
+
+    <!-- webpack -->
+<div>
+    <h3>webpack</h3>
+    <a class="deep1" href="webpack/1webpack.html">webpack入门</a>
+    <a class="deep1" href="webpack/2gainian.html">概念</a>
+</div>
+
+    <!-- nodejs -->
+<div>
+    <h3>nodejs</h3>
+</div>
+
+    <!-- php -->
+<div>
+    <h3>php</h3>
+</div>
+
+    <!-- mysql -->
+<div>
+    <h3>mysql</h3>
+</div>
+
+</div>
+</body>
 </html>
