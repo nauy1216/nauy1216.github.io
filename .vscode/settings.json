@@ -1,0 +1,30 @@
+{
+  // tab 大小为2个空格
+  "editor.tabSize": 2,
+  // 编辑器换行
+  "editor.wordWrap": "off",
+  // 保存时格式化
+  "editor.formatOnSave": true,
+  // 开启 vscode 文件路径导航
+  "breadcrumbs.enabled": true,
+  // prettier 设置语句末尾不加分号
+  "prettier.semi": false,
+  // prettier 设置强制单引号
+  "prettier.singleQuote": true,
+  // 选择 vue 文件中 template 的格式化工具
+  "vetur.format.defaultFormatter.html": "js-beautify-html",
+  // vetur 的自定义设置
+  "vetur.format.defaultFormatterOptions": {
+    "js-beautify-html": {
+      "wrap_line_length": 120,
+      "wrap_attributes": "auto"
+    },
+    "prettier": {
+      "singleQuote": true,
+      "semi": false,
+      "printWidth": 100,
+      "wrapAttributes": true,
+      "sortAttributes": true
+    }
+  }
+}
