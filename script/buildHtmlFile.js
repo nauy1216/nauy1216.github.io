@@ -50,8 +50,8 @@ function build(dir) {
     } else {
       let relativeUrl = dir.split('\\docs\\')[1].replace(/\\/g, '/')
       let url
-      if (/.html$/.test) {
-        url = relativeUrl + '/' + child
+      if (/.html$/.test(child)) {
+        url = 'docs' + '/' + relativeUrl + '/' + child
       } else {
         url = baseUrl + '/' + relativeUrl + '/' + child
       }
