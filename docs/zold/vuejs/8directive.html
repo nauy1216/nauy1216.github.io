@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../vue.min.js"></script>
+</head>
+<body >
+<div class="box">
+    <h3>属性指令</h3>
+    指令: 扩展html语法
+
+    <ol>
+       <mark> 钩子函数</mark>
+        <li>
+            <strong>bind：</strong> <br/>
+            只调用一次，指令第一次绑定到元素时调用，用这个钩子函数可以定义一个在绑定时执行一次的初始化动作。
+        </li>
+       <li>
+            <strong>inserted：</strong> <br/>
+           被绑定元素插入父节点时调用 (父节点存在即可调用，不必存在于 document 中)。
+       </li>
+       <li>
+            <strong>update：</strong> <br/>
+           所在组件的 VNode 更新时调用，但是可能发生在其孩子的 VNode 更新之前。
+       </li>
+       <li>
+            <strong>componentUpdated：</strong> <br/>
+           所在组件的 VNode 及其孩子的 VNode 全部更新时调用。
+       </li>
+       <li>
+            <strong>unbind：</strong> <br/>
+          只调用一次，指令与元素解绑时调用。
+       </li>
+    </ol>
+
+    <ol>
+        <mark>勾子函数参数</mark>
+        <li>
+            <strong>el：</strong> <br/>
+            指令所绑定的元素，可以用来直接操作 DOM 。
+        </li>
+        <li>
+            <strong>binding：</strong> <br/>
+            一个对象，包含以下属性：
+            <ol>
+                <li>
+                    <strong>name：</strong><br/>
+                    指令名，不包括 v- 前缀。
+                </li>
+                <li>
+                    <strong>value：</strong><br/>
+                    指令的绑定值，例如：v-my-directive="1 + 1", value 的值是 2。
+                </li>
+                <li>
+                    <strong>oldValue：</strong><br/>
+                    指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。
+                </li>
+                <li>
+                    <strong>expression：</strong><br/>
+                    绑定值的字符串形式。例如 v-my-directive="1 + 1" ，expression 的值是 "1 + 1"。
+                </li>
+                <li>
+                    <strong>arg：</strong><br/>
+                    传给指令的参数。例如 v-my-directive:foo，arg 的值是 "foo"。
+                </li>
+               <li>
+                    <strong>modifiers：</strong><br/>
+                   一个包含修饰符的对象。例如：v-my-directive.foo.bar, 修饰符对象 modifiers 的值是 { foo: true, bar: true }。
+               </li>
+
+            </ol>
+        </li>
+       <li>
+            <strong>vnode：</strong> <br/>
+            Vue 编译生成的虚拟节点
+        </li>
+       <li>
+            <strong>oldVnode：</strong> <br/>
+           上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用。
+        </li>
+    </ol>
+    <pre>
+        指令名称:
+        v-red  ->  red
+        定义时不带v-， 使用时必须带。
+
+        Vue.directive("指令名称",function(el,参数){
+
+            el	// 第一个参数指向添加指令的元素
+
+        });
+
+        局部指令
+        directives: {
+          focus: {
+            // 指令的定义---
+          }
+        }
+
+    </pre>
+
+    <div v-style:background="'red'" id="demo">
+        <p>{{msg}}</p>
+        <input type="text" v-model="msg"/>
+    </div>
+    <div id="demoIn"></div>
+
+    <script>
+        Vue.directive("style",{
+            bind:function(el, binding, vnode){
+                var attr = binding.arg;
+                el.style[attr] =  binding.value;
+
+                alert("执行bind");
+                var s = JSON.stringify;
+                document.getElementById("demoIn").innerHTML += 'name: '       + s(binding.name) + '<br>' +
+                        'value: '      + s(binding.value) + '<br>' +
+                        'expression: ' + s(binding.expression) + '<br>' +
+                        'argument: '   + s(binding.arg) + '<br>' +
+                        'modifiers: '  + s(binding.modifiers) + '<br>' +
+                        'vnode keys: ' + Object.keys(vnode).join(', ')
+            },
+            inserted:function(){
+                alert("执行inserted");
+            },
+            update:function(){
+                alert("执行update");
+            },
+            componentUpdated:function(){
+                alert("执行componentUpdated");
+            },
+            unbind:function(){
+                alert("执行unbind");
+            }
+        });
+
+        var vm = new Vue({
+            el:"#demo",
+            data:{
+                msg:"hello",
+                sty:{
+                    width:"400px",
+                    background:"red"
+                }
+            }
+        })
+    </script>
+
+    <pre>
+         Vue.directive("style",{
+            bind:function(el, binding, vnode){
+                var attr = binding.arg;
+                el.style[attr] =  binding.value;
+
+                alert("执行bind");
+
+                var s = JSON.stringify;
+                document.getElementById("demoIn")
+                .innerHTML += 'name: '       + s(binding.name) + '<br>' +
+                    'value: '      + s(binding.value) + '<br>' +
+                    'expression: ' + s(binding.expression) + '<br>' +
+                    'argument: '   + s(binding.arg) + '<br>' +
+                    'modifiers: '  + s(binding.modifiers) + '<br>' +
+                    'vnode keys: ' + Object.keys(vnode).join(', ')
+
+            },
+            inserted:function(){
+                alert("执行inserted");
+            },
+            update:function(){
+                alert("执行update");
+            },
+            componentUpdated:function(){
+                alert("执行componentUpdated");
+            },
+            unbind:function(){
+                alert("执行unbind");
+            }
+        });
+
+        var vm = new Vue({
+            el:"#demo",
+            data:{
+                msg:"hello",
+                sty:{
+                    width:"400px",
+                    background:"red"
+                }
+            }
+        })
+
+    </pre>
+
+    <h3>元素指令:（用处不大,了解即可）</h3>
+    <pre>
+        Vue.elementDirective('zns-red',{
+            bind:function(){
+                this.el.style.background='red';
+            }
+        });
+    </pre>
+
+    <h3>自定义键盘信息(有问题。。。。。。)</h3>
+    <p>
+        @keydown.up <br/>
+        @keydown.enter <br/> <br/>
+
+        @keydown.a/b/c.... <br/> <br/>
+
+        自定义键盘信息: <br/>
+        Vue.directive('on').keyCodes.ctrl=17; <br/>
+        Vue.directive('on').keyCodes.myenter=13;
+
+    </p>
+
+    <div id="demo1">
+        <input type="text" @keyup="fn"/>
+    </div>
+    <script>
+        //Vue.directive('on').keyCodes.myenter=13;
+
+        new Vue({
+            el:"#demo1",
+            methods:{
+                fn:function(){
+                    alert("enter")
+                }
+            }
+        })
+
+    </script>
+
+</div>
+
+</body>
+</html>

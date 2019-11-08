@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../vue.min.js"></script>
+</head>
+<body >
+<div class="box">
+    <h3>过滤器</h3>
+    <p>
+        作用：过滤模板数据,使用处理过的数据。model ->过滤 -> view。
+        <br/>
+
+        用法：<br/>
+        {{msg| filterA}}<br/>
+        {{msg| filterA | filterB}}//使用多个过滤器<br/>
+        {{msg| filterA(参数)}}<br/><br/>
+
+        系统提供一些过滤器:
+        <br/>
+        uppercase	eg:	{{'welcome'| uppercase}}<br/>
+        lowercase<br/>
+        capitalize<br/><br/>
+
+        currency	钱<br/>
+        ....<br/><br/>
+
+        数据配合使用过滤器:<br/>
+        limitBy 取几个  从哪开始 <br/>
+        //只有一个参数时默认从第0个开始取
+        limitBy 4<br/><br/>
+
+        filterBy	<br/>
+        过滤数据,将包含指定内容的数据找出来
+        filterBy ‘谁’<br/><br/>
+
+        orderBy	排序<br/>
+        orderBy 谁 1/-1<br/>
+        1  -> 正序<br/>
+        -1  -> 倒序<br/>
+    </p>
+
+
+    <h3>自定义过滤器</h3>
+    <h4>用法</h4>
+    <pre>
+        Vue.filter(name,function(input){
+
+        //在创建vue实例对象前定义，需要过滤的数据作为函数的第一个参数
+
+        });
+    </pre>
+    <pre>
+        <strong>有问题，用不了</strong>
+        双向过滤器:*
+        Vue.filter('filterHtml',{
+
+            read:function(input){                      //model-view
+                return input.replace(/<[^<+]>/g,'');
+            },
+            write:function(val){                       //view -> model
+                return val;
+            }
+
+        });
+
+        数据 -> 视图
+        model -> view
+
+        view -> model
+    </pre>
+
+    <h1 id="demo1">{{ num|double }}&nbsp&nbsp&nbsp&nbsp&nbsp{{ num2|before("￥") }}</h1>
+    <script>
+        Vue.filter("double",function(input) {
+                return input * 2;
+        });
+
+        Vue.filter("before",function(input,str) {
+                return "" + str + input;
+        });
+
+        new Vue({
+            el:"#demo1",
+            data:{
+                num:12,
+                num2:200
+            }
+        })
+    </script>
+
+    <pre>
+        //将数据乘以2输出
+        Vue.filter("double",function(input) {
+            return input * 2;
+        });
+
+        //在数据强添加中指定的前缀输出
+        Vue.filter("before",function(input,str) {
+            return "" + str + input;
+        });
+
+
+        new Vue({
+            el:"#demo1",
+            data:{
+                num:12
+            }
+        })
+
+    </pre>
+</div>
+
+</body>
+</html>

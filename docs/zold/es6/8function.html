@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../index.js"></script>
+    <script src="../babel.js"></script>
+    <script>
+
+    </script>
+</head>
+<body >
+
+<div class="box">
+    <h3>函数参数的默认值 </h3>
+    <p>
+        可以配合解构赋值使用。
+    </p>
+    <pre>
+        function log(x, y = 'World') {
+          console.log(x, y);
+        }
+    </pre>
+    <p>
+        参数变量是默认声明的，所以不能用let或const再次声明。
+    </p>
+    <pre>
+        function foo(x = 5) {
+          let x = 1; // error
+          const x = 2; // error
+        }
+    </pre>
+    <p>
+        通常情况下，定义了默认值的参数，应该是函数的尾参数。因为这样比较容易看出来，到底省略了哪些参数。如果非尾部的参数设置默认值，实际上这个参数是没法省略的。
+    </p>
+
+    <h3>函数的 length 属性</h3>
+    <p>
+        返回的是从 第一个参数 开始到 第一的带有默认值的参数 的不带默认值的参数的个数。
+        就算 带有默认值的参数 后面有 不带有默认值的参数 也不计算在内。
+    </p>
+
+    <pre>
+        (function (a = 0, b, c) {}).length // 0
+        (function (a, b, c) {}).length // 3
+        (function (a, b = 1, c) {}).length // 1
+    </pre>
+
+    <h3>作用域</h3>
+    <p>
+        一旦设置了参数的默认值，函数进行声明初始化时，参数会形成一个单独的作用域（context）。等到初始化结束，这个作用域就会消失。这种语法行为，在不设置参数默认值时，是不会出现的。
+    </p>
+    <pre>
+        var x = 1;
+
+        function f(x, y = x) {
+          console.log(y);
+        }
+
+        f(2) // 2 为什么不是1？？
+    </pre>
+
+    <pre>
+        var x = 1;//这个x与函数没有任何关系，因为函数内部定义了x
+
+        function foo(x, y = function() { x = 2; }) {
+            console.log(x);//undefined
+            var x = 3;
+            console.log(x);//3
+            y();//结果是3 ，是因为参数设置默认值时会有一个单独的作用域,形成了一个闭包
+            console.log(x);
+        }
+
+        foo() // 3
+        console.log(x)// 1
+
+
+        //上面的例子相当于下面的代码
+        //y设置默认值时形成了一个独立的作用域
+        function foo1(x,y){
+            (function(x){
+                if(y==undefined){
+                    //改变的是传进来的参数的值
+                    //因为基本类型的赋值是复制
+                    y = function (){ x = 2; }
+                }
+            })(x);
+
+            var x = 3;
+            y();
+            console.log(x)
+        }
+
+        foo1()
+
+        function foo2(x, y = function() { x = 2; }) {
+            console.log(x);//undefined
+            y();
+            console.log(x);
+        }
+
+        foo2() // 2
+    </pre>
+    <p>
+        但有一点不一样的是，用babel解析得到的结果是2。不知到怎么回事。
+    </p>
+
+    <mark>参数默认值的应用</mark>
+    <p>
+        可以给参数赋值一个默认函数，这个函数抛出一个错误对象。
+    </p>
+
+    <pre>
+        function throwErr(x){
+            throw new Error(x + "参数不能为空！")
+        }
+
+        function foo(x = throwErr("x")){
+
+        }
+
+        foo();
+    </pre>
+
+    <h3>`rest 参数</h3>
+    <p>
+        ES6 引入 rest 参数（形式为...变量名），用于获取函数的多余参数，这样就不需要使用arguments对象了。rest 参数搭配的变量是一个数组，该变量将多余的参数放入数组中。
+        <br/>定义的rest参数是一个数组。
+    </p>
+    <pre>
+        function add(...arr){
+            if(!arr.length){
+                return "请输入数字";
+            }
+            var n = 0;
+            for( number in arr ){
+                n += arr[number];
+            }
+            return n;
+        }
+
+        console.log(add())
+    </pre>
+    <pre>
+        function push(array, ...items) {
+          items.forEach(function(item) {
+            array.push(item);
+            console.log(item);
+          });
+        }
+
+        var a = [];
+        push(a, 1, 2, 3)
+    </pre>
+    <p>
+        <strong class="text-red">注意，rest 参数之后不能再有其他参数（即只能是最后一个参数），否则会报错。</strong>
+    </p>
+
+    <h3>函数的name属性</h3>
+    <p>
+        函数的name属性返回函数的名字。
+    </p>
+
+    <h3>箭头函数</h3> <br/>
+    <mark>基本用法。</mark>
+    <pre>
+        var  a = v => v;
+        //相当于
+        var a = function(v){
+            return v;
+        }
+
+        var b = () => 5;
+        //相当于
+        var b = function(){
+            return 5;
+        }
+
+        var c = (num1, num2) => num1 + num2;
+        //相当于
+        var c = function(num1, num2) {
+            return num1 + num2;
+        };
+
+        //如果代码块不止一条一句，就必须用{}包起来。
+    </pre>
+
+    <mark>注意事项</mark>
+    <ol>
+        <li>
+            函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+            <pre>
+                function Timer() {
+                    this.s1 = 0;
+                    this.s2 = 0;
+                    // 箭头函数,this指向的是timer对象
+                    setInterval(() => {this.s1++; alert(this)}, 1000);
+                    // 普通函数
+                    setInterval(function () {
+                        this.s2++;//window
+                        alert(this)
+                    }, 1000);
+                }
+
+                var timer = new Timer();
+
+                setTimeout(() => console.log('s1: ', timer.s1), 3100);
+                setTimeout(() => console.log('s2: ', timer.s2), 3100);
+
+                // s1: 3
+                // s2: 0
+            </pre>
+        </li>
+        <li>
+            不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+        </li>
+        <li>
+            不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
+        </li>
+        <li>
+            不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
+        </li>
+    </ol>
+
+
+    <h3>双冒号运算符</h3>
+    <p>
+        箭头函数可以绑定this对象，大大减少了显式绑定this对象的写法（call、apply、bind）。
+    </p>
+    <p>
+        函数绑定运算符是并排的两个冒号（::），双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（即this对象），绑定到右边的函数上面。
+    </p>
+
+    <pre>
+        foo::bar;
+        // 等同于
+        bar.bind(foo);
+
+        foo::bar(...arguments);
+        // 等同于
+        bar.apply(foo, arguments);
+
+    </pre>
+</div>
+</body>
+</html>

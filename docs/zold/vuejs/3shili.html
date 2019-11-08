@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../vue.min.js"></script>
+</head>
+<body >
+<div class="box">
+        <h1>属性</h1>
+        <h3>vm.$data</h3>
+        访问实例中的data配置。
+
+        <h3>vm.$el</h3>
+        访问实例使用的根 DOM 元素。
+
+        <h3>vm.$options</h3>
+        访问自定义的属性。
+
+        <pre>
+        var vm = new Vue({
+            aa:"hello"
+        })
+
+        alert(vm.$options.aa)//hello
+        alert(vm.aa)//undefined
+
+        </pre>
+
+        <h3>vm.$parent</h3>
+
+        <ul>
+            <li>在子组件内对父组件引用。</li>
+        </ul>
+
+        <div id="demo1" >
+             <app2></app2>
+        </div>
+
+        <template id="inner">
+            <div style="color:red; border:2px solid red;">
+                这里是内部组件
+                <button @click="parent">点击我查看parent</button>
+            </div>
+        </template>
+
+        <template id="outer">
+            <div style="border: 1px solid #ccc;width:200px;">
+                外部组件内部 <br/>
+                {{msg}}
+                <inner-component></inner-component>
+            </div>
+        </template>
+
+        <script>
+        //定义内部部组件
+        var Inner = {
+            template: '#inner',
+            methods:{
+                parent:function(){
+                    this.$parent.msg = "父组件你好"
+                    alert("通过对父组件的引用，改变msg")
+                }
+            }
+        };
+
+        //定义外部组件
+        var  Outer = {
+            template: '#outer',
+            data:function(){
+                return{
+                    msg:"........."
+                }
+            },
+            components: {
+                // 调用内部组件
+                'inner-component': Inner
+            }
+        };
+
+        // 注册父组件
+        Vue.component('app2', Outer);
+        //复用子组件。
+        Vue.component('app1', Inner);
+
+        var vm = new Vue({
+            el:"#demo1",
+            data:{
+
+            }
+        });
+        </script>
+
+<h3>vm.$root</h3>
+    <ul>
+        <li>
+            当前组件树的根 Vue 实例。如果当前实例没有父实例，此实例将会是其自己。
+        </li>
+    </ul>
+
+<h3>vm.$children</h3>
+    <ul>
+        <li>
+            当前实例的直接子组件。需要注意 $children 并不保证顺序，也不是响应式的。
+        </li>
+    </ul>
+
+
+<h3>vm.$slots</h3>
+    <ul>
+        <li>
+            用来访问被插槽分发的内容。每个具名插槽 有其相应的属性 (例如：slot="foo" 中的内容将会在 vm.$slots.foo 中被找到)。default 属性包括了所有没有被包含在具名插槽中的节点。
+        </li>
+    </ul>
+
+
+    <h3>vm.$refs</h3>
+    <ul>
+        <li>
+            一个对象，其中包含了所有拥有 ref 注册的子组件。
+        </li>
+    </ul>
+
+
+
+    <h1>实例方法</h1>
+    <h3>vm.$watch()</h3>
+    <ol>
+        <li>
+            观察 Vue 实例变化的一个表达式或计算属性函数。
+            回调函数得到的参数为新值和旧值。
+            表达式只接受监督的键路径。
+            对于更复杂的表达式，用一个函数取代。
+        </li>
+        <li>
+            <strong>注意：键路径、回调函数的参数。</strong>
+            <pre>
+            // 键路径
+            vm.$watch('a.b.c', function (newVal, oldVal) {
+              // 做点什么
+            })
+            </pre>
+        </li>
+
+        <li>
+            vm.$watch 返回一个取消观察函数，用来停止触发回。
+            <pre>
+                var unwatch = vm.$watch('a', cb)
+                // 之后取消观察
+                unwatch()
+            </pre>
+        </li>
+    </ol>
+
+    <div id="app1">
+        <button @click="a='haha'">改变a的值</button>
+        <button @click="b='hh'">改变b的值</button>
+        <button @click="b.bb='hh'">改变b.bb的值</button>
+        <button @click="c.cc='hh'">改变c.cc的值</button>
+        <button @click="c.cc='hh'">改变c.cc的值,{deep:true}</button>
+        <button @click="c.dd='hh'">改变c.cc的值,{immediate: true}</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#app1",
+            data:{
+                a:"hello",
+                b:{
+                    bb:"world"
+                },
+                c:{
+                    cc:"nihao",
+                    dd:"kidkfm"
+                }
+            }
+        })
+
+        vm.$watch("a",function(newv,oldv){
+            alert("旧的值："+oldv+"新的值："+newv)
+        })
+
+        vm.$watch("b",function(newv,oldv){
+            alert("旧的值："+oldv+"新的值："+newv)
+        })
+
+        vm.$watch("c.cc",function(newv,oldv){
+            alert("旧的值："+ oldv +"新的值："+ newv )
+        })
+
+        //深度监控c
+        vm.$watch("c",function(newv,oldv){
+            alert("旧的值："+ JSON.stringify(oldv) +"新的值："+ JSON.stringify(newv) )
+        },{ deep:true })
+
+        //以当前值立刻触发
+        vm.$watch("c.dd",function(newv,oldv){
+            alert( "ok" )
+        },{ immediate:true })
+
+    </script>
+
+    <pre>
+    &ltdiv id="app1">
+        &ltbutton @click="a='haha'">改变a的值&lt/button>
+        &ltbutton @click="b='hh'">改变b的值&lt/button>
+        &ltbutton @click="b.bb='hh'">改变b.bb的值&lt/button>
+        &ltbutton @click="c.cc='hh'">改变c.cc的值&lt/button>
+        &ltbutton @click="c.cc='hh'">改变c.cc的值,深度监控&lt/button>
+        &ltbutton @click="c.dd='hh'">改变c.cc的值,{immediate: true}&lt/button>
+    &lt/div>
+
+
+
+        var vm = new Vue({
+            el:"#app1",
+            data:{
+                a:"hello",
+                b:{
+                    bb:"world"
+                },
+                c:{
+                    cc:"nihao"
+                }
+            }
+        })
+
+        vm.$watch("a",function(newv,oldv){
+            alert("旧的值："+oldv+"新的值："+newv)
+        })
+
+        vm.$watch("b",function(newv,oldv){
+            alert("旧的值："+oldv+"新的值："+newv)
+        })
+
+        vm.$watch("c.cc",function(newv,oldv){
+            alert("旧的值："+ oldv +"新的值："+ newv )
+        })
+
+         //深度监控c
+        vm.$watch("c",function(newv,oldv){
+            alert("旧的值："+ JSON.stringify(oldv) +"新的值："+ JSON.stringify(newv) )
+        },{ deep:true })
+
+        //以当前值立刻触发
+        vm.$watch("c.dd",function(newv,oldv){
+            alert( "ok" )
+        },{ immediate:true })
+    </pre>
+
+
+    <h3>vm.$on()</h3>
+    <ol>
+        <li>
+            监听 <strong>当前实例 </strong>上的自定义事件。
+            事件可以由vm.$emit触发。
+            回调函数会接收所有传入事件触发函数的额外参数。
+        </li>
+        <li>
+            vm.$on( event, callback )
+        </li>
+    </ol>
+   <h3>vm.$once()</h3>
+    <ol>
+        <li>
+            监听一个自定义事件，但是只触发一次，在第一次触发之后移除监听器。
+        </li>
+    </ol>
+
+   <h3>vm.$off()</h3>
+    <ol>
+        <li>
+            移除自定义事件监听器。 <br/>
+
+            如果没有提供参数，则移除所有的事件监听器； <br/>
+
+            如果只提供了事件，则移除该事件所有的监听器； <br/>
+
+            如果同时提供了事件与回调，则只移除这个回调的监听器。
+        </li>
+        <li>
+            vm.off("eventname",cbname)
+        </li>
+    </ol>
+
+   <h3>vm.$emit()</h3>
+    <ol>
+        <li>
+            触发当前实例上的事件。附加参数都会传给监听器回调。
+        </li>
+        <li>
+            vm.$emit("eventname",data）
+        </li>
+    </ol>
+
+
+   <h3>vm.$mount()</h3>
+    <ol>
+        <li>
+            如果 Vue 实例在实例化时没有收到 el 选项，
+            则它处于“未挂载”状态，没有关联的 DOM 元素。
+            可以使用 vm.$mount() 手动地挂载一个未挂载的实例。
+        </li>
+        <li>
+            这个方法返回实例自身，因而可以链式调用其它实例方法。
+        </li>
+    </ol>
+
+    <div id="app2">
+        <h4>你好！我是来占位置的！！！</h4>
+    </div>
+    <script>
+        var mycomponent = Vue.extend({
+            template:"<h4>hello</h4>"
+        })
+
+        //在将一个有自己模板的Vue实例挂载到文档中时，
+        // 会替换掉原有位置的内容
+        //在这里会替换掉整个div
+        //new mycomponent().$mount("#app2");
+
+        //new mycomponent({ el:"#app2" })
+
+        //以这种方式将会将组件添加到div的内部，而不是替换
+        var comp = new mycomponent().$mount();
+        document.getElementById("app2").appendChild(comp.$el);
+
+    </script>
+
+</div>
+
+</body>
+</html>

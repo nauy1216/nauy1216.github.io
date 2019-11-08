@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../vue.min.js"></script>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>1、对象属性类型</h3>
+    <p><h4>1、数据属性特性</h4>
+        <mark>[[configurable]]</mark>: <br/>
+        可重新配置的。设置为false后不可逆转，不能再设置属性的特性。
+        delel writeable 可修改为访问器属性均不可重新配置。<br/>
+
+        <mark>[[enumerable]]</mark>：可遍历的。<br/>
+
+        <mark>[[writeable]]</mark>：可修改的。<br/>
+
+        <mark>[[value]]</mark>：属性的值，读写操作。<br/><br/>
+
+        <mark>注意：</mark><br/>
+        在对象上直接定义的属性，所有特性的值均为true。<br/>
+        采用Object.defineProperty()定义的，如不指定均为false。
+        <h4>2、访问器属性特性</h4>
+        <mark>[[configurable]]</mark>:可重新配置的。用法与上面一样。<br/>
+
+        <mark>[[enumerable]]</mark>：可遍历的。默认true<br/>
+
+        <mark>[[set]]</mark>：写  默认undefined<br/>
+
+        <mark>[[get]]</mark>：读  默认undefined<br/><br/>
+        <mark>注意：</mark><br/>
+        访问器属性只能通过Object.defineProperty()定义。<br/>
+        读访问器属性时，触发get()函数。<br/>
+        写访问器属性时，触发set()函数。<br/>
+        <mark>作用：</mark>
+        可以用来监听访问器属性的变化。<br/>
+    </p>
+
+    <h3>2、定义属性</h3>
+    <p><h4>1、Object.defineProperty();</h4>
+
+        <mark>作用</mark>：定义一个对象的属性，并且定义属性的特性。<br/>
+        <mark>用法</mark>：必须有三个参数。<br/>
+
+        <mark>（1）定义数据属性</mark><br/>
+        定义属性的同时，设置属性的特性。
+<pre>
+    var person = {};
+
+    Object.defineProperty(person,"name",{
+        configurable:true,
+        enumerable:true,
+        writable:false,//不可修改
+        value:"liuchengyuan"
+    });
+
+    console.log(person.name);//liuchengyuan
+    person.name = "keke";
+    console.log(person.name);//liuchengyuan
+</pre>
+
+        设为configurable:false后,不可逆转。其他的特性可多次设置。
+<pre>
+    var person = {};
+
+    Object.defineProperty(person,"name",{
+        configurable:false,
+        value:"liuchengyuan"
+    });
+
+    person.name = "keke";
+    console.log(person.name);//liuchengyuan
+    delete person.name;
+    console.log(person.name);//liuchengyuan
+
+    Object.defineProperty(person,"name",{//报错，不可逆转
+        configurable:true,
+        value:"liuchengyuan"
+    });
+</pre>
+        <mark>（2）定义访问器属性</mark>
+<pre>
+    var book= {
+        year:2006
+    };
+
+    Object.defineProperty(book,"year",{//将数据属性year，变成访问器属性。
+        configurable:true,
+        get:function(){         //每次读取year时触发
+            alert("读取数据了");
+            return book.$year;
+        },
+        set:function(newValue){  //每次改写year时触发
+            alert("改动数据了");
+            this.$year = newValue;
+            //不能给自己赋值，要不会连续触发set函数。
+        }
+    });
+
+    book.year = 2007;//写
+    book.year;//读
+</pre>
+    <h4>2、Object.definePropertys()</h4>
+
+    <mark>同时定义多个属性。</mark>
+<pre>
+    var book = {};
+
+    Object.definePropertys(book,{
+        _year:{
+            writable:true,
+            value:2004
+        },
+        edition:{
+            writable:true,
+            value:1
+        },
+        year:{
+            get:function(){
+                 return this._year;
+            },
+            set:function(){
+                this.value = this._year;
+            }
+        }
+    });
+</pre>
+
+    </p>
+    <h3>3、创建对象的方式</h3>
+    <p><h4>（1）对象字面量</h4>
+<pre>
+    var Person = {
+        name:"liu",
+        sayName:function(){
+
+        }
+    };
+</pre>
+
+        <h4>（2）工厂模式</h4>
+<pre>
+    function Person(name){
+        var o = new Object();
+
+        o.name = name;
+        o.sayName = function(){
+            alert(this.name);
+        };
+
+        return o;
+    }
+
+    Person("liu").sayName();
+
+    ----------------------
+
+    function Person(name){
+        var sayName = function(){
+            alert(this.name);
+        };
+        return{
+            "name":name,
+            "sayName":sayName
+        };
+    }
+    Person("liu").sayName();
+
+</pre>
+
+        <h4>（3）构造函数模式</h4>
+        <mark>有对象类型,能有对象识别。</mark>
+<pre>
+    function Person(name){
+        this.name = name;
+        this.sayName = function(){
+            alert(this.name);
+        };
+    }
+
+    var p = new Person("liu");
+    p.sayName();//liu
+</pre>
+
+        <h4>（4）原型模式</h4>
+        <mark>prototype：</mark>
+        构造函数的属性，指向原型对象。
+        <br/><br/>
+
+        <mark>constructor：</mark>
+        原型对象的属性，指向构造函数。
+        如果重写对象，则会改变这个指向。<br/><br/>
+
+        <mark>原型对象：</mark>用于保存所有的实例对象共享的属性和方法。<br/><br/>
+
+        例如：<br/>
+        Person.prototype = {};<br/>
+        此时Person.prototype.constructor指的是{}的构造函数。这是因为Person的原型{}并没有
+        constructor属性，于是从{}的原型查找。<br/>
+        可以重新指向：Person.prototype.constructor = Person；<br/><br/>
+
+        <mark>构造函数（也是对象）与原型对象的关系</mark>：<br/>
+        Person.prototype             ======>    原型对象<br/>
+        Person.prototype.constructor ======>    构造函数<br/><br/>
+
+        <mark>实例对象访问属性的过程：</mark><br/>
+        首先访问自己私有的属性，如果没有则访问原型对象的同名属性。
+
+<pre>
+    function Person(){
+
+    }
+    Person.prototype.name  = "liu";
+    Person.prototype.sayName = function(){
+        alert(this.name);
+    };
+</pre>
+
+        <h4>（5）构造函数加原型模式</h4>
+<pre>
+    function Person(name){
+        this.name  = name;
+    }
+
+    Person.prototype.sayName = function(){
+        alert(this.name);
+    };
+</pre>
+
+
+        <h4>（6）动态混合模式</h4>
+<pre>
+    function Person(name){
+        this.name  = name;
+
+        if(typeof this.sayName != "function"){
+            Person.prototype.sayName = function(){
+                alert(this.name);
+            };
+        }
+    }
+</pre>
+    </p>
+
+    <h3>4、继承</h3>
+    <p> 在js里，继承主要有两个部分，<mark>继承属性</mark>和<mark>继承方法</mark>。
+        下面举个例子，先定义Person对象，然后定义Worker继承Person对象。
+
+<pre>
+    //Person对象
+    function Person(name){
+        this.name =  name;
+    }
+
+    Person.prototype.sayName = function(){
+        alert(this.name);
+    }
+</pre>
+
+        <h4>（1）继承属性</h4>
+        通过调用父类的构造函数，改变this的指向，来继承所有父类的属性。
+<pre>
+    function Worker(name ,age){
+        this.age = age;
+        Person.call(this,name);
+    }
+</pre>
+
+        <h4>（2）继承方法</h4>
+        <mark>第一种方法：直接引用原型。</mark>
+<pre>
+    Worker.prototype = Person.prototype;
+    Worker.prototype.constructor = Worker;
+</pre>
+
+        问题：父类对象与子类对象不能通过instance区分。<br/><br/>
+
+        <mark>第二种方法：原型为通过父类原型新创建的一个对象。（完美）</mark>
+
+<pre>
+    inherit(Worker,Person);//继承方法
+
+    function inherit(sub,sup){
+        var prototype = object(sup.prototype);
+        prototype.constructor = sub;
+        sub.prototype = prototype;
+
+        function object(o){
+            function F(){}
+            F.prototype = o;
+            return new F();
+        }
+
+    }
+</pre>
+
+        <mark>第三种方法：遍历父类原型，拷贝成一个新的对象，作为子类的原型。</mark>
+<pre>
+    var person = {};
+
+    for(var attr in Person.prototype){
+        person[attr] = Person.prototype[attr];
+    }
+
+    Worker.prototype = person;
+</pre>
+
+        问题：切断了子类与父类的联系，虽然有了父类的全部方法。
+    </p>
+
+    <h3>5、对象的一些常用方法属性</h3>
+    <p><mark>（1）instanceof:</mark><br/>判断某个实例对象的类型 <br/>
+        p1 instanceof Person<br/><br/>
+
+        <mark>（2）isPrototypeOf()：</mark><br/>判断某个实例对象的原型<br/>
+        Person.prototype.isPrototypeOf(p1)<br/><br/>
+
+        <mark>（3）Object.getPrototypeOf():</mark><br/>返回某个实例对象的原型<br/>
+        Object.getPrototypeOf(p1)；<br/><br/>
+
+        <mark>（4）delete</mark>：删除对象的某个属性。<br/><br/>
+
+        <mark>（5）hasOwnProperty():</mark><br/>判断某个实例对象是否有某个私有属性<br/>
+        p1.hasOwnProperty("name")<br/><br/>
+
+        <mark>(6)Object.getOwnPropertyDescriptor();</mark><br/>
+        作用：获取对象某个属性的特性。返回一个对象。<br/>
+        var d = Object.getOwnPropertyDescriptor(book,"year");<br/>
+        alert(d.set);<br/><br/>
+
+        <mark>（7） in</mark><br/>
+        "name" in p1   判断name 是否是p1的属性，不管是私有还是原型的。<br/><br/>
+
+        <mark>（8）for in</mark><br/>
+        遍历实例对象的属性，包括私有和原型属性。只能访问可枚举的属性。<br/>
+
+        <mark>（9）Object.keys()</mark><br/>
+        返回一个数组，包含实例对象的所有属性，不包括原型的属性。<br/><br/>
+
+        <mark>（10）Object.getOwnPropertyNames()</mark><br/>
+        所有的属性，包括不可枚举的属性。<br/>
+        Object.getOwnPropertyNames(Person.prototype)
+    </p>
+    <h3>6、想要知道某个对象类型</h3>
+    <p>原型的constructor  指向了构造函数,这是唯一的，这可以重新定向。
+        但如果有多个构造函数的原型都指向同一个对象的原型，
+        那么 instanceof 得到的结果可能不准确。<br/>
+        比如：
+<pre>
+    Worker.prototype = Person.prototype;
+    Y.prototype = Person.prototype;
+    //Worker.prototype.constructor = Worker;//
+
+    var p = new Person("li");
+    var w = new Worker("li",22);
+    var y = new Y();
+
+    alert(Object.getPrototypeOf(p).constructor === Person);//true
+    alert(Object.getPrototypeOf(p).constructor === Worker);//false
+    alert(Object.getPrototypeOf(p).constructor === Y);//false
+    alert(Object.getPrototypeOf(w).constructor === Person);//true
+    alert(Object.getPrototypeOf(w).constructor === Worker);//false
+    alert(Object.getPrototypeOf(w).constructor === Y);//false
+    alert(Object.getPrototypeOf(y).constructor === Person);//true
+    alert(Object.getPrototypeOf(y).constructor === Worker);//false
+    alert(Object.getPrototypeOf(y).constructor === Y);//false
+
+    alert(p instanceof Worker);//true
+    alert(p instanceof Y);//true
+    alert(w instanceof Person);//true
+    alert(w instanceof Worker);//true
+    alert(w instanceof Y);//true
+    alert(y instanceof Person);//true
+    alert(y instanceof Worker);//true
+    alert(y instanceof Y);//true
+</pre>
+
+    </p>
+</div>
+
+</body>
+</html>

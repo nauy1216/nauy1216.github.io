@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>1、什么是DOM？</h3>
+    <p>
+        1、document object model <br/>
+        2、作用：为了能让js操作页面的元素。<br/>
+        3、DOM会把文档看成是一棵节点树。<br/>
+        4、根元素是html。<br/>
+        document.documentElement<br/>
+        5、同时定义了很多方法来操作这棵树中的每一个元素（节点）。<br/>
+        getElementById()<br/>
+        getElementsByTagName()<br/>
+        document.body<br/>
+        ..........</p>
+
+    <h3>2、DOM节点类型</h3>
+    <p> 共有12种节点类型。<br/>
+        第1种：元素节点。<br/>
+        第2种：文本节点。（空格也是）<br/>
+        第3种：属性节点。</p>
+
+    <h3>3、元素节点的常用属性</h3>
+    <p> <h4>1、childNodes</h4>
+        作用：获取元素的子节点列表集合<br/>
+        用法：ele.childNodes。返回的集合有length属性。<br/>
+        标准：包括元素节点、文本节点。<br/>
+        非标准IE（6、7、8）：元素节点。<br/>
+        ***非法嵌套时标准会包含非法嵌套的元素，非标准IE不包含***
+
+        <h4>2、nodeType</h4>
+        作用：返回节点类型。只读。<br/>
+        用法：ele.nodeType<br/>
+        没有兼容问题。
+
+        <h4>3、attributes</h4>
+        作用：返回节点的属性，[{},{},{}]格式。只读。<br/>
+        用法：ele.attributes[0].name<br/>
+        ele.attributes[0].value<br/>
+        ele.attributes[0].nodeType
+
+        <h4>4、children</h4>
+        作用：返回子节点列表集合。<br/>
+        用法：ele.children<br/>
+        标准：    元素节点。<br/>
+        非标准IE：元素节点。
+
+        <h4>5、firstChild</h4>
+        作用：第一个子节点<br/>
+        标准：包括元素节点、文本节点。<br/>
+        非标准IE：元素节点。<br/>
+        标准下的解决办法：firstElementChild<br/>
+        兼容写法：<br/>
+        var oFirst = oUl.firstElementChild || oUl.firstChild;<br/>
+
+        ***这样写存在的隐患：当oUl下没有元素子节点时
+        可能会返回一个文本节点。****<br/>
+        解决：在使用oFirst之前判断oFirst的节点类型。
+
+        <h4>6、lastChild</h4>
+        作用：最后一个子节点<br/>
+        标准：包括元素节点、文本节点。<br/>
+        非标准IE：元素节点。<br/>
+        标准下的解决办法：lastElementChild<br/>
+        兼容写法：<br/>
+        var oLast = oUl.lastElementChild || oUl.lastChild;
+
+        ***这样写存在的隐患：当oUl下没有元素子节点时
+        可能会返回一个文本节点。****<br/>
+        解决：在使用 oLast之前判断 oLast的节点类型。
+
+        <h4>7、nextSibling</h4>
+        作用：下一个子节点<br/>
+        标准：包括元素节点、文本节点。<br/>
+        非标准IE：元素节点。<br/>
+        标准下的解决办法：nextElementSibling<br/>
+        兼容写法：<br/>
+        var oL2= oL1.nextElementSibling || oL1.nextSibling;<br/>
+
+        ***这样写存在的隐患：当oL1没有下一个元素子节点时
+        可能会返回一个文本节点。****<br/>
+        解决：在使用 oL2之前判断 oL2的节点类型。
+
+        <h4>8、previousSibling</h4>
+        作用：上一个子节点<br/>
+        标准：包括元素节点、文本节点。<br/>
+        非标准IE：元素节点。<br/>
+        标准下的解决办法：previousElementSibling<br/>
+        兼容写法：<br/>
+        var oL2= oL1.previousElementSibling || oL1.previousSibling;<br/>
+
+        ***这样写存在的隐患：当oL1没有上一个元素子节点时
+        可能会返回一个文本节点。****<br/>
+        解决：在使用 oL2之前判断 oL2的节点类型。
+
+        <h4>9、parentNode</h4>
+        当前节点的父节点<br/>
+        没有兼容问题
+
+        <h4>10、offsetParent</h4>
+        作用：最近的有定位的父节点<br/>
+        如果没有定位父级标准默认是body。<br/>
+        ***IE6、7不一样：如果当前元素么没有定位则是body，有定位则是html。
+        如果当前元素的某个父级触发了layout，那么就会指向触
+        发了layout的这个节点。***
+
+        <h4>11、nodeName</h4>
+
+        <h4>12、nodeValue</h4></p>
+
+    <h3>4、元素节点常用方法</h3>
+    <p><h4>1、getElementById()</h4>
+        这是document才有的方法哦！<br/>
+        例如：document.getElementById(‘div1’);
+
+        <h4>2、getElementsByTagName()</h4>
+        这是所有元素都有的方法。
+
+        <h4>3、createElement()</h4>
+        1、动态创建元素，这也是document才有的方法哦！<br/>
+        2、配合appendChild()或insertBefore()使用。<br/>
+        例如：var oLi = document.createElement(‘li’);<br/>
+        oLi.innerHTML=’’;<br/>
+        oUl.appendChild(oLi);
+
+
+        <h4>4、appendChild() 、insertBefore()</h4>
+        父元素.appendChild(要添加的元素);<br/>
+        添加到最后面。<br/>
+
+        父元素.insertBefore(要添加的元素,被插入的元素)；<br/>
+        在指定的元素前面插入，在IE下如果指定的元素不存在会报错，
+        而其他浏览器会以appendChild()的形式添加。
+
+        <h4>5、removeChild()</h4>
+        父元素.removeChild(要删除的元素);<br/>
+        删除指定的元素。
+
+        <h4>6、replaceChild()</h4>
+        父元素.replaceChild(新的元素, 被替换的元素);<br/>
+        作用：替换指定的元素。
+
+        注意：<br/>
+        appendChild()、replaceChild()、insertBefore()
+        也可以操作现有的元素，注意这是剪切操作
+
+        <h4>7、getElementsByClassName()</h4>
+        htm5新增。<br/>
+        思考：<br/>1、封装function getElementByClass(parent,tag,classname){}<br/>
+        2、封装addClass()、removeClass()给元素添加或删除classa
+
+        <h4>8、createTextNode()</h4>
+        创建文本节点。
+    </p>
+
+    <h3>5、DOM操作表格</h3>
+    <p><h4>1、表格的属性</h4>
+        tHead 、tBodies、tFoot、rows、cells<br/>
+        注意一个表格可能有几个tbody。
+
+        <h4>2、用法</h4>
+        var oBody =  oTab.tBodies[0];<br/>
+        var oRow =  oBody.rows[1];<br/>
+        oRow.cells[5].innerHTML=’  ’;
+
+        <h4>3、注意</h4>
+        在写表格html标签结构时，应加上tbody，因为浏览器在你没有加tbody时会
+        自动为你添加。这样会导致在获取元素时出现预料之外的结果。</p>
+
+    <h3>6、DOM操作表单</h3>
+    <p><h4>0、document.forms</h4>
+        获取页面中的所有表单。<br/>
+        document.forms[1]<br/>
+        document.forms[name]
+
+        <h4>1、name属性</h4>
+        作用：<br/>
+        1、表单在数据提交时，name属性很重要。<br/>
+        2、可以用name属性值来操作表单控件。<br/><br/>
+        例如：< inpt type="text" name ="name1"><br/>
+        oForm.name1;<br/>
+
+        <mark>注意：</mark>如果是radio或checkbox，那么返回的是一个数组。<br/>
+
+        <h4>2、表单的onchange事件：</h4>
+        当值发生改变的时候触发。<br/>
+        1、checkbox/radio:<br/>
+        有一个checked属性。<br/>
+        标准：只要值改变了就触发。<br/>
+        非标准：焦点离开时值改变了就触发。<br/><br/>
+
+        2、select：<br/>
+        下面的option有一个selected属性，<br/>
+        如果某个option的selected的值为true那么<br/>
+        select的value值就是这个option的值。<br/>
+
+        <h4>3、表单的onsubmit事件：</h4>
+        表单提交的时候触发。<br/>
+        1、表单的三个重要属性：action、 method、enctype<br/>
+        2、阻止表单提交：return false；<br/>
+        3、也可以通过submit()方法来提交。</p>
+</div>

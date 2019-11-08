@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../jquery.min.js"></script>
+</head>
+<body >
+<div class="box">
+    <h3>jQuery.Callbacks()</h3>
+    <p>
+        作用： <br/>
+        <strong>一个多用途的回调列表对象，提供了强大的的方式来管理回调函数列表。</strong><br/><br/>
+        用法：<br/>
+        1、once: 确保这个回调列表只执行一次(像一个递延 Deferred).<br/>
+        2、memory: 保持以前的值和将添加到这个列表的后面的最新的值立即执行调用任何回调 (像一个递延 Deferred).<br/>
+        3、unique: 确保一次只能添加一个回调(所以有没有在列表中的重复).<br/>
+        4、stopOnFalse: 当一个回调返回false 时中断调用<br/>
+
+    </p>
+    <pre>
+        function fn1(val){
+            alert("fn1:"+val);
+        }
+        function fn2(val){
+            alert("fn2:"+val);
+        }
+
+        var cal = $.Callbacks();
+        cal.add(fn1);
+        cal.fire("hello");//fn1:hello
+        cal.add(fn2);
+        cal.fire("hello");//fn1:hello 、fn2:hello
+    </pre>
+
+    <pre>
+        function fn1(val){
+            alert("fn1:"+val);
+        }
+        function fn2(val){
+            alert("fn2:"+val);
+        }
+
+        var cal = $.Callbacks("once");
+        cal.add(fn1);
+        cal.fire("hello");//fn1:hello
+        cal.add(fn2);
+        cal.fire("world");//不执行，只执行一次
+    </pre>
+
+    <h3>cal.add()</h3>
+    <p>
+        作用： <br/>
+        回调列表中添加一个回调或回调的集合。 <br/>
+    </p>
+
+    <h3>cal.fire()</h3>
+    <p>
+        作用： <br/>
+        传入指定的参数调用所有的回调。 <br/>
+    </p>
+
+    <h3>cal.disable()</h3>
+    <p>
+        作用： <br/>
+        禁用回调列表中的回调 。不接受参数。 <br/>
+    </p>
+    <pre>
+        function fn1(val){
+            alert("fn1:"+val);
+        }
+        function fn2(val){
+            alert("fn2:"+val);
+        }
+
+        var cal = $.Callbacks();
+        cal.add(fn1);
+        cal.fire("hello");//fn1:hello
+
+        cal.disable();
+
+        cal.fire("world");//不执行
+    </pre>
+
+    <h3>cal.empty()</h3>
+    <p>
+        作用： <br/>
+        从列表中删除所有的回调. <br/>
+    </p>
+    <script>
+        function fn1(val){
+            alert("fn1:"+val);
+        }
+        function fn2(val){
+            alert("fn2:"+val);
+        }
+
+        var cal = $.Callbacks();
+        cal.add(fn1);
+        cal.empty();
+        cal.fire("world");//不执行
+    </script>
+
+    <h3>cal.fired()</h3>
+    <p>
+        作用： <br/>
+        确定回调是否至少已经调用一次。 <br/>
+    </p>
+    <pre>
+        function fn1(val){
+            alert("fn1:"+val);
+        }
+        function fn2(val){
+            alert("fn2:"+val);
+        }
+
+        var cal = $.Callbacks();
+        alert(cal.fired());//false
+        cal.add(fn1);
+        cal.fire("world");//不执行
+        alert(cal.fired());//true
+    </pre>
+
+    <h3>cal.fireWith()</h3>
+    <p>
+        作用： <br/>
+        访问给定的上下文和参数列表中的所有回调。  <br/>
+        用法： <br/>
+        1、第一个参数是this指向，第二个是参数的数组。 <br/>
+    </p>
+    <pre>
+        function fn1(val){
+            alert(this);
+        }
+
+        var cal = $.Callbacks();
+        cal.add(fn1);
+        cal.fire();//object
+        cal.fireWith(window);//window
+    </pre>
+
+    <h3>cal.has()</h3>
+    <p>
+        作用： <br/>
+        确定列表是否有绑定任何回调。 <br/>
+        如果回调作为一个参数提供，那么可以确定其是否在列表中。   <br/>
+        用法： <br/>
+        1、没有参数是表示是否有绑定回调函数 <br/>
+        2、有参数是表示是否有绑定指定回调函数 <br/>
+    </p>
+    <pre>
+        function fn1(val){
+            alert(this);
+        }
+
+        var cal = $.Callbacks();
+        cal.add(fn1);
+        alert(cal.has());//true
+        alert(cal.has(fn1));//true
+    </pre>
+
+   <h3>cal.lock()</h3>
+    <p>
+        作用： <br/>
+        锁定回调列表的当前状态。 没有参数。 <br/>
+    </p>
+    <pre>
+        function fn1(val){
+            alert(val);
+        }
+
+        var cal = $.Callbacks();
+        cal.add(fn1);
+        cal.fire("hello");//hello
+
+        cal.lock();
+        cal.fire("hello");//不执行
+    </pre>
+
+   <h3>cal.locked()</h3>
+    <p>
+        作用： <br/>
+        确定回调列表是否已被锁定。  <br/>
+    </p>
+
+    <h3>cal.remove()</h3>
+    <p>
+        作用： <br/>
+        从回调列表中的删除一个回调或回调集合。  <br/>
+    </p>
+    <pre>
+        function fn1(val){
+            alert(val);
+        }
+        function fn2(val){
+            alert("2:"+val);
+        }
+
+        var cal = $.Callbacks();
+        cal.add(fn1);
+        cal.add(fn2);
+        //cal.fire("hello");//都执行
+
+        cal.remove(fn1);
+        cal.fire("hello");//fn1不执行
+
+    </pre>
+
+
+</div>
+</body>
+</html>

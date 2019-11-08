@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../jquery.min.js"></script>
+</head>
+<body >
+<div class="box">
+    <h3>event.currentTarget</h3>
+    <p>
+        作用; <br/>`
+        在事件冒泡过程中的当前DOM元素。<br/>`
+        用法：<br/>`
+        1、在冒泡的过程中这个属性总是等于函数的this（等同于this）。<br/>`
+    </p>
+    <ul class="ct">
+        <li>li</li>
+        <li>li</li>
+    </ul>
+    <script>
+        $(".ct").click(function (ev){
+            alert(ev.currentTarget);
+        });
+        $(".ct li").click(function (ev){
+            alert(ev.currentTarget);
+        });
+
+    </script>
+
+    <h3>event.data</h3>
+    <p>
+        作用;<br/>`
+        获取绑定时间函数是传递的数据。<br/>`
+        用法：<br/>`
+    </p>
+
+    <h3>event.delegateTarget</h3>
+    <p>
+        作用;<br/>`
+        事件代理时，在子元素的事件函数中引用父元素。<br/>`
+        用法：<br/>`
+    </p>
+
+    <ul class="dt">
+        <li>li</li>
+        <li>li</li>
+    </ul>
+    <script>
+        $(".dt").on("click","li",function(ev){
+            alert( ev.delegateTarget);
+        });
+    </script>
+
+
+    <h3>event.isDefaultPrevented()</h3>
+    <p>
+        作用;<br/>`
+        根据事件对象中是否调用过 event.preventDefault() 方法来返回一个布尔值。 <br/>`
+        用法：<br/>`
+        1、返回值是是true或false。<br/>`
+    </p>
+
+
+    <h3>event.isImmediatePropagationStopped()</h3>
+    <p>
+        作用;<br/>`
+        根据事件对象中是否调用过 event.stopImmediatePropagation() 方法来返回一个布尔值。  <br/>`
+        用法：<br/>`
+        1、返回值是是true或false。<br/>`
+    </p>
+
+    <h3>event.isPropagationStopped()</h3>
+    <p>
+        作用;<br/>`
+        根据事件对象中是否调用过 event.stopPropagation()  方法来返回一个布尔值。  <br/>`
+        用法：<br/>`
+        1、返回值是是true或false。<br/>`
+    </p>
+
+    <h3>event.namespace</h3>
+    <p>
+        作用;<br/>`
+        当事件被触发时此属性包含指定的命名空间。 <br/>`
+        用法：<br/>`
+        1、返回值是事件函数所在的命名空间。<br/>`
+        2、只有触发click.myName才有，触发click表示触发所有的click事件函数。<br/>`
+    </p>
+
+    <div class="ns" style="width:100px; height:100px; background:red;"></div>
+    <button id="btn">click ME</button>
+    <script>
+        $(".ns").on("click.myName",function(ev){
+            alert(ev.namespace );
+        });
+        $("#btn").click(function(){
+            $(".ns").trigger("click.myName");
+        });
+    </script>
+    <pre>
+        $(".ns").on("click.myName",function(ev){
+            alert(ev.namespace );
+        });
+        $("#btn").click(function(){
+            $(".ns").trigger("click.myName");
+        });
+    </pre>
+
+
+    <h3>event.pageX、event.pageY</h3>
+    <p>
+        作用;<br/>`
+        事件发生时鼠标相对于文档的边缘的坐标。  <br/>`
+        用法：
+        1、网页放大缩小会改变值<br/>`
+        2、浏览器窗口改变大小不会影响。<br/>`
+        <br/>`
+    </p>
+    <pre>
+        $("body").click(function(ev){
+            alert("X"+ev.pageX +"<>Y"+ev.pageY);
+        });
+    </pre>
+
+    <h3>event.preventDefault()</h3>
+    <p>
+        作用;<br/>`
+        阻止默认事件行为的触发。   <br/>`
+        用法：
+        <br/>`
+    </p>
+
+    <h3>event.relatedTarget</h3>
+    <p>
+        作用;<br/>`
+        在事件中涉及的其它任何DOM元素。<br/>`
+        用法：<br/>`
+        对于 mouseout 事件，它指向被进入的元素；对于 mousein 事件，它指向被离开的元素。
+        <br/>`
+    </p>
+    <button id="btn2" type="button">请轻轻抚摸我！！！</button>
+    <script>
+        $("#btn2").mouseout(function(ev){
+            $(document.body).trigger("red");
+            alert(ev.relatedTarget);
+        });
+        $(document.body).on("red",function(ev){
+            $(this).css({background:"red"});
+        });
+    </script>
+
+
+    <h3>event.result</h3>
+    <p>
+        作用;<br/>`
+        这个属性包含了当前事件上一个处理函数的返回值，除非值是 undefined <br/>`
+        用法：<br/>`
+        <br/>`
+    </p>
+
+    <span id="re">click ME</span>
+    <script>
+        $("#re").click(function(ev){
+            return "hello world";
+        });
+        $("#re").click(function(ev){
+            alert(ev.result);
+        });
+    </script>
+    <pre>
+        $("#re").click(function(ev){
+
+            return "hello world";
+
+        });
+
+        $("#re").click(function(ev){
+
+            alert(ev.result);
+
+        });
+    </pre>
+
+    <h3>event.stopImmediatePropagation</h3>
+    <p>
+        作用;<br/>`
+        阻止剩余的事件处理函数执行并且防止事件冒泡到DOM树上。 <br/>`
+        用法：<br/>`
+        <br/>`
+    </p>
+
+    <h3>event.stopPropagation()</h3>
+    <p>
+        作用;<br/>`
+        防止事件冒泡到DOM树上，也就是不触发的任何前辈元素上的事件处理函数。  <br/>`
+        用法：<br/>`
+        <br/>`
+    </p>
+
+   <h3>event.target</h3>
+    <p>
+        作用;<br/>`
+        触发事件的DOM元素。   <br/>`
+        用法：<br/>`
+        1、通常用于比较 event.target 和 this 来确定事件是不是由于冒泡而触发的。
+        经常用于事件冒泡时处理事件委托。 <br/>`
+    </p>
+
+   <h3>event.timeStamp</h3>
+    <p>
+        作用;<br/>`
+        这个属性返回事件触发时距离1970年1月1日的毫秒数。    <br/>`
+        用法：<br/>`
+        1、通过在代码中获得两个点之间的 event.timeStamp 值，
+        并给出差值来分析事件的性能，此属性是很有用的。<br/>`
+    </p>
+
+   <h3>event.type</h3>
+    <p>
+        作用;<br/>`
+        返回事件的类型。 <br/>`
+        用法：<br/>`
+        <br/>`
+    </p>
+
+   <h3>event.which</h3>
+    <p>
+        作用;<br/>`
+        针对键盘和鼠标事件，这个属性能确定你到底按的是哪个键。  <br/>`
+        用法：<br/>`
+        1、event.which 将 event.keyCode 和 event.charCode 标准化了。推荐用 event.which 来监视键盘输入<br/>`
+        2、event.which也将正常化的按钮按下(mousedown 和 mouseupevents)，
+        左键报告1，中间键报告2，右键报告3。使用event.which代替event.button。<br/>`
+        3、返回的是键值。
+    </p>
+
+    <input id="input" type="text"/><span id="sp"></span>
+    <script>
+        $("#input").on("keyup",function(ev){
+            $("#sp").text(ev.which);
+        });
+    </script>
+    <pre>
+        $("#input").on("keyup",function(ev){
+            $("#sp").text(ev.which);
+        });
+    </pre>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <style>
+        .div {
+            width:100px;
+            height:100px;
+            float: left;
+        }
+        .d1:hover {
+            background:red;
+        }
+        .d2:hover {
+            background:green;
+            transition: background-color 2s;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+           var  odiv3 = document.getElementsByClassName("d3")[0];
+            //odiv3.style.cssText = "background:green;";
+            odiv3.onmouseover = function(){
+                this.style.cssText = "background:red;transition:background-color 2s 2s;";
+            };
+            odiv3.onmouseout = function(){
+                this.style.cssText = "background:#0f0;transition:background-color 2s 2s;"
+            };
+        };
+    </script>
+</head>
+<body >
+<div class="box">
+    <h3>过渡</h3>
+    <p>
+        transition：<br/>
+        transition-property:要运动的属性样式<br/>
+        -all	所有的属性<br/>
+        -[attr]	指定的样式<br/>
+        -none	无<br/>
+        transition-duration:运动的时间<br/>
+        transition-delay:延迟时间<br/>
+        transition-timing-function:运动形式<br/>
+        -ease（默认）	逐渐变慢<br/>
+        -linear		匀速<br/>
+        -ease-in	加速<br/>
+        -ease-out	减速<br/>
+        -ease-int-out	先加速后减速<br/>
+        -cubic-bezier	贝塞尔曲线<br/><br/>
+
+        作用：实现运动的过渡，注重过程,从一个状态到另一个状态。<br/>
+
+        用法：transition:1s 1s width ease,1s 1s height ease;<br/>
+        运动时间 <br/>
+        延迟时间 <br/>
+        属性 <br/>
+        运动形式<br/><br/>
+        注意：<br/>
+        （1）不同属性运动过渡用逗号隔开。<br/>
+        （2）只需要将这个命令放入css语句中即可<br/>
+        （3）transition的作用是让运动过渡，所以不管是通过什么样的方式
+        运动均能实现过渡的效果。<br/><br/>
+
+        过渡完成事件：<br/>
+        transitionend:每个样式过渡完成一次就触发一次,所以可能会触发多次。<br/>
+        兼容问题：<br/>
+        webkit内核：<br/>
+        obj.addEventListen('webkitTransitionEnd',fn,false);<br/>
+
+        ff:	<br/>
+        obj.addEventListen('transitionEnd',fn,false);<br/>
+
+
+        例子：
+
+       <pre>
+        var oDiv = document.getElementById('box');
+
+        oDiv.addEventListener('webkitTransitionEnd',fn,false);
+
+        function fn(){
+            alert(1);
+        }
+       </pre>
+
+
+        怎么解决每次过渡完成一个样式就触发一次transitionend事件？？ <br/>
+        <pre>
+        var oDiv = document.getElementById('box');
+
+        oDiv.addEventListener('webkitTransitionEnd',fn,false);
+
+        function fn(){
+
+            var w= getComputedStyle(this).width
+
+            if(w=='200px'){//只需判断 自己想要监听的属性是否达到最终结果即可
+
+                alert(1);
+
+            }
+
+        }
+        </pre>
+
+    </p>
+
+    <div class="div d1">没有过渡</div>
+    <div class="div d2">颜色过渡</div>
+    <div class="div d3">颜色延迟过渡</div>
+
+</div>
+
+</body>
+</html>
+</body>
+</html>

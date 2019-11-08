@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../vue.min.js"></script>
+    <style>
+        /* 定义过渡的时间 和运动形式*/
+        .fade-enter-active{
+            transition: opacity 1s
+        }
+        .fade-leave-active {
+            transition: opacity 1s
+        }
+
+        /* 定义显示动画初始状态 */
+        .fade-enter{
+            opacity: 0
+        }
+        /* 定义显示动画结束状态 */
+        .fade-enter-to{
+            opacity: 0.5
+        }
+
+        /* 定义消失动画初始状态  */
+        .fade-leave {
+            opacity: 1
+        }
+        /* 定义消失动画结束状态  */
+        .fade-leave-to {
+            opacity: 1
+        }
+
+
+        /* 动画 */
+
+        .bounce-enter-to {
+            background:red;
+        }
+        .bounce-enter-active {
+            animation: bounce-in 5s;
+        }
+
+        .bounce-leave-to {
+            background:green;
+        }
+        .bounce-leave-active {
+            animation: bounce-in 5s reverse;
+        }
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+
+            }
+        }
+
+
+        .examp_leave {
+            animation: bounce-in 5s reverse;
+        }
+        .examp_enter {
+            animation: bounce-in 5s;
+        }
+    </style>
+</head>
+<body >
+<div class="box">
+    <h3>单元素/组件的过渡</h3>
+    <ol>
+        <li>将要过渡的元素放在tansition标签内，并带有name属性</li>
+        <li>定义过渡的类。</li>
+    </ol>
+
+    <div id="demo">
+        <button v-on:click="show = !show">
+            Toggle
+        </button>
+        <transition name="fade">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#demo',
+            data: {
+                show: true
+            }
+        })
+    </script>
+    <pre>
+        /* 定义过渡的时间 和运动形式*/
+        .fade-enter-active{
+            transition: opacity 10s
+        }
+        .fade-leave-active {
+            transition: opacity 10s
+        }
+
+        /* 定义显示动画初始状态 */
+        .fade-enter{
+            //opacity: 0
+        }
+        /* 定义显示动画结束状态 */
+        .fade-enter-to{
+            //opacity: 0.5
+        }
+
+        /* 定义消失动画初始状态  */
+        .fade-leave {
+            opacity: 0
+        }
+        /* 定义消失动画结束状态  */
+        .fade-leave-to {
+            opacity: 0
+        }
+
+        &ltdiv id="demo">
+            &ltbutton v-on:click="show = !show">
+                Toggle
+            &lt/button>
+            &lttransition name="fade">
+                &ltp v-if="show">hello&lt/p>
+            &lt/transition>
+        &lt/div>
+
+
+        new Vue({
+            el: '#demo',
+            data: {
+                show: true
+            }
+        })
+    </pre>
+
+    <h3>动画</h3>
+    <strong>在Vue中调用动画有几种方式</strong>
+
+    <h4>第一种方式</h4>
+    <div id="example-2">
+        <button @click="show = !show">Toggle show</button>
+        <transition name="bounce">
+            <p v-if="show">Look at me!</p>
+        </transition>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#example-2',
+            data: {
+                show: true
+            }
+        })
+    </script>
+
+    <pre>
+        .bounce-enter-to {
+            background:red;
+        }
+        .bounce-enter-active {
+            animation: bounce-in 5s;
+        }
+
+        .bounce-leave-to {
+            background:green;
+        }
+        .bounce-leave-active {
+            animation: bounce-in 5s reverse;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+
+            }
+        }
+
+
+        &ltdiv id="example-2">
+            &ltbutton @click="show = !show">Toggle show&lt/button>
+            &lttransition name="bounce">
+                &ltp v-if="show">Look at me!&lt/p>
+            &lt/transition>
+        &lt/div>
+
+
+        new Vue({
+            el: '#example-2',
+            data: {
+                show: true
+            }
+        })
+    </pre>
+
+    <h4>第二种</h4>
+    <h5>可以配合animate.css库使用。</h5>
+    <ol>
+        <li>enter-class</li>
+        <li>enter-active-class</li>
+        <li>enter-to-class </li>
+        <li>leave-class</li>
+        <li>leave-active-class</li>
+        <li>leave-to-class</li>
+    </ol>
+
+    <div id="example-3">
+        <button @click="show = !show">
+            Toggle render
+        </button>
+        <transition
+                enter-active-class="examp_enter"
+                leave-active-class="examp_leave"
+                >
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#example-3',
+            data: {
+                show: true
+            }
+        })
+    </script>
+
+    <pre>
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+
+            }
+        }
+        .examp_leave {
+            animation: bounce-in 5s reverse;
+        }
+        .examp_enter {
+            animation: bounce-in 5s;
+        }
+
+
+
+        &ltdiv id="example-3">
+            &ltbutton @click="show = !show">
+                Toggle render
+            &lt/button>
+            &lttransition
+                    name="custom-classes-transition"
+                    enter-active-class="examp_enter"
+                    leave-active-class="examp_leave"
+                    >
+                &ltp v-if="show">hello&lt/p>
+            &lt/transition>
+        &lt/div>
+
+        new Vue({
+            el: '#example-3',
+            data: {
+                show: true
+            }
+        })
+    </pre>
+
+
+    <h3>javscript钩子</h3>
+    <h4>提供的一些钩子函数。</h4>
+    <pre>
+        methods:{
+                beforeEnter: function (el) {
+
+                },
+                // 此回调函数是可选项的设置与 CSS 结合时使用
+                //过渡必须使用回调函数
+                enter: function (el, done) {
+                    done()
+                },
+                afterEnter: function (el) {
+
+                },
+                enterCancelled: function (el) {
+
+                },
+                beforeLeave: function (el) {
+
+                },
+                // 此回调函数是可选项的设置与 CSS 结合时使用
+                leave: function (el, done) {
+                    done()
+                },
+                afterLeave: function (el) {
+
+                },
+                // leaveCancelled 只用于 v-show 中
+                leaveCancelled: function (el) {
+
+                }
+            }
+        })
+
+    </pre>
+
+    <div id="example-4">
+        <button @click="show = !show">
+            Toggle render
+        </button>
+        <transition
+                v-on:before-enter="beforeEnter"
+                v-on:enter="enter"
+                v-on:after-enter="afterEnter"
+                v-on:enter-cancelled="enterCancelled"
+                v-on:before-leave="beforeLeave"
+                v-on:leave="leave"
+                v-on:after-leave="afterLeave"
+                v-on:leave-cancelled="leaveCancelled"
+                >
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
+
+    <script>
+        new Vue({
+            el:"#example-4",
+            data:{
+                show:true
+            },
+            methods:{
+                beforeEnter: function (el) {
+                },
+                // 此回调函数是可选项的设置与 CSS 结合时使用
+                enter: function (el, done) {
+                   el.style.cssText = " animation: bounce-in 5s; ";
+                },
+                afterEnter: function (el) {
+                },
+                enterCancelled: function (el) {
+
+                },
+                beforeLeave: function (el) {
+
+                },
+                // 此回调函数是可选项的设置与 CSS 结合时使用
+                leave: function (el, done) {
+                    el.style.cssText = " animation: bounce-in 5s; ";
+                },
+                afterLeave: function (el) {
+
+                },
+                // leaveCancelled 只用于 v-show 中
+                leaveCancelled: function (el) {
+
+                }
+            }
+        })
+    </script>
+    <pre>
+        &ltdiv id="example-4">
+            &ltbutton @click="show = !show">
+                Toggle render
+            &lt/button>
+            &lttransition
+                    v-on:before-enter="beforeEnter"
+                    v-on:enter="enter"
+                    v-on:after-enter="afterEnter"
+                    v-on:enter-cancelled="enterCancelled"
+                    v-on:before-leave="beforeLeave"
+                    v-on:leave="leave"
+                    v-on:after-leave="afterLeave"
+                    v-on:leave-cancelled="leaveCancelled"
+                    >
+                &ltp v-if="show">hello&lt/p>
+            &lt/transition>
+        &lt/div>
+
+       new Vue({
+            el:"#example-4",
+            data:{
+                show:true
+            },
+            methods:{
+                beforeEnter: function (el) {
+                },
+                // 此回调函数是可选项的设置与 CSS 结合时使用
+                enter: function (el, done) {
+                   el.style.cssText = " animation: bounce-in 5s; ";
+                },
+                afterEnter: function (el) {
+                },
+                enterCancelled: function (el) {
+
+                },
+                beforeLeave: function (el) {
+
+                },
+                // 此回调函数是可选项的设置与 CSS 结合时使用
+                leave: function (el, done) {
+                    el.style.cssText = " animation: bounce-in 5s; ";
+                },
+                afterLeave: function (el) {
+
+                },
+                // leaveCancelled 只用于 v-show 中
+                leaveCancelled: function (el) {
+
+                }
+            }
+        })
+    </pre>
+
+    <h3>初始渲染的过渡</h3>
+    <p>可以通过 appear 特性设置节点的在初始渲染的过渡</p>
+    <p>元素被渲染时的过渡</p>
+    <strong>js钩子</strong>
+    <pre>
+        &lttransition
+                appear
+                v-on:before-appear="customBeforeAppearHook"
+                v-on:appear="customAppearHook"
+                v-on:after-appear="customAfterAppearHook"
+                v-on:appear-cancelled="customAppearCancelledHook"
+                >
+            //
+        &lt/transition>
+
+        &lttransition
+                appear
+                appear-class="custom-appear-class"
+                appear-to-class="custom-appear-to-class"
+                appear-active-class="custom-appear-active-class"
+                >
+           ///
+        &lt/transition>
+    </pre>
+
+    <div id="demo1">
+        <transition
+                appear
+                appear-class=""
+                appear-to-class=""
+                appear-active-class="examp_enter "
+                >
+            <p>hello world</p>
+        </transition>
+    </div>
+
+    <script>
+        new Vue({
+            el:"#demo1",
+            methods:{
+
+            }
+        })
+    </script>
+
+    <pre>
+        &ltdiv id="demo1">
+            &lttransition
+                    appear
+                    appear-class=""
+                    appear-to-class=""
+                    appear-active-class="examp_enter "
+                    >
+                &ltp>hello world&lt/p>
+            &lt/transition>
+        &lt/div>
+
+        new Vue({
+            el:"#demo1",
+
+        })
+    </pre>
+
+</div>
+
+</body>
+</html>

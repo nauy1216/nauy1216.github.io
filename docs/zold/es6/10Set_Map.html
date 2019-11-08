@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../index.js"></script>
+    <script src="../babel.js"></script>
+    <script>
+
+    </script>
+</head>
+<body >
+
+<div class="box">
+    <h3>set</h3>
+    <p>
+        ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
+        Set 本身是一个构造函数，用来生成 Set 数据结构。
+    </p>
+    <pre >
+        let s = new Set([2, 3, 5, 4, 5, 2, 2]);
+
+        console.log(s)//Set(4) {2, 3, 5, 4}
+        console.log(s.size)//4
+
+        console.log([...s])//[2, 3, 5, 4]
+        //将set转换成数组输出
+        //通过这种方式给数组去重
+        console.log([...s][0])//2
+
+        var a = {};
+        var b = {};
+        alert(a == b)//false 所以ab会同时添加
+    </pre>
+    <p>
+        向 Set 加入值的时候，不会发生类型转换，所以5和"5"是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value equality”，它类似于精确相等运算符（===），主要的区别是NaN等于自身，而精确相等运算符认为NaN不等于自身。
+    </p>
+    <p>
+        <storng>Set的几个方法</storng>
+    </p>
+    <ol>
+        <li>
+            add(value)：添加某个值，返回 Set 结构本身。
+        </li>
+        <li>
+            delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
+        </li>
+        <li>
+            has(value)：返回一个布尔值，表示该值是否为Set的成员。
+        </li>
+        <li>
+            clear()：清除所有成员，没有返回值。
+        </li>
+    </ol>
+    <p>
+        Array.from方法可以将 Set 结构转为数组。
+    </p>
+    <pre>
+        const items = new Set([1, 2, 3, 4, 5]);
+        const array = Array.from(items);
+    </pre>
+    <p>
+        Set集合的遍历。
+    </p>
+    <script type="text/babel">
+        let set = new Set(['red', 'green', 'blue']);
+
+        for (let item of set.keys()) {
+            console.log(item);
+        }
+        // red
+        // green
+        // blue
+
+        for (let item of set.values()) {
+            console.log(item);
+        }
+        // red
+        // green
+        // blue
+
+        for (let item of set.entries()) {
+            console.log(item);
+        }
+        // ["red", "red"]
+        // ["green", "green"]
+        // ["blue", "blue"]
+
+
+        set.forEach(function(value,key){
+            console.log(key + ' : ' + value)
+        })
+        // red : red
+        // green : green
+        // blue : blue
+    </script>
+</div>
+</body>
+</html>

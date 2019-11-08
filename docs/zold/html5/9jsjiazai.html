@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>js加载</h3>
+    <p>
+        <h4>（1）JS的加载会影响后面的内容加载</h4>
+        在head标签内引入js，浏览器加载页面时先加载js文件再加载文档。
+        很多浏览器都采用了并行加载JS，但还是会影响其他内容。
+
+        <h4>（2）Html5的defer和async</h4>
+        defer : <br/>
+        延迟加载，会按顺序执行，在onload执行前被触发。
+        其效果与将js脚本放在body前的效果一样。 <br/>
+        &ltscript src="b.js" defer="defer"> &lt/script> <br/>
+
+        async :  <br/>
+        异步加载，加载完就触发，有顺序问题。 <br/>
+        非阻塞模式，谁先加载完谁就先触发。 <br/>
+        &ltscript src="a.js" async ="async"> &lt/script>
+
+        <h4>（3） Labjs库</h4>
+    </p>
+
+
+</div>
+
+</body>
+</html>

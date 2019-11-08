@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+</head>
+<body >
+<div class="box">
+    <h3>线性渐变</h3>
+    <p>
+        linear-gradient(角度方向,颜色1 渐变点1,颜色2 渐变点2......) <br/>
+        角度：0reg 从下往上渐变<br/>
+        90reg从左往右<br/>
+        180reg从上往下<br/>
+        270reg从右往左<br/><br/>
+
+        颜色：可以是rgba<br/><br/>
+
+        渐变点:前面的颜色渐变到后一种颜色的开始位置<br/><br/>
+
+        注意：1、至少得两种颜色才能形成渐变<br/>
+        渐变的区域是从渐变点1到渐变点2 之间的区域。<br/><br/>
+
+        2、颜色可以用#、rgb、rgba表示<br/>
+        渐变点可以用px、%表示<br/><br/>
+
+        3、一般配合background-image使用<br/><br/><br/>
+        background-image:linear-gradient(0,red 50px, blue 100px);<br/>
+        此命令表示，从下往上，<br/>
+        0~50px 红色<br/>
+        50px开始渐变<br/>
+        50px~100px 红色渐变成蓝色<br/>
+        100px 蓝色<br/>
+        100px往上  蓝色<br/>
+
+        repeating-linear-gradient:重复渐变<br/>
+
+        用法与上面一样，只是会重复渐变<br/><br/><br/>
+
+        斑马线效果：<br/>
+        background-image:repeating-linear-gradient(0,green 0px,green 50px,white 50px,white 100px);<br/>
+        原理：渐变颜色是同一种颜色<br/>
+
+        兼容问题：IE678不兼容<br/><br/>
+        使用ie自带的filter：。。。。。。。。。。。
+    </p>
+
+    <div style="width:200px; height:200px;
+    background-image:linear-gradient(0, red 0, green 50%, blue 100%);"></div>
+    <div style="width:200px; height:200px;
+    background-image:repeating-linear-gradient(0, red 0, green 20px,#fff 20px, #fff 40px);"></div>
+</div>
+
+</body>
+</html>
+</body>
+</html>

@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../index.css">
+    <script src="../index.js" charset="UTF-8"></script>
+    <script src="../vue.js"></script>
+    <script src="../vue_router3.0.js"></script>
+    <style>
+        .router-link-active {
+            font-size:1.4em;
+            color:red;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <h3>什么是vue-router？</h3>
+    <p>
+        使用 Vue.js ，我们已经可以通过组合组件来组成应用程序，当你要把 vue-router 添加进来，我们需要做的是，将组件(components)映射到路由(routes)，然后告诉 vue-router 在哪里渲染它们。
+    </p>
+    <p>
+        Vue.js定义注册了组件，vue_router告诉在什么时候什么地方渲染它。
+    </p>
+    <p>
+        <strong>我的理解是：router就是父组件管理子组件的输出，什么时候在什么地方输出哪个组件。</strong>
+    </p>
+
+    <h3>入门实例</h3>
+    <p>
+        <strong class="text-red">
+            注意： 在new VueRoute()时配置的是routes，而在new Vue()时配置的是router。
+        </strong> <br/>
+        <strong class="text-red">
+            注意： 路径的格式，如果带"/"表示根路径，如/User/foo, 不带"/"表示相对上级路由的地址。
+        </strong>
+    </p>
+    <div id="app1">
+        <h1>Hello App!</h1>
+        <p>
+            <!-- 使用 router-link 组件来导航. -->
+            <!-- 通过传入 `to` 属性指定链接. -->
+            <!-- <router-link> 默认会被渲染成一个 `<a>` 标签 -->
+            <router-link to="/foo">Go to Foo</router-link>
+            <router-link to="/bar">Go to Bar</router-link>
+        </p>
+        <!-- 路由出口 -->
+        <!-- 路由匹配到的组件将渲染在这里 -->
+        <router-view></router-view>
+    </div>
+
+    <script>
+        (function(){
+            // 1. 定义（路由）组件。
+            // 可以从其他文件 import 进来
+            const Foo = { template: '<div>foo</div>' }
+            const Bar = {
+                template: '<div>bar</div>'
+            }
+
+            // 2. 定义路由
+            // 每个路由应该映射一个组件。 其中"component" 可以是
+            // 通过 Vue.extend() 创建的组件构造器，
+            // 或者，只是一个组件配置对象。
+            // 我们晚点再讨论嵌套路由。
+            const routes = [
+                { path: '/foo', component: Foo },
+                { path: '/bar', component: Bar }
+            ]
+
+            // 3. 创建 router 实例，然后传 `routes` 配置
+            // 你还可以传别的配置参数, 不过先这么简单着吧。
+            const router = new VueRouter({
+                routes: routes
+            });
+
+            // 4. 创建和挂载根实例。
+            // 记得要通过 router 配置参数注入路由，
+            // 从而让整个应用都有路由功能
+            const app = new Vue({
+                router:router
+            }).$mount('#app1');
+
+            // 现在，应用已经启动了！
+        })();
+    </script>
+    <pre>
+    .router-link-active {
+        font-size:1.4em;
+        color:red;
+    }
+
+    &ltdiv id="app1">
+        &lth1>Hello App!&lt/h1>
+        &ltp>
+            &lt!-- 使用 router-link 组件来导航. -->
+            &lt!-- 通过传入 `to` 属性指定链接. -->
+            &lt!-- &ltrouter-link> 默认会被渲染成一个 `&lta>` 标签 -->
+            &ltrouter-link to="/foo">Go to Foo&lt/router-link>
+            &ltrouter-link to="/bar">Go to Bar&lt/router-link>
+        &lt/p>
+        &lt!-- 路由出口 -->
+        &lt!-- 路由匹配到的组件将渲染在这里 -->
+        &ltrouter-view>&lt/router-view>
+    &lt/div>
+
+
+    // 1. 定义（路由）组件。
+    // 可以从其他文件 import 进来
+    const Foo = { template: '&ltdiv>foo&lt/div>' }
+    const Bar = { template: '&ltdiv>bar&lt/div>' }
+
+    // 2. 定义路由
+    // 每个路由应该映射一个组件。 其中"component" 可以是
+    // 通过 Vue.extend() 创建的组件构造器，
+    // 或者，只是一个组件配置对象。
+    // 我们晚点再讨论嵌套路由。
+    const routes = [
+        { path: '/foo', component: Foo },
+        { path: '/bar', component: Bar }
+    ]
+
+    // 3. 创建 router 实例，然后传 `routes` 配置
+    // 你还可以传别的配置参数, 不过先这么简单着吧。
+    const router = new VueRouter({
+        routes: routes
+    });
+
+    // 4. 创建和挂载根实例。
+    // 记得要通过 router 配置参数注入路由，
+    // 从而让整个应用都有路由功能
+    const app = new Vue({
+        router:router
+    }).$mount('#app1');
+
+    // 现在，应用已经启动了！
+    </pre>
+    <mark>html代码</mark>
+    <p>
+        router-link组件将渲染成一个a标签。激活a将渲染router中对应地址的组件。
+        当前激活的a将有class="router-link-exact-active router-link-active"。
+        <strong>为什么会有两个类？？</strong>
+    </p>
+    <pre>
+    &ltrouter-link to="/foo">Go to Foo&lt/router-link>
+        //将渲染成，如果不是激活的当前a不会有class
+    &lta href="#/foo" class="router-link-exact-active router-link-active">Go to Foo&lt/a>
+    </pre>
+    <p>
+        router-view的作用就是组件渲染的出口。如果把router-link比作是输入，那么router-view就是输出。
+        router-link负责提供组件的地址，router-view负责将组件输出显示。
+    </p>
+    <pre>
+        &ltrouter-view>&lt/router-view>
+    </pre>
+
+    <mark>js</mark>
+    <p>
+        <strong>使用路由有4个步骤：</strong>
+    </p>
+    <ol>
+        <li>
+            定义（路由）组件。
+        </li>
+        <pre>
+        const Foo = { template: '&ltdiv>foo&lt/div>' }
+        const Bar = { template: '&ltdiv>bar&lt/div>' }
+        </pre>
+        <li>
+            定义路由
+        </li>
+        <pre>
+        const routes = [
+            { path: '/foo', component: Foo },
+            { path: '/bar', component: Bar }
+        ]
+        </pre>
+
+        <li>
+            创建 router 实例，然后传 `routes` 配置
+        </li>
+        <pre>
+        const router = new VueRouter({
+            routes: routes
+        });
+        </pre>
+        <li>
+           启动路由(创建和挂载根实例)
+        </li>
+        <pre>
+        const app = new Vue({
+            router:router
+        }).$mount('#app1');
+        </pre>
+    </ol>
+
+    <h3>动态路由匹配</h3>
+    <p>
+        通俗的说就是当有多个地址指向同一个组件，而这些地址是动态的只有个别的位置不同。
+        你可以每个路径都一一手动映射到这个组件上，但是如果数量非常多呢？？
+        这时就有了动态路由匹配的用武之地了。
+    </p>
+    <p>
+        只要满足：<strong>动态路径且指向同一个组件</strong>。例如，我们有一个 User 组件，对于所有 ID 各不相同的用户，都要使用这个组件来渲染。
+    </p>
+    <pre>
+    const User = {
+      template: '&ltdiv>User&lt/div>'
+    }
+
+    const router = new VueRouter({
+      routes: [
+        // 动态路径参数 以冒号开头
+        { path: '/user/<strong>:id</strong>', component: User }
+      ]
+    })
+    </pre>
+    <mark>例子：</mark>
+    <div id="app2">
+        <p>
+            <router-link to="/user/foo">/user/foo</router-link>
+            <router-link to="/user/bar">/user/bar</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+
+    <script>
+        (function(){
+            var user = {
+                template:"<div>User {{ $route.params.user }}</div>",
+                beforeRouteUpdate:function(to, from, next){
+                    console.log(0);
+                    next();
+                }
+            }
+            var routes = [
+                { path:"/user/:user", component:user }
+            ]
+
+            var router = new VueRouter({routes:routes});
+
+            new Vue({router:router}).$mount("#app2");
+        })();
+    </script>
+
+    <pre>
+        //html代码与上一个例子一样
+
+    //$route.params.user 是匹配到的动态路径参数。
+    var user = {
+        template:"&ltdiv>User {{ <strong class="text-red">$route.params.user</strong> }}&lt/div>"，
+        beforeRouteUpdate:function(to, from, next){
+            console.log(0);//切换组件时执行
+            next();//必须执行这个函数，要不将不会切换
+        }
+    }
+    //注意动态路径部分要加:号，并且起一个名字，在需要用到的时候通过$route.params调用
+    var routes = [
+        { path:"/user/<strong class="text-red">:user</strong>", component:user }
+    ]
+
+    var router = new VueRouter({routes:routes});
+
+    new Vue({router:router}).$mount("#app2");
+    </pre>
+    <mark>$route.params</mark>
+    <p>
+        <strong>你可以在一个路由中设置多段『路径参数』，对应的值都会设置到 $route.params 中。</strong>
+    </p>
+    <div>
+        模式：/user/:username/post/:post_id <br/>
+        匹配路径：/user/evan/post/123 <br/>
+        $route.params：{ username: 'evan', post_id: 123 }
+    </div>
+
+    <mark>响应路由参数的变化</mark>
+    <p>
+        提醒一下，当使用路由参数时，例如从 /user/foo 导航到 /user/bar，<strong>原来的组件实例会被复用</strong>。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。
+    </p>
+    <p>
+        复用组件时，想对路由参数的变化作出响应的话，你可以简单地 watch（监测变化） $route 对象(好像用不了)：
+        或者vue2.2引入的beforeRouteUpdate钩子。
+    </p>
+    <pre>
+        beforeRouteUpdate:function(to, from, next){
+            console.log(0);//更新组件时执行，切换组件并不执行
+            next();//必须执行这个函数，要不将不会切换
+        }
+    </pre>
+
+    <mark>高级匹配模式</mark>
+    <p>
+        vue-router 使用 path-to-regexp 作为路径匹配引擎，所以支持很多高级的匹配模式，例如：可选的动态路径参数、匹配零个或多个、一个或多个，甚至是自定义正则匹配。
+        <a href="https://github.com/vuejs/vue-router/blob/next/examples/route-matching/app.js">点击查看例子</a>
+    </p>
+    <mark>匹配优先级</mark>
+    <p>
+        有时候，同一个路径可以匹配多个路由，此时，匹配的优先级就按照路由的定义顺序：谁先定义的，谁的优先级就最高。
+    </p>
+
+    <h3>嵌套路由</h3>
+    <p>
+        实际生活中的应用界面，通常由多层嵌套的组件组合而成。同样地，URL 中各段动态路径也按某种结构对应嵌套的各层组件。
+        也就是说组件通常是嵌套他有层级的，对应的路径也应该是有层级的。
+        就像文件夹和路径一个道理。
+    </p>
+    <p>
+        在前面的例子中所有的router-vivw都是顶层的出口，而<strong>嵌套的router-vivw出口都是在子组件的模板中设置的</strong>。
+    </p>
+    <pre>
+    const User = {
+      template: '
+        &ltdiv class="user">
+             &lth2>User {{ $route.params.id }} &lt/h2>
+             &ltrouter-view> &lt/router-view>
+        &lt/div>'
+    }
+    </pre>
+
+    <strong class="text-red">要在嵌套的出口中渲染组件，需要在 VueRouter 的参数中使用 children 配置：</strong>
+    <br/>
+    <p>写嵌套的路由应该有层次的写，像下面的例子，先将home和news两个写完测试后没问题，再在home的内部添加reg和login路径。</p>
+    <mark>例子：</mark>
+    <div id="app3">
+        <button @click="go">go news(push方法手动)</button>
+        <p>
+            <router-link to="/home">Home</router-link>
+            <router-link to="/news">News</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+    <!--定义顶层出口的模板-->
+    <template id="home">
+        <div>
+            <h4>Home</h4>
+            <p>
+                <router-link to="/home/reg">reg</router-link>
+                <router-link to="/home/login">login</router-link>
+            </p>
+            <router-view></router-view>
+            <!-- 嵌套的出口-->
+        </div>
+    </template >
+
+    <template id="news">
+        <div>新闻</div>
+    </template>
+
+    <template id="login">
+        <div>登录</div>
+    </template>
+
+    <template id="reg">
+        <div>注册</div>
+    </template>
+
+    <script>
+        (function(){
+            //顶层出口的模板
+            var Home = { template:"#home" };
+            var News = { template:"#news"};
+            //内嵌出口的模板
+            var Reg = { template:"#reg"};
+            var Login = { template:"#login"};
+
+            var routes = [
+                { path:"/", redirect:"/home"},
+                { path:"/home",
+                  component:Home ,
+                    children:[
+                        { path:"", component:Login },
+                        { path: '/home/login', component:Login},
+                        { path: '/home/reg', component:Reg}
+                    ]
+                },
+                { path:"/news", component:News }
+            ];
+
+            var router = new VueRouter({
+                routes:routes
+            });
+
+            new Vue({
+                router:router,
+                methods:{
+                    go:function(){
+                        router.push("news")
+                    }
+                }
+            }).$mount("#app3");
+        })();
+    </script>
+
+    <pre>
+    &ltdiv id="app3">
+        &ltp>
+            &ltrouter-link to="/home">Home&lt/router-link>
+            &ltrouter-link to="/news">News&lt/router-link>
+        &lt/p>
+        &ltrouter-view>&lt/router-view>//如果有两个出口，将会渲染两次。
+    &lt/div>
+    &lt!--定义顶层出口的模板-->
+    &lttemplate id="home">
+        &ltdiv>
+            &lth4>Home&lt/h4>
+            &ltp>
+                &ltrouter-link to="/home/reg">reg&lt/router-link>
+                &ltrouter-link to="/home/login">login&lt/router-link>
+            &lt/p>
+            &ltrouter-view>&lt/router-view>
+            &lt!-- 嵌套的出口-->
+        &lt/div>
+    &lt/template >
+
+    &lttemplate id="news">
+        &ltdiv>新闻&lt/div>
+    &lt/template>
+
+    &lttemplate id="login">
+        &ltdiv>登录&lt/div>
+    &lt/template>
+
+    &lttemplate id="reg">
+        &ltdiv>注册&lt/div>
+    &lt/template>
+
+    &ltscript>
+        (function(){
+            //顶层出口的模板
+            var Home = { template:"#home" };
+            var News = { template:"#news"};
+            //内嵌出口的模板
+            var Reg = { template:"#reg"};
+            var Login = { template:"#login"};
+
+            var routes = [
+                { path:"/", redirect:"/home"},//重定向
+                { path:"/home",
+                  component:Home ,
+                    children:[
+                        { path:"", component:Login },
+                        { path: '/home/login', component:Login},
+                        { path: '/home/reg', component:Reg}
+                    ]
+                },
+                { path:"/news", component:News }
+            ];
+
+            var router = new VueRouter({
+                routes:routes
+            });
+
+            new Vue({
+                router:router,
+            }).$mount("#app3");
+        })();
+    &lt/script>
+
+    </pre>
+
+
+    <h3>编程式导航</h3>
+    <p>
+        上面我们是采用a的href=""来定义导航链接的，但在点击a时不难发现浏览器的地址多了一串hash值。
+        这个hash值就是组件的地址。以前我们知道hash值会触发浏览器的历史管理。
+    </p>
+    <p>
+        我们还可以借助 router 的实例方法，通过编写代码来实现。 <br/>
+        <strong class="text-red">router.push(location, onComplete?, onAbort?)</strong> <br/>
+        在内部可以调用 this.$route.push();该方法的参数可以是一个字符串路径，或者一个描述地址的对象。
+    </p>
+    <ol>
+        <li>
+            <strong>router.replace(location, onComplete?, onAbort?)</strong> <br/>
+            跟 router.push 很像，唯一的不同就是，它不会向 history 添加新记录，而是跟它的方法名一样 —— 替换掉当前的 history 记录。
+        </li>
+        <li>
+            <strong>router.go(n)</strong> <br/>
+            浏览器历史记录往前或往后。
+        </li>
+    </ol>
+
+    <h3>命名路由</h3>
+    <p>
+        可以在创建 Router 实例的时候，在 routes 配置中给某个路由设置名称。
+    </p>
+    <pre>
+        const router = new VueRouter({
+          routes: [
+            {
+              path: '/user/:userId',
+              <strong>name: 'user'</strong>,
+              component: User
+            }
+          ]
+        })
+    </pre>
+
+    <p>
+        要链接到一个命名路由，可以给 router-link 的 to 属性传一个对象：
+    </p>
+    <pre>
+        &ltrouter-link :to="{ name: 'user', params: { userId: 123 }}">User&lt/router-link>
+        //相当于调用 router.push({ name: 'user', params: { userId: 123 }})
+    </pre>
+
+    <h3>命名视图</h3>
+    <p>
+        有时候想同时（同级）展示多个视图，而不是嵌套展示，例如创建一个布局，有 sidebar（侧导航） 和 main（主内容） 两个视图，这个时候命名视图就派上用场了。你可以在界面中拥有多个单独命名的视图，而不是只有一个单独的出口。
+        <strong>如果 router-view 没有设置名字，那么默认为 default。</strong>
+    </p>
+    <p>
+        通俗的说就是当访问某一地址时，需要多个出口渲染，每个出口都可渲染不同的组件。
+    </p>
+    <pre>
+    &ltrouter-view class="view one">&lt/router-view>
+    &ltrouter-view class="view two" name="a">&lt/router-view>
+    &ltrouter-view class="view three" name="b">&lt/router-view>
+    </pre>
+
+    <p>
+        一个视图使用一个组件渲染，因此对于同个路由，多个视图就需要多个组件。确保正确使用 components 配置（带上 s）：
+    </p>
+    <p>
+        <strong class="text-red">注意：如果只有一个出口时因为只渲染一个组件，所以是 component 。不带s。</strong>
+    </p>
+
+    <pre>
+        const router = new VueRouter({
+              routes: [
+                {
+                  path: '/',
+                  components: {
+                    default: Foo,
+                    a: Bar,
+                    b: Baz
+                  }
+                }
+              ]
+        })
+    </pre>
+
+    <mark>例子：</mark>
+    <div id="app4">
+        <h4>这里有两个出口。</h4>
+        <p>
+            <router-link to="/a">a</router-link>
+            <router-link to="/b">b</router-link>
+        </p>
+        <router-view name="one"></router-view>
+        <router-view name="two"></router-view>
+    </div>
+    <template id="app4temp1">
+        <div>组件一</div>
+    </template>
+    <template id="app4temp2">
+        <div>组件二</div>
+    </template>
+
+    <script>
+        (function(){
+            var c1 = { template: "#app4temp1"};
+            var c2 = { template: "#app4temp2"};
+
+            var routes = [
+                { path:"", redirect:"/b"},
+                {
+                    path:"/a",
+                    components:{
+                        one:c1,//出口名：组件名
+                        two:c2
+                    },
+                    alias: '/b'
+                },
+                {
+                    path:"/b",
+                    components:{
+                        one:c1
+                    }
+                }
+            ]
+
+            var router = new VueRouter({
+                routes
+            })
+
+            new Vue({
+                router
+            }).$mount("#app4");
+        })();
+    </script>
+    <pre>
+    &ltdiv id="app4">
+        &lth4>这里有两个出口。&lt/h4>
+        &ltp>
+            &ltrouter-link to="/a">a&lt/router-link>
+            &ltrouter-link to="/b">b&lt/router-link>
+        &lt/p>
+        &ltrouter-view name="one">&lt/router-view>
+        &ltrouter-view name="two">&lt/router-view>
+    &lt/div>
+    &lttemplate id="app4temp1">
+        &ltdiv>组件一&lt/div>
+    &lt/template>
+    &lttemplate id="app4temp2">
+        &ltdiv>组件二&lt/div>
+    &lt/template>
+
+    &ltscript>
+        (function(){
+            var c1 = { template: "#app4temp1"};
+            var c2 = { template: "#app4temp2"};
+
+            var routes = [
+                { path:"", redirect:"/b"},
+                {
+                    path:"/a",
+                    components:{
+                        one:c1,//出口名：组件名
+                        two:c2
+                    }
+                },
+                {
+                    path:"/b",
+                    components:{
+                        one:c1
+                    }
+                }
+            ]
+
+            var router = new VueRouter({
+                routes
+            })
+
+            new Vue({
+                router
+            }).$mount("#app4");
+        })();
+    &lt/script>
+    </pre>
+
+    <h3>重定向 和 别名</h3> <br/>
+    <mark>重定向</mark>
+    <pre>
+        const router = new VueRouter({
+          routes: [
+            { path: '/a', redirect: '/b' }
+            //表示如果访问的是/a将跳到/b
+          ]
+        })
+
+        const router = new VueRouter({
+          routes: [
+            { path: '/a', redirect: { name: 'foo' }}
+            //也可以是一个命名的路由
+          ]
+        })
+
+        //甚至是一个返回一个路由的方法
+    </pre>
+
+    <mark>别名</mark>
+    <pre>
+        const router = new VueRouter({
+          routes: [
+            { path: '/a', component: A, <strong class="text-red">alias: '/b'</strong> }
+          ]
+        })
+    </pre>
+    <p>
+        /a 的别名是 /b，意味着，当用户访问 /b 时，浏览器地址会保持为 /b，但是路由匹配则为 /a，就像用户访问 /a 一样。
+    </p>
+    <p>
+        通俗的说就是，如果/a的别名是/b, 那么当用户访问/b时得到的结果与访问/a事物一样。
+        功能与重定向一样，但与重定向不一样的是，别名显示的地址还是/b，而重定向显示/a。
+    </p>
+
+    <h3>路由组件传参</h3>
+    <p>
+        在组件中使用 $route 会使之与其对应路由形成高度耦合，从而使组件只能在某些特定的 URL 上使用，限制了其灵活性。
+    </p>
+
+    <p>
+        使用 props 取代与 $route 的耦合
+    </p>
+    <div>
+        <strong class="text-red">如果 props 被设置为 true，route.params 将会被设置为组件属性。</strong> <br/>
+        <strong class="text-red">如果 props 是一个对象，它会被按原样设置为组件属性。当 props 是静态的时候有用。</strong>
+    </div>
+    <mark>例子：</mark>
+
+    <div id="app5">
+        <p>
+            <router-link to="/User/use1">use1</router-link>
+            <router-link to="/User/use2">use2</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+
+    <script>
+        var use = {
+            props:["id"],
+            template:"<h4>{{id}}</h4>"
+        }
+
+        var routes = [
+            { path:"/User/:id", component:use, props:true}
+        ]
+
+        var router = new VueRouter({routes});
+
+        new Vue({router}).$mount("#app5");
+    </script>
+
+    <pre>
+    &ltdiv id="app5">
+        &ltp>
+            &ltrouter-link to="/User/use1">use1&lt/router-link>
+            &ltrouter-link to="/User/use2">use2&lt/router-link>
+        &lt/p>
+        &ltrouter-view>&lt/router-view>
+    &lt/div>
+
+    &ltscript>
+        var use = {
+            props:["id"],
+            template:"&lth4>{{id}}&lt/h4>"
+        }
+
+        var routes = [
+            { path:"/User/:id", component:use, props:true}
+        ]
+
+        var router = new VueRouter({routes});
+
+        new Vue({router}).$mount("#app5");
+    &lt/script>
+    </pre>
+
+    <h3>HTML5 History 模式</h3>
+
+    <pre>
+        vue-router 默认 hash 模式 —— 使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。
+
+        如果不想要很丑的 hash(只是多了一个#),我们可以用路由的 history 模式，这种模式充分利用 history.pushState API 来完成 URL 跳转而无须重新加载页面。
+    </pre>
+    <p>
+        <strong>不过这种模式要玩好，还需要后台配置支持。</strong>因为我们的应用是个单页客户端应用，如果后台没有正确的配置，当用户在浏览器直接访问 http://oursite.com/user/id 就会返回 404，这就不好看了。
+    </p>
+    <pre>
+        const router = new VueRouter({
+          mode: 'history',
+          routes: [...]
+        })
+    </pre>
+
+    <h3>导航守卫</h3> <br/>
+
+    <mark>全局守卫</mark>
+    <pre>
+        const router = new VueRouter({ ... })
+
+        router.beforeEach((to, from, next) => {
+          // ...
+        })
+    </pre>
+    <p>
+        当一个导航触发时，全局前置守卫按照创建顺序调用。守卫是异步解析执行，此时导航在所有守卫 resolve 完之前一直处于 等待中。
+    </p>
+    <p>
+        每个守卫方法接收三个参数：
+        <ul>
+            <li><strong>to</strong>: Route即将要进入的目标 路由对象</li>
+            <li><strong>from</strong>: Route当前导航正要离开的路由</li>
+            <li><strong>next</strong>: Function: 一定要调用该方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数。
+                <ul>
+                    <li>next(): 进行管道中的下一个钩子。如果全部钩子执行完了，则导航的状态就是 confirmed （确认的）。</li>
+                    <li>next(false): 中断当前的导航。如果浏览器的 URL 改变了（可能是用户手动或者浏览器后退按钮），那么 URL 地址会重置到 from 路由对应的地址。</li>
+                    <li>next('/') 或者 next({ path: '/' }): 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。你可以向 next 传递任意位置对象，且允许设置诸如 replace: true、name: 'home' 之类的选项以及任何用在 router-link 的 to prop 或 router.push 中的选项。</li>
+                    <li>next(error): (2.4.0+) 如果传入 next 的参数是一个 Error 实例，则导航会被终止且该错误会被传递给 router.onError() 注册过的回调。</li>
+                </ul>
+            </li>
+        </ul>
+        <strong class="text-red">确保要调用 next 方法，否则钩子就不会被 resolved。</strong>
+    </p>
+
+    <mark>全局后置钩子</mark>
+    <p>
+        你也可以注册全局后置钩子，然而和守卫不同的是，这些钩子不会接受 next 函数也不会改变导航本身：
+    </p>
+    <pre>
+        router.afterEach((to, from) => {
+          // ...
+        })
+    </pre>
+
+    <mark>路由独享的守卫</mark>
+    <pre>
+        const router = new VueRouter({
+          routes: [
+            {
+              path: '/foo',
+              component: Foo,
+              beforeEnter: (to, from, next) => {
+                // ...
+              }
+            }
+          ]
+        })
+    </pre>
+
+    <mark>组件内的守卫</mark>
+    <p>
+
+    </p>
+    <pre>
+        const Foo = {
+          template: `...`,
+          beforeRouteEnter (to, from, next) {
+            // 在渲染该组件的对应路由被 confirm 前调用
+            // 不！能！获取组件实例 `this`
+            // 因为当守卫执行前，组件实例还没被创建
+          },
+          beforeRouteUpdate (to, from, next) {
+            // 在当前路由改变，但是该组件被复用时调用
+            // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+            // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+            // 可以访问组件实例 `this`
+          },
+          beforeRouteLeave (to, from, next) {
+            // 导航离开该组件的对应路由时调用
+            // 可以访问组件实例 `this`
+          }
+        }
+    </pre>
+    <p>
+        <strong class="text-red">所谓的守卫或钩子，只是在导航的过程中某个时刻执行的回调函数。
+        这些回调函数是由执行顺序的。
+        </strong>
+        <strong class="text-red">
+            这些回调可分为三类： <br/>
+            第一类：在router对象的配置中定义的，这是全局的。beforeEach 和 afterEach。 <br/>
+            第二类：在某个路由中定义的，只对指定的路由起作用。beforeEnter。 <br/>
+            第三类：在组件中定义，只对组件起作用。beforeRouteEnter、beforeRouteUpdate、beforeRouteLeave。 <br/>
+        </strong>
+    </p>
+    <mark>例子：</mark>
+
+    <div id="app6">
+        <p>
+            <router-link to="/home">Home</router-link>
+            <router-link to="/news">News</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+    <!--定义顶层出口的模板-->
+    <template id="home">
+        <div>
+            <h4>Home</h4>
+            <p>
+                <router-link to="/home/reg">reg</router-link>
+                <router-link to="/home/login">login</router-link>
+            </p>
+            <router-view></router-view>
+            <!-- 嵌套的出口-->
+        </div>
+    </template >
+
+    <template id="news">
+        <div>新闻</div>
+    </template>
+
+    <template id="user">
+        <div>{{regOrLogin}}</div>
+    </template>
+
+    <script>
+        (function(){
+            //顶层出口的模板
+            var Home = { template:"#home" };
+            var News = { template:"#news"};
+            //内嵌出口的模板
+            var User = {
+                template:"#user",
+                props:["regOrLogin"],
+                beforeRouteEnter:function(to, from, next){
+                    console.log("beforeRouteEnter");
+                    next();
+                },
+                beforeRouteUpdate:function(to, from, next){
+                    console.log("beforeRouteUpdate")
+                    next();
+                },
+                beforeRouteLeave:function(to, from, next){
+                    console.log("beforeRouteLeave")
+                    next();
+                }
+            };
+
+            var routes = [
+                { path:"", redirect:"/home"},
+                { path:"/home",
+                    component:Home ,
+                    children:[
+                        { path:"", component:User, props:{ regOrLogin :"login"} },
+                        { path: '/home/:regOrLogin', component:User, props:true }
+                    ],
+                    beforeEnter:function(to, form, next){
+                        console.log("beforeEnter");
+                        next();
+                    }
+                },
+                { path:"/news",
+                  component:News
+                }
+            ];
+
+            var router = new VueRouter({
+                routes:routes
+            });
+
+            //定义全局守卫
+            router.beforeEach(function(to, form, next){
+                console.log("全局守卫！");
+                next();
+            });
+
+            //全局后置钩子
+            router.afterEach(function(to, form){
+                console.log("全局后置钩子")
+            })
+
+            new Vue({
+                router:router
+            }).$mount("#app6");
+
+            //执行结果
+            //beforeRouteLeave:当从另一个地址导航到当前地址时，首先执行上一个导航的这个钩子。
+            //beforeEach:当要导航到另一个地址时（导航前，准备导航），全局的起作用。
+            //beforeEnter:当导航到某个地址时，与beforeEach不同的是，这是一个局部的只针对指定路由起作用。
+            //beforeRouteEnter:
+            //afterEach：导航完毕但此时对应的组件还未新插入文档，全局的起作用。
+            //组件渲染插入文档。
+            //beforeRouteLeave:离开这个地址时，执行。
+
+            //需要特别注意的是，如果改变地址使用的是同一个导航，则与上面不一样。
+            //beforeEach:当要导航到另一个地址时（导航前，准备导航），全局的起作用。
+            //beforeRouteUpdate；更新组件
+            //afterEach：导航完毕但此时对应的组件还未新插入文档，全局的起作用。
+        })();
+    </script>
+    <pre>
+    &ltdiv id="app6">
+        &ltp>
+            &ltrouter-link to="/home">Home&lt/router-link>
+            &ltrouter-link to="/news">News&lt/router-link>
+        &lt/p>
+        &ltrouter-view>&lt/router-view>
+    &lt/div>
+    &lt!--定义顶层出口的模板-->
+    &lttemplate id="home">
+        &ltdiv>
+            &lth4>Home&lt/h4>
+            &ltp>
+                &ltrouter-link to="/home/reg">reg&lt/router-link>
+                &ltrouter-link to="/home/login">login&lt/router-link>
+            &lt/p>
+            &ltrouter-view>&lt/router-view>
+            &lt!-- 嵌套的出口-->
+        &lt/div>
+    &lt/template >
+
+    &lttemplate id="news">
+        &ltdiv>新闻&lt/div>
+    &lt/template>
+
+    &lttemplate id="user">
+        &ltdiv>{{regOrLogin}}&lt/div>
+    &lt/template>
+
+    &ltscript>
+        (function(){
+            //顶层出口的模板
+            var Home = { template:"#home" };
+            var News = { template:"#news"};
+            //内嵌出口的模板
+            var User = {
+                template:"#user",
+                props:["regOrLogin"],
+                beforeRouteEnter:function(to, from, next){
+                    console.log("beforeRouteEnter");
+                    next();
+                },
+                beforeRouteUpdate:function(to, from, next){
+                    console.log("beforeRouteUpdate")
+                    next();
+                },
+                beforeRouteLeave:function(to, from, next){
+                    console.log("beforeRouteLeave")
+                    next();
+                }
+            };
+
+            var routes = [
+                { path:"", redirect:"/home"},
+                { path:"/home",
+                    component:Home ,
+                    children:[
+                        { path:"", component:User, props:{ regOrLogin :"login"} },
+                        { path: '/home/:regOrLogin', component:User, props:true }
+                    ],
+                    beforeEnter:function(to, form, next){
+                        console.log("beforeEnter");
+                        next();
+                    }
+                },
+                { path:"/news",
+                  component:News
+                }
+            ];
+
+            var router = new VueRouter({
+                routes:routes
+            });
+
+            //定义全局守卫
+            router.beforeEach(function(to, form, next){
+                console.log("全局守卫！");
+                next();
+            });
+
+            //全局后置钩子
+            router.afterEach(function(to, form){
+                console.log("全局后置钩子")
+            })
+
+            new Vue({
+                router:router
+            }).$mount("#app6");
+
+            //执行结果
+            //beforeRouteLeave:当从另一个地址导航到当前地址时，首先执行上一个导航的这个钩子。
+            //beforeEach:当要导航到另一个地址时（导航前，准备导航），全局的起作用。
+            //beforeEnter:当导航到某个地址时，与beforeEach不同的是，这是一个局部的只针对指定路由起作用。
+            //beforeRouteEnter:
+            //afterEach：导航完毕但此时对应的组件还未新插入文档，全局的起作用。
+            //组件渲染插入文档。
+            //beforeRouteLeave:离开这个地址时，执行。
+
+            //需要特别注意的是，如果改变地址使用的是同一个导航，则与上面不一样。
+            //beforeEach:当要导航到另一个地址时（导航前，准备导航），全局的起作用。
+            //beforeRouteUpdate；更新组件
+            //afterEach：导航完毕但此时对应的组件还未新插入文档，全局的起作用。
+        })();
+    &lt/script>
+    </pre>
+
+
+    <h3>学习网站</h3>
+    <a href="https://router.vuejs.org/zh-cn/api/options.html#mode">https://router.vuejs.org/zh-cn/api/options.html#mode</a>
+</div>
+</body>
+</html>
