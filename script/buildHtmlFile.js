@@ -49,7 +49,12 @@ function build(dir) {
       htmlStr += `</ul></li>`
     } else {
       let relativeUrl = dir.split('\\docs\\')[1].replace(/\\/g, '/')
-      let url = relativeUrl + '/' + child
+      let url
+      if (/.html$/.test) {
+        url = relativeUrl + '/' + child
+      } else {
+        url = baseUrl + '/' + relativeUrl + '/' + child
+      }
       htmlStr += `<li><a href="${url}">${child}</a></li>`
     }
   })
