@@ -16,6 +16,18 @@ htmlStr = `
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="${baseUrl}" />
   <title>liuchengyuan</title>
+  <style>
+    ul {
+      font-size: 16px;
+      font-weight: 700;
+      colo: #333;
+    }
+    li {
+      margin: 10px 0;
+      font-size:14px;
+      font-weight: normal;
+    }
+  </style>
 </head>
 <body>
   ${htmlStr}
