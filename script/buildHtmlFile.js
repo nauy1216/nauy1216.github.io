@@ -6,7 +6,8 @@ const rootDir = path.resolve(process.cwd(), 'docs')
 let htmlStr = `<ul>`
 build(rootDir)
 htmlStr += `</ul>`
-
+//  <base href="${baseUrl}" />
+// 
 htmlStr = `
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,6 @@ htmlStr = `
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <base href="${baseUrl}" />
   <title>liuchengyuan</title>
   <style>
     ul {
