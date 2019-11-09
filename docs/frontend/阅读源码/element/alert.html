@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>资源链接.md</title>
+          <title>alert.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,12 +37,109 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="css">css</h1>
-<ol>
-<li><a href="https://www.bootcss.com/">bootstrap</a></li>
-<li><a href="https://www.tailwindcss.cn/">tailwindcss</a></li>
-</ol>
-<p><img src="./image/life.png" alt=""></p>
+                <h1 id="源码">源码</h1>
+<pre><code class="language-javascript">&lt;template&gt;
+  &lt;transition name=&quot;el-alert-fade&quot;&gt;
+    &lt;div
+      class=&quot;el-alert&quot;
+      :class=&quot;[typeClass, center ? &#39;is-center&#39; : &#39;&#39;, &#39;is-&#39; + effect]&quot;
+      v-show=&quot;visible&quot;
+      role=&quot;alert&quot;
+    &gt;
+      &lt;i class=&quot;el-alert__icon&quot; :class=&quot;[ iconClass, isBigIcon ]&quot; v-if=&quot;showIcon&quot;&gt;&lt;/i&gt;
+      &lt;div class=&quot;el-alert__content&quot;&gt;
+        &lt;span class=&quot;el-alert__title&quot; :class=&quot;[ isBoldTitle ]&quot; v-if=&quot;title || $slots.title&quot;&gt;
+          &lt;slot name=&quot;title&quot;&gt;{{ title }}&lt;/slot&gt;
+        &lt;/span&gt;
+        &lt;p class=&quot;el-alert__description&quot; v-if=&quot;$slots.default &amp;&amp; !description&quot;&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/p&gt;
+        &lt;p class=&quot;el-alert__description&quot; v-if=&quot;description &amp;&amp; !$slots.default&quot;&gt;{{ description }}&lt;/p&gt;
+        &lt;i class=&quot;el-alert__closebtn&quot; :class=&quot;{ &#39;is-customed&#39;: closeText !== &#39;&#39;, &#39;el-icon-close&#39;: closeText === &#39;&#39; }&quot; v-show=&quot;closable&quot; @click=&quot;close()&quot;&gt;{{closeText}}&lt;/i&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/transition&gt;
+&lt;/template&gt;
+
+&lt;script type=&quot;text/babel&quot;&gt;
+  const TYPE_CLASSES_MAP = {
+    &#39;success&#39;: &#39;el-icon-success&#39;,
+    &#39;warning&#39;: &#39;el-icon-warning&#39;,
+    &#39;error&#39;: &#39;el-icon-error&#39;
+  };
+  export default {
+    name: &#39;ElAlert&#39;,
+
+    props: {
+      title: {
+        type: String,
+        default: &#39;&#39;
+      },
+      description: {
+        type: String,
+        default: &#39;&#39;
+      },
+      type: {
+        type: String,
+        default: &#39;info&#39;
+      },
+      closable: {
+        type: Boolean,
+        default: true
+      },
+      closeText: {
+        type: String,
+        default: &#39;&#39;
+      },
+      showIcon: Boolean,
+      center: Boolean,
+      effect: {
+        type: String,
+        default: &#39;light&#39;,
+        // 使用自定义验证
+        validator: function(value) {
+          return [&#39;light&#39;, &#39;dark&#39;].indexOf(value) !== -1;
+        }
+      }
+    },
+
+    data() {
+      return {
+        visible: true
+      };
+    },
+
+    methods: {
+      close() {
+        this.visible = false;
+        // 触发close事件
+        this.$emit(&#39;close&#39;);
+      }
+    },
+
+    computed: {
+      typeClass() {
+        return `el-alert--${ this.type }`;
+      },
+
+      iconClass() {
+        return TYPE_CLASSES_MAP[this.type] || &#39;el-icon-info&#39;;
+      },
+
+      isBigIcon() {
+        // this.$slots 保存了组件所有的slot。
+        // slot是在父组件的作用域编译的， 父组件编译成vnode后将挂在子组件的$slots对象上。
+        // 如果是作用域插槽，则是返回一个函数，供子组件调用， 参数就是slot-scope的值。
+        // 作用域插槽先是在父作用域编译返回一个返回值是vnode的函数，
+        // 然后由子组件传参生成最终的vnode。
+        return this.description || this.$slots.default ? &#39;is-big&#39; : &#39;&#39;;
+      },
+
+      isBoldTitle() {
+        return this.description || this.$slots.default ? &#39;is-bold&#39; : &#39;&#39;;
+      }
+    }
+  };
+&lt;/script&gt;
+</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
