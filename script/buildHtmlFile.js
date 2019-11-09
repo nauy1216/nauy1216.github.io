@@ -77,9 +77,9 @@ function createIndexHtml() {
         if (/.html$/.test(child)) {
           url = 'docs' + '/' + relativeUrl + '/' + child
         } else {
-          url = baseUrl + '/' + relativeUrl + '/' + child
+          //url = baseUrl + '/' + relativeUrl + '/' + child
         }
-        htmlStr += `<li><a href="${url}">${child}</a></li>`
+        htmlStr += `<li><a href="${url}">${child.split('.')[0]}</a></li>`
       }
     })
   }
