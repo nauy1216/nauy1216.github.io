@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "node script/buildHtmlFile.js",
-    "md2html": "node script/md2html.js"
+    "md2html": "node script/md2html.js",
+    "test": "i5ting_toc -f docs/0资源/资源链接.md"
   },
   "repository": {
     "type": "git",

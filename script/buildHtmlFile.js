@@ -64,12 +64,15 @@ function createIndexHtml() {
 
   function build(dir) {
     let dirChildList = fs.readdirSync(dir)
+    const noBuildList = ['image']
     dirChildList.forEach(child => {
       let isDir = fs.statSync(path.resolve(dir, child))
       if (isDir.isDirectory()) {
-        htmlStr += `<li>${child}<ul>`
-        build(path.resolve(dir, child))
-        htmlStr += `</ul></li>`
+        if (!noBuildList.includes(child)) {
+          htmlStr += `<li>${child}<ul>`
+          build(path.resolve(dir, child))
+          htmlStr += `</ul></li>`
+        }
       } else {
         console.log(dir)
         let relativeUrl = dir.split('\\docs\\')[1].replace(/\\/g, '/')
