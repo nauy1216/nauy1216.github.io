@@ -59,6 +59,7 @@ class Md2Html {
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <title>md文件转html页面</title>
+          <link rel="stylesheet" href="/static/codetheme.css">
           <style>
               .markdown-body {
                   box-sizing: border-box;
@@ -74,11 +75,17 @@ class Md2Html {
               }
               {{{style}}}
           </style>
+          <script>
+              window.onload = function() {
+
+              }
+          </script>
           </head>
           <body>
-              <article class="markdown-body">
-                  {{{content}}}
-              </article>  
+            <article class="markdown-body">
+                {{{content}}}
+            </article> 
+            <script src="/static/highlight.js"></script>
           </body>
       </html>`;
     return template;
