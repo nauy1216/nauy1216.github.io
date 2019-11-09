@@ -71,6 +71,7 @@ function createIndexHtml() {
         build(path.resolve(dir, child))
         htmlStr += `</ul></li>`
       } else {
+        console.log(dir)
         let relativeUrl = dir.split('\\docs\\')[1].replace(/\\/g, '/')
         let url
         if (/.html$/.test(child)) {
