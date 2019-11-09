@@ -4,7 +4,8 @@
   "description": "一些笔记。",
   "main": "index.js",
   "scripts": {
-    "build": "node script/buildHtmlFile.js"
+    "build": "node script/buildHtmlFile.js",
+    "md2html": "node script/md2html.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/chengyuan1216/chengyuan1216.github.io/issues"
   },
-  "homepage": "https://github.com/chengyuan1216/chengyuan1216.github.io#readme"
+  "homepage": "https://github.com/chengyuan1216/chengyuan1216.github.io#readme",
+  "devDependencies": {
+    "marked": "^0.7.0",
+    "request": "^2.88.0"
+  }
 }

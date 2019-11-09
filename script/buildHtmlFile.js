@@ -60,4 +60,4 @@ function build(dir) {
   })
 }
 
-console.log(htmlStr)
+// console.log(htmlStr)
