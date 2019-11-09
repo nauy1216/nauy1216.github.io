@@ -58,8 +58,8 @@ class Md2Html {
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>md文件转html页面</title>
-          <link rel="stylesheet" href="/static/codetheme.css">
+          <title>${this.fileName}</title>
+          <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/github.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
                   box-sizing: border-box;
@@ -85,7 +85,7 @@ class Md2Html {
             <article class="markdown-body">
                 {{{content}}}
             </article> 
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+            <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>  
           </body>
       </html>`;
     return template;

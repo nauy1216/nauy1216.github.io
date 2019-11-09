@@ -51,7 +51,6 @@ cmd中，执行java命令与javac命令的区别：
 例如：java hello
 
 
-
 > 在命令行模式中，输入命令：javac 源文件名.java，对源代码进行编译，生成class字节码文件；
 >
 > 编译完成后，如果没有报错信息，输入命令：java Hello，对class字节码文件进行解释运行，打印“Hello World”。
@@ -61,9 +60,7 @@ cmd中，执行java命令与javac命令的区别：
  * 1、创建java项目
  * 2、创建Test.java文件
  * 3、点击run执行文件
- *
  */
-
 public class Test {
     public static void main(String[] args) {
         System.out.println("hello");
