@@ -46,8 +46,6 @@ cmd中，执行java命令与javac命令的区别：
 例如：javac hello.java
 将生成hello.class文件。
 
- 
-
 **java：是运行字节码文件；由java虚拟机对字节码进行解释和运行。**
 
 例如：java hello

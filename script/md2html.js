@@ -77,7 +77,7 @@ class Md2Html {
           </style>
           <script>
               window.onload = function() {
-
+                hljs.initHighlighting()
               }
           </script>
           </head>
@@ -85,7 +85,7 @@ class Md2Html {
             <article class="markdown-body">
                 {{{content}}}
             </article> 
-            <script src="/static/highlight.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
           </body>
       </html>`;
     return template;
