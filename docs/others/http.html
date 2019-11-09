@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>javaSE.md</title>
+          <title>http.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -29,50 +29,14 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="1、java准备">1、java准备</h1>
-<h2 id="11java的知识体系">1.1 Java的知识体系 </h2>
-<h3 id="javase">Java SE </h3>
-<p>Java Standard Edition，Java标准版。</p>
-<p>这是Java学习的基础 。其中包含了： 
-Java基本语法 、Java基本类库 、 Java的开发环境 、 Java的运行环境。</p>
-<h3 id="javaee">Java EE </h3>
-<p>Java Enterprise Edition，Java企业版 。
-<strong>这是Java最擅长的方向，也是我们课程学习的重点</strong> 。
-着重于Java企业级应用程序的开发，即Web应用的开发 。</p>
-<h3 id="javame">Java ME </h3>
-<p>Java Micro Edition，Java微型版。这是Java开发的另一个方向 ，着重于Java在小型移动设备上的开发。</p>
-<h2 id="12java的环境">1.2 Java的环境 </h2>
-<h3 id="jdk">JDK</h3>
-<p><strong>是整个Java的核心</strong> ，包括了Java运行环境（Java Runtime Envirnment），一堆Java工具和Java基础的类库（rt.jar）。 </p>
-<h3 id="配置环境变量">配置环境变量</h3>
-<h3 id="java和javac">java和javac</h3>
-<p>cmd中，执行java命令与javac命令的区别：</p>
-<p><strong>javac：是编译命令，将java源文件编译成.class字节码文件。</strong></p>
-<p>例如：javac hello.java
-将生成hello.class文件。</p>
-<p><strong>java：是运行字节码文件；由java虚拟机对字节码进行解释和运行。</strong></p>
-<p>例如：java hello</p>
-<blockquote>
-<p>在命令行模式中，输入命令：javac 源文件名.java，对源代码进行编译，生成class字节码文件；</p>
-<p>编译完成后，如果没有报错信息，输入命令：java Hello，对class字节码文件进行解释运行，打印“Hello World”。</p>
-</blockquote>
-<pre><code class="language-java">/**
- * 1、创建java项目
- * 2、创建Test.java文件
- * 3、点击run执行文件
- */
-public class Test {
-    public static void main(String[] args) {
-        System.out.println(&quot;hello&quot;);
-    }
-}</code></pre>
-<h1 id="2、java与面向对象">2、java与面向对象</h1>
-<h2 id="对象">对象</h2>
-<p>什么是对象？</p>
-<p>有属性、有行为的东西皆可称之为对象。</p>
-<p>在java中的对象也是如此， java对象包括属性、方法。</p>
-<h2 id="类">类</h2>
-<p>类是某一类对象的统称。比如鸡、鸭、鹅皆是动物， 动物是一个类。既然鸡、鸭、鹅皆是动物， 鸡、鸭、鹅也应该有动物的所有特性及行为。  </p>
+                <h1 id="第一章-了解web及网络基础">第一章 了解Web及网络基础</h1>
+<h2 id="使用http协议访问web">使用http协议访问Web</h2>
+<h3 id="客户端">客户端</h3>
+<p>通过发送请求获取服务器资源的web浏览器等， 都可以称为客户端。web使用一种名为http(HyperText transformer Protocol, 超文本传输协议)的协议作为规范， 完成客户端到服务器端等一系列运作流程。web是建立在Http协议上通信的。</p>
+<h3 id="3项www技术">3项www技术</h3>
+<p>文本标记语言html(超文本标记语言)、文档传递协议Http(超文本传输协议)、指定文档所在地址URL(统一资源定位符)</p>
+<h3 id="网络基础tcpip">网络基础TCP/IP</h3>
+<p>通常使用的网络是在TCP/IP协议族的基础上运作的，而http是属于它内部的一个<strong>子集</strong>。</p>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

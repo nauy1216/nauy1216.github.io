@@ -8,7 +8,7 @@
   // 开启 vscode 文件路径导航
   "breadcrumbs.enabled": true,
   // prettier 设置语句末尾不加分号
-  "prettier.semi": false,
+  "prettier.semi": true,
   // prettier 设置强制单引号
   "prettier.singleQuote": true,
   // 选择 vue 文件中 template 的格式化工具
@@ -21,7 +21,7 @@
     },
     "prettier": {
       "singleQuote": true,
-      "semi": false,
+      "semi": true,
       "printWidth": 100,
       "wrapAttributes": true,
       "sortAttributes": true

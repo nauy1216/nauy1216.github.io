@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>javaSE.md</title>
+          <title>githooks.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -29,51 +29,74 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="1、java准备">1、java准备</h1>
-<h2 id="11java的知识体系">1.1 Java的知识体系 </h2>
-<h3 id="javase">Java SE </h3>
-<p>Java Standard Edition，Java标准版。</p>
-<p>这是Java学习的基础 。其中包含了： 
-Java基本语法 、Java基本类库 、 Java的开发环境 、 Java的运行环境。</p>
-<h3 id="javaee">Java EE </h3>
-<p>Java Enterprise Edition，Java企业版 。
-<strong>这是Java最擅长的方向，也是我们课程学习的重点</strong> 。
-着重于Java企业级应用程序的开发，即Web应用的开发 。</p>
-<h3 id="javame">Java ME </h3>
-<p>Java Micro Edition，Java微型版。这是Java开发的另一个方向 ，着重于Java在小型移动设备上的开发。</p>
-<h2 id="12java的环境">1.2 Java的环境 </h2>
-<h3 id="jdk">JDK</h3>
-<p><strong>是整个Java的核心</strong> ，包括了Java运行环境（Java Runtime Envirnment），一堆Java工具和Java基础的类库（rt.jar）。 </p>
-<h3 id="配置环境变量">配置环境变量</h3>
-<h3 id="java和javac">java和javac</h3>
-<p>cmd中，执行java命令与javac命令的区别：</p>
-<p><strong>javac：是编译命令，将java源文件编译成.class字节码文件。</strong></p>
-<p>例如：javac hello.java
-将生成hello.class文件。</p>
-<p><strong>java：是运行字节码文件；由java虚拟机对字节码进行解释和运行。</strong></p>
-<p>例如：java hello</p>
-<blockquote>
-<p>在命令行模式中，输入命令：javac 源文件名.java，对源代码进行编译，生成class字节码文件；</p>
-<p>编译完成后，如果没有报错信息，输入命令：java Hello，对class字节码文件进行解释运行，打印“Hello World”。</p>
-</blockquote>
-<pre><code class="language-java">/**
- * 1、创建java项目
- * 2、创建Test.java文件
- * 3、点击run执行文件
- */
-public class Test {
-    public static void main(String[] args) {
-        System.out.println(&quot;hello&quot;);
-    }
+                <h1 id="husky">husky</h1>
+<p>在之前的工作中，我们尝试通过在 git 的 <code>pre-receive</code> 阶段嵌入一系列的 ci 流程处理代码以提供给开发者们 &quot;just push&quot; 的开发流程（当然这个想法是完完全全源自 heroku 的）。这个流程将原先的 &quot;push -&gt; wait for verify -&gt; new correct commit -&gt; repush&quot; 的流程转变为 &quot;push -&gt; fail -&gt; correct -&gt; repush&quot;：如果没有在 &quot;pre-receive&quot; 阶段设置门禁的话，坏的提交会被同步到中心仓库后在进行检测；而设置门禁之后坏的 commit 会被拒绝在本地，本地只能将 ci 可以通过的代码提交到中心仓库。但是将所有东西都通过 push 验证很显然是慢了一些：这就像表单的前端验证和后端验证一样，虽然后端验证永远必不可少但是它增加了服务器的负担并且延长了反馈周期。</p>
+<p>这时候 <code>husky</code> 就要派上用场了。<code>husky</code> 其实就是一个为 <code>git</code> 客户端增加 hook 的工具。将其安装到所在仓库的过程中它会自动在 <code>.git/</code> 目录下增加相应的钩子实现在 <code>pre-commit</code> 阶段就执行一系列流程保证每一个 commit 的正确性。部分在 cd <code>commit stage</code> 执行的命令可以挪动到本地执行，比如 lint 检查、比如单元测试。当然，<code>pre-commit</code> 阶段执行的命令当然要保证其速度不要太慢，每次 commit 都等很久也不是什么好的体验。</p>
+<p>在项目根目录下安装</p>
+<pre><code class="language-csharp">yarn add --dev husky lint-staged</code></pre>
+<p>修改 package.json 文件</p>
+<pre><code class="language-bash"> &quot;husky&quot;: {
+   &quot;hooks&quot;: {
+     &quot;pre-commit&quot;: &quot;lint-staged&quot;,
+     // &quot;pre-commit&quot;: &quot;npm run test&quot;, 每次git提交前都会执行 npm run test
+   }
+ },
+ &quot;lint-staged&quot;: {
+   &quot;*.{js,vue}&quot;: [
+     &quot;eslint --fix&quot;,
+     &quot;git add&quot;
+   ]
+ }</code></pre>
+<p>如上配置，每次它只会在你本地 commit 之前，校验你提交的内容是否符合你本地配置的 eslint 规则，如果符合规则，则会提交成功。如果不符合它会自动执行 eslint --fix 尝试帮你自动修复，如果修复成功则会帮你把修复好的代码提交，如果失败，则会提示你错误，让你修好这个错误之后才能允许你提交代码。</p>
+<h1 id="commitlint">commitlint</h1>
+<p>在项目根目录下安装</p>
+<pre><code class="language-css">yarn add --dev @commitlint/cli @commitlint/config-conventional</code></pre>
+<p>在项目根目录下新建.commitlintrc.js</p>
+<pre><code class="language-java">module.exports = {
+ extends: [&#39;@commitlint/config-conventional&#39;],
+ rules: {
+   &#39;subject-case&#39;: [0, &#39;never&#39;],
+   &#39;type-enum&#39;: [
+     2,
+     &#39;always&#39;,
+     [
+       &#39;build&#39;, // 构建
+       &#39;ci&#39;, // ci
+       &#39;chore&#39;, // Other changes that don&#39;t modify src or test files. 改变构建流程、或者增加依赖库、工具等
+       &#39;docs&#39;, // Adds or alters documentation. 仅仅修改了文档，比如README, CHANGELOG, CONTRIBUTE等等
+       &#39;feat&#39;, // Adds a new feature. 新增feature
+       &#39;fix&#39;, // Solves a bug. 修复bug
+       &#39;perf&#39;, // Improves performance. 优化相关，比如提升性能、体验
+       &#39;refactor&#39;, // Rewrites code without feature, performance or bug changes. 代码重构，没有加新功能或者修复bug
+       &#39;revert&#39;, // Reverts a previous commit. 回滚到上一个版本
+       &#39;style&#39;, // Improves formatting, white-space. 仅仅修改了空格、格式缩进、逗号等等，不改变代码逻辑
+       &#39;test&#39; // Adds or modifies tests. 测试用例，包括单元测试、集成测试等
+     ]
+   ]
+ }
 }</code></pre>
-<h1 id="2、java与面向对象">2、java与面向对象</h1>
-<h2 id="对象">对象</h2>
-<p>什么是对象？</p>
-<p>有属性、有行为的东西皆可称之为对象。</p>
-<p>在java中的对象也是如此， java对象包括属性、方法。</p>
-<h2 id="类">类</h2>
-<p>类是某一类对象的统称。比如鸡、鸭、鹅皆是动物， 动物是一个类。既然鸡、鸭、鹅皆是动物， 鸡、鸭、鹅也应该有动物的所有特性及行为。  </p>
-
+<p>修改 package.json 文件</p>
+<pre><code class="language-bash"> &quot;husky&quot;: {
+   &quot;hooks&quot;: {
+     ...
+     &quot;commit-msg&quot;: &quot;commitlint -E HUSKY_GIT_PARAMS&quot;
+   }
+ },</code></pre>
+<p>这样，每次提交都会检测 message 信息，如果不符合要求，则提交不成功。</p>
+<p>每次提交代码都必须以下面的格式进行提交</p>
+<pre><code>fix: 修复XXX问题</code></pre><h1 id="prettier">prettier</h1>
+<p>添加 prettier 依赖</p>
+<pre><code>cnpm i prettier  pretty-quick -D</code></pre><p>修改 package.json</p>
+<pre><code>  &quot;scripts&quot;: {
+    &quot;precommit&quot;: &quot;lint-staged &amp;&amp; pretty-quick --staged&quot;
+  },
+  &quot;husky&quot;: {
+    &quot;hooks&quot;: {
+      &quot;pre-commit&quot;: &quot;npm run precommit&quot;,
+      &quot;pre-push&quot;: &quot;lint-staged&quot;,
+      &quot;commit-msg&quot;: &quot;commitlint -E HUSKY_GIT_PARAMS&quot;
+    }
+  },</code></pre>
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

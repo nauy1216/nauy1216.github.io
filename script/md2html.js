@@ -1,49 +1,31 @@
-/**
- * markdown文件转html页面
- * @constructor
- */
+const fs = require('fs')
+const path = require('path')
+const marked = require('marked')
+const request = require('request')
+
 class Md2Html {
-  constructor(fileName) {
-    this.fs = require('fs'); //文件模块
-    this.path = require('path'); //路径模块
-    this.marked = require('marked'); //md转html模块
-    this.request = require('request'); //http请求模块
-    this.fileName = fileName;
-    this.target = this.path.resolve(process.cwd(), fileName + '.md');
-    this.watchFile();
+  constructor(title, fileAbsolutePath) {
+    this.title = title
+    this.filePath = fileAbsolutePath
+    this.transformFile()
   }
 
   /**
-  * 检测文件改动
+  * 转换文件
   */
-  watchFile() {
-    this.fs.watchFile(this.target, {
-      persistent: true, //是否持续监听
-      interval: 200, //刷新间隔
-    }, (curr, prev) => {
-
-      if (curr.mtime == prev.mtime) { //比较修改时间，判断保存后内容是否真的发生了变化
-        return false;
+  transformFile() {
+    fs.readFile(this.filePath, 'utf-8', (err, data) => { //读取文件
+      if (err) {
+        throw err
       }
-
-      this.fs.readFile(this.target, 'utf-8', (err, data) => { //读取文件
-
-        if (err) {
-          throw err;
-        }
-
-        const html = this.marked(data); //将md内容转为html内容
-        let template = this.createTemplate();
-        template = template.replace('{{{content}}}', html); //替换html内容占位标记
-
-
-        this.createMarkdownCss(css => {
-          template = template.replace('{{{style}}}', css); //替换css内容占位标记
-          this.createFile(template);
-
-        });
-      });
-    });
+      const html = marked(data) //将md内容转为html内容
+      let template = this.createTemplate()
+      template = template.replace('{{{content}}}', html) //替换html内容占位标记
+      this.createMarkdownCss(css => {
+        template = template.replace('{{{style}}}', css) //替换css内容占位标记
+        this.createFile(template)
+      })
+    })
   }
 
 
@@ -58,7 +40,7 @@ class Md2Html {
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>${this.fileName}</title>
+          <title>${this.title}</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -87,22 +69,38 @@ class Md2Html {
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>
-      </html>`;
-    return template;
+      </html>`
+    return template
   }
 
   /**
    * 读取css内容
-   * @param {function} fn 回调函数
+   * @param {function} callback 回调函数
    */
-  createMarkdownCss(fn) {
-    var url = 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css';
-    this.request(url, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        console.log(body);
-        fn && fn(body);
+  createMarkdownCss(callback) {
+    const markdownCssPath = path.resolve(process.cwd(), 'static/github-markdown.css')
+    try {
+      if (!Md2Html.markdownCss) {
+        Md2Html.markdownCss = fs.readFileSync(markdownCssPath).toString()
+        console.log('读取本地 css 成功')
       }
-    });
+      callback && callback(Md2Html.markdownCss)
+    } catch (e) {
+      let url = 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css'
+      request(url, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          console.log('github-markdown.css 请求成功！')
+          fs.writeFile(markdownCssPath, body, err => {
+            if (!err) {
+              console.log('github-markdown.css 保存到本地成功！')
+              callback && callback(body)
+            } else {
+              console.log(err)
+            }
+          })
+        }
+      })
+    }
   }
 
 
@@ -111,16 +109,17 @@ class Md2Html {
    * @param {string} content 写入html的文件内容
    */
   createFile(content) {
-    const outfile = this.path.resolve(process.cwd(), this.fileName + '.html');
-
-    this.fs.writeFile(outfile, content, 'utf-8', err => {
+    const outfile = this.filePath.replace(/\.md$/, '.html')
+    fs.writeFile(outfile, content, 'utf-8', err => {
       if (err) {
-        throw err;
+        throw err
       }
-      console.log('写入成功！');
-    });
+    })
   }
 
 }
+Md2Html.markdownCss = ''
 
-new Md2Html('docs/java/javaSE');
+module.exports = function transform(pageTitle, filePath) {
+  new Md2Html(pageTitle, filePath)
+}
