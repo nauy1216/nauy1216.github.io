@@ -82,9 +82,9 @@ module.exports =  function alias(options = {}) {
 rollup -w -c scripts/config.js --environment TARGET:web-full-dev
 ```
 
-很容易找到web-full-dev对应的配置。
+很容易找到web-full-dev对应的配置。我们这里学习的是runtime + compiler版本的vue。
 
-```
+```js
   // Runtime+compiler development build (Browser)
   'web-full-dev': {
     entry: resolve('web/entry-runtime-with-compiler.js'),
@@ -104,13 +104,13 @@ rollup -w -c scripts/config.js --environment TARGET:web-full-dev
 
 因为我们看的是runtime + compiler 的版本， 所以我们能够看到runtime的入口：
 
-```
+```js
 import Vue from './runtime/index'
 ```
 
 以及compiler的入口：
 
-```
+```js
 import { compileToFunctions } from './compiler/index'
 ```
 
@@ -122,19 +122,19 @@ import { compileToFunctions } from './compiler/index'
 
 1、注册`v-model`和`v-show`指令
 
-```
+```js
 extend(Vue.options.directives, platformDirectives)
 ```
 
 2、注册`Transition`和`TransitionGroup`组件
 
-```
+```js
 extend(Vue.options.components, platformComponents)
 ```
 
 3、定义`$mount`方法， 该方法会在`web/entry-runtime-with-compiler.js`被重写，具体原因后面再说。
 
-```
+```js
 Vue.prototype.$mount = function (
   el?: string | Element,
   hydrating?: boolean
@@ -148,7 +148,7 @@ Vue.prototype.$mount = function (
 
 Vue构造函数是从这里引入的。
 
-```
+```js
 import Vue from 'core/index'
 ```
 
@@ -162,7 +162,7 @@ import Vue from 'core/index'
 
 2、通过mixin的方式给构造方法Vue的原型上添加不同的方法。
 
-```
+```js
 function Vue (options) {
   if (process.env.NODE_ENV !== 'production' &&
     !(this instanceof Vue)
@@ -181,7 +181,7 @@ renderMixin(Vue)
 
 在core/index.js里面有这一行代码， 主要是给Vue构造函数增加一些静态方法， 比如Vue.use()、Vue.nextTick()等。
 
-```
+```js
 initGlobalAPI(Vue)
 ```
 
@@ -199,7 +199,7 @@ initGlobalAPI(Vue)
 
 initMixin方法的伪代码如下：
 
-```
+```js
 export function initMixin (Vue: Class<Component>) {
   Vue.prototype._init = function (options?: Object) {
   	// 1、合并options得到最终的$options
@@ -236,7 +236,7 @@ export function initMixin (Vue: Class<Component>) {
 
 # stateMixin
 
-```
+```js
 export function stateMixin (Vue: Class<Component>) {
   // 在原型上定义$data和$props属性， 并不是在实例上定义的。
   Object.defineProperty(Vue.prototype, '$data', dataDef)
@@ -253,7 +253,7 @@ export function stateMixin (Vue: Class<Component>) {
 
 # eventsMixin
 
-```
+```js
 function eventsMixin (Vue: Class<Component>) {
 	Vue.prototype.$on
 	Vue.prototype.$once
@@ -268,7 +268,7 @@ function eventsMixin (Vue: Class<Component>) {
 
 # lifecycleMixin
 
-```
+```js
 function lifecycleMixin (Vue: Class<Component>) {
 	// vnode的patch逻辑是在这里执行的
 	Vue.prototype._update
@@ -307,7 +307,7 @@ function lifecycleMixin (Vue: Class<Component>) {
 
 # renderMixin
 
-```
+```js
 function renderMixin (Vue: Class<Component>) {
 	// 增加一些生成vnode的辅助函数， 在组件render方法内部使用
 	installRenderHelpers(Vue.prototype)
@@ -332,7 +332,7 @@ function renderMixin (Vue: Class<Component>) {
 
 # initGlobalAPI
 
-```
+```js
   Vue.set = set
   Vue.delete = del
   Vue.nextTick = nextTick
@@ -359,15 +359,38 @@ function renderMixin (Vue: Class<Component>) {
 
 代码：
 
-```
+```js
 new Vue({
     el: '#app',
+    data() {
+        return {
+            message: [
+                'hello',
+                {
+                    a: 'a'
+                }
+            ]
+        }
+    },
+    computed: {
+        msg() {
+            return this.message
+        }
+    },
+    methods: {
+        handleClick() {
+            this.message = Math.random()
+        }
+    },
     render(h) {
         return h('h1', {
             attrs: {
-            	class: 'hello'
+                class: 'hello'
+            },
+            on: {
+                click: this.handleClick
             }
-        }, 'hello')
+        }, this.msg)
     }
 })
 ```
@@ -378,7 +401,7 @@ new Vue({
 
 通过不同的合并策略合并options得到最终的$options
 
-```
+```js
     if (options && options._isComponent) {
       // optimize internal component instantiation
       // since dynamic options merging is pretty slow, and none of the
@@ -398,7 +421,7 @@ new Vue({
 
 此时的options对象是这样的。
 
-```
+```js
 {
     components: {
         KeepAlive
@@ -468,7 +491,7 @@ function mergeOptions (parent, child, vm) {
 
 此时的$options是这样的。
 
-```
+```js
 {
     components: {}
     directives: {}
@@ -489,7 +512,7 @@ function mergeOptions (parent, child, vm) {
 
 ## initLifecycle
 
-```
+```js
   let parent = options.parent
   // 找到第一个非抽象组件的父级
   // 并且将当前组件push到parent.$children
@@ -521,7 +544,7 @@ function mergeOptions (parent, child, vm) {
 
 TODO: ???
 
-```
+```js
 function initEvents() {
   vm._events = Object.create(null)
   vm._hasHookEvent = false
@@ -539,7 +562,7 @@ function initEvents() {
 
 伪代码：
 
-```
+```js
 function initRender (vm: Component) {
   // TODO:???
   vm._vnode = null // the root of the child tree
@@ -577,7 +600,7 @@ function initRender (vm: Component) {
 
 ## 执行beforeCreate钩子
 
-
+执行用户的定义的breforeCreate钩子。
 
 ## initInjections
 
@@ -585,7 +608,7 @@ function initRender (vm: Component) {
 
 TODO:  后面写个具体的例子
 
-```
+```js
 function initInjections (vm: Component) {
 	const result = resolveInject(vm.$options.inject, vm)
 }
@@ -687,7 +710,7 @@ function initMethods (vm: Component, methods: Object) {
 
 
 
-```
+```js
 function initData (vm: Component) {
 	let data = vm.$options.data
 	
@@ -728,7 +751,7 @@ function initData (vm: Component) {
 
 proxy的代码如下
 
-```
+```js
 // 在上面的代码中 
 // target: vm
 // sourceKey: '_data'
@@ -795,7 +818,7 @@ observe方法里面最重要的逻辑就是 `new Observer(value)`。
 
 Observer的代码如下：
 
-```
+```js
 class Observer {
   value: any;
   dep: Dep;
@@ -816,6 +839,8 @@ class Observer {
     
     // 数组和对象分开始处理
     if (Array.isArray(value)) {
+      // 如果是数组则通过在数组和数组原型之间加一层，增加原型链的长度。
+      // 在增加的这一层原型上来监听用户对数组的操作。
       if (hasProto) {
         protoAugment(value, arrayMethods)
       } else {
@@ -853,11 +878,17 @@ class Observer {
 
 普通对象的处理逻辑是在walk方法里完成的。walk的代码逻辑比较简单， 无非就是遍历obj执行`defineReactive(obj, keys[i])`。那么defineReactive又做了什么呢？
 
+##### 访问器属性
+
 ```js
 // 接着上面的代码
 // obj: vm._data
 // key： 遍历vm._data时的属性值
-
+// 假设 obj 的值为
+  {
+  	message: ['hello']    
+  }
+// key的值为message
 function defineReactive (
   obj: Object,
   key: string,
@@ -896,14 +927,18 @@ function defineReactive (
   const getter = property && property.get
   const setter = property && property.set
   
-  // TODO: ???
   // 在这里val被缓存起来了
+  // 此时 val 的值为 ['hello']
   if ((!getter || setter) && arguments.length === 2) {
     val = obj[key]
   }
   
   // 如果有需要也可以将当前的属性对应的也转换
   // 在这里因为没有传入shallow，所以在initData时也会将对象对应的子对象也作转换
+  // val 的值为 ['hello']
+  // 在 observe 一个数组时， 处理的方式与普通对象的方式不一致。
+      
+  // 【非常重要】 缓存子对象的 obserevr 对象， 这在val 是一个数组的时候有用到。
   let childOb = !shallow && observe(val)
   
   Object.defineProperty(obj, key, {
@@ -914,12 +949,14 @@ function defineReactive (
       
       // Dep.target 上会挂一个watcher对象
       // 当前 Dep.target 的值不为空时， 如果
-      // TODO: ....
+      // 在这里收集watcher
       if (Dep.target) {
         dep.depend()
         if (childOb) {
+          // 【非常重要】 childOb.dep 收集依赖， 将会在增加的数组原型层中重写数组的原型方法时会用到。
           childOb.dep.depend()
           if (Array.isArray(value)) {
+            // 数组元素也添加依赖
             dependArray(value)
           }
         }
@@ -944,6 +981,7 @@ function defineReactive (
         val = newVal
       }
       childOb = !shallow && observe(newVal)
+      // 通知watcher
       dep.notify()
     }
   })
@@ -952,19 +990,693 @@ function defineReactive (
 
 
 
+##### Dep对象
+
+Dep对象是怎样收集依赖的呢？
+
+每一个属性会对应一个dep对象， 当访问某个属性时，就会触发这个属性的set方法，这个dep对象会将Dep.target上的值（这个值是一个Watcher对象）push到dep.subs数组中，通过这种方式收集依赖。而当data的属性值改变时就会触发set方法， 在set方法内部调用dep.notify去执行每一个watcher的update方法。
+
+```js
+class Dep {
+  static target: ?Watcher;
+  id: number;
+  // 用于收及
+  subs: Array<Watcher>;
+
+  constructor () {
+    this.id = uid++
+    this.subs = []
+  }
+  
+  // 
+  addSub (sub: Watcher) {
+    this.subs.push(sub)
+  }
+
+  removeSub (sub: Watcher) {
+    remove(this.subs, sub)
+  }
+
+  // Dep.target是一个Watcher对象
+  // 在addDep方法里会调用 addSub 方法
+  depend () {
+    if (Dep.target) {
+      Dep.target.addDep(this)
+    }
+  }
+
+  notify () {
+    const subs = this.subs.slice()
+    if (!config.async) {
+      subs.sort((a, b) => a.id - b.id)
+    }
+    for (let i = 0, l = subs.length; i < l; i++) {
+      subs[i].update()
+    }
+  }
+}
+
+Dep.target = null
+
+Dep.target = null
+const targetStack = []
+
+// 提供公开的方法用于将当前Watcher挂在Dep.target
+// 作用是： 在执行Watcher的get方法时如果使用到响应式数据， 就会将当前
+// 挂在Dep.target上的 Watcher 对象就会被响应式数据的dep对象收集起来。
+export function pushTarget (target: ?Watcher) {
+  targetStack.push(target)
+  Dep.target = target
+}
+
+export function popTarget () {
+  targetStack.pop()
+  Dep.target = targetStack[targetStack.length - 1]
+}
+```
+
+
+
+##### Watcher对象
+
+那么 Wathcer 对象又是什么呢？
+
+```js
+class Watcher {
+  vm: Component;
+  expression: string;
+  cb: Function;
+  id: number;
+  deep: boolean;
+  user: boolean;
+  lazy: boolean;
+  sync: boolean;
+  dirty: boolean;
+  active: boolean;
+  deps: Array<Dep>;
+  newDeps: Array<Dep>;
+  depIds: SimpleSet;
+  newDepIds: SimpleSet;
+  before: ?Function;
+  getter: Function;
+  value: any;
+
+  constructor (
+    vm: Component,
+    expOrFn: string | Function,
+    cb: Function,
+    options?: ?Object,
+    isRenderWatcher?: boolean
+  ) {
+    this.vm = vm
+    
+    // renderWatcher
+    if (isRenderWatcher) {
+      vm._watcher = this
+    }
+    
+    // 将watcher对象push到_watchers
+    vm._watchers.push(this)
+    // options
+    if (options) {
+      this.deep = !!options.deep
+      this.user = !!options.user
+      this.lazy = !!options.lazy
+      this.sync = !!options.sync
+      this.before = options.before
+    } else {
+      this.deep = this.user = this.lazy = this.sync = false
+    }
+    this.cb = cb
+    this.id = ++uid // uid for batching
+    this.active = true
+    
+    // 在computed属性中会用到
+    this.dirty = this.lazy // for lazy watchers
+    
+    // 上一次的依赖
+    this.deps = []
+    
+    // 存放当前watcher使用过的响应式数据的dep对象
+    this.newDeps = []
+    // 上一次的dep id集合
+    this.depIds = new Set()
+    // 存放当前watcher使用过的响应式数据的dep对象的id
+    this.newDepIds = new Set()
+    
+    this.expression = process.env.NODE_ENV !== 'production'
+      ? expOrFn.toString()
+      : ''
+      
+    // parse expression for getter
+    // 可能是_render方法， 也可能是computed的get方法
+    if (typeof expOrFn === 'function') {
+      this.getter = expOrFn
+    } else {
+      // 如果是一串类似'a.b.c'的字符串则是用户定义的watch
+      // parsePath返回一个方法
+      this.getter = parsePath(expOrFn)
+      // 如果通过’a.b.c'获取不到值则会发出警告
+      if (!this.getter) {
+        this.getter = noop
+        process.env.NODE_ENV !== 'production' && warn(
+          `Failed watching path: "${expOrFn}" ` +
+          'Watcher only accepts simple dot-delimited paths. ' +
+          'For full control, use a function instead.',
+          vm
+        )
+      }
+    }
+    
+    // Wathcer的value的值是执行getter方法的返回值
+    // 因为computed是惰性求值，所以通过lazy=true来标识，不会立即求值
+    this.value = this.lazy
+      ? undefined
+      : this.get()
+  }
+
+  // 在useWatcher 和 renderWacth 会立即执行get方法
+  get () {
+    // 将当前 Watcher 对象挂在 Dep.target 上
+    pushTarget(this)
+    
+    let value
+    const vm = this.vm
+    
+    try {
+      // 执行gettr 方法
+      // 这里有三种情况： 
+      // renderWtahcer: VNode
+      // computedWathcer: 用户定义的返回值， 可以是任何类型
+      // userWatcher： parsePath('a.b.c')()解析得到的值
+      value = this.getter.call(vm, vm)
+    } catch (e) {
+      if (this.user) {
+        handleError(e, vm, `getter for watcher "${this.expression}"`)
+      } else {
+        throw e
+      }
+    } finally {
+      // 如果userWatcher是监听一个对象， 并且是深度监听
+      // 则会通过遍历这个对象的方式让这个对象所有的属性的dep收集当前watcher作为依赖
+      if (this.deep) {
+        traverse(value)
+      }
+      
+      // 将Watcher从Dep.target上移除
+      popTarget()
+      this.cleanupDeps()
+    }
+    return value
+  }
+
+  // 这个方法会在dep.depend内部调用
+  // 执行完后，dep会将watcher push到dep.subs
+  // 同时会将dep push 到watcher.newDeps
+  // 相互收集的目的是：
+  // dep 收集 watcher 是为了方便在 数据改变时通过dep去通知watcher
+  // wathcer 收集 dep 为了方便在watcher销毁时将wather从dep.subs中移除
+  // 思考: 为什么需要newDepIds和depIds两层判断？？？
+  // 因为get 在组件的交互过程中可能会执行多次，所以需要用depIds保存上一次执行get时收集的依赖
+  // newDepIds 保存这一次收集的依赖
+  addDep (dep: Dep) {
+    const id = dep.id
+    // 这里会将所有的dep push 到newDeps
+    if (!this.newDepIds.has(id)) {
+      this.newDepIds.add(id)
+      this.newDeps.push(dep)
+      // 如果上一次已经有这个dep, 那么将不会重复执行addSub,
+      // 原因请看cleanupDeps方法的代码
+      if (!this.depIds.has(id)) {
+        dep.addSub(this)
+      }
+    }
+  }
+ 	
+  // 更新this.deps
+  cleanupDeps () {
+    let i = this.deps.length
+    
+  	// 将wathcer从上一次收集的依赖的subs中移除
+  	// 这里只移除newDepIds中没有的dep
+    while (i--) {
+      const dep = this.deps[i]
+      if (!this.newDepIds.has(dep.id)) {
+        dep.removeSub(this)
+      }
+    }
+    
+    // 将newDeps赋值给deps, 清空newDeps
+    // 将newDepIds赋值给depIds，清空newDepIds
+    // 思考： 直接用newDeps替换deps, 那在上一次不被清除的dep对象会不会不在newDeps里面？
+    let tmp = this.depIds
+    this.depIds = this.newDepIds
+    this.newDepIds = tmp
+    this.newDepIds.clear()
+    tmp = this.deps
+    this.deps = this.newDeps
+    this.newDeps = tmp
+    this.newDeps.length = 0
+  }
+
+  // dep通知wathcer时， 会执行updeate方法
+  // 参考Dep的 notify 方法
+  update () {
+    /* istanbul ignore else */
+    if (this.lazy) { // computed
+      this.dirty = true
+    } else if (this.sync) { // user
+      this.run()
+    } else { // render
+      queueWatcher(this)
+    }
+  }
+
+  /**
+   * Scheduler job interface.
+   * Will be called by the scheduler.
+   */
+  run () {
+    // active 标识watcher是否已经销毁
+    if (this.active) {
+      // 重新计算值
+      const value = this.get()
+      if (
+        value !== this.value ||
+        // Deep watchers and watchers on Object/Arrays should fire even
+        // when the value is the same, because the value may
+        // have mutated.
+        isObject(value) ||
+        this.deep
+      ) {
+        // set new value
+        const oldValue = this.value
+        this.value = value
+        if (this.user) {
+          try {
+            // 执行回调函数
+            this.cb.call(this.vm, value, oldValue)
+          } catch (e) {
+            handleError(e, this.vm, `callback for watcher "${this.expression}"`)
+          }
+        } else {
+          this.cb.call(this.vm, value, oldValue)
+        }
+      }
+    }
+  }
+
+  // computed
+  evaluate () {
+    this.value = this.get()
+    this.dirty = false
+  }
+
+  /**
+   * Depend on all deps collected by this watcher.
+   */
+  depend () {
+    let i = this.deps.length
+    while (i--) {
+      this.deps[i].depend()
+    }
+  }
+
+  // 销毁wacther对象
+  teardown () {
+    if (this.active) {
+      // remove self from vm's watcher list
+      // this is a somewhat expensive operation so we skip it
+      // if the vm is being destroyed.
+      if (!this.vm._isBeingDestroyed) {
+        remove(this.vm._watchers, this)
+      }
+      let i = this.deps.length
+      while (i--) {
+        this.deps[i].removeSub(this)
+      }
+      this.active = false
+    }
+  }
+}
+```
+
+
+
+> 总结：
+>
+> vm、_data、Observer、Dep、Watcher 之间的关系
+>
+> vm: 当前组件实例。vm.$data代理了_data。vm. _watchers 保存了所有的wathcer对象。
+>
+> _data : options.data的原始对象。new Observer(_data)将data的所有属性转化成访问器属性，data.__ob__指向该observer对象。同时每个属性都会在闭包中缓存一个dep对象。dep对象将会在get方法内部收集依赖， 在set方法内部通知依赖。
+>
+> Observer：将data的属性转换成访问器属性。
+>
+> Dep： Dep是在new Observer(data)的时候在闭包内创建的。dep对象是data和watcher相互联系的桥梁。
+>
+> Watcher：有三种watcher，renderWathcer、computedWatcher、userWatcher。
+>
+> watcher在创建的时候会将当前watcher挂在Dep.target上， 求值的过程中使用data中的数据时会触发get方法， 在get方法内部dep对象r收集 当前watcher。
+>
+> data  通过 Dep 收集依赖， data通过Dep通知对象。
+
 
 
 #### 数组的监听
 
+监听数组要考虑的情况有三种：
 
+以监听下面的对象为示例说明。
+
+```js
+var arr = [
+    'hello',
+    {
+        a:'a'
+    }
+]
+var data = {
+	message: arr
+}
+```
+
+> 修改 data.message。
+
+data是一个对象所以在observe(data)的时候会走walk的逻辑。所以能监听到data.message的赋值操作，这与普通的对象没什么区别。
+
+> 操作数组本身，而不操作元素本身。
+
+数组本身操作的监听是通过增夹中间层原型来实现的。在重写的方法内部会通过arr.____ob____.dep.notify()通知依赖。值得注意的是，在执行defineReactive(data, 'message')的时候。会在内部observe(arr)并且将返回的observer对象缓存在childOb变量上。childOb.dep.depend()会收集依赖。
+
+> 操作数组元素， 数组本身没有操作。
+
+通过遍历observe数组的每一个元素。实际上当数组元素是一个基础类型时重新赋值vue并不会感知到，
+
+比如这里的 data.message[0] = 'new value', 必须使用$set去赋值。
+
+> 不能被vue感知到的数组操作。
+
+1. data[0] = 'newValue'
+2. data.length = 0
+
+
+
+```js
+// 数组本来的原型
+const arrayProto = Array.prototype
+// 以数组本来的原型创建一个对象，这个对象的原型就是arrayProto
+// 这样就在原型链上加了一个原型
+export const arrayMethods = Object.create(arrayProto)
+
+const methodsToPatch = [
+  'push',
+  'pop',
+  'shift',
+  'unshift',
+  'splice',
+  'sort',
+  'reverse'
+]
+
+/**
+ * Intercept mutating methods and emit events
+ */
+methodsToPatch.forEach(function (method) {
+  // 缓存原有的方法
+  const original = arrayProto[method]
+  
+  // 重写方法， 在方法内部进行数组操作的拦截
+  def(arrayMethods, method, function mutator (...args) {
+    // 调用原始的方法
+    const result = original.apply(this, args)
+    
+    // 获取当前数组的Observer对象
+    // 【非常重要】 参考defineReactive方法的代码
+    // this.__ob__是在执行 childOb.dep.depend() 的时候收集依赖的
+    const ob = this.__ob__
+    
+    let inserted
+    switch (method) {
+      case 'push':
+      case 'unshift':
+        inserted = args
+        break
+      case 'splice':
+        inserted = args.slice(2)
+        break
+    }
+    if (inserted) ob.observeArray(inserted)
+    
+    // 通知watcher
+    ob.dep.notify()
+    return result
+  })
+})
+```
 
 
 
 ### initComputed
 
+以下面的代码为例。
+
+```
+computed: {
+    msg() {
+    	return this.message
+    }
+}
+```
+
+
+
+```js
+// computed 是用户定义的 option.computed 对象
+function initComputed (vm: Component, computed: Object) {
+    // 在组件实例上的_computedWatchers属性上保存了所有computedWatcher
+	const watchers = vm._computedWatchers = Object.create(null)
+    
+    for (const key in computed) {
+        const userDef = computed[key]
+        // 获取用户定义的get方法, 如果是function则把这个function作为get方法
+        const getter = typeof userDef === 'function' ? userDef : userDef.get
+        
+        if (!isSSR) {
+          // 每一个computed属性 都会创建一个对应的 Wathcer 对象
+          // computedWatcherOptions: { lazy: true }
+          // 这里的lazy的值为true， 在创建Watcher对象的时候会惰性求值
+          // 
+          watchers[key] = new Watcher(
+            vm,
+            getter || noop,
+            noop,
+            computedWatcherOptions
+          )
+        }
+        
+        // 会判断vm是否已经存在，开发环境会抛出警告
+        if (!(key in vm)) {
+          defineComputed(vm, key, userDef)
+        } 
+    }
+}
+```
+
+
+
+defineComputed的伪代码如下：
+
+```js
+// target: vm
+// key: computedName
+// userDef: 用户定义的对象或函数
+function defineComputed (
+  target: any,
+  key: string,
+  userDef: Object | Function
+) {
+  // 不是服务端渲染  
+  const shouldCache = !isServerRendering()
+  //
+  // 这里有两种情况： 
+  // 缓存watcher的值时使用createComputedGetter创建get
+  // 不缓存watcher的值时使用createGetterInvoker创建get
+  // 用户定义的是function
+  if (typeof userDef === 'function') {
+    sharedPropertyDefinition.get = shouldCache
+      ? createComputedGetter(key)
+      : createGetterInvoker(userDef)
+    // 未定义set使用空方法赋值
+    sharedPropertyDefinition.set = noop
+  } else { // 用户定义的是object
+    sharedPropertyDefinition.get = userDef.get
+      ? shouldCache && userDef.cache !== false
+        ? createComputedGetter(key)
+        : createGetterInvoker(userDef.get)
+      : noop
+    // 如果使用了则直接赋值
+    sharedPropertyDefinition.set = userDef.set || noop
+  }
+  
+  // 讲 key 定义为访问器属性， 与普通的访问器不同的是， computed的get方法的返回值
+  // 是watcher的value
+  // 默认会通过watcher做缓存
+  Object.defineProperty(target, key, sharedPropertyDefinition)
+}
+```
+
+
+
+createComputedGetter
+
+```js
+function createComputedGetter (key) {
+  return function computedGetter () {
+    // 取得当前computed属性的computedWatcher
+    const watcher = this._computedWatchers && this._computedWatchers[key]
+    
+    if (watcher) {
+      // 重新求值
+      // dirty 的初始值为true
+      // 在evaluate内部会调用watcher.get() 方法
+      // 在watcher.get()执行完后，dirty的值变为false
+      // 在下一次获取computed属性的值时，将不会再重新求值。
+      // 这样能做到缓存的目的
+      // 思考： 如果computed属性的依赖改变后怎么去更新值？
+      if (watcher.dirty) {
+        watcher.evaluate()
+      }
+        
+      // 此时 Dep.taregt 指向的是 renderWatcher 
+      // 这里会把renderWatcher push到 computedWathcer 的所有依赖dep对象的subs数组中。
+      // 思考： 当computed属性的依赖改变时， 将会发生那些事情？
+      // 1、修改watcher.dirty的值为true。
+      // 2、通知renderWatcher重新渲染。
+      // 3、在执行render方法的过程中会重新执行当前这个getter方法，此时watcher.dirty = true
+      //    所以会通过watcher.evaluate()来重新计算computed的值。
+      // 所以，本质上是computedWatcher的依赖最终也会变成renderWatcher的依赖。
+      // 可以把computed属性看成是一组依赖的集合， 当render方法使用这个computed属性时就会
+      // 依赖这个集合里所有的数据， 当这个集合里的某个数据发生改变时，将会出发renderWatcher的update
+      // 方法。 在update时又会异步调用render方法， render方法内部使用这个computed属性时执行当前方法，
+      // 导致重新求值(PS: 实际上此时在任何地方访问这个computed属性都会重新求值)。
+      if (Dep.target) {
+        watcher.depend()
+      }
+        
+      // 返回watcher的值
+      return watcher.value
+    }
+  }
+}
+```
+
+
+
+createGetterInvoker
+
+不缓存结果， 每次执行都会执行。
+
+```js
+function createGetterInvoker(fn) {
+  return function computedGetter () {
+    return fn.call(this, this)
+  }
+}
+```
+
 
 
 ### initWatch
+
+主要逻辑是 `createWatcher(vm, key, handler)`
+
+```js
+function initWatch (vm: Component, watch: Object) {
+  for (const key in watch) {
+    const handler = watch[key]
+    // 数组
+    if (Array.isArray(handler)) {
+      for (let i = 0; i < handler.length; i++) {
+        createWatcher(vm, key, handler[i])
+      }
+    } else {
+      createWatcher(vm, key, handler)
+    }
+  }
+}
+```
+
+
+
+createWatcher
+
+```js
+function createWatcher (
+  vm: Component,
+  expOrFn: string | Function,
+  handler: any,
+  options?: Object
+) {
+  // handler 是一个对象
+  if (isPlainObject(handler)) {
+    options = handler
+    handler = handler.handler
+  }
+  // handler 是一个字符串则直接从vm上找对应的方法
+  if (typeof handler === 'string') {
+    handler = vm[handler]
+  }
+  
+  // 最终还是调用$watch方法
+  // expOrFn： 要监听的变量
+  // hanler: 回调
+  // options: 配置
+  return vm.$watch(expOrFn, handler, options)
+}
+
+```
+
+
+
+$watch
+
+```js
+Vue.prototype.$watch = function (
+  expOrFn: string | Function,
+  cb: any,
+  options?: Object
+): Function {
+  const vm: Component = this
+  // 如果是用户直接使用$watch，那么cb可能是一个对象
+  // 那么就使用createWatcher先处理下
+  if (isPlainObject(cb)) {
+    return createWatcher(vm, expOrFn, cb, options)
+  }
+  options = options || {}
+  options.user = true
+  
+  // 创建 watcher 对象
+  // 创建对象的过程中会通过expOrFn路径解析对象
+  // 在执行get的过程中收集依赖， 也就是要监听的属性。
+  // 当属性变化后则会执行回调
+  const watcher = new Watcher(vm, expOrFn, cb, options)
+  
+  // 如果immediate的值为true, 则会立即执行回调函数
+  if (options.immediate) {
+    try {
+      cb.call(vm, watcher.value)
+    } catch (error) {
+      handleError(error, vm, `callback for immediate watcher "${watcher.expression}"`)
+    }
+  }
+  
+  // 返回一个方法， 用于销毁watcher对象
+  return function unwatchFn () {
+    watcher.teardown()
+  }
+}
+```
 
 
 
