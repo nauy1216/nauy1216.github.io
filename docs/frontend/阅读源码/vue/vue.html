@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+      <html>
+          <head>
+          <meta charset="utf-8" >
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>vue.md</title>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
+          <style>
+              .markdown-body {
+                  box-sizing: border-box;
+                  min-width: 200px;
+                  max-width: 980px;
+                  margin: 0 auto;
+                  padding: 45px;
+              }
+              .markdown-body img {
+                  box-sizing: border-box !important;
+                  margin:10px 0 10px 2%;
+                  padding: 20px;
+                  width: 96%;
+                  border-radius: 4px;
+                  box-shadow: 0 0 6px 0px #999;
+              }
+              @media (max-width: 767px) {
+                  .markdown-body {
+                      padding: 15px;
+                  }
+              }
+              @font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,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) format('woff')}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown-body .anchor:focus{outline:0}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body .pl-c{color:#6a737d}.markdown-body .pl-c1,.markdown-body .pl-s .pl-v{color:#005cc5}.markdown-body .pl-e,.markdown-body .pl-en{color:#6f42c1}.markdown-body .pl-s .pl-s1,.markdown-body .pl-smi{color:#24292e}.markdown-body .pl-ent{color:#22863a}.markdown-body .pl-k{color:#d73a49}.markdown-body .pl-pds,.markdown-body .pl-s,.markdown-body .pl-s .pl-pse .pl-s1,.markdown-body .pl-sr,.markdown-body .pl-sr .pl-cce,.markdown-body .pl-sr .pl-sra,.markdown-body .pl-sr .pl-sre{color:#032f62}.markdown-body .pl-smw,.markdown-body .pl-v{color:#e36209}.markdown-body .pl-bu{color:#b31d28}.markdown-body .pl-ii{background-color:#b31d28;color:#fafbfc}.markdown-body .pl-c2{background-color:#d73a49;color:#fafbfc}.markdown-body .pl-c2:before{content:"^M"}.markdown-body .pl-sr .pl-cce{color:#22863a;font-weight:700}.markdown-body .pl-ml{color:#735c0f}.markdown-body .pl-mh,.markdown-body .pl-mh .pl-en,.markdown-body .pl-ms{color:#005cc5;font-weight:700}.markdown-body .pl-mi{color:#24292e;font-style:italic}.markdown-body .pl-mb{color:#24292e;font-weight:700}.markdown-body .pl-md{background-color:#ffeef0;color:#b31d28}.markdown-body .pl-mi1{background-color:#f0fff4;color:#22863a}.markdown-body .pl-mc{background-color:#ffebda;color:#e36209}.markdown-body .pl-mi2{background-color:#005cc5;color:#f6f8fa}.markdown-body .pl-mdr{color:#6f42c1;font-weight:700}.markdown-body .pl-ba{color:#586069}.markdown-body .pl-sg{color:#959da5}.markdown-body .pl-corl{color:#032f62;text-decoration:underline}.markdown-body details{display:block}.markdown-body summary{display:list-item}.markdown-body a{background-color:transparent}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body strong{font-weight:inherit;font-weight:bolder}.markdown-body h1{font-size:2em;margin:.67em 0}.markdown-body img{border-style:none}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace;font-size:1em}.markdown-body hr{box-sizing:content-box;height:0;overflow:visible}.markdown-body input{font:inherit;margin:0}.markdown-body input{overflow:visible}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body a{color:#0366d6;text-decoration:none}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{background:0 0;border:0;border-bottom:1px solid #dfe2e5;height:0;margin:15px 0;overflow:hidden}.markdown-body hr:before{content:"";display:table}.markdown-body hr:after{clear:both;content:"";display:table}.markdown-body table{border-collapse:collapse;border-spacing:0}.markdown-body td,.markdown-body th{padding:0}.markdown-body details summary{cursor:pointer}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-bottom:0;margin-top:0}.markdown-body h1{font-size:32px}.markdown-body h1,.markdown-body h2{font-weight:600}.markdown-body h2{font-size:24px}.markdown-body h3{font-size:20px}.markdown-body h3,.markdown-body h4{font-weight:600}.markdown-body h4{font-size:16px}.markdown-body h5{font-size:14px}.markdown-body h5,.markdown-body h6{font-weight:600}.markdown-body h6{font-size:12px}.markdown-body p{margin-bottom:10px;margin-top:0}.markdown-body blockquote{margin:0}.markdown-body ol,.markdown-body ul{margin-bottom:0;margin-top:0;padding-left:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code,.markdown-body pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px}.markdown-body pre{margin-bottom:0;margin-top:0}.markdown-body input::-webkit-inner-spin-button,.markdown-body input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}.markdown-body .border{border:1px solid #e1e4e8!important}.markdown-body .border-0{border:0!important}.markdown-body .border-bottom{border-bottom:1px solid #e1e4e8!important}.markdown-body .rounded-1{border-radius:3px!important}.markdown-body .bg-white{background-color:#fff!important}.markdown-body .bg-gray-light{background-color:#fafbfc!important}.markdown-body .text-gray-light{color:#6a737d!important}.markdown-body .mb-0{margin-bottom:0!important}.markdown-body .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown-body .pl-0{padding-left:0!important}.markdown-body .py-0{padding-bottom:0!important;padding-top:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .py-2{padding-bottom:8px!important;padding-top:8px!important}.markdown-body .pl-3,.markdown-body .px-3{padding-left:16px!important}.markdown-body .px-3{padding-right:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .f6{font-size:12px!important}.markdown-body .lh-condensed{line-height:1.25!important}.markdown-body .text-bold{font-weight:600!important}.markdown-body:before{content:"";display:table}.markdown-body:after{clear:both;content:"";display:table}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-bottom:16px;margin-top:0}.markdown-body hr{background-color:#e1e4e8;border:0;height:.25em;margin:24px 0;padding:0}.markdown-body blockquote{border-left:.25em solid #dfe2e5;color:#6a737d;padding:0 1em}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd{background-color:#fafbfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5;color:#444d56;display:inline-block;font-size:11px;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{font-weight:600;line-height:1.25;margin-bottom:16px;margin-top:24px}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{border-bottom:1px solid #eaecef;padding-bottom:.3em}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{color:#6a737d;font-size:.85em}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-bottom:0;margin-top:0}.markdown-body li{word-wrap:break-all}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{font-size:1em;font-style:italic;font-weight:600;margin-top:16px;padding:0}.markdown-body dl dd{margin-bottom:16px;padding:0 16px}.markdown-body table{display:block;overflow:auto;width:100%}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{border:1px solid #dfe2e5;padding:6px 13px}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{background-color:#fff;box-sizing:content-box;max-width:100%}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body code{background-color:rgba(27,31,35,.05);border-radius:3px;font-size:85%;margin:0;padding:.2em .4em}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{background:0 0;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{background-color:#f6f8fa;border-radius:3px;font-size:85%;line-height:1.45;overflow:auto;padding:16px}.markdown-body pre code{background-color:transparent;border:0;display:inline;line-height:inherit;margin:0;max-width:auto;overflow:visible;padding:0;word-wrap:normal}.markdown-body .commit-tease-sha{color:#444d56;display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:90%}.markdown-body .blob-wrapper{border-bottom-left-radius:3px;border-bottom-right-radius:3px;overflow-x:auto;overflow-y:hidden}.markdown-body .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown-body .blob-num{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;color:rgba(27,31,35,.3);cursor:pointer;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;line-height:20px;min-width:50px;padding-left:10px;padding-right:10px;text-align:right;user-select:none;vertical-align:top;white-space:nowrap;width:1%}.markdown-body .blob-num:hover{color:rgba(27,31,35,.6)}.markdown-body .blob-num:before{content:attr(data-line-number)}.markdown-body .blob-code{line-height:20px;padding-left:10px;padding-right:10px;position:relative;vertical-align:top}.markdown-body .blob-code-inner{color:#24292e;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;overflow:visible;white-space:pre;word-wrap:normal}.markdown-body .pl-token.active,.markdown-body .pl-token:hover{background:#ffea7f;cursor:pointer}.markdown-body kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1;color:#444d56;display:inline-block;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body :checked+.radio-label{border-color:#0366d6;position:relative;z-index:1}.markdown-body .tab-size[data-tab-size="1"]{-moz-tab-size:1;tab-size:1}.markdown-body .tab-size[data-tab-size="2"]{-moz-tab-size:2;tab-size:2}.markdown-body .tab-size[data-tab-size="3"]{-moz-tab-size:3;tab-size:3}.markdown-body .tab-size[data-tab-size="4"]{-moz-tab-size:4;tab-size:4}.markdown-body .tab-size[data-tab-size="5"]{-moz-tab-size:5;tab-size:5}.markdown-body .tab-size[data-tab-size="6"]{-moz-tab-size:6;tab-size:6}.markdown-body .tab-size[data-tab-size="7"]{-moz-tab-size:7;tab-size:7}.markdown-body .tab-size[data-tab-size="8"]{-moz-tab-size:8;tab-size:8}.markdown-body .tab-size[data-tab-size="9"]{-moz-tab-size:9;tab-size:9}.markdown-body .tab-size[data-tab-size="10"]{-moz-tab-size:10;tab-size:10}.markdown-body .tab-size[data-tab-size="11"]{-moz-tab-size:11;tab-size:11}.markdown-body .tab-size[data-tab-size="12"]{-moz-tab-size:12;tab-size:12}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown-body hr{border-bottom-color:#eee}.markdown-body .pl-0{padding-left:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .pl-7{padding-left:48px!important}.markdown-body .pl-8{padding-left:64px!important}.markdown-body .pl-9{padding-left:80px!important}.markdown-body .pl-10{padding-left:96px!important}.markdown-body .pl-11{padding-left:112px!important}.markdown-body .pl-12{padding-left:128px!important}
+/*# sourceMappingURL=github-markdown.min.css.map */
+          </style>
+          <script>
+              window.onload = function() {
+                hljs.initHighlighting()
+              }
+          </script>
+          </head>
+          <body>
+            <article class="markdown-body">
+                <h1 id="解决rollup-plugin-alias在window报错的问题">解决rollup-plugin-alias在window报错的问题</h1>
+<p>直接将rollup-plugin-alias.js全部内容替换为下面的代码：</p>
+<pre><code class="language-js">const path = require(&#39;path&#39;) ;
+const fs = require(&#39;fs&#39;) ;
+
+// Helper functions
+const noop = () =&gt; null;
+const startsWith = (needle, haystack) =&gt; ! haystack.indexOf(needle);
+const endsWith = (needle, haystack) =&gt; haystack.slice(-needle.length) === needle;
+const isFilePath = id =&gt; /(^\.?\/)|(^[a-zA-Z]\:(\\|\/))/.test(id);
+const exists = uri =&gt; {
+  try {
+    return fs.statSync(uri).isFile();
+  } catch (e) {
+    return false;
+  }
+};
+
+module.exports =  function alias(options = {}) {
+  const hasResolve = Array.isArray(options.resolve);
+  const resolve = hasResolve ? options.resolve : [&#39;.js&#39;];
+  const aliasKeys = hasResolve ?
+                      Object.keys(options).filter(k =&gt; k !== &#39;resolve&#39;) : Object.keys(options);
+
+  // No aliases?
+  if (!aliasKeys.length) {
+    return {
+      resolveId: noop,
+    };
+  }
+
+  return {
+    resolveId(importee, importer) {
+      // First match is supposed to be the correct one
+      const toReplace = aliasKeys.find(key =&gt; startsWith(key, importee));
+
+      if (!toReplace) {
+        return null;
+      }
+
+      const entry = options[toReplace];
+
+      const updatedId = importee.replace(toReplace, entry);
+
+      if (isFilePath(updatedId)) {
+        const directory = path.dirname(importer);
+
+        // Resolve file names
+        const filePath = path.resolve(directory, updatedId);
+        const match = resolve.map(ext =&gt; `${filePath}${ext}`)
+                            .find(exists);
+
+        if (match) {
+          return match;
+        }
+
+        // To keep the previous behaviour we simply return the file path
+        // with extension
+        if (endsWith(&#39;.js&#39;, filePath)) {
+          return filePath;
+        }
+
+        return filePath + &#39;.js&#39;;
+      }
+
+      return updatedId;
+    },
+  };
+}</code></pre>
+<h1 id="从npm-run-dev开始">从<code>npm run dev</code>开始</h1>
+<p>项目使用的打包工具是rollup, <code>scripts/config.js</code>是rollup的配置文件。</p>
+<pre><code>rollup -w -c scripts/config.js --environment TARGET:web-full-dev</code></pre><p>很容易找到web-full-dev对应的配置。</p>
+<pre><code>  // Runtime+compiler development build (Browser)
+  &#39;web-full-dev&#39;: {
+    entry: resolve(&#39;web/entry-runtime-with-compiler.js&#39;),
+    dest: resolve(&#39;dist/vue.js&#39;),
+    format: &#39;umd&#39;,
+    env: &#39;development&#39;,
+    alias: { he: &#39;./entity-decoder&#39; },
+    banner
+  },</code></pre><p>由此可知， <code>Runtime+compiler development build (Browser)</code>版本的入口是   <code>web/entry-runtime-with-compiler.js</code>。</p>
+<h1 id="webentry-runtime-with-compilerjs"><code>web/entry-runtime-with-compiler.js</code></h1>
+<p>因为我们看的是runtime + compiler 的版本， 所以我们能够看到runtime的入口：</p>
+<pre><code>import Vue from &#39;./runtime/index&#39;</code></pre><p>以及compiler的入口：</p>
+<pre><code>import { compileToFunctions } from &#39;./compiler/index&#39;</code></pre><h1 id="runtimeindexjs">/runtime/index.js</h1>
+<p>主要做了以下几件事情：</p>
+<p>1、注册<code>v-model</code>和<code>v-show</code>指令</p>
+<pre><code>extend(Vue.options.directives, platformDirectives)</code></pre><p>2、注册<code>Transition</code>和<code>TransitionGroup</code>组件</p>
+<pre><code>extend(Vue.options.components, platformComponents)</code></pre><p>3、定义<code>$mount</code>方法， 该方法会在<code>web/entry-runtime-with-compiler.js</code>被重写，具体原因后面再说。</p>
+<pre><code>Vue.prototype.$mount = function (
+  el?: string | Element,
+  hydrating?: boolean
+): Component {
+  el = el &amp;&amp; inBrowser ? query(el) : undefined
+  return mountComponent(this, el, hydrating)
+}</code></pre><blockquote>
+<p>你可能已经注意到了，在该文件里并没有定义Vue构造方法的地方。</p>
+</blockquote>
+<p>Vue构造函数是从这里引入的。</p>
+<pre><code>import Vue from &#39;core/index&#39;</code></pre><h1 id="coreindexjs">core/index.js</h1>
+<p>定义Vue构造函数的地方：</p>
+<p>1、在构造函数内部只调用了_init()方法， 该方法是在initMixin里面定义的。</p>
+<p>2、通过mixin的方式给构造方法Vue的原型上添加不同的方法。</p>
+<pre><code>function Vue (options) {
+  if (process.env.NODE_ENV !== &#39;production&#39; &amp;&amp;
+    !(this instanceof Vue)
+  ) {
+    warn(&#39;Vue is a constructor and should be called with the `new` keyword&#39;)
+  }
+  this._init(options)
+}
+
+initMixin(Vue)
+stateMixin(Vue)
+eventsMixin(Vue)
+lifecycleMixin(Vue)
+renderMixin(Vue)</code></pre><p>在core/index.js里面有这一行代码， 主要是给Vue构造函数增加一些静态方法， 比如Vue.use()、Vue.nextTick()等。</p>
+<pre><code>initGlobalAPI(Vue)</code></pre><blockquote>
+<p>core/index.js主要做了三件事：</p>
+<p>1、定义Vue构造函数。</p>
+<p>2、构造函数Vue添加原型方法。</p>
+<p>3、构造函数Vue添加静态方法。</p>
+</blockquote>
+<h1 id="initmixin">initMixin</h1>
+<p>initMixin方法的伪代码如下：</p>
+<pre><code>export function initMixin (Vue: Class&lt;Component&gt;) {
+  Vue.prototype._init = function (options?: Object) {
+      // 1、合并options得到最终的$options
+      // 2、initLifecycle(vm)
+    // 3、initEvents(vm)
+    // 4、initRender(vm)
+
+    // 5、callHook(vm, &#39;beforeCreate&#39;)
+    // 执行beforeCreate钩子， 因为在执行beforeCreate时并没有初始化组件的数据状态，
+    // 因此在beforeCreate里面是不能访问到data、props、inject的数据的。
+
+
+    // 6、initInjections(vm) // resolve injections before data/props
+    // 获取从父组件或者更高级的父组件通过provide注入到子孙组件的数据
+
+    // 7、initState(vm)
+    // 初始化 props、data、computed
+
+    // 8、initProvide(vm) // resolve provide after data/props
+    // 初始化要注入到子孙组件的数据
+
+    // 9、callHook(vm, &#39;created&#39;)
+    // 执行created钩子， 此时能够访问到组件的数据
+
+    // 10、 如果el存在的话， 将会编译模板并且将通关过patch的方式将生成的DOM元素挂载到页面上
+    if (vm.$options.el) {
+      vm.$mount(vm.$options.el)
+    }
+  }
+}</code></pre><h1 id="statemixin">stateMixin</h1>
+<pre><code>export function stateMixin (Vue: Class&lt;Component&gt;) {
+  // 在原型上定义$data和$props属性， 并不是在实例上定义的。
+  Object.defineProperty(Vue.prototype, &#39;$data&#39;, dataDef)
+  Object.defineProperty(Vue.prototype, &#39;$props&#39;, propsDef)
+
+  Vue.prototype.$set = set
+  Vue.prototype.$delete = del
+
+  Vue.prototype.$watch
+}</code></pre><h1 id="eventsmixin">eventsMixin</h1>
+<pre><code>function eventsMixin (Vue: Class&lt;Component&gt;) {
+    Vue.prototype.$on
+    Vue.prototype.$once
+    Vue.prototype.$off
+    Vue.prototype.$emit
+}</code></pre><p>这里的逻辑比较简单， 只是实现了一套事件模型。</p>
+<h1 id="lifecyclemixin">lifecycleMixin</h1>
+<pre><code>function lifecycleMixin (Vue: Class&lt;Component&gt;) {
+    // vnode的patch逻辑是在这里执行的
+    Vue.prototype._update
+
+    // 内部调用了renderWatch的update方法
+    Vue.prototype.$forceUpdate
+
+    // 
+    Vue.prototype.$destroy = function() {
+        // 执行beforeDestroy钩子
+        callHook(vm, &#39;beforeDestroy&#39;)
+
+        // 将当前元素从parent.$children中删除
+         remove(parent.$children, vm)
+
+        // 销毁所有的watcher，包括renderWatch、computedWatch、useWatch
+        watcher.teardown()
+
+        // 通过patch(vnode, null)方式将当前组件的dom元素从页面上移除
+
+        // 执行destroyed钩子
+        callHook(vm, &#39;destroyed&#39;)
+
+        // 注销所有的事件
+        vm.$off()
+
+        // 将当前组件对象对父组件对象的引用删除
+        // 因为浏览器是通过引用计数的方式来判断是否要销毁对象的
+        // 当一个对象的引用计数为0时将会被销毁
+        vm.$vnode.parent = null
+    }
+}</code></pre><h1 id="rendermixin">renderMixin</h1>
+<pre><code>function renderMixin (Vue: Class&lt;Component&gt;) {
+    // 增加一些生成vnode的辅助函数， 在组件render方法内部使用
+    installRenderHelpers(Vue.prototype)
+
+    //
+    Vue.prototype.$nextTick
+
+    Vue.prototype._render = function (): VNode {
+        // 获取组件的render方法
+        const { render, _parentVnode } = vm.$options
+
+        // 执行render方法生成vnode对象
+        vnode = render.call(vm._renderProxy, vm.$createElement)
+
+        // 
+        return vnode
+    }
+}</code></pre><h1 id="initglobalapi">initGlobalAPI</h1>
+<pre><code>  Vue.set = set
+  Vue.delete = del
+  Vue.nextTick = nextTick
+
+  Vue.observable
+
+  Vue.options
+  Vue.use
+  Vue.mixin
+  Vue.extend
+
+  Vue.component
+  Vue.directive
+  Vue.filter</code></pre><p>到此为止， 我们已经很清楚的知道了Vue构造函数是怎样定义的， 明白了Vue的原型方法及原型属性，静态方法及静态属性。从简单的定义Vue构造方法到最终生成一个复杂的Vue‘类’有了一个大致的了解。</p>
+<h1 id="从一个简单的例子开始">从一个简单的例子开始</h1>
+<p>代码：</p>
+<pre><code>new Vue({
+    el: &#39;#app&#39;,
+    render(h) {
+        return h(&#39;h1&#39;, {
+            attrs: {
+                class: &#39;hello&#39;
+            }
+        }, &#39;hello&#39;)
+    }
+})</code></pre><p>在构造方法内打上断点进入到this._init方法。</p>
+<h2 id="合并options">合并options</h2>
+<p>通过不同的合并策略合并options得到最终的$options</p>
+<pre><code>    if (options &amp;&amp; options._isComponent) {
+      // optimize internal component instantiation
+      // since dynamic options merging is pretty slow, and none of the
+      // internal component options needs special treatment.
+      initInternalComponent(vm, options)
+    } else {
+      vm.$options = mergeOptions(
+          // 获取构造函数上的options
+        resolveConstructorOptions(vm.constructor),
+        options || {},
+        vm
+      )
+    }</code></pre><p><code>resolveConstructorOptions</code>的作用是获取构造方法上的options对象。</p>
+<p>此时的options对象是这样的。</p>
+<pre><code>{
+    components: {
+        KeepAlive
+        Transition
+        TransitionGroup
+    },
+    directives: {
+        model
+        show
+    },
+    filters: {
+
+    },
+    _base: Vue
+}</code></pre><p><code>mergeOptions</code>的伪代码如下：</p>
+<pre><code class="language-js">// parent: 从构造函数上获取的options
+// child： 当前组件的options
+// vm： 当前组件实例
+function mergeOptions (parent, child, vm) {
+  // 处理child的props, 转成统一的格式
+  normalizeProps(child, vm)
+
+  // 处理child的inject, 转成统一的格式
+  normalizeInject(child, vm)
+
+  // 当指令是一个function时需要转换成一个对象
+  // 如果取值是一个function, 则默认bind和update的的值都是一样的
+  normalizeDirectives(child)
+
+  // 递归处理extends和mixins的情况
+  if (!child._base) {
+    if (child.extends) {
+      parent = mergeOptions(parent, child.extends, vm)
+    }
+    if (child.mixins) {
+      for (let i = 0, l = child.mixins.length; i &lt; l; i++) {
+        parent = mergeOptions(parent, child.mixins[i], vm)
+      }
+    }
+  }
+
+  // 用于保存最终合并得到的结果
+  const options = {}
+  let key
+  for (key in parent) {
+    mergeField(key)
+  }
+  for (key in child) {
+    if (!hasOwn(parent, key)) {
+      mergeField(key)
+    }
+  }
+  function mergeField (key) {
+    // 不同的字段有不同的合并策略
+    // TODO: 专门写一篇合并策略
+    const strat = strats[key] || defaultStrat
+    options[key] = strat(parent[key], child[key], vm, key)
+  }
+  return options
+}</code></pre>
+<p>此时的$options是这样的。</p>
+<pre><code>{
+    components: {}
+    directives: {}
+    el: &quot;#app&quot;
+    filters: {}
+    render: ƒ render(h)
+    _base: ƒ Vue(options)
+}</code></pre><blockquote>
+<p>注意： 此时，KeepAlive、 Transition、 TransitionGroup在components的原型上。</p>
+<p>model、show在directives的原型上。</p>
+<p>思考： 是否可以重写或者扩展show、model???</p>
+</blockquote>
+<h2 id="initlifecycle">initLifecycle</h2>
+<pre><code>  let parent = options.parent
+  // 找到第一个非抽象组件的父级
+  // 并且将当前组件push到parent.$children
+  if (parent &amp;&amp; !options.abstract) {
+    while (parent.$options.abstract &amp;&amp; parent.$parent) {
+      parent = parent.$parent
+    }
+    parent.$children.push(vm)
+  }
+
+  vm.$parent = parent
+  vm.$root = parent ? parent.$root : vm
+
+  vm.$children = []
+  vm.$refs = {}
+
+  // renderWatcher
+  vm._watcher = null
+  vm._inactive = null
+  vm._directInactive = false
+  vm._isMounted = false
+  vm._isDestroyed = false
+  vm._isBeingDestroyed = false</code></pre><h2 id="initevents">initEvents</h2>
+<p>TODO: ???</p>
+<pre><code>function initEvents() {
+  vm._events = Object.create(null)
+  vm._hasHookEvent = false
+  // init parent attached events
+  const listeners = vm.$options._parentListeners
+  if (listeners) {
+    updateComponentListeners(vm, listeners)
+  }
+}</code></pre><h2 id="initrender">initRender</h2>
+<p>伪代码：</p>
+<pre><code>function initRender (vm: Component) {
+  // TODO:???
+  vm._vnode = null // the root of the child tree
+  vm._staticTrees = null // v-once cached trees
+  const options = vm.$options
+
+  // TODO: parentVnode是什么???
+  const parentVnode = vm.$vnode = options._parentVnode 
+
+  // TODO: 渲染上下文？
+  const renderContext = parentVnode &amp;&amp; parentVnode.context
+
+  // 获取当前组件的slot, slot是在父组件的作用域内编译的。
+  // TODO: 单独写一篇slot编译的文章
+  vm.$slots = resolveSlots(options._renderChildren, renderContext)
+
+  // 作用域slot
+  vm.$scopedSlots = emptyObject
+
+  // 供template编译的render方法使用
+  vm._c = (a, b, c, d) =&gt; createElement(vm, a, b, c, d, false)
+
+  // 供手写的render方法使用
+  vm.$createElement = (a, b, c, d) =&gt; createElement(vm, a, b, c, d, true)
+
+  const parentData = parentVnode &amp;&amp; parentVnode.data
+
+  // 获取vnode对象上的attrs和_parentListeners
+  defineReactive(vm, &#39;$attrs&#39;, parentData &amp;&amp; parentData.attrs || emptyObject, null, true)
+  defineReactive(vm, &#39;$listeners&#39;, options._parentListeners || emptyObject, null, true)
+}</code></pre><h2 id="执行beforecreate钩子">执行beforeCreate钩子</h2>
+<h2 id="initinjections">initInjections</h2>
+<p>伪代码：</p>
+<p>TODO:  后面写个具体的例子</p>
+<pre><code>function initInjections (vm: Component) {
+    const result = resolveInject(vm.$options.inject, vm)
+}</code></pre><h2 id="initstate">initState</h2>
+<pre><code class="language-js">function initState (vm: Component) {
+  // 用于保存当前组件对象的所有watcher对象。
+  vm._watchers = []
+  const opts = vm.$options
+
+  // 初始化props
+  if (opts.props) initProps(vm, opts.props)
+
+  // 初始化methods
+  if (opts.methods) initMethods(vm, opts.methods)
+
+  // 初始化data
+  if (opts.data) {
+    initData(vm)
+  } else {
+    observe(vm._data = {}, true /* asRootData */)
+  }
+
+  // 初始化computed
+  if (opts.computed) initComputed(vm, opts.computed)
+
+  // 初始化watch
+  if (opts.watch &amp;&amp; opts.watch !== nativeWatch) {
+    initWatch(vm, opts.watch)
+  }
+}</code></pre>
+<h3 id="initprops">initProps</h3>
+<pre><code class="language-js">function initProps (vm: Component, propsOptions: Object) {
+  // TODO: ????
+  const propsData = vm.$options.propsData || {}
+
+  // TODO: 
+  const props = vm._props = {}
+  const keys = vm.$options._propKeys = []
+  const isRoot = !vm.$parent
+
+  if (!isRoot) {
+    // TODO: 在observe内部将不会执行 new Observer(value)
+    toggleObserving(false)
+  }
+
+  for (const key in propsOptions) {
+    keys.push(key)
+    // 校验prop的值
+    // TODO：写个示例
+    const value = validateProp(key, propsOptions, propsData, vm)
+
+    defineReactive(props, key, value)
+
+    // TODO: ???
+    if (!(key in vm)) {
+      proxy(vm, `_props`, key)
+    }
+  }
+}</code></pre>
+<h3 id="initmethods">initMethods</h3>
+<pre><code class="language-js">function initMethods (vm: Component, methods: Object) {
+    // 逻辑比较简单， 只是遍历$options.methods
+    // 将所有方法bind(vm)后挂在组件实例vm上
+    for (const key in methods) {
+        vm[key] = typeof methods[key] !== &#39;function&#39; ? noop : bind(methods[key], vm)
+    }
+}</code></pre>
+<h3 id="initdata">initData</h3>
+<pre><code>function initData (vm: Component) {
+    let data = vm.$options.data
+
+    // 获取data对象
+    // 当不是根组件是data是一个function，因为组件是可复用的， 所以必须在每次创建一个实例时使用不同的对象
+    // 这里通过定义一个function来返回一个新的对象
+    // TODO: 如果可服用的组件不使用function返回会有什么问题？ 是否有可以使用的场景恰好需要这样的效果？
+    // TODO: 为什不直接执行data.call(vm, vm)， 而是通过getData来执行？
+    data = vm._data = typeof data === &#39;function&#39;
+    ? getData(data, vm)
+    : data || {}
+
+    const keys = Object.keys(data)
+    const props = vm.$options.props
+    const methods = vm.$options.methods
+    let i = keys.length
+
+    while (i--) {
+        const key = keys[i]
+        if (props &amp;&amp; hasOwn(props, key)) {
+          // 生产环境的代码啥也不做^_^
+        } else if (!isReserved(key)) {
+          // isReserved(key)检查key是否以 $ 或 _ 开头
+          // 将vm._data所有的属性代理到vm上
+          // vm.xxx 即返回 vm._data.xxx
+          proxy(vm, `_data`, key)
+        }
+    }
+
+    // 将data对象变成所谓的响应式对象
+    // 注意： data 和 vm._data 是同一个对象
+    // 通过observe将data所有属性变成访问器属性
+    observe(data, true /* asRootData */)
+}</code></pre><p>proxy的代码如下</p>
+<pre><code>// 在上面的代码中 
+// target: vm
+// sourceKey: &#39;_data&#39;
+// key： 遍历data时的每一个key
+function proxy (target: Object, sourceKey: string, key: string) {
+  sharedPropertyDefinition.get = function proxyGetter () {
+      // 在访问vm.xx时，其实访问的是 vm._data.xx
+    return this[sourceKey][key]
+  }
+  sharedPropertyDefinition.set = function proxySetter (val) {
+  // 在vm.xx = xxx时，其实赋值的是 vm._data.xx = xxx
+    this[sourceKey][key] = val
+  }
+  // target 定义 key 属性
+  Object.defineProperty(target, key, sharedPropertyDefinition)
+}</code></pre><p><strong>下面来讲下observe的逻辑， 这部分很重要</strong>。</p>
+<p>废话不多说直接上代码：</p>
+<pre><code class="language-js">// 接着上面的代码
+// value: vm._data
+// asRootData: true // 作为rootData
+function observe (value: any, asRootData: ?boolean): Observer | void {
+  // 如果不是一个对象， 或者是一个VNode对象将不做处理
+  if (!isObject(value) || value instanceof VNode) {
+    return
+  }
+
+  let ob: Observer | void
+  // 如果当前对象的__ob__属性是一个 Observer 对象， 表示当前对象已经是一个响应式对象
+  // 将会返回这个 Observer 对象
+  if (hasOwn(value, &#39;__ob__&#39;) &amp;&amp; value.__ob__ instanceof Observer) {
+    ob = value.__ob__
+  } else if (
+    shouldObserve &amp;&amp;
+    !isServerRendering() &amp;&amp;
+    (Array.isArray(value) || isPlainObject(value)) &amp;&amp;
+    Object.isExtensible(value) &amp;&amp;
+    !value._isVue
+  ) {
+    // shouldObserve 是一个全局的开关
+    // 不是服务端渲染
+    // 是一个普通的对象或者是一个数组, 并且课扩展， 即可以在上面添加属性
+    // 当前对象不是组件实例，每一个组件实例上都会有一个_isVue属性
+
+    ob = new Observer(value)
+  }
+  if (asRootData &amp;&amp; ob) {
+    ob.vmCount++
+  }
+  return ob
+}</code></pre>
+<p>observe方法里面最重要的逻辑就是 <code>new Observer(value)</code>。</p>
+<p>Observer的代码如下：</p>
+<pre><code>class Observer {
+  value: any;
+  dep: Dep;
+  vmCount: number; // number of vms that have this object as root $data
+
+  constructor (value: any) {
+      // 原始对象和Observer对象会有一个相互引用
+    this.value = value
+
+    // TODO:???
+    this.dep = new Dep()
+
+    // TODO:???
+    this.vmCount = 0
+
+    // 相互引用
+    def(value, &#39;__ob__&#39;, this)
+
+    // 数组和对象分开始处理
+    if (Array.isArray(value)) {
+      if (hasProto) {
+        protoAugment(value, arrayMethods)
+      } else {
+        copyAugment(value, arrayMethods, arrayKeys)
+      }
+      this.observeArray(value)
+    } else {
+      this.walk(value)
+    }
+  }
+
+  // 对象
+  // 将对象上的所有属性都转换为访问器属性， set/get
+  walk (obj: Object) {
+    const keys = Object.keys(obj)
+    for (let i = 0; i &lt; keys.length; i++) {
+      defineReactive(obj, keys[i])
+    }
+  }
+
+  // 数组将会遍历所有的项，递归调用observe
+  observeArray (items: Array&lt;any&gt;) {
+    for (let i = 0, l = items.length; i &lt; l; i++) {
+      observe(items[i])
+    }
+  }
+}</code></pre><p>由上面的代码可以知道，数组和对象是分开处理的。</p>
+<h4 id="普通对象的监听">普通对象的监听</h4>
+<p>普通对象的处理逻辑是在walk方法里完成的。walk的代码逻辑比较简单， 无非就是遍历obj执行<code>defineReactive(obj, keys[i])</code>。那么defineReactive又做了什么呢？</p>
+<pre><code class="language-js">// 接着上面的代码
+// obj: vm._data
+// key： 遍历vm._data时的属性值
+
+function defineReactive (
+  obj: Object,
+  key: string,
+  val: any,
+  customSetter?: ?Function,
+  shallow?: boolean
+) {
+  // 每一个属性都有一个 Dep 对象来收集使用过当前属性的watch
+  const dep = new Dep()
+
+  // 获取当前属性的描述对象
+  /*
+  普通属性
+  {
+      configurable: boolean
+      enumerable:  boolean
+      value: any
+      writable: boolean
+  }
+  访问器属性
+  {
+      configurable: boolean
+      enumerable:  boolean
+      set: function
+      get: function
+  }
+  */
+  const property = Object.getOwnPropertyDescriptor(obj, key)
+  // 如果当前对象是不可配置的直接 return
+  // 思考： 如果不想某个属性变成响应式，是否可以将该属性设置 configurable 为 false.
+  if (property &amp;&amp; property.configurable === false) {
+    return
+  }
+
+  // cater for pre-defined getter/setters
+  const getter = property &amp;&amp; property.get
+  const setter = property &amp;&amp; property.set
+
+  // TODO: ???
+  // 在这里val被缓存起来了
+  if ((!getter || setter) &amp;&amp; arguments.length === 2) {
+    val = obj[key]
+  }
+
+  // 如果有需要也可以将当前的属性对应的也转换
+  // 在这里因为没有传入shallow，所以在initData时也会将对象对应的子对象也作转换
+  let childOb = !shallow &amp;&amp; observe(val)
+
+  Object.defineProperty(obj, key, {
+    enumerable: true,
+    configurable: true,
+    get: function reactiveGetter () {
+      const value = getter ? getter.call(obj) : val
+
+      // Dep.target 上会挂一个watcher对象
+      // 当前 Dep.target 的值不为空时， 如果
+      // TODO: ....
+      if (Dep.target) {
+        dep.depend()
+        if (childOb) {
+          childOb.dep.depend()
+          if (Array.isArray(value)) {
+            dependArray(value)
+          }
+        }
+      }
+      return value
+    },
+    set: function reactiveSetter (newVal) {
+      const value = getter ? getter.call(obj) : val
+      /* eslint-disable no-self-compare */
+      if (newVal === value || (newVal !== newVal &amp;&amp; value !== value)) {
+        return
+      }
+      /* eslint-enable no-self-compare */
+      if (process.env.NODE_ENV !== &#39;production&#39; &amp;&amp; customSetter) {
+        customSetter()
+      }
+      // #7981: for accessor properties without setter
+      if (getter &amp;&amp; !setter) return
+      if (setter) {
+        setter.call(obj, newVal)
+      } else {
+        val = newVal
+      }
+      childOb = !shallow &amp;&amp; observe(newVal)
+      dep.notify()
+    }
+  })
+}</code></pre>
+<h4 id="数组的监听">数组的监听</h4>
+<h3 id="initcomputed">initComputed</h3>
+<h3 id="initwatch">initWatch</h3>
+<h2 id="initprovide">initProvide</h2>
+<h2 id="执行created钩子">执行created钩子</h2>
+
+            </article> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
+          </body>
+      </html>
