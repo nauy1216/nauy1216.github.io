@@ -1,0 +1,77 @@
+<!doctype html>
+<html data-framework="vue">
+  <head>
+    <meta charset="utf-8">
+    <title>    </title>
+    <style>
+      .hello {
+        background: #e0e0e0;
+        font-size: 12px;
+        display: inline;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="vue.js"></script>
+    <script>
+
+      var ComA = {
+        data() {
+          return {
+            message: 'haha'
+          }
+        },
+        watch: {
+          message() {
+
+          }
+        },
+        methods: {
+          handleClick() {
+            this.message = Math.random()
+          }
+        },
+        render(h) {
+          return h('h1', {
+            ref: 'hello',
+            attrs: {
+              class: 'hello'
+            },
+            on: {
+              click: this.handleClick
+            }
+          }, this.message)
+        }
+      }
+
+      var App = {
+        render(h) {
+          return h('div', {
+            ref: 'app',
+            attrs: {
+              class: 'app',
+            }
+          }, 'message')
+        }
+      }
+
+      window.vm = new Vue({
+        el: '#app',
+        components: {
+          App,
+          ComA
+        },
+        methods: {
+          handleClick() {
+            console.log('click')
+          }
+        },
+        template: `
+          <App ref="root">
+          </App>
+        `
+      })
+    </script>
+  </body>
+</html>

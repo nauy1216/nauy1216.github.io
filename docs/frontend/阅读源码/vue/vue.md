@@ -409,7 +409,8 @@ new Vue({
 通过不同的合并策略合并options得到最终的$options
 
 ```js
-    if (options && options._isComponent) {
+    // 当通过Vonde创建Component时会传入 options._isComponent
+	if (options && options._isComponent) {
       // optimize internal component instantiation
       // since dynamic options merging is pretty slow, and none of the
       // internal component options needs special treatment.
