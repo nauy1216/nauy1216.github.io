@@ -132,7 +132,14 @@ extend(Vue.options.directives, platformDirectives)
 extend(Vue.options.components, platformComponents)
 ```
 
-3、定义`$mount`方法， 该方法会在`web/entry-runtime-with-compiler.js`被重写，具体原因后面再说。
+3、安装patch方法
+
+```
+// install platform patch function
+Vue.prototype.__patch__ = inBrowser ? patch : noop
+```
+
+4、定义`$mount`方法， 该方法会在`web/entry-runtime-with-compiler.js`被重写，具体原因后面再说。
 
 ```js
 Vue.prototype.$mount = function (
@@ -516,6 +523,7 @@ function mergeOptions (parent, child, vm) {
   let parent = options.parent
   // 找到第一个非抽象组件的父级
   // 并且将当前组件push到parent.$children
+  // $children包含了所有的子组件， 包括slot
   if (parent && !options.abstract) {
     while (parent.$options.abstract && parent.$parent) {
       parent = parent.$parent
@@ -696,6 +704,7 @@ function initProps (vm: Component, propsOptions: Object) {
 function initMethods (vm: Component, methods: Object) {
     // 逻辑比较简单， 只是遍历$options.methods
     // 将所有方法bind(vm)后挂在组件实例vm上
+    // 这里bind方法会返回一个新的方法， 所以vm.$options.methods.xxxMethod != vm.xxxMethod
 	for (const key in methods) {
         vm[key] = typeof methods[key] !== 'function' ? noop : bind(methods[key], vm)
     }
@@ -1099,10 +1108,14 @@ class Watcher {
     vm._watchers.push(this)
     // options
     if (options) {
+      // userWatcher的时候会用到
       this.deep = !!options.deep
       this.user = !!options.user
+      // 创建computedWatcher的时候会用到
       this.lazy = !!options.lazy
+      // 同步执行， userWatcher的时候会用到
       this.sync = !!options.sync
+      // before会在创建renderWatcher时候用到
       this.before = options.before
     } else {
       this.deep = this.user = this.lazy = this.sync = false
@@ -1687,3 +1700,399 @@ Vue.prototype.$watch = function (
 
 
 ## 执行created钩子
+
+执行用户定义的create钩子。
+
+
+
+## $mount
+
+现在我们回到入口文件 ``web/entry-runtime-with-compiler.js``。发现Vue.prototype.$mount被重写了（上面也有提到过这个问题），这是因为我们学习的是runtime + compiler版本的， 和runtme不同的是， runtime版本一般是在webpack等构建工具使用， 因为在使用webpack打包代码的时候，template已经被编译成render方法了， 所以在生产环境其实是不需要compiler的。 但是如果不预先将template编译成render方法， 这就需要在运行的时候去编译， 这种情况就需要runtime + compiler版本的vue。所以$mount在不同的版本中是有差异的。
+
+runtime + compiler的$mount方法 比runtime 的$mount多了一个template编译成render 的逻辑。
+
+### 编译template生成render方法
+
+```js
+// 缓存运行时版本的$mount方法
+const mount = Vue.prototype.$mount
+Vue.prototype.$mount = function (
+  el?: string | Element,
+  hydrating?: boolean
+): Component {
+    // 获取DOM元素
+    el = el && query(el)
+    
+    const options = this.$options
+    // 如果不存在render方法，将会去获取template, 并将template转换成render方法。
+    if (!options.render) {
+       // TODO: 这里比较简单，后面有时间在补充说明
+    }
+    
+    // 最后执行缓存的$mount方法
+    return mount.call(this, el, hydrating)
+}
+```
+
+由于tmplate的编译过程比较复杂， 所以打算单独写一篇文章详细说明，这里就不在深入，我们直接从tempalte编译成render之后的逻辑开始学习。
+
+所以，我们还是回到了 `runtime/index.js`下的$mount方法。
+
+代码如下：
+
+```js
+// 没有什么逻辑， 内部调用了mountComponent
+// 直接看 mountComponent 的逻辑就好了
+Vue.prototype.$mount = function (
+  el?: string | Element,
+  hydrating?: boolean
+): Component {
+  el = el && inBrowser ? query(el) : undefined
+  return mountComponent(this, el, hydrating)
+}
+```
+
+`mountComponent`方法是在 `core/instance/lifecycle` 定义的。
+
+### 执行beforeMount钩子
+
+```js
+function mountComponent (
+  vm: Component,
+  el: ?Element,
+  hydrating?: boolean
+): Component {
+  vm.$el = el
+      
+  // 如果没有render方法， 则赋值一个返回emptyVNode的方法。
+  if (!vm.$options.render) {
+    vm.$options.render = createEmptyVNode
+  }
+      
+  // 执行beforeMount钩子
+  callHook(vm, 'beforeMount')
+      
+  let updateComponent
+  // 用于更新组件
+  updateComponent = () => {
+    vm._update(vm._render(), hydrating)
+  }
+  
+  // 创建renderWatcher
+  new Watcher(vm, updateComponent, noop, {
+    before () {
+      if (vm._isMounted && !vm._isDestroyed) {
+        callHook(vm, 'beforeUpdate')
+      }
+    }
+  }, true /* isRenderWatcher */)
+  hydrating = false
+      
+  // 通过$vone做判断，避免多次执行 mounted 钩子
+  if (vm.$vnode == null) {
+    vm._isMounted = true
+    callHook(vm, 'mounted')
+  }
+      
+  return vm
+}
+```
+
+主要的逻辑都在创建renderWatcher的过程中， 所以我们接下来看下创建renderWatcher的过程。
+
+updateComponent方法将会作为watcher的getter,  在get方法内执行。
+
+
+
+在执行updateComponent的时候， 内部调用了：
+
+```
+ vm._update(vm._render(), hydrating)
+```
+
+
+
+### 执行render方法生成VNode
+
+`vm._render()` 生成VNode, `vm._update`内部将会对vNode进行patch, 在patch的过程中会生成真实的DOM元素。
+
+_render方法是在 `render.js`文件内的renderMixin方法内定义的。
+
+```js
+Vue.prototype._render = function (): VNode {
+    const vm: Component = this
+    const { render, _parentVnode } = vm.$options
+    
+    // TODO: ???
+    if (_parentVnode) {
+      vm.$scopedSlots = normalizeScopedSlots(
+        _parentVnode.data.scopedSlots,
+        vm.$slots,
+        vm.$scopedSlots
+      )
+    }
+    
+    // TODO：？？？
+    vm.$vnode = _parentVnode
+    
+    
+    let vnode
+    try {
+      // 模块内的一个全局变量
+      currentRenderingInstance = vm
+      vnode = render.call(vm._renderProxy, vm.$createElement)
+    } catch (e) {}
+    finally {
+      currentRenderingInstance = null
+    }
+    
+    
+    // 如果生成的vnode是一个数组， 并且数组的长度为1
+    if (Array.isArray(vnode) && vnode.length === 1) {
+      vnode = vnode[0]
+    }
+    
+    vnode.parent = _parentVnode
+    return vnode
+}
+```
+
+
+
+### 对新旧VNode进行patch
+
+_update是在 `lifecycle.js`   的lifecycleMixin方法内定义的。
+
+```js
+Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
+  const vm: Component = this
+  // 组件实例对应的DOM元素
+  const prevEl = vm.$el
+  const prevVnode = vm._vnode
+  
+  // 将当前的vm对象赋值给 activeInstance
+  // 并且在闭包内缓存上一个activeInstance
+  const restoreActiveInstance = setActiveInstance(vm)
+  vm._vnode = vnode
+    
+  // Vue.prototype.__patch__ is injected in entry points
+  // based on the rendering backend used.
+  if (!prevVnode) {
+    // initial render
+    // 第一次执行patch
+    vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */)
+  } else {
+    // updates
+    // 组件更新的时候
+    vm.$el = vm.__patch__(prevVnode, vnode)
+  }
+  
+  //将上一个activeInstance重新赋值给 activeInstance
+  restoreActiveInstance()
+    
+  // update __vue__ reference
+  if (prevEl) {
+    prevEl.__vue__ = null
+  }
+    
+  //在组件渲染的DOM上都会有一个__vue__属性执行当前组件实例   
+  if (vm.$el) {
+    vm.$el.__vue__ = vm
+  }
+    
+  // if parent is an HOC, update its $el as well
+  // TODO: 高阶组件？？？
+  if (vm.$vnode && vm.$parent && vm.$vnode === vm.$parent._vnode) {
+    vm.$parent.$el = vm.$el
+  }
+  // updated hook is called by the scheduler to ensure that children are
+  // updated in a parent's updated hook.
+}
+```
+
+
+
+**patch的逻辑**
+
+
+
+```js
+function createPatchFunction () {
+  // 此处省略一大段代码...
+  return function patch (oldVnode, vnode, hydrating, removeOnly) {
+    
+    // 如果vnode不存在
+    if (isUndef(vnode)) {
+      // 销毁oldVnode
+      if (isDef(oldVnode)) invokeDestroyHook(oldVnode)
+      return
+    }
+
+    let isInitialPatch = false
+    const insertedVnodeQueue = []
+	
+    
+    if (isUndef(oldVnode)) {
+      // empty mount (likely as component), create new root element
+      isInitialPatch = true
+      createElm(vnode, insertedVnodeQueue)
+    } else {
+      const isRealElement = isDef(oldVnode.nodeType)
+      if (!isRealElement && sameVnode(oldVnode, vnode)) {
+        // patch existing root node
+        patchVnode(oldVnode, vnode, insertedVnodeQueue, null, null, removeOnly)
+      } else {
+        if (isRealElement) {
+          // mounting to a real element
+          // check if this is server-rendered content and if we can perform
+          // a successful hydration.
+          if (oldVnode.nodeType === 1 && oldVnode.hasAttribute(SSR_ATTR)) {
+            oldVnode.removeAttribute(SSR_ATTR)
+            hydrating = true
+          }
+          if (isTrue(hydrating)) {
+            if (hydrate(oldVnode, vnode, insertedVnodeQueue)) {
+              invokeInsertHook(vnode, insertedVnodeQueue, true)
+              return oldVnode
+            } else if (process.env.NODE_ENV !== 'production') {
+              warn(
+                'The client-side rendered virtual DOM tree is not matching ' +
+                'server-rendered content. This is likely caused by incorrect ' +
+                'HTML markup, for example nesting block-level elements inside ' +
+                '<p>, or missing <tbody>. Bailing hydration and performing ' +
+                'full client-side render.'
+              )
+            }
+          }
+          
+          // oldVnode是一个dom元素，通过它创建一个空的VNode对象
+          oldVnode = emptyNodeAt(oldVnode)
+        }
+
+        // replacing existing element
+        const oldElm = oldVnode.elm
+        const parentElm = nodeOps.parentNode(oldElm)
+
+        // create new node
+        createElm(
+          vnode, // VNode对象
+          insertedVnodeQueue, // TODO:???
+          // extremely rare edge case: do not insert if old element is in a
+          // leaving transition. Only happens when combining transition +
+          // keep-alive + HOCs. (#4590)
+          oldElm._leaveCb ? null : parentElm, // oldElm的父DOM元素
+          nodeOps.nextSibling(oldElm) // oldElm的下一个兄弟元素，可能是元素节点也可能是文本节点
+        )
+
+        // update parent placeholder node element, recursively
+        if (isDef(vnode.parent)) {
+          let ancestor = vnode.parent
+          const patchable = isPatchable(vnode)
+          while (ancestor) {
+            for (let i = 0; i < cbs.destroy.length; ++i) {
+              cbs.destroy[i](ancestor)
+            }
+            ancestor.elm = vnode.elm
+            if (patchable) {
+              for (let i = 0; i < cbs.create.length; ++i) {
+                cbs.create[i](emptyNode, ancestor)
+              }
+              // #6513
+              // invoke insert hooks that may have been merged by create hooks.
+              // e.g. for directives that uses the "inserted" hook.
+              const insert = ancestor.data.hook.insert
+              if (insert.merged) {
+                // start at index 1 to avoid re-invoking component mounted hook
+                for (let i = 1; i < insert.fns.length; i++) {
+                  insert.fns[i]()
+                }
+              }
+            } else {
+              registerRef(ancestor)
+            }
+            ancestor = ancestor.parent
+          }
+        }
+
+        // destroy old node
+        if (isDef(parentElm)) {
+          removeVnodes([oldVnode], 0, 0)
+        } else if (isDef(oldVnode.tag)) {
+          invokeDestroyHook(oldVnode)
+        }
+      }
+    }
+
+    invokeInsertHook(vnode, insertedVnodeQueue, isInitialPatch)
+    return vnode.elm
+  }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 执行mounted钩子
