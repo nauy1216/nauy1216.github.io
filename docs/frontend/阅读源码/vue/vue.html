@@ -328,7 +328,8 @@ renderMixin(Vue)</code></pre>
 <p>在构造方法内打上断点进入到this._init方法。</p>
 <h2 id="合并options">合并options</h2>
 <p>通过不同的合并策略合并options得到最终的$options</p>
-<pre><code class="language-js">    if (options &amp;&amp; options._isComponent) {
+<pre><code class="language-js">    // 当通过Vonde创建Component时会传入 options._isComponent
+    if (options &amp;&amp; options._isComponent) {
       // optimize internal component instantiation
       // since dynamic options merging is pretty slow, and none of the
       // internal component options needs special treatment.
