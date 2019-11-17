@@ -64,7 +64,7 @@ function createIndexHtml() {
 
   function build(dir) {
     let dirChildList = fs.readdirSync(dir)
-    const noBuildList = ['image']
+    const noBuildList = ['image', 'source']
     dirChildList.forEach(child => {
       let isDir = fs.statSync(path.resolve(dir, child))
       if (isDir.isDirectory()) {

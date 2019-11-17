@@ -3,6 +3,40 @@
 # 示例
 
 ```js
+var ComA = {
+  props: {
+    name: {
+      type: String
+    }
+  },
+  data() {
+    return {
+      message: 'haha'
+    }
+  },
+  watch: {
+    message() {
+
+    }
+  },
+  methods: {
+    handleClick() {
+      this.message = Math.random()
+    }
+  },
+  render(h) {
+    return h('h1', {
+      ref: 'hello',
+      attrs: {
+        class: 'hello'
+      },
+      on: {
+        click: this.handleClick
+      }
+    }, this.name + ': ' + this.message)
+  }
+}
+
 var App = {
   render(h) {
     return h('div', {
@@ -10,7 +44,7 @@ var App = {
       attrs: {
         class: 'app',
       }
-    }, 'message')
+    }, this.$scopedSlots.default('liuchengyuan'))
   }
 }
 
@@ -27,6 +61,9 @@ window.vm = new Vue({
   },
   template: `
     <App ref="root">
+      <template slot-scope="scope">
+        <ComA :name="scope"/>
+      </template>
     </App>
   `
 })
@@ -34,7 +71,125 @@ window.vm = new Vue({
 
 
 
+# _render
+
+vnode对象是通过执行_render方法生成的。
+
+在上面的实例中根组件编译生成的render方法是这样的：
+
+```js
+(function anonymous(
+) {
+with(this){
+    return _c(
+        'App',
+        {
+            ref:"root",
+            // 作用域插槽是在父组件的render方法内部编译的，并且是一个方法
+            // 这是因为在插槽内使用到了组件的数据， 所以必须返回一个方法由子组件去执行
+            // 生成最终的vnode
+            
+            // TODO: _u是什么？？
+            scopedSlots:_u([
+                {
+                    key:"default",
+                    fn:function(scope){
+                        return [
+                            _c(
+                                'ComA',
+                                {
+                                    attrs:{
+                                        "name":scope
+                                    }
+                                }
+                            )
+                        ]
+                    }
+                }
+            ])
+        }
+    )
+}
+})
+```
+
+
+
+```js
+Vue.prototype._render = function (): VNode {
+  const vm: Component = this
+  // render： 用户定义的render方法或者是由template编译生成的render方法
+  // _parentVnode: 当前父组件的vnode
+  // 思考： _parentVnode、_vnode、$vnode 的区别？？？
+  // 当渲染根组件时， _parentVnode、$vnode均为null, _vnode的tag是App
+  // 当渲染App组件时，_parentVnode、$vnode的tag均为App(也就是在根组件生成的_vnode), 
+  // _vnode的tag是div
+  // $Vonde与_parentVnode是相等的， 都是在父组件的render函数生成的。
+  // _vnode是在执行子组件自己的render函数生成的。
+  const { render, _parentVnode } = vm.$options
+  
+  // TODO
+  if (_parentVnode) {
+    vm.$scopedSlots = normalizeScopedSlots(
+      _parentVnode.data.scopedSlots,
+      vm.$slots,
+      vm.$scopedSlots
+    )
+  }
+
+  // set parent vnode. this allows render functions to have access
+  // to the data on the placeholder node.
+  vm.$vnode = _parentVnode
+  // render self
+  let vnode
+  try {
+    // 当前正在渲染的组件实例
+    currentRenderingInstance = vm
+    vnode = render.call(vm._renderProxy, vm.$createElement)
+  } catch (e) {
+    handleError(e, vm, `render`)
+    // return error render result,
+    // or previous vnode to prevent render error causing blank component
+    /* istanbul ignore else */
+    if (process.env.NODE_ENV !== 'production' && vm.$options.renderError) {
+      try {
+        vnode = vm.$options.renderError.call(vm._renderProxy, vm.$createElement, e)
+      } catch (e) {
+        handleError(e, vm, `renderError`)
+        vnode = vm._vnode
+      }
+    } else {
+      vnode = vm._vnode
+    }
+  } finally {
+    currentRenderingInstance = null
+  }
+  // if the returned array contains only a single node, allow it
+  if (Array.isArray(vnode) && vnode.length === 1) {
+    vnode = vnode[0]
+  }
+  // return empty vnode in case the render function errored out
+  if (!(vnode instanceof VNode)) {
+    if (process.env.NODE_ENV !== 'production' && Array.isArray(vnode)) {
+      warn(
+        'Multiple root nodes returned from render function. Render function ' +
+        'should return a single root node.',
+        vm
+      )
+    }
+    vnode = createEmptyVNode()
+  }
+  // set parent
+  vnode.parent = _parentVnode
+  return vnode
+}
+```
+
+
+
 # _createElement
+
+在render的内部是通过_createElement来创建vnode的。
 
 ```js
 export function _createElement (
@@ -262,6 +417,8 @@ function createComponent (
 
 
 ### Vue.extend
+
+调用extend会创建一个Vue的子类。
 
 ```js
   Vue.cid = 0
