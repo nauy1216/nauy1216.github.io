@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+      <html>
+          <head>
+          <meta charset="utf-8" >
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>drag-table.md</title>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
+          <style>
+              .markdown-body {
+                  box-sizing: border-box;
+                  min-width: 200px;
+                  max-width: 980px;
+                  margin: 0 auto;
+                  padding: 45px;
+              }
+              .markdown-body img {
+                  box-sizing: border-box !important;
+                  margin:10px 0 10px 2%;
+                  padding: 20px;
+                  width: 96%;
+                  border-radius: 4px;
+                  box-shadow: 0 0 6px 0px #999;
+              }
+              @media (max-width: 767px) {
+                  .markdown-body {
+                      padding: 15px;
+                  }
+              }
+              @font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,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) format('woff')}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown-body .anchor:focus{outline:0}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body .pl-c{color:#6a737d}.markdown-body .pl-c1,.markdown-body .pl-s .pl-v{color:#005cc5}.markdown-body .pl-e,.markdown-body .pl-en{color:#6f42c1}.markdown-body .pl-s .pl-s1,.markdown-body .pl-smi{color:#24292e}.markdown-body .pl-ent{color:#22863a}.markdown-body .pl-k{color:#d73a49}.markdown-body .pl-pds,.markdown-body .pl-s,.markdown-body .pl-s .pl-pse .pl-s1,.markdown-body .pl-sr,.markdown-body .pl-sr .pl-cce,.markdown-body .pl-sr .pl-sra,.markdown-body .pl-sr .pl-sre{color:#032f62}.markdown-body .pl-smw,.markdown-body .pl-v{color:#e36209}.markdown-body .pl-bu{color:#b31d28}.markdown-body .pl-ii{background-color:#b31d28;color:#fafbfc}.markdown-body .pl-c2{background-color:#d73a49;color:#fafbfc}.markdown-body .pl-c2:before{content:"^M"}.markdown-body .pl-sr .pl-cce{color:#22863a;font-weight:700}.markdown-body .pl-ml{color:#735c0f}.markdown-body .pl-mh,.markdown-body .pl-mh .pl-en,.markdown-body .pl-ms{color:#005cc5;font-weight:700}.markdown-body .pl-mi{color:#24292e;font-style:italic}.markdown-body .pl-mb{color:#24292e;font-weight:700}.markdown-body .pl-md{background-color:#ffeef0;color:#b31d28}.markdown-body .pl-mi1{background-color:#f0fff4;color:#22863a}.markdown-body .pl-mc{background-color:#ffebda;color:#e36209}.markdown-body .pl-mi2{background-color:#005cc5;color:#f6f8fa}.markdown-body .pl-mdr{color:#6f42c1;font-weight:700}.markdown-body .pl-ba{color:#586069}.markdown-body .pl-sg{color:#959da5}.markdown-body .pl-corl{color:#032f62;text-decoration:underline}.markdown-body details{display:block}.markdown-body summary{display:list-item}.markdown-body a{background-color:transparent}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body strong{font-weight:inherit;font-weight:bolder}.markdown-body h1{font-size:2em;margin:.67em 0}.markdown-body img{border-style:none}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace;font-size:1em}.markdown-body hr{box-sizing:content-box;height:0;overflow:visible}.markdown-body input{font:inherit;margin:0}.markdown-body input{overflow:visible}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body a{color:#0366d6;text-decoration:none}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{background:0 0;border:0;border-bottom:1px solid #dfe2e5;height:0;margin:15px 0;overflow:hidden}.markdown-body hr:before{content:"";display:table}.markdown-body hr:after{clear:both;content:"";display:table}.markdown-body table{border-collapse:collapse;border-spacing:0}.markdown-body td,.markdown-body th{padding:0}.markdown-body details summary{cursor:pointer}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-bottom:0;margin-top:0}.markdown-body h1{font-size:32px}.markdown-body h1,.markdown-body h2{font-weight:600}.markdown-body h2{font-size:24px}.markdown-body h3{font-size:20px}.markdown-body h3,.markdown-body h4{font-weight:600}.markdown-body h4{font-size:16px}.markdown-body h5{font-size:14px}.markdown-body h5,.markdown-body h6{font-weight:600}.markdown-body h6{font-size:12px}.markdown-body p{margin-bottom:10px;margin-top:0}.markdown-body blockquote{margin:0}.markdown-body ol,.markdown-body ul{margin-bottom:0;margin-top:0;padding-left:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code,.markdown-body pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px}.markdown-body pre{margin-bottom:0;margin-top:0}.markdown-body input::-webkit-inner-spin-button,.markdown-body input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}.markdown-body .border{border:1px solid #e1e4e8!important}.markdown-body .border-0{border:0!important}.markdown-body .border-bottom{border-bottom:1px solid #e1e4e8!important}.markdown-body .rounded-1{border-radius:3px!important}.markdown-body .bg-white{background-color:#fff!important}.markdown-body .bg-gray-light{background-color:#fafbfc!important}.markdown-body .text-gray-light{color:#6a737d!important}.markdown-body .mb-0{margin-bottom:0!important}.markdown-body .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown-body .pl-0{padding-left:0!important}.markdown-body .py-0{padding-bottom:0!important;padding-top:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .py-2{padding-bottom:8px!important;padding-top:8px!important}.markdown-body .pl-3,.markdown-body .px-3{padding-left:16px!important}.markdown-body .px-3{padding-right:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .f6{font-size:12px!important}.markdown-body .lh-condensed{line-height:1.25!important}.markdown-body .text-bold{font-weight:600!important}.markdown-body:before{content:"";display:table}.markdown-body:after{clear:both;content:"";display:table}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-bottom:16px;margin-top:0}.markdown-body hr{background-color:#e1e4e8;border:0;height:.25em;margin:24px 0;padding:0}.markdown-body blockquote{border-left:.25em solid #dfe2e5;color:#6a737d;padding:0 1em}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd{background-color:#fafbfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5;color:#444d56;display:inline-block;font-size:11px;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{font-weight:600;line-height:1.25;margin-bottom:16px;margin-top:24px}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{border-bottom:1px solid #eaecef;padding-bottom:.3em}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{color:#6a737d;font-size:.85em}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-bottom:0;margin-top:0}.markdown-body li{word-wrap:break-all}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{font-size:1em;font-style:italic;font-weight:600;margin-top:16px;padding:0}.markdown-body dl dd{margin-bottom:16px;padding:0 16px}.markdown-body table{display:block;overflow:auto;width:100%}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{border:1px solid #dfe2e5;padding:6px 13px}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{background-color:#fff;box-sizing:content-box;max-width:100%}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body code{background-color:rgba(27,31,35,.05);border-radius:3px;font-size:85%;margin:0;padding:.2em .4em}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{background:0 0;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{background-color:#f6f8fa;border-radius:3px;font-size:85%;line-height:1.45;overflow:auto;padding:16px}.markdown-body pre code{background-color:transparent;border:0;display:inline;line-height:inherit;margin:0;max-width:auto;overflow:visible;padding:0;word-wrap:normal}.markdown-body .commit-tease-sha{color:#444d56;display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:90%}.markdown-body .blob-wrapper{border-bottom-left-radius:3px;border-bottom-right-radius:3px;overflow-x:auto;overflow-y:hidden}.markdown-body .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown-body .blob-num{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;color:rgba(27,31,35,.3);cursor:pointer;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;line-height:20px;min-width:50px;padding-left:10px;padding-right:10px;text-align:right;user-select:none;vertical-align:top;white-space:nowrap;width:1%}.markdown-body .blob-num:hover{color:rgba(27,31,35,.6)}.markdown-body .blob-num:before{content:attr(data-line-number)}.markdown-body .blob-code{line-height:20px;padding-left:10px;padding-right:10px;position:relative;vertical-align:top}.markdown-body .blob-code-inner{color:#24292e;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;overflow:visible;white-space:pre;word-wrap:normal}.markdown-body .pl-token.active,.markdown-body .pl-token:hover{background:#ffea7f;cursor:pointer}.markdown-body kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1;color:#444d56;display:inline-block;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body :checked+.radio-label{border-color:#0366d6;position:relative;z-index:1}.markdown-body .tab-size[data-tab-size="1"]{-moz-tab-size:1;tab-size:1}.markdown-body .tab-size[data-tab-size="2"]{-moz-tab-size:2;tab-size:2}.markdown-body .tab-size[data-tab-size="3"]{-moz-tab-size:3;tab-size:3}.markdown-body .tab-size[data-tab-size="4"]{-moz-tab-size:4;tab-size:4}.markdown-body .tab-size[data-tab-size="5"]{-moz-tab-size:5;tab-size:5}.markdown-body .tab-size[data-tab-size="6"]{-moz-tab-size:6;tab-size:6}.markdown-body .tab-size[data-tab-size="7"]{-moz-tab-size:7;tab-size:7}.markdown-body .tab-size[data-tab-size="8"]{-moz-tab-size:8;tab-size:8}.markdown-body .tab-size[data-tab-size="9"]{-moz-tab-size:9;tab-size:9}.markdown-body .tab-size[data-tab-size="10"]{-moz-tab-size:10;tab-size:10}.markdown-body .tab-size[data-tab-size="11"]{-moz-tab-size:11;tab-size:11}.markdown-body .tab-size[data-tab-size="12"]{-moz-tab-size:12;tab-size:12}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown-body hr{border-bottom-color:#eee}.markdown-body .pl-0{padding-left:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .pl-7{padding-left:48px!important}.markdown-body .pl-8{padding-left:64px!important}.markdown-body .pl-9{padding-left:80px!important}.markdown-body .pl-10{padding-left:96px!important}.markdown-body .pl-11{padding-left:112px!important}.markdown-body .pl-12{padding-left:128px!important}
+/*# sourceMappingURL=github-markdown.min.css.map */
+          </style>
+          <script>
+              window.onload = function() {
+                hljs.initHighlighting()
+              }
+          </script>
+          </head>
+          <body>
+            <article class="markdown-body">
+                <h1 id="基于element-ui封装的一个行可拖动的表格">基于element-ui封装的一个行可拖动的表格</h1>
+<pre><code>&lt;script&gt;
+import ElTable from &#39;element-ui/lib/table&#39;
+import ElTableColumn from &#39;element-ui/lib/table-column&#39;
+
+const OriginRowRender = ElTable.components.TableBody.methods.rowRender
+OriginRowRender.isElementUi = true
+
+const INSERT_TYPE = {
+  BEFORE: &#39;before&#39;, // 插入到当前元素的顶部
+  AFTER: &#39;after&#39;, // 插入到当前元素的底部
+  TABlE_BOTTOM: &#39;bottom&#39; // 插入到表格的底部
+}
+const TABLE_EVENT_TYPE = {
+  DRAG_START: &#39;jxdragstart&#39;,
+  DRAG_OVER: &#39;jxdragover&#39;,
+  DRAG_END: &#39;jxdragend&#39;,
+  DROP: &#39;jxdrop&#39;,
+  CLICK_PICK: &#39;jxclickpick&#39;
+}
+const OUT_EVENT_TYPE = {
+  DRAG_END: &#39;jxdragend&#39;
+}
+const DRAGTABLE_DISABLED = &#39;drag-disabled&#39;
+
+/**
+ * 新增属性：
+ * isBindData: boolean  是否绑定表格数据，默认绑定。
+ *
+ * 新增事件：
+ * jxdragend 拖拽成功后触发
+ */
+export default {
+  props: {
+    isBindData: {
+      // 是否绑定表格数据
+      type: Boolean,
+      default: true
+    },
+    delay: {
+      // 节流设定的触发频率
+      type: Number,
+      default: 80
+    },
+    draggable: {
+      type: Boolean,
+      default: true
+    }
+  },
+
+  data() {
+    return {
+      dragEle: null,
+      targetEle: null,
+      clickPickEle: null,
+      insertType: INSERT_TYPE.BEFORE,
+      dragData: null,
+      targetData: null
+    }
+  },
+
+  render(h) {
+    let table = h(
+      ElTable,
+      {
+        ref: &#39;table&#39;,
+        attrs: {
+          ...this.$attrs,
+          elDraggable: this.draggable
+        },
+        staticClass: &#39;dragtable&#39;
+      },
+      [this.$slots.default]
+    )
+    let splitLine = h(&#39;div&#39;, {
+      ref: &#39;splitline&#39;,
+      staticClass: &#39;dragtable-splitline&#39;
+    })
+    let dragTableWrap = h(
+      &#39;div&#39;,
+      {
+        staticClass: &#39;dragtable-wrap&#39;
+      },
+      [table, splitLine]
+    )
+    return dragTableWrap
+  },
+
+  created() {
+    this.overrideRenderRow()
+  },
+
+  mounted() {
+    let tableVM = this.$refs.table
+    // 监听拖拽事件
+    tableVM.$on(TABLE_EVENT_TYPE.DRAG_START, this.handleDragStart)
+    tableVM.$on(TABLE_EVENT_TYPE.DRAG_OVER, this.handleDragOver)
+    tableVM.$on(TABLE_EVENT_TYPE.DRAG_END, this.handleDragEnd)
+    tableVM.$on(TABLE_EVENT_TYPE.DROP, this.handleDrop)
+    tableVM.$on(TABLE_EVENT_TYPE.CLICK_PICK, this.handleClickPick)
+  },
+
+  methods: {
+    overrideRenderRow() {
+      try {
+        if (OriginRowRender.isElementUi) {
+          // 在这里为了直接能够给tr元素增加事件
+          // 重写了rowRender方法
+          // 在tr的事件回调内部触发el-table组件的事件
+          // 在el-table外部只要监听事件做相应的处理即可
+          ElTable.components.TableBody.methods.rowRender = function(row, $index, treeRowData) {
+            let tableVM = this.$parent
+            let vnode = OriginRowRender.call(this, row, $index, treeRowData)
+            if (!tableVM.$attrs.elDraggable) {
+              return vnode
+            }
+            vnode.data.on.dragstart = ev =&gt; {
+              tableVM.$emit(TABLE_EVENT_TYPE.DRAG_START, ev, row)
+            }
+            vnode.data.on.dragover = ev =&gt; {
+              tableVM.$emit(TABLE_EVENT_TYPE.DRAG_OVER, ev, row)
+            }
+            vnode.data.on.dragend = ev =&gt; {
+              tableVM.$emit(TABLE_EVENT_TYPE.DRAG_END, ev, row)
+            }
+            vnode.data.on.drop = ev =&gt; {
+              tableVM.$emit(TABLE_EVENT_TYPE.DROP, ev, row)
+            }
+            vnode.data.on.mousedown = ev =&gt; {
+              tableVM.$emit(TABLE_EVENT_TYPE.CLICK_PICK, ev, row)
+            }
+            vnode.data.attrs = vnode.data.attrs || {}
+            vnode.data.attrs.draggable = true
+            return vnode
+          }
+        }
+      } catch (e) {
+        console.error(&#39;Error in overrideRenderRow method.&#39;)
+      }
+    },
+    // 在鼠标点击的那一刻记录当前的元素
+    // 这一步很重要， 可以使有自定义属性drag-disabled的元素禁用拖拽。
+    handleClickPick(ev) {
+      this.clickPickEle = ev.target
+    },
+    handleDragStart(ev, row) {
+      // 是否禁用拖拽
+      if (this.clickPickEle &amp;&amp; this.clickPickEle.getAttribute(DRAGTABLE_DISABLED)) {
+        ev.preventDefault()
+      }
+      ev.stopPropagation()
+      event.dataTransfer.effectAllowed = &#39;move&#39;
+      // 记录拖拽的行
+      this.dragEle = ev.target
+      // 行对应的数据
+      this.dragData = row
+    },
+    handleDragOver(ev, row) {
+      ev.stopPropagation()
+      ev.preventDefault()
+      if (!ev.currentTarget.getAttribute(&#39;draggable&#39;)) {
+        return false
+      }
+      if (this.timer) return
+      let currentTargetDom = ev.currentTarget
+
+      // 做节流处理
+      this.timer = setTimeout(() =&gt; {
+        let splitLineDom = this.$refs.splitline
+        let tableDom = this.$refs.table.$el
+        let tableRect = tableDom.getBoundingClientRect()
+        let currentTargetRect = currentTargetDom.getBoundingClientRect()
+        let tableTop = tableRect.top
+        let tableHeight = tableRect.height
+        let currentTop = currentTargetRect.top
+        let currentHeight = currentTargetRect.height
+
+        // 判断鼠标指针在当前target元素的位置，
+        // 如果指针在target元素的上半部分则将splitline移动到target元素的顶部，
+        // 如果在下半部分则移动到底部。
+        // 同时使用insertType来记录插入的位置
+        let isBefore = ev.clientY - currentTop &lt; currentHeight / 2
+        if (isBefore) { // target元素顶部
+          splitLineDom.style.top = `${currentTop - tableTop}px`
+          this.insertType = INSERT_TYPE.BEFORE
+        } else { // target元素底部
+          splitLineDom.style.top = `${currentTop - tableTop + currentHeight}px`
+          this.insertType = INSERT_TYPE.AFTER
+        }
+        // 表格底部
+        if (!isBefore &amp;&amp; !currentTargetDom.nextElementSibling) {
+          splitLineDom.style.top = `${tableHeight}px`
+          this.insertType = INSERT_TYPE.TABlE_BOTTOM
+        }
+        // 记录target元素的信息
+        this.targetEle = currentTargetDom
+        this.targetData = row
+        this.timer = null
+      }, this.delay)
+    },
+
+    handleDragEnd(ev, row) {
+      ev.stopPropagation()
+      setTimeout(() =&gt; {
+          // 获取拖拽元素和目标元素的数据
+        let dragRowData = this.dragData
+        let targetRowData = this.targetData
+        let { data } = this.$attrs
+        let dragRowIndex = data.indexOf(dragRowData)
+        let targetRowIndex = data.indexOf(targetRowData)
+
+        if (this.dragEle &amp;&amp; this.targetEle &amp;&amp; data) {
+          if (this.insertType === INSERT_TYPE.TABlE_BOTTOM) {
+              // 如果是 isBindData， 则直接操作数据
+            if (this.isBindData) {
+              data.splice(dragRowIndex, 1)
+              data.push(dragRowData)
+            } else {
+            // 只操作dom不改变数据
+              this.targetEle.parentNode.appendChild(this.dragEle)
+            }
+          } else if (this.insertType === INSERT_TYPE.BEFORE) {
+            if (this.isBindData) {
+              let offset = dragRowIndex &lt; targetRowIndex ? -1 : 0
+              data.splice(dragRowIndex, 1)
+              data.splice(targetRowIndex + offset, 0, dragRowData)
+            } else {
+              this.targetEle.parentNode.insertBefore(this.dragEle, this.targetEle)
+            }
+          } else if (this.insertType === INSERT_TYPE.AFTER) {
+            if (this.isBindData) {
+              let offset = dragRowIndex &lt; targetRowIndex ? 0 : 1
+              data.splice(dragRowIndex, 1)
+              data.splice(targetRowIndex + offset, 0, dragRowData)
+            } else {
+              this.targetEle.parentNode.insertBefore(
+                this.dragEle,
+                this.targetEle.nextElementSibling
+              )
+            }
+          }
+        }
+
+
+        // 如果不绑定数据则在事件回调传入数据的副本， 避免在回调中由于
+        // 操作数据导致视图变化 
+        if (!this.isBindData) {
+          try {
+            dragRowData = JSON.parse(JSON.stringify(dragRowData))
+            targetRowData = JSON.parse(JSON.stringify(targetRowData))
+          } catch (e) {
+            console.error(e)
+          }
+        }
+
+        this.$emit(OUT_EVENT_TYPE.DRAG_END, {
+          dragRowData: dragRowData,
+          targetRowData: targetRowData,
+          insertType: this.insertType
+        })
+
+        this.dragEle = null
+        this.dragData = null
+        this.targetEle = null
+        this.targetData = null
+        this.clickPickEle = null
+        this.insertType = null
+        this.$refs.splitline.style.cssText = &#39;top: -9999px;&#39;
+      }, this.delay)
+    },
+
+    handleDrop(ev) {
+      event.preventDefault()
+    }
+  }
+}
+&lt;/script&gt;
+&lt;style lang=&quot;scss&quot;&gt;
+.dragtable-wrap {
+  position: relative;
+  .dragtable-splitline {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: #409eff;
+    top: -9999px;
+    left: 0;
+  }
+}
+&lt;/style&gt;</code></pre>
+            </article> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
+          </body>
+      </html>

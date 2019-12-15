@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+      <html>
+          <head>
+          <meta charset="utf-8" >
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>html5.md</title>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
+          <style>
+              .markdown-body {
+                  box-sizing: border-box;
+                  min-width: 200px;
+                  max-width: 980px;
+                  margin: 0 auto;
+                  padding: 45px;
+              }
+              .markdown-body img {
+                  box-sizing: border-box !important;
+                  margin:10px 0 10px 2%;
+                  padding: 20px;
+                  width: 96%;
+                  border-radius: 4px;
+                  box-shadow: 0 0 6px 0px #999;
+              }
+              @media (max-width: 767px) {
+                  .markdown-body {
+                      padding: 15px;
+                  }
+              }
+              @font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,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) format('woff')}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown-body .anchor:focus{outline:0}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body .pl-c{color:#6a737d}.markdown-body .pl-c1,.markdown-body .pl-s .pl-v{color:#005cc5}.markdown-body .pl-e,.markdown-body .pl-en{color:#6f42c1}.markdown-body .pl-s .pl-s1,.markdown-body .pl-smi{color:#24292e}.markdown-body .pl-ent{color:#22863a}.markdown-body .pl-k{color:#d73a49}.markdown-body .pl-pds,.markdown-body .pl-s,.markdown-body .pl-s .pl-pse .pl-s1,.markdown-body .pl-sr,.markdown-body .pl-sr .pl-cce,.markdown-body .pl-sr .pl-sra,.markdown-body .pl-sr .pl-sre{color:#032f62}.markdown-body .pl-smw,.markdown-body .pl-v{color:#e36209}.markdown-body .pl-bu{color:#b31d28}.markdown-body .pl-ii{background-color:#b31d28;color:#fafbfc}.markdown-body .pl-c2{background-color:#d73a49;color:#fafbfc}.markdown-body .pl-c2:before{content:"^M"}.markdown-body .pl-sr .pl-cce{color:#22863a;font-weight:700}.markdown-body .pl-ml{color:#735c0f}.markdown-body .pl-mh,.markdown-body .pl-mh .pl-en,.markdown-body .pl-ms{color:#005cc5;font-weight:700}.markdown-body .pl-mi{color:#24292e;font-style:italic}.markdown-body .pl-mb{color:#24292e;font-weight:700}.markdown-body .pl-md{background-color:#ffeef0;color:#b31d28}.markdown-body .pl-mi1{background-color:#f0fff4;color:#22863a}.markdown-body .pl-mc{background-color:#ffebda;color:#e36209}.markdown-body .pl-mi2{background-color:#005cc5;color:#f6f8fa}.markdown-body .pl-mdr{color:#6f42c1;font-weight:700}.markdown-body .pl-ba{color:#586069}.markdown-body .pl-sg{color:#959da5}.markdown-body .pl-corl{color:#032f62;text-decoration:underline}.markdown-body details{display:block}.markdown-body summary{display:list-item}.markdown-body a{background-color:transparent}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body strong{font-weight:inherit;font-weight:bolder}.markdown-body h1{font-size:2em;margin:.67em 0}.markdown-body img{border-style:none}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace;font-size:1em}.markdown-body hr{box-sizing:content-box;height:0;overflow:visible}.markdown-body input{font:inherit;margin:0}.markdown-body input{overflow:visible}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body a{color:#0366d6;text-decoration:none}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{background:0 0;border:0;border-bottom:1px solid #dfe2e5;height:0;margin:15px 0;overflow:hidden}.markdown-body hr:before{content:"";display:table}.markdown-body hr:after{clear:both;content:"";display:table}.markdown-body table{border-collapse:collapse;border-spacing:0}.markdown-body td,.markdown-body th{padding:0}.markdown-body details summary{cursor:pointer}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-bottom:0;margin-top:0}.markdown-body h1{font-size:32px}.markdown-body h1,.markdown-body h2{font-weight:600}.markdown-body h2{font-size:24px}.markdown-body h3{font-size:20px}.markdown-body h3,.markdown-body h4{font-weight:600}.markdown-body h4{font-size:16px}.markdown-body h5{font-size:14px}.markdown-body h5,.markdown-body h6{font-weight:600}.markdown-body h6{font-size:12px}.markdown-body p{margin-bottom:10px;margin-top:0}.markdown-body blockquote{margin:0}.markdown-body ol,.markdown-body ul{margin-bottom:0;margin-top:0;padding-left:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code,.markdown-body pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px}.markdown-body pre{margin-bottom:0;margin-top:0}.markdown-body input::-webkit-inner-spin-button,.markdown-body input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}.markdown-body .border{border:1px solid #e1e4e8!important}.markdown-body .border-0{border:0!important}.markdown-body .border-bottom{border-bottom:1px solid #e1e4e8!important}.markdown-body .rounded-1{border-radius:3px!important}.markdown-body .bg-white{background-color:#fff!important}.markdown-body .bg-gray-light{background-color:#fafbfc!important}.markdown-body .text-gray-light{color:#6a737d!important}.markdown-body .mb-0{margin-bottom:0!important}.markdown-body .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown-body .pl-0{padding-left:0!important}.markdown-body .py-0{padding-bottom:0!important;padding-top:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .py-2{padding-bottom:8px!important;padding-top:8px!important}.markdown-body .pl-3,.markdown-body .px-3{padding-left:16px!important}.markdown-body .px-3{padding-right:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .f6{font-size:12px!important}.markdown-body .lh-condensed{line-height:1.25!important}.markdown-body .text-bold{font-weight:600!important}.markdown-body:before{content:"";display:table}.markdown-body:after{clear:both;content:"";display:table}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-bottom:16px;margin-top:0}.markdown-body hr{background-color:#e1e4e8;border:0;height:.25em;margin:24px 0;padding:0}.markdown-body blockquote{border-left:.25em solid #dfe2e5;color:#6a737d;padding:0 1em}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd{background-color:#fafbfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5;color:#444d56;display:inline-block;font-size:11px;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{font-weight:600;line-height:1.25;margin-bottom:16px;margin-top:24px}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{border-bottom:1px solid #eaecef;padding-bottom:.3em}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{color:#6a737d;font-size:.85em}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-bottom:0;margin-top:0}.markdown-body li{word-wrap:break-all}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{font-size:1em;font-style:italic;font-weight:600;margin-top:16px;padding:0}.markdown-body dl dd{margin-bottom:16px;padding:0 16px}.markdown-body table{display:block;overflow:auto;width:100%}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{border:1px solid #dfe2e5;padding:6px 13px}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{background-color:#fff;box-sizing:content-box;max-width:100%}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body code{background-color:rgba(27,31,35,.05);border-radius:3px;font-size:85%;margin:0;padding:.2em .4em}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{background:0 0;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{background-color:#f6f8fa;border-radius:3px;font-size:85%;line-height:1.45;overflow:auto;padding:16px}.markdown-body pre code{background-color:transparent;border:0;display:inline;line-height:inherit;margin:0;max-width:auto;overflow:visible;padding:0;word-wrap:normal}.markdown-body .commit-tease-sha{color:#444d56;display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:90%}.markdown-body .blob-wrapper{border-bottom-left-radius:3px;border-bottom-right-radius:3px;overflow-x:auto;overflow-y:hidden}.markdown-body .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown-body .blob-num{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;color:rgba(27,31,35,.3);cursor:pointer;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;line-height:20px;min-width:50px;padding-left:10px;padding-right:10px;text-align:right;user-select:none;vertical-align:top;white-space:nowrap;width:1%}.markdown-body .blob-num:hover{color:rgba(27,31,35,.6)}.markdown-body .blob-num:before{content:attr(data-line-number)}.markdown-body .blob-code{line-height:20px;padding-left:10px;padding-right:10px;position:relative;vertical-align:top}.markdown-body .blob-code-inner{color:#24292e;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;overflow:visible;white-space:pre;word-wrap:normal}.markdown-body .pl-token.active,.markdown-body .pl-token:hover{background:#ffea7f;cursor:pointer}.markdown-body kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1;color:#444d56;display:inline-block;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body :checked+.radio-label{border-color:#0366d6;position:relative;z-index:1}.markdown-body .tab-size[data-tab-size="1"]{-moz-tab-size:1;tab-size:1}.markdown-body .tab-size[data-tab-size="2"]{-moz-tab-size:2;tab-size:2}.markdown-body .tab-size[data-tab-size="3"]{-moz-tab-size:3;tab-size:3}.markdown-body .tab-size[data-tab-size="4"]{-moz-tab-size:4;tab-size:4}.markdown-body .tab-size[data-tab-size="5"]{-moz-tab-size:5;tab-size:5}.markdown-body .tab-size[data-tab-size="6"]{-moz-tab-size:6;tab-size:6}.markdown-body .tab-size[data-tab-size="7"]{-moz-tab-size:7;tab-size:7}.markdown-body .tab-size[data-tab-size="8"]{-moz-tab-size:8;tab-size:8}.markdown-body .tab-size[data-tab-size="9"]{-moz-tab-size:9;tab-size:9}.markdown-body .tab-size[data-tab-size="10"]{-moz-tab-size:10;tab-size:10}.markdown-body .tab-size[data-tab-size="11"]{-moz-tab-size:11;tab-size:11}.markdown-body .tab-size[data-tab-size="12"]{-moz-tab-size:12;tab-size:12}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown-body hr{border-bottom-color:#eee}.markdown-body .pl-0{padding-left:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .pl-7{padding-left:48px!important}.markdown-body .pl-8{padding-left:64px!important}.markdown-body .pl-9{padding-left:80px!important}.markdown-body .pl-10{padding-left:96px!important}.markdown-body .pl-11{padding-left:112px!important}.markdown-body .pl-12{padding-left:128px!important}
+/*# sourceMappingURL=github-markdown.min.css.map */
+          </style>
+          <script>
+              window.onload = function() {
+                hljs.initHighlighting()
+              }
+          </script>
+          </head>
+          <body>
+            <article class="markdown-body">
+                <h1 id="1、新增语义化标签">1、新增语义化标签</h1>
+<h2 id="header">header</h2>
+<p>用于页面的顶部或板块的的顶部</p>
+<h2 id="nav">nav</h2>
+<p>导航条</p>
+<h2 id="hgroup">hgroup</h2>
+<p>页面上的标题组合</p>
+<h2 id="section">section</h2>
+<p>页面上的版块用来划分区域</p>
+<h2 id="article">article</h2>
+<p>用来表示一套结构完整且独立的内容部分</p>
+<h2 id="aside">aside</h2>
+<p>和主体相关的东西</p>
+<h2 id="figure">figure</h2>
+<p>用于表示对元素进行组合，一般用于图片或视频</p>
+<h2 id="footer">footer</h2>
+<p>用于页面的底部或板块的的底部</p>
+<h2 id="time">time</h2>
+<p>用来表示时间</p>
+<h1 id="2、新增功能标签">2、新增功能标签</h1>
+<p>注意：不同的浏览器在实现相同功能下，可能uI界面不一样，要注意浏览器的默认样式。</p>
+<h2 id="datalist">datalist</h2>
+<p>选项列表。一般配合input元素使用，来定义input可能的值。</p>
+<pre><code>&lt;input type=&quot;text&quot; list=&quot;valist&quot;&gt;
+&lt;datalist id=&quot;valist&quot;&gt;
+    &lt;option value=&quot;html5&quot;&gt;html5&lt;/option&gt;
+    &lt;option value=&quot;html&quot;&gt;html&lt;/option&gt;
+    &lt;option value=&quot;css&quot;&gt;css&lt;/option&gt;
+    &lt;option value=&quot;js&quot;&gt;js&lt;/option&gt;
+&lt;/datalist&gt;</code></pre><h2 id="details">details</h2>
+<p>用于描述文档或文档某个部分的细节（块元素）</p>
+<details style="color: rgb(0, 0, 0); font-family: &quot;Microsoft YaHei&quot;; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;"><summary>html</summary></details>
+
+<pre><code>&lt;details&gt;
+    &lt;summary&gt;html&lt;/summary&gt;     //被描述的对象
+    &lt;p&gt;超文本标记语言&lt;/p&gt;      //对象的细节，可以是任何标签
+&lt;/details&gt;</code></pre><h2 id="dialog">dialog</h2>
+<p>定义对话。（块元素，自动居中,脱离文档流）</p>
+<p>老师1+1=？小明2老师你真聪明</p>
+<pre><code>&lt;dialog open&gt;//open 属性决定是否展开对话
+    &lt;dt&gt;老师&lt;/dt&gt;
+    &lt;dd&gt;1+1=？&lt;/dd&gt;
+    &lt;dt&gt;小明&lt;/dt&gt;
+    &lt;dd&gt;2&lt;/dd&gt;
+    &lt;dt&gt;老师&lt;/dt&gt;
+    &lt;dd&gt;你真聪明&lt;/dd&gt;
+&lt;/dialog&gt;</code></pre><h2 id="adress">adress</h2>
+<p>定义详细信息。
+address 定义详细信息。</p>
+<h2 id="mark">mark</h2>
+<p>标记（内联元素，背景颜色变化）</p>
+<h2 id="keygen">keygen</h2>
+<h2 id="progress">progress</h2>
+<p>进度条（IE678不兼容）
+两个属性：
+max:总的值。
+value:此时的值。</p>
+<pre><code>&lt;progress max=&quot;100&quot; value=&quot;25&quot;&gt;&lt;/progress&gt;</code></pre><h1 id="3、html5语义化标签的兼容">3、html5语义化标签的兼容</h1>
+<blockquote>
+<p>注意：只能用于语义化标签，功能化标签需要配合js实现。</p>
+</blockquote>
+<p>下面以兼容header为例。
+<strong>第一种方法：</strong>
+1、在script标签里加</p>
+<pre><code>document.createElement(&#39;header&#39;);//创建自定义标签</code></pre><p>2、在style中定义样式。为自定义标签添加样式。
+3、功能标签可以通过js，来添加功能。
+然后就可以在低版本浏览器中使用了。</p>
+<p>下面的代码定义了header标签，并且给他增加了点击背景颜色变红的功能。</p>
+<pre><code>script
+document.createElement(&#39;header&#39;);
+window.onload=function(){
+    var ah = document.getElementsByTagName(&#39;header&#39;);
+    for(var i=0;i&lt;ah.length;i++){
+        ah[i].onclick=function(){
+            this.style.background=&#39;red&#39;;
+        };
+    }
+};
+&lt;/script&gt;
+&lt;style&gt;
+    header{display:block;}
+&lt;/style&gt;    </code></pre><p><strong>第二种方法：</strong></p>
+<p>引入html5shiv.js。在实际工作中会引入这个文件，而不是使用第一种方法。</p>
+<h1 id="4、新增表单控件">4、新增表单控件</h1>
+<h2 id="email">email</h2>
+<p>电子邮箱文本框，界面和普通文本输入框一样。
+作用：在提交表单的时候验证邮箱的格式是否正确。</p>
+<pre><code>&lt;input type=&quot;email&quot;&gt;</code></pre><h2 id="tel">tel</h2>
+<p>电话号码。pc端没有什么变化，移动端会切换到数字，没有验证。</p>
+<pre><code>&lt;form action=&quot;http://www.baidu.com&quot; method=&quot;get&quot;&gt;
+    &lt;input type=&quot;tel&quot; name=&quot;tel&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre><h2 id="url">url</h2>
+<p>网址。
+作用：验证网址。网址必须带http://或https://。</p>
+<pre><code>&lt;form&gt;
+    &lt;input type=&quot;url&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre><h2 id="search">search</h2>
+<p>搜索。
+作用：输入文本时，输入框带有一个‘X’，点击清除内容。</p>
+<pre><code>&lt;form&gt;
+    &lt;input type=&quot;search&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre><h2 id="range">range</h2>
+<p>数值选择器（滑动条选择值）。
+作用：数值选择。
+属性：
+step: 步值
+min：最小值
+max：最大值
+value：当前值</p>
+<pre><code>&lt;form action=&quot;http://www.baidu.com&quot; method=&quot;get&quot;&gt;
+    &lt;input type=&quot;range&quot; step=&quot;2&quot; min=&quot;0&quot; max=&quot;1000&quot; value=&quot;500&quot; name=&quot;range&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre><h2 id="number">number</h2>
+<p>数字选择（上下箭头按钮点击改变值）。
+作用：界面和文本输入框一样，只是多了两个按钮，可以调整数字的大小。
+step:步值
+min：最小值
+max：最大值
+value：当前值</p>
+<pre><code>&lt;form action=&quot;http://www.baidu.com&quot; method=&quot;get&quot;&gt;
+    &lt;input type=&quot;number&quot; step=&quot;2&quot; value=&quot;2&quot; max=&quot;10&quot; min=&quot;0&quot; name=&quot;range&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre><h2 id="color">color</h2>
+<p>颜色选择器。
+作用：点击弹出一个颜色选择框。</p>
+<pre><code>&lt;form action=&quot;http://www.baidu.com&quot; method=&quot;get&quot;&gt;
+    &lt;input type=&quot;color&quot; name=&quot;color&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre><h2 id="时间相关的控件">时间相关的控件</h2>
+<h3 id="datetime">datetime</h3>
+<p>显示完整的时间。</p>
+<pre><code>&lt;input type=&quot;datetime&quot;&gt;</code></pre><h3 id="datetime-local">datetime-local</h3>
+<p>显示完整年月日时间, 不含时区。
+作用：点击弹出一个时间选择器。</p>
+<pre><code>&lt;form action=&quot;http://www.baidu.com&quot; method=&quot;get&quot;&gt;
+    &lt;input type=&quot;datetime-local&quot; name=&quot;color&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre><h3 id="time-1">time</h3>
+<p>显示完整时间 不含时区
+作用：和上面一样</p>
+<h3 id="date">date</h3>
+<p>只显示日期，不显示时间</p>
+<h3 id="week">week</h3>
+<p>显示‘2017年 第 20周’</p>
+<h3 id="month">month</h3>
+<p>显示‘2017年 09月’</p>
+<h1 id="5、新增表单属性">5、新增表单属性</h1>
+<h2 id="placeholder">placeholder</h2>
+<p>输入框提示信息。</p>
+<pre><code>&lt;form action=&quot;http://www.baidu.com&quot; method=&quot;get&quot;&gt;
+    &lt;input type=&quot;text&quot; placeholder=&quot;hello&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre><h2 id="autocomplete">autocomplete</h2>
+<p>是否保存历史输入值，输入时有历史提示。默认为on。</p>
+<h2 id="autofocus">autofocus</h2>
+<p>指定表单自动获取焦点。该属性没有值。</p>
+<h2 id="list">list</h2>
+<p>配合datalist为输入框构造一个选项列表。参考功能标签datalist的使用方法。</p>
+<h2 id="required">required</h2>
+<p>此项位必填项。</p>
+<h2 id="pattern">pattern</h2>
+<p>正则验证，有安全隐患。</p>
+<h2 id="formaction">formaction</h2>
+<p>保存至草稿箱。（不明白）</p>
+<h1 id="6、h5表单验证">6、h5表单验证</h1>
+<p><strong>作用</strong>： 表单提交的时候验证表单数据。</p>
+<p><strong>validity属性：</strong>  控件的validity的valid属性。
+<strong>valid：</strong>可以查看验证是否通过，如果八种验证都通过返回true，一种验证失败返回false。
+某个表单控件是否验证通过，只要看以下的八种验证的结果。
+1、<strong>valueMissing</strong> : 输入值为空时,值为true，验证失败。
+2、<strong>typeMismatch</strong> : 控件值与预期类型不匹配,值为true
+3、<strong>patternMismatch</strong> : 输入值不满足pattern正则,值为true
+4、<strong>tooLong</strong> : 超过maxLength最大限制,值为true
+5、<strong>rangeUnderflow</strong> : 验证的range最小值,值为true
+6、<strong>rangeOverflow</strong>：验证的range最大值,值为true
+7、<strong>stepMismatch</strong>: 验证range 的当前值 是否符合min、max及step的规则,值为true
+8、<strong>customError</strong> 不符合自定义验证,值为true</p>
+<p><strong>setCustomValidity：</strong>自定义验证信息。
+定义：每个控件自带的方法。
+作用：用于自定义控件的验证消息，当验证失败时弹出消息。
+用法：oInput.setCustomValidity(message);
+例子：</p>
+<pre><code>var oText=document.getElementById(&quot;text&quot;);
+oText.oninput=function(){
+    if(this.value==&quot;55&quot;){//可以定义很复杂的验证
+        this.setCustomValidity(&quot;请不要输入敏感词&quot;);
+    }
+    else{
+        this.setCustomValidity(&quot;&quot;);
+    }
+};
+</code></pre><p><strong>invalid事件</strong></p>
+<p>作用：验证失败，触发事件。</p>
+<pre><code>oInput.addEventListener(&#39;invalid&#39;,fn,false)</code></pre><p>阻止默认验证：ev.preventDefault()。</p>
+<p>formnovalidate属性 : 关闭验证</p>
+<p>例1、输入不能为空，使用系统的验证。</p>
+<pre><code>var oText=document.getElementById(&#39;t2&#39;);
+oText.addEventListener(&#39;invalid&#39;,fn,false);
+function fn(){
+    if(this.validity.valueMissing){//输入值为空时，返回true。
+        alert(&quot;kong&quot;);//弹出框会阻止消息提示。
+    }
+    ev.preventDefault();
+}</code></pre><p>例2、自定义验证，自定义验证规则还有验证消息。</p>
+<pre><code>var oText=document.getElementById(&quot;t3&quot;);
+oText.oninput=function(){//自定义验证
+    if(this.value==&quot;敏感词&quot;){//定义验证规则
+        this.setCustomValidity(&quot;请不要输入敏感词&quot;);
+    }else{
+        this.setCustomValidity(&quot;&quot;);
+    }
+};</code></pre><p>例3、改变系统的提示消息，采用系统的验证，只是自定义消息。</p>
+<pre><code>var oText=document.getElementById(&#39;t4&#39;);
+oText.addEventListener(&#39;invalid&#39;,fn,false);
+function fn(){
+    if(this.validity.valueMissing){
+        this.setCustomValidity(&quot;老刘说不能为空哦！&quot;);
+    }else{
+        this.setCustomValidity(&quot;&quot;);
+    }
+    ev.preventDefault();
+}</code></pre><p>怎么使用表单验证呢？</p>
+<p>原理：</p>
+<p>表单提交时会自动验证表单自己提供的8中验证，其中一种是自定义验证。 使用方法：</p>
+<p>只要给要验证的表单控件加上验证即可。</p>
+<p>在控制台输入;</p>
+<pre><code>oText=document.getElementById(&quot;text&quot;).validity//#text为要验证的控件</code></pre><p>结果：各种验证的结果，返回true表示验证不通过。</p>
+<pre><code>badInput:false
+
+customError:true
+
+patternMismatch:false
+
+rangeOverflow:false
+
+rangeUnderflow:false
+
+stepMismatch：false
+
+tooLong：false
+
+tooShort:false
+
+typeMismatch:false
+
+valid:false
+
+valueMissing:false
+
+__proto__:ValidityState
+</code></pre><p>如果每个控件都验证成功，表单才会提交。</p>
+<p><strong>如何更改系统控件验证消息？</strong></p>
+<p>通过invalid事件监测验证结果，然后直接用setCustomValidity(),改成自己想要的声音就行。</p>
+<p>总结：</p>
+<p>表单控件验证的步骤：</p>
+<p>1、确定验证。</p>
+<p>2、监听验证消息（改变系统的验证消息时才需要）。</p>
+<pre><code>oInput.addEventListener(&#39;invalid&#39;,fn,false)</code></pre><p>3、根据验证消的值弹出验证信息</p>
+<pre><code>oInput.setCustomValidity(message);</code></pre><p>自己写的一个验证输入内容是否为数字：</p>
+<pre><code>var oText=document.getElementById(&quot;t6&quot;);
+var n=/[^\d]+/.test(this.value);//验证
+if (n) {
+    oText.setCustomValidity(&#39;not a number&#39;);
+    //这里还可以增加一些改变样式的语句
+}else{
+    oText.setCustomValidity(&#39;&#39;);//    必须清空
+}</code></pre><h1 id="7、新增选择器">7、新增选择器</h1>
+<h2 id="queryselector">querySelector()</h2>
+<p>参数是css选择器,可以写复杂的选择器。
+用法：</p>
+<pre><code>document.querySelector(&#39;.aa&#39;).style.background=&#39;red&#39;;//只能选择一组中的第一个
+document.querySelector(&#39;.box #aa&#39;).style.background=&#39;red&#39;;
+document.querySelector(&#39;.box&#39;).querySelector(&#39; .aa&#39;).style.background=&#39;red&#39;;</code></pre><h2 id="queryselectorall">querySelectorAll()</h2>
+<p>获取一组元素。适用所用的选择器包括id选择器，返回的是一个数组。
+用法：</p>
+<pre><code>var aDiv = document.querySelectorAll(&#39;#aa&#39;)[0].style.background=&#39;red&#39;;</code></pre><h2 id="getelementsbyclassname">getElementsByClassName()</h2>
+<p>html5增加。</p>
+<h1 id="8、classlist">8、classList</h1>
+<p><strong>classList：</strong> 返回某个元素的所有类的数组。
+<strong>classList.length</strong> 数组的长度
+<strong>classList.add(&#39;类名&#39;)</strong> 添加类
+<strong>classList.remove(&#39;类名&#39;)</strong> 删除某个类
+<strong>classList.toggle(&#39;类名&#39;)</strong> 没有就添加，有就删除</p>
+<p>例子： </p>
+<pre><code>class=&quot;aa bb cc&quot;
+var oDiv = document.querySelector(&#39;#aa&#39;);
+//alert(oDiv.classList);//aa bb cc
+//alert(oDiv.classList.length);//3
+
+//oDiv.classList.add(&#39;dd&#39;);//添加aa类
+//alert(oDiv.classList);//aa bb cc dd
+//alert(oDiv.classList.length);//4
+
+// oDiv.classList.remove(&#39;aa&#39;);
+// alert(oDiv.classList);// bb cc
+//alert(oDiv.classList.length);//2
+
+oDiv.classList.toggle(&#39;aa&#39;);
+alert(oDiv.classList);// bb cc
+alert(oDiv.classList.length);//2
+
+oDiv.classList.toggle(&#39;hh&#39;);
+alert(oDiv.classList);// aa bb cc hh
+alert(oDiv.classList.length);//4</code></pre><h1 id="9、json对象的方法">9、json对象的方法</h1>
+<h2 id="字符串转对象">字符串转对象</h2>
+<p><strong>parse</strong> : 只能解析JSON形式的字符串变成JS (安全性要高一些)。
+json字符串要严格形式。key，value 都加双引号。</p>
+<p><strong>eval</strong> : 可以解析任何字符串变成JS,解析json字符串时要加括号。</p>
+<p>例子：</p>
+<pre><code>var str=&#39;function show(){alert(0);}&#39;;
+eval(str);
+show();//0
+
+JSON.parse(str);
+show();//解析失败
+
+var str = &#39;{&quot;name&quot;:&quot;hello&quot;}&#39;;
+var json=eval(&quot;(&quot;+str+&quot;)&quot;);//这里要加括号。
+alert(json.name)//hello
+
+var json = JSON.parse(str);
+alert(json.name);//hello</code></pre><h2 id="对象转字符串">对象转字符串</h2>
+<p>JSON.stringify()</p>
+<p>例子：</p>
+<pre><code>var json = {&quot;name&quot;:&quot;hello&quot;};
+alert(JSON.stringify(json));</code></pre><h2 id="解决兼容问题">解决兼容问题</h2>
+<p>如何其他浏览器做到兼容。
+<a href="http://www.json.org/%E5%8E%BB%E4%B8%8B%E8%BD%BDjson2.js%E3%80%82">http://www.json.org/去下载json2.js。</a></p>
+<h1 id="10、自定义属性">10、自定义属性</h1>
+<p>给元素添加自己定义的属性。</p>
+<p><code>data-属性名=&quot;&quot;</code>
+标签添加属性。</p>
+<p><code>dataset.属性名</code>
+js读取属性值，或写入属性值。</p>
+<p>例子：</p>
+<pre><code>&lt;div id=&quot;aa&quot; data-hello-world=&quot;helloworld!&quot;&gt;1&lt;/div&gt;
+&lt;div id=&quot;bb&quot; data-hello=&quot;world!&quot;&gt;1&lt;/div&gt;
+
+var oaa = document.querySelector(&#39;#aa&#39;);
+var obb = document.querySelector(&#39;#bb&#39;);
+
+//alert(oaa.dataset.helloWorld)；
+
+obb.dataset.world=&quot;haha&quot;;
+alert(obb.dataset.world);</code></pre><p>运用自定义属性的库</p>
+<p>knockout.js</p>
+<p>jQuery mobile.js</p>
+<p>问题：这种自定义属性的方法与以前学的自定义属性的方法有什么区别？</p>
+<p><strong>系统自带的的方法，js操作更简单。</strong></p>
+<h1 id="11、js加载">11、js加载</h1>
+<h2 id="js的加载会影响后面的内容加载">JS的加载会影响后面的内容加载</h2>
+<p>在head标签内引入js，浏览器加载页面时先加载js文件再加载文档。 很多浏览器都采用了并行加载JS，但还是会影响其他内容。当浏览器遇到（内嵌）script标签时，当前浏览器无从获知javaScript是否会修改页面内容。因此，这时浏览器会停止处理页面，<strong>先执行javaScript代码，然后再继续解析和渲染页面</strong>。同样的情况也发生在使用 src 属性加在javaScript的过程中（即外链 javaScript），浏览器必须先花时间下载外链文件中的代码，然后解析并执行它。在这个过程中，页面渲染和用户交互完全被阻塞了。</p>
+<blockquote>
+<p>也就是说：每当浏览器解析到script标签（无论内嵌还是外链）时，浏览器会（一根筋地）优先下载、解析并执行该标签中的javaScript代码，而阻塞了其后所有页面内容的下载和渲染。</p>
+</blockquote>
+<h2 id="惯例的做法"><strong>惯例的做法</strong></h2>
+<p><strong>最传统的方式是在head标签内插入script标签。</strong></p>
+<p>然而这种常规的做法却隐藏着严重的性能问题。根据上述对script标签特性的描述，我们知道，在该示例中，当浏览器解析到script标签时，浏览器会停止解析其后的内容，而优先下载脚本文件，并执行其中的代码，这意味着，其后的test.css样式文件和body标签都无法被加载，由于body标签无法被加载，那么页面自然就无法渲染了。因此在该javaScript代码完全执行完之前，页面都是一片空白。</p>
+<script type="text/javaScript" src="example.js"></script>
+
+
+
+<h2 id="经典的做法"><strong>经典的做法</strong></h2>
+<p>既然script标签会阻塞其后内容的加载，那么将script标签放到所有页面内容之后不就可以避免这种糟糕的状况了吗？ <strong>将所有的script标签尽可能地放到body标签底部，以尽量避免对页面其余部分下载的影响。</strong></p>
+<p>在IE8+浏览器上已经实现了脚本并行下载，但在某些浏览器中（即使脚本文件放到了body标签底部），页面中脚本仍是一个接着一个加载的。所以我们需要下一个方法，即：动态加载脚本。</p>
+<h2 id="动态加载脚本">动态加载脚本</h2>
+<p>通过文档对象模型（DOM），我们可以几乎可以页面任意地方创建。</p>
+<pre><code>&lt;script type=&#39;text/javascript&#39;&gt;
+  var script = document.createElement(&#39;script&#39;);
+  script.type = &#39;text/javaScript&#39;;
+  script.src = &#39;file1.js&#39;;
+  document.getElementsByTagName(&#39;head&#39;)[0].appendChild(script);
+&lt;/script&gt;</code></pre><p>上述代码动态创建了一个外链file1的script标签，并将其添加到<head>标签内。这种技术的重点在于：</p>
+<p><strong>无论在何时启动下载，文件的下载和执行过程不会阻塞页面其他进程（包括脚本加载）。</strong>
+<strong>然而这种方法也是有缺陷的。这种方法加载的脚本会在下载完成后立即执行，那么意味着多个脚本之间的运行顺序是无法保证的（除了Firefox和Opera）。</strong>当某个脚本对另一个脚本有依赖关系时，就很可能发生错误了。比如，写一个jQuery代码，需要引入jQuery库，然而你写的jQuery代码文件很可能会先完成下载并立即执行，这时浏览器会报错——‘jQuery未定义&#39;之类的，因为此时jQuery库还未下载完成。于是做出以下改进：</p>
+<pre><code>&lt;script type=&#39;text/javascript&#39;&gt;
+  function loadScript(url, callback) {
+    var script = document.createElement(&#39;script&#39;);
+    script.type = &quot;text/javaScript&quot;;
+    // IE和opera支持onreadystatechange
+    // safari、chrome、opera支持onload
+    if (script.readyState) {//IE
+      script.onreadystatechange = function() {
+        if (script.readyState == &quot;loaded&quot;
+            || script.readyState == &quot;complete&quot;) {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else {//其他浏览器
+      script.onload = function() {
+        callback();
+      };
+    }
+    script.src = url;
+    document.getElementsByTagName(&#39;head&#39;)[0].appendChild(script);
+  }
+&lt;/script&gt;</code></pre><p>上述代码改进的地方就是增加了一个回调函数，该函数会在相应脚本文件加载完成后被调用。这样便可以实现顺序加载了，写法如下（假设file2依赖file1，file1和file3相互独立）：</p>
+<p>loadScript(‘file1.js&#39;,function(){ loadScript(‘file2.js&#39;,function(){}); }); loadScript(‘file3.js&#39;,function(){});</p>
+<p>file2会在file1加载完后才开始加载，保证了在file2执行前file1已经准备妥当。而file1和file3是并行下载的，互不影响。 虽然loadScript函数已经足够好，但还是有些不尽人意的地方——通过分析这段代码，我们知道，loadScript函数中的顺序加载是以脚本的阻塞加载来实现的(正如上述红字部分指出的那样)。而我们真正想实现的是——脚本同步下载并按相应顺序执行，即并行加载并顺序执行。</p>
+<h2 id="html5的defer和async">Html5的defer和async</h2>
+<p><strong>defer</strong> :</p>
+<p><strong>延迟加载，按顺序执行。</strong></p>
+<p>如果<code>script</code>标签设置了该属性，则浏览器会异步的下载该文件并且不会影响到后续<code>DOM</code>的渲染；如果有多个设置了<code>defer</code>的<code>script</code>标签存在，则会按照顺序执行所有的<code>script</code>；<code>defer</code>脚本会在文档渲染完毕后，<code>DOMContentLoaded</code>事件调用前执行。</p>
+<pre><code>&lt;script src=&quot;b.js&quot; defer=&quot;defer&quot;&gt; &lt;/script&gt;</code></pre><p><strong>async</strong> :</p>
+<p><strong>异步加载，非顺序执行(加载完就触发)。</strong></p>
+<p><code>async</code>的设置，会使得<code>script</code>脚本异步的加载并在允许的情况下执行
+<code>async</code>的执行，并不会按着<code>script</code>在页面中的顺序来执行，而是谁先加载完谁执行。</p>
+<pre><code>&lt;script src=&quot;a.js&quot; async =&quot;async&quot;&gt; &lt;/script&gt;</code></pre><p><a href="https://www.cnblogs.com/jiasm/p/7683930.html">参考文档</a></p>
+<h2 id="labjs-和-requirejs">Labjs 和 <strong>requireJS</strong></h2>
+<h1 id="12、历史管理">12、历史管理</h1>
+<p><strong>跳转页面</strong>
+用户连续访问不同网址，浏览器自动记录历史记录，触发历史管理。</p>
+<p><strong>hash</strong>
+网址#后面的东西， 通过js修改hash值并不会刷新页面。</p>
+<p>原理：
+不同的hash值关联不同的内容， 根据某一个hash值通过这种关联找到相应的内容。 不同的hash值访问同一个页面不同的历史数据。 特点：
+（1）网址没有改变。改变的是网址的数据。
+（2）一个hash值对应一组页面数据。
+（3）当在新的窗口访问再次访问同一个页面时，就算有hash 值也找不到对应的数据。由此可知，改变hash值时并没有刷新页面。 window.location.hash=&quot;&quot;;//给地址加上一个hash值</p>
+<p><strong>onhashchange事件：</strong></p>
+<p>当hash值发生变化时触发。</p>
+<pre><code>window.onhashchange=functiion(){
+    //window.location.hash
+    根据此时的hash值找到对应的历史内容。
+}</code></pre><pre><code>         window.onload = function(){//35个数随机取7个数
+            var oInput = document.getElementById(&#39;input1&#39;);
+            var oDiv = document.getElementById(&#39;div1&#39;);
+
+            var json = {};//用于存储数据，不同的hash值会有不同的窗口。
+
+            oInput.onclick = function(){
+
+                var num = Math.random();
+
+                var arr = randomNum(35,7);
+
+                json[num] = arr;
+
+                oDiv.innerHTML = arr;
+
+                window.location.hash = num;//给地址添加hash值
+
+            };
+
+            window.onhashchange = function(){
+
+                oDiv.innerHTML = json[window.location.hash.substring(1)];
+
+            };
+
+            function randomNum(iAll,n){
+
+                var arr = [];
+                var newArr = [];
+                for(var i=1;i&lt;=iAll;i++){
+                    arr.push(i);
+                }
+
+                for(var i=0;i &lt; n; i++){
+                    newArr.push( arr.splice( Math.floor(Math.random()*arr.length) ,1) );
+                }
+
+                return newArr;
+
+            }
+
+        };
+</code></pre><p><strong>pushState</strong></p>
+<p>html5自带的。</p>
+<p>用法：</p>
+<p><em>（1）存数据</em></p>
+<p>将页面本次的数据存储。</p>
+<p>pushState :</p>
+<p>三个参数 ：数据 标题(都没实现) 地址(可选)</p>
+<p>数据-----页面数据</p>
+<p>地址-----更改网址的最后一级地址为指定的虚假地址</p>
+<p>history.pushState(arr,&#39;&#39;,arr);</p>
+<p><em>（2）读数据</em></p>
+<p><strong>popstate事件</strong> : 读取数据 event.state</p>
+<pre><code>window.onpopstate = function(ev){
+
+//ev.state
+
+};</code></pre><p>注意：</p>
+<p>（1）服务器下运行。</p>
+<p>（2）如果有地址参数。</p>
+<p>网址是虚假的，需在服务器指定对应页面，不然刷新找不到页面。</p>
+<pre><code>            oInput.onclick = function(){
+
+                var arr = randomNum(35,7);
+
+                //history.pushState(arr,&#39;&#39;,arr)；
+                history.pushState(arr,&#39;&#39;);
+
+                oDiv.innerHTML = arr;
+
+            };
+
+            window.onpopstate = function(ev){
+
+                oDiv.innerHTML = ev.state;
+
+                alert(ev.state);
+
+            };</code></pre>
+            </article> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
+          </body>
+      </html>

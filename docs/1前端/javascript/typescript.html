@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+      <html>
+          <head>
+          <meta charset="utf-8" >
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>typescript.md</title>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
+          <style>
+              .markdown-body {
+                  box-sizing: border-box;
+                  min-width: 200px;
+                  max-width: 980px;
+                  margin: 0 auto;
+                  padding: 45px;
+              }
+              .markdown-body img {
+                  box-sizing: border-box !important;
+                  margin:10px 0 10px 2%;
+                  padding: 20px;
+                  width: 96%;
+                  border-radius: 4px;
+                  box-shadow: 0 0 6px 0px #999;
+              }
+              @media (max-width: 767px) {
+                  .markdown-body {
+                      padding: 15px;
+                  }
+              }
+              @font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,d09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM+8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB/aFGpk3jaTY6xa8JAGMW/O62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v+k/0an2i+itHDw3v2+9+DBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3/I7AtxEJLtzzuZfI+VVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy/Lt7Kc+0vWY/gAgIIEqAN9we0pwKXreiMasxvabDQMM4riO+qxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw+ymhce7vwM9jSqO8JyVd5RH9gyTt2+J/yUmYlIR0s04n6+7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv/ocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi+W2+MjCzMIDApSwvXzC97Z4Ig8N/BxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh/8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT+AEjAwuDFpBmA9KMDEwMCh9i/v8H8sH0/4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9/lqYwOGZxeUelN2U2R6+cArgtCJpauW7UQBqnFkUsjAY/kOU1cP+DAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl+vvmM/byA48e6tWrKArm4ZJlCbdsrxksL1AwWn/yBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO//sdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd/89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF+9JOS0nbaaYDCQfwCJ7Au3AHj+LO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm+EBXuAbHmIMSRMs+4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL+hD7C1xoaHeLJSEao0FEW14ckxC+TU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13/+lm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl+9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O/AdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB///AA8AAQAAAAAAAAAAAAAAAAABAAAAAA==) format('woff')}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown-body .anchor:focus{outline:0}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body .pl-c{color:#6a737d}.markdown-body .pl-c1,.markdown-body .pl-s .pl-v{color:#005cc5}.markdown-body .pl-e,.markdown-body .pl-en{color:#6f42c1}.markdown-body .pl-s .pl-s1,.markdown-body .pl-smi{color:#24292e}.markdown-body .pl-ent{color:#22863a}.markdown-body .pl-k{color:#d73a49}.markdown-body .pl-pds,.markdown-body .pl-s,.markdown-body .pl-s .pl-pse .pl-s1,.markdown-body .pl-sr,.markdown-body .pl-sr .pl-cce,.markdown-body .pl-sr .pl-sra,.markdown-body .pl-sr .pl-sre{color:#032f62}.markdown-body .pl-smw,.markdown-body .pl-v{color:#e36209}.markdown-body .pl-bu{color:#b31d28}.markdown-body .pl-ii{background-color:#b31d28;color:#fafbfc}.markdown-body .pl-c2{background-color:#d73a49;color:#fafbfc}.markdown-body .pl-c2:before{content:"^M"}.markdown-body .pl-sr .pl-cce{color:#22863a;font-weight:700}.markdown-body .pl-ml{color:#735c0f}.markdown-body .pl-mh,.markdown-body .pl-mh .pl-en,.markdown-body .pl-ms{color:#005cc5;font-weight:700}.markdown-body .pl-mi{color:#24292e;font-style:italic}.markdown-body .pl-mb{color:#24292e;font-weight:700}.markdown-body .pl-md{background-color:#ffeef0;color:#b31d28}.markdown-body .pl-mi1{background-color:#f0fff4;color:#22863a}.markdown-body .pl-mc{background-color:#ffebda;color:#e36209}.markdown-body .pl-mi2{background-color:#005cc5;color:#f6f8fa}.markdown-body .pl-mdr{color:#6f42c1;font-weight:700}.markdown-body .pl-ba{color:#586069}.markdown-body .pl-sg{color:#959da5}.markdown-body .pl-corl{color:#032f62;text-decoration:underline}.markdown-body details{display:block}.markdown-body summary{display:list-item}.markdown-body a{background-color:transparent}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body strong{font-weight:inherit;font-weight:bolder}.markdown-body h1{font-size:2em;margin:.67em 0}.markdown-body img{border-style:none}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace;font-size:1em}.markdown-body hr{box-sizing:content-box;height:0;overflow:visible}.markdown-body input{font:inherit;margin:0}.markdown-body input{overflow:visible}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body a{color:#0366d6;text-decoration:none}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{background:0 0;border:0;border-bottom:1px solid #dfe2e5;height:0;margin:15px 0;overflow:hidden}.markdown-body hr:before{content:"";display:table}.markdown-body hr:after{clear:both;content:"";display:table}.markdown-body table{border-collapse:collapse;border-spacing:0}.markdown-body td,.markdown-body th{padding:0}.markdown-body details summary{cursor:pointer}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-bottom:0;margin-top:0}.markdown-body h1{font-size:32px}.markdown-body h1,.markdown-body h2{font-weight:600}.markdown-body h2{font-size:24px}.markdown-body h3{font-size:20px}.markdown-body h3,.markdown-body h4{font-weight:600}.markdown-body h4{font-size:16px}.markdown-body h5{font-size:14px}.markdown-body h5,.markdown-body h6{font-weight:600}.markdown-body h6{font-size:12px}.markdown-body p{margin-bottom:10px;margin-top:0}.markdown-body blockquote{margin:0}.markdown-body ol,.markdown-body ul{margin-bottom:0;margin-top:0;padding-left:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code,.markdown-body pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px}.markdown-body pre{margin-bottom:0;margin-top:0}.markdown-body input::-webkit-inner-spin-button,.markdown-body input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}.markdown-body .border{border:1px solid #e1e4e8!important}.markdown-body .border-0{border:0!important}.markdown-body .border-bottom{border-bottom:1px solid #e1e4e8!important}.markdown-body .rounded-1{border-radius:3px!important}.markdown-body .bg-white{background-color:#fff!important}.markdown-body .bg-gray-light{background-color:#fafbfc!important}.markdown-body .text-gray-light{color:#6a737d!important}.markdown-body .mb-0{margin-bottom:0!important}.markdown-body .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown-body .pl-0{padding-left:0!important}.markdown-body .py-0{padding-bottom:0!important;padding-top:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .py-2{padding-bottom:8px!important;padding-top:8px!important}.markdown-body .pl-3,.markdown-body .px-3{padding-left:16px!important}.markdown-body .px-3{padding-right:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .f6{font-size:12px!important}.markdown-body .lh-condensed{line-height:1.25!important}.markdown-body .text-bold{font-weight:600!important}.markdown-body:before{content:"";display:table}.markdown-body:after{clear:both;content:"";display:table}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-bottom:16px;margin-top:0}.markdown-body hr{background-color:#e1e4e8;border:0;height:.25em;margin:24px 0;padding:0}.markdown-body blockquote{border-left:.25em solid #dfe2e5;color:#6a737d;padding:0 1em}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd{background-color:#fafbfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5;color:#444d56;display:inline-block;font-size:11px;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{font-weight:600;line-height:1.25;margin-bottom:16px;margin-top:24px}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{border-bottom:1px solid #eaecef;padding-bottom:.3em}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{color:#6a737d;font-size:.85em}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-bottom:0;margin-top:0}.markdown-body li{word-wrap:break-all}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{font-size:1em;font-style:italic;font-weight:600;margin-top:16px;padding:0}.markdown-body dl dd{margin-bottom:16px;padding:0 16px}.markdown-body table{display:block;overflow:auto;width:100%}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{border:1px solid #dfe2e5;padding:6px 13px}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{background-color:#fff;box-sizing:content-box;max-width:100%}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body code{background-color:rgba(27,31,35,.05);border-radius:3px;font-size:85%;margin:0;padding:.2em .4em}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{background:0 0;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{background-color:#f6f8fa;border-radius:3px;font-size:85%;line-height:1.45;overflow:auto;padding:16px}.markdown-body pre code{background-color:transparent;border:0;display:inline;line-height:inherit;margin:0;max-width:auto;overflow:visible;padding:0;word-wrap:normal}.markdown-body .commit-tease-sha{color:#444d56;display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:90%}.markdown-body .blob-wrapper{border-bottom-left-radius:3px;border-bottom-right-radius:3px;overflow-x:auto;overflow-y:hidden}.markdown-body .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown-body .blob-num{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;color:rgba(27,31,35,.3);cursor:pointer;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;line-height:20px;min-width:50px;padding-left:10px;padding-right:10px;text-align:right;user-select:none;vertical-align:top;white-space:nowrap;width:1%}.markdown-body .blob-num:hover{color:rgba(27,31,35,.6)}.markdown-body .blob-num:before{content:attr(data-line-number)}.markdown-body .blob-code{line-height:20px;padding-left:10px;padding-right:10px;position:relative;vertical-align:top}.markdown-body .blob-code-inner{color:#24292e;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;overflow:visible;white-space:pre;word-wrap:normal}.markdown-body .pl-token.active,.markdown-body .pl-token:hover{background:#ffea7f;cursor:pointer}.markdown-body kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1;color:#444d56;display:inline-block;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body :checked+.radio-label{border-color:#0366d6;position:relative;z-index:1}.markdown-body .tab-size[data-tab-size="1"]{-moz-tab-size:1;tab-size:1}.markdown-body .tab-size[data-tab-size="2"]{-moz-tab-size:2;tab-size:2}.markdown-body .tab-size[data-tab-size="3"]{-moz-tab-size:3;tab-size:3}.markdown-body .tab-size[data-tab-size="4"]{-moz-tab-size:4;tab-size:4}.markdown-body .tab-size[data-tab-size="5"]{-moz-tab-size:5;tab-size:5}.markdown-body .tab-size[data-tab-size="6"]{-moz-tab-size:6;tab-size:6}.markdown-body .tab-size[data-tab-size="7"]{-moz-tab-size:7;tab-size:7}.markdown-body .tab-size[data-tab-size="8"]{-moz-tab-size:8;tab-size:8}.markdown-body .tab-size[data-tab-size="9"]{-moz-tab-size:9;tab-size:9}.markdown-body .tab-size[data-tab-size="10"]{-moz-tab-size:10;tab-size:10}.markdown-body .tab-size[data-tab-size="11"]{-moz-tab-size:11;tab-size:11}.markdown-body .tab-size[data-tab-size="12"]{-moz-tab-size:12;tab-size:12}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown-body hr{border-bottom-color:#eee}.markdown-body .pl-0{padding-left:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .pl-7{padding-left:48px!important}.markdown-body .pl-8{padding-left:64px!important}.markdown-body .pl-9{padding-left:80px!important}.markdown-body .pl-10{padding-left:96px!important}.markdown-body .pl-11{padding-left:112px!important}.markdown-body .pl-12{padding-left:128px!important}
+/*# sourceMappingURL=github-markdown.min.css.map */
+          </style>
+          <script>
+              window.onload = function() {
+                hljs.initHighlighting()
+              }
+          </script>
+          </head>
+          <body>
+            <article class="markdown-body">
+                <h1 id="1、安装typescript">1、安装typescript</h1>
+<pre><code>npm install typescript -D</code></pre><h1 id="2、初始化typescript项目">2、初始化typescript项目</h1>
+<pre><code>tsc --init</code></pre><p>执行完命令后会在当前根目录下生成<code>tsconfig.json</code> 文件。</p>
+<p>如果一个目录下存在一个<code>tsconfig.json</code>文件，那么它意味着这个目录是TypeScript项目的根目录。<code>tsconfig.json</code>文件中指定了用来编译这个项目的根文件和编译选项。 一个项目可以通过以下方式之一来编译：</p>
+<blockquote>
+<p>使用tsconfig.json</p>
+</blockquote>
+<ul>
+<li>不带任何输入文件的情况下调用<code>tsc</code>，编译器会从当前目录开始去查找<code>tsconfig.json</code>文件，逐级向上搜索父目录。</li>
+<li>不带任何输入文件的情况下调用<code>tsc</code>，且使用命令行参数<code>--project</code>（或<code>-p</code>）指定一个包含<code>tsconfig.json</code>文件的目录。</li>
+</ul>
+<p>当命令行上指定了输入文件时，<code>tsconfig.json</code>文件会被忽略。</p>
+<pre><code>{ 
+  // &quot;files&quot;: [                              /* 指定具体哪些文件需要编译， 未指定的文件则不会编译 */
+  //   &quot;./src/test.ts&quot;  
+  // ],
+  &quot;include&quot;: [                               /* 通过模式匹配指定哪些文件需要编译 */
+      &quot;src/**/*&quot;
+  ],
+  &quot;exclude&quot;: [                               /* 通过模式匹配指定哪些文件不需要编译 */
+      &quot;node_modules&quot;,
+      &quot;**/*.spec.ts&quot;
+  ],
+  &quot;compilerOptions&quot;: {
+    /* Basic Options */
+    &quot;target&quot;: &quot;es5&quot;,                          /* Specify ECMAScript target version: &#39;ES3&#39; (default), &#39;ES5&#39;, &#39;ES2015&#39;, &#39;ES2016&#39;, &#39;ES2017&#39;,&#39;ES2018&#39; or &#39;ESNEXT&#39;. */
+    &quot;module&quot;: &quot;commonjs&quot;,                     /* Specify module code generation: &#39;none&#39;, &#39;commonjs&#39;, &#39;amd&#39;, &#39;system&#39;, &#39;umd&#39;, &#39;es2015&#39;, or &#39;ESNext&#39;. */
+    // &quot;lib&quot;: [],                             /* Specify library files to be included in the compilation. */
+    // &quot;allowJs&quot;: true,                       /* Allow javascript files to be compiled. */
+    // &quot;checkJs&quot;: true,                       /* Report errors in .js files. */
+    // &quot;jsx&quot;: &quot;preserve&quot;,                     /* Specify JSX code generation: &#39;preserve&#39;, &#39;react-native&#39;, or &#39;react&#39;. */
+    // &quot;declaration&quot;: true,                   /* Generates corresponding &#39;.d.ts&#39; file. */
+    // &quot;declarationMap&quot;: true,                /* Generates a sourcemap for each corresponding &#39;.d.ts&#39; file. */
+    // &quot;sourceMap&quot;: true,                     /* Generates corresponding &#39;.map&#39; file. */
+    // &quot;outFile&quot;: &quot;./&quot;,                       /* Concatenate and emit output to single file. */
+    // &quot;outDir&quot;: &quot;./&quot;,                        /* Redirect output structure to the directory. */
+    // &quot;rootDir&quot;: &quot;./&quot;,                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    // &quot;composite&quot;: true,                     /* Enable project compilation */
+    // &quot;removeComments&quot;: true,                /* Do not emit comments to output. */
+    // &quot;noEmit&quot;: true,                        /* Do not emit outputs. */
+    // &quot;importHelpers&quot;: true,                 /* Import emit helpers from &#39;tslib&#39;. */
+    // &quot;downlevelIteration&quot;: true,            /* Provide full support for iterables in &#39;for-of&#39;, spread, and destructuring when targeting &#39;ES5&#39; or &#39;ES3&#39;. */
+    // &quot;isolatedModules&quot;: true,               /* Transpile each file as a separate module (similar to &#39;ts.transpileModule&#39;). */
+
+    /* Strict Type-Checking Options */
+    &quot;strict&quot;: true,                           /* Enable all strict type-checking options. */
+    // &quot;noImplicitAny&quot;: true,                 /* Raise error on expressions and declarations with an implied &#39;any&#39; type. */
+    // &quot;strictNullChecks&quot;: true,              /* Enable strict null checks. */
+    // &quot;strictFunctionTypes&quot;: true,           /* Enable strict checking of function types. */
+    // &quot;strictBindCallApply&quot;: true,           /* Enable strict &#39;bind&#39;, &#39;call&#39;, and &#39;apply&#39; methods on functions. */
+    // &quot;strictPropertyInitialization&quot;: true,  /* Enable strict checking of property initialization in classes. */
+    // &quot;noImplicitThis&quot;: true,                /* Raise error on &#39;this&#39; expressions with an implied &#39;any&#39; type. */
+    // &quot;alwaysStrict&quot;: true,                  /* Parse in strict mode and emit &quot;use strict&quot; for each source file. */
+
+    /* Additional Checks */
+    // &quot;noUnusedLocals&quot;: true,                /* Report errors on unused locals. */
+    // &quot;noUnusedParameters&quot;: true,            /* Report errors on unused parameters. */
+    // &quot;noImplicitReturns&quot;: true,             /* Report error when not all code paths in function return a value. */
+    // &quot;noFallthroughCasesInSwitch&quot;: true,    /* Report errors for fallthrough cases in switch statement. */
+
+    /* Module Resolution Options */
+    // &quot;moduleResolution&quot;: &quot;node&quot;,            /* Specify module resolution strategy: &#39;node&#39; (Node.js) or &#39;classic&#39; (TypeScript pre-1.6). */
+    // &quot;baseUrl&quot;: &quot;./&quot;,                       /* Base directory to resolve non-absolute module names. */
+    // &quot;paths&quot;: {},                           /* A series of entries which re-map imports to lookup locations relative to the &#39;baseUrl&#39;. */
+    // &quot;rootDirs&quot;: [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
+    // &quot;typeRoots&quot;: [],                       /* List of folders to include type definitions from. */
+    // &quot;types&quot;: [],                           /* Type declaration files to be included in compilation. */
+    // &quot;allowSyntheticDefaultImports&quot;: true,  /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
+    &quot;esModuleInterop&quot;: true                   /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies &#39;allowSyntheticDefaultImports&#39;. */
+    // &quot;preserveSymlinks&quot;: true,              /* Do not resolve the real path of symlinks. */
+
+    /* Source Map Options */
+    // &quot;sourceRoot&quot;: &quot;&quot;,                      /* Specify the location where debugger should locate TypeScript files instead of source locations. */
+    // &quot;mapRoot&quot;: &quot;&quot;,                         /* Specify the location where debugger should locate map files instead of generated locations. */
+    // &quot;inlineSourceMap&quot;: true,               /* Emit a single file with source maps instead of having a separate file. */
+    // &quot;inlineSources&quot;: true,                 /* Emit the source alongside the sourcemaps within a single file; requires &#39;--inlineSourceMap&#39; or &#39;--sourceMap&#39; to be set. */
+
+    /* Experimental Options */
+    // &quot;experimentalDecorators&quot;: true,        /* Enables experimental support for ES7 decorators. */
+    // &quot;emitDecoratorMetadata&quot;: true,         /* Enables experimental support for emitting type metadata for decorators. */
+  }
+}
+</code></pre><p><code>&quot;compilerOptions&quot;</code>可以被忽略，这时编译器会使用默认值。</p>
+<p><code>&quot;files&quot;</code>指定一个包含相对或绝对文件路径的列表。 <code>&quot;include&quot;</code>和<code>&quot;exclude&quot;</code>属性指定一个文件glob匹配模式列表。 支持的glob通配符有：</p>
+<ul>
+<li><code>*</code> 匹配0或多个字符（不包括目录分隔符）</li>
+<li><code>?</code> 匹配一个任意字符（不包括目录分隔符）</li>
+<li><code>**/</code> 递归匹配任意子目录</li>
+</ul>
+<blockquote>
+<p>如果<code>&quot;files&quot;</code>和<code>&quot;include&quot;</code>都没有被指定，编译器默认包含当前目录和子目录下所有的TypeScript文件（<code>.ts</code>,<code>.d.ts</code> 和 <code>.tsx</code>），排除在<code>&quot;exclude&quot;</code>里指定的文件。</p>
+</blockquote>
+<p>默认是编译当前目录和子目录下所有的TypeScript文件</p>
+<blockquote>
+<p>JS文件（<code>.js</code>和<code>.jsx</code>）也被包含进来如果<code>allowJs</code>被设置成<code>true</code>。</p>
+</blockquote>
+<blockquote>
+<p>如果指定了 <code>&quot;files&quot;</code>或<code>&quot;include&quot;</code>，编译器会将它们结合一并包含进来。 </p>
+</blockquote>
+<blockquote>
+<p>使用 <code>&quot;outDir&quot;</code>指定的目录下的文件永远会被编译器排除，除非你明确地使用<code>&quot;files&quot;</code>将其包含进来（这时就算用<code>exclude</code>指定也没用）。</p>
+</blockquote>
+<blockquote>
+<p>使用<code>&quot;include&quot;</code>引入的文件可以使用<code>&quot;exclude&quot;</code>属性过滤。 然而，通过 <code>&quot;files&quot;</code>属性明确指定的文件却总是会被包含在内，不管<code>&quot;exclude&quot;</code>如何设置。 如果没有特殊指定， <code>&quot;exclude&quot;</code>默认情况下会排除<code>node_modules</code>，<code>bower_components</code>，<code>jspm_packages</code>和<code>&lt;outDir&gt;</code>目录。</p>
+</blockquote>
+<blockquote>
+<p>任何被<code>&quot;files&quot;</code>或<code>&quot;include&quot;</code>指定的文件所引用的文件也会被包含进来。 <code>A.ts</code>引用了<code>B.ts</code>，因此<code>B.ts</code>不能被排除，除非引用它的<code>A.ts</code>在<code>&quot;exclude&quot;</code>列表中。</p>
+</blockquote>
+<p>编译的ts文件所依赖的ts文件也会被编译， 就算依赖并没有在json中声明会被编译。</p>
+<blockquote>
+<p>需要注意编译器不会去引入那些可能做为输出的文件；比如，假设我们包含了<code>index.ts</code>，那么<code>index.d.ts</code>和<code>index.js</code>会被排除在外。 通常来讲，不推荐只有扩展名的不同来区分同目录下的文件。</p>
+</blockquote>
+<blockquote>
+<p><code>tsconfig.json</code>文件可以是个空文件，那么所有默认的文件（如上面所述）都会以默认配置选项编译。</p>
+</blockquote>
+<blockquote>
+<p>在命令行上指定的编译选项会覆盖在<code>tsconfig.json</code>文件里的相应选项。</p>
+</blockquote>
+<h2 id="types，typeroots和types"><code>@types</code>，<code>typeRoots</code>和<code>types</code></h2>
+<p>默认所有<em>可见的</em>&quot;<code>@types</code>&quot;包会在编译过程中被包含进来。 <code>node_modules/@types</code>文件夹下以及它们子文件夹下的所有包都是<em>可见的</em>； 也就是说， <code>./node_modules/@types/</code>，<code>../node_modules/@types/</code>和<code>../../node_modules/@types/</code>等等。</p>
+<p>如果指定了<code>typeRoots</code>，<em>只有</em><code>typeRoots</code>下面的包才会被包含进来。 比如：</p>
+<pre><code class="language-json">{
+   &quot;compilerOptions&quot;: {
+       &quot;typeRoots&quot; : [&quot;./typings&quot;]
+   }
+}</code></pre>
+<p>这个配置文件会包含<em>所有</em><code>./typings</code>下面的包，而不包含<code>./node_modules/@types</code>里面的包。</p>
+<p>如果指定了<code>types</code>，只有被列出来的包才会被包含进来。 比如：</p>
+<pre><code class="language-json">{
+   &quot;compilerOptions&quot;: {
+        &quot;types&quot; : [&quot;node&quot;, &quot;lodash&quot;, &quot;express&quot;]
+   }
+}</code></pre>
+<p>这个<code>tsconfig.json</code>文件将<em>仅会</em>包含 <code>./node_modules/@types/node</code>，<code>./node_modules/@types/lodash</code>和<code>./node_modules/@types/express</code>。/@types/。 <code>node_modules/@types/*</code>里面的其它包不会被引入进来。</p>
+<p>指定<code>&quot;types&quot;: []</code>来禁用自动引入<code>@types</code>包。</p>
+<p>注意，自动引入只在你使用了全局的声明（相反于模块）时是重要的。 如果你使用 <code>import &quot;foo&quot;</code>语句，TypeScript仍然会查找<code>node_modules</code>和<code>node_modules/@types</code>文件夹来获取<code>foo</code>包。</p>
+<h1 id="3、语法">3、语法</h1>
+<h2 id="31、基础类型">3.1、基础类型</h2>
+<h3 id="311、布尔值">3.1.1、布尔值</h3>
+<p>最基本的数据类型就是简单的true/false值，在JavaScript和TypeScript里叫做<code>boolean</code>（其它语言中也一样）。</p>
+<pre><code>let isDone: boolean = false;</code></pre><h3 id="312、数字">3.1.2、数字</h3>
+<p>和JavaScript一样，TypeScript里的所有数字都是浮点数。 这些浮点数的类型是 <code>number</code>。 除了支持十进制和十六进制字面量，TypeScript还支持ECMAScript 2015中引入的二进制和八进制字面量。</p>
+<pre><code class="language-ts">let decLiteral: number = 6;
+let hexLiteral: number = 0xf00d;
+let binaryLiteral: number = 0b1010;
+let octalLiteral: number = 0o744;</code></pre>
+<h3 id="313、字符串">3.1.3、字符串</h3>
+<p>JavaScript程序的另一项基本操作是处理网页或服务器端的文本数据。 像其它语言里一样，我们使用 <code>string</code>表示文本数据类型。 和JavaScript一样，可以使用双引号（ <code>&quot;</code>）或单引号（<code>&#39;</code>）表示字符串。</p>
+<pre><code class="language-ts">let name: string = &quot;bob&quot;;
+name = &quot;smith&quot;;</code></pre>
+<h3 id="314、数组">3.1.4、数组</h3>
+<p>TypeScript像JavaScript一样可以操作数组元素。 有两种方式可以定义数组。 第一种，可以在元素类型后面接上<code>[]</code>，表示由此类型元素组成的一个数组：</p>
+<pre><code class="language-ts">let list: number[] = [1, 2, 3];</code></pre>
+<p>第二种方式是使用数组泛型，<code>Array&lt;元素类型&gt;</code>：</p>
+<pre><code class="language-ts">let list: Array&lt;number&gt; = [1, 2, 3];</code></pre>
+<h3 id="315、元组-tuple">3.1.5、元组 Tuple</h3>
+<p>元组类型允许表示一个<strong><u>已知元素数量和类型的数组</u></strong>，<strong><u>各元素的类型不必相同</u></strong>。 比如，你可以定义一对值分别为<code>string</code>和<code>number</code>类型的元组。</p>
+<pre><code class="language-ts">// Declare a tuple type
+let x: [string, number];
+// Initialize it
+x = [&#39;hello&#39;, 10]; // OK
+// Initialize it incorrectly
+x = [10, &#39;hello&#39;]; // Error</code></pre>
+<p>当访问一个已知索引的元素，会得到正确的类型：</p>
+<pre><code class="language-ts">console.log(x[0].substr(1)); // OK
+console.log(x[1].substr(1)); // Error, &#39;number&#39; does not have &#39;substr&#39;</code></pre>
+<p>当访问一个越界的元素，会使用联合类型替代：</p>
+<pre><code class="language-ts">x[3] = &#39;world&#39;; // OK, 字符串可以赋值给(string | number)类型
+
+console.log(x[5].toString()); // OK, &#39;string&#39; 和 &#39;number&#39; 都有 toString
+
+x[6] = true; // Error, 布尔不是(string | number)类型</code></pre>
+<h3 id="316、枚举">3.1.6、枚举</h3>
+<p><code>enum</code>类型是对JavaScript标准数据类型的一个补充。使用枚举类型可以为一组数值赋予友好的名字。</p>
+<pre><code class="language-ts">enum Color {Red, Green, Blue}
+let c: Color = Color.Green;</code></pre>
+<p>默认情况下，从<code>0</code>开始为元素编号。 你也可以手动的指定成员的数值。 例如，我们将上面的例子改成从 <code>1</code>开始编号：</p>
+<pre><code class="language-ts">enum Color {Red = 1, Green, Blue}
+let c: Color = Color.Green;</code></pre>
+<p>或者，全部都采用手动赋值：</p>
+<pre><code class="language-ts">enum Color {Red = 1, Green = 2, Blue = 4}
+let c: Color = Color.Green;</code></pre>
+<p>枚举类型提供的一个便利是你可以由枚举的值得到它的名字。 例如，我们知道数值为2，但是不确定它映射到Color里的哪个名字，我们可以查找相应的名字：</p>
+<pre><code class="language-typescript">enum Color {Red = 1, Green, Blue}
+let colorName: string = Color[2];
+
+console.log(colorName);  // 显示&#39;Green&#39;因为上面代码里它的值是2</code></pre>
+<p>编译下面的代码：</p>
+<pre><code>enum Color {Red, Green, Blue}</code></pre><p>编译结果：</p>
+<pre><code class="language-javascript">&quot;use strict&quot;;
+var Color;
+(function (Color) {
+    Color[Color[&quot;Red&quot;] = 0] = &quot;Red&quot;;
+    Color[Color[&quot;Green&quot;] = 1] = &quot;Green&quot;;
+    Color[Color[&quot;Blue&quot;] = 2] = &quot;Blue&quot;;
+})(Color || (Color = {}));</code></pre>
+<h3 id="317、any">3.1.7、any</h3>
+<p><strong>有时候，我们会想要为那些在编程阶段还不清楚类型的变量指定一个类型。</strong> 这些值可能来自于动态的内容，比如来自用户输入或第三方代码库。 这种情况下，我们不希望类型检查器对这些值进行检查而是直接让它们通过编译阶段的检查。 那么我们可以使用 <code>any</code>类型来标记这些变量：</p>
+<pre><code class="language-typescript">let notSure: any = 4;
+notSure = &quot;maybe a string instead&quot;;
+notSure = false; // okay, definitely a boolean</code></pre>
+<p>在对现有代码进行改写的时候，<code>any</code>类型是十分有用的，它允许你在编译时可选择地包含或移除类型检查。 你可能认为 <code>Object</code>有相似的作用，就像它在其它语言中那样。 <strong>但是 <code>Object</code>类型的变量只是允许你给它赋任意值 - 但是却不能够在它上面调用任意的方法，即便它真的有这些方法</strong>：</p>
+<pre><code class="language-typescript">let notSure: any = 4;
+notSure.ifItExists(); // okay, ifItExists might exist at runtime
+notSure.toFixed(); // okay, toFixed exists (but the compiler doesn&#39;t check)
+
+let prettySure: Object = 4;
+prettySure.toFixed(); // Error: Property &#39;toFixed&#39; doesn&#39;t exist on type &#39;Object&#39;.</code></pre>
+<p>当你只知道一部分数据的类型时，<code>any</code>类型也是有用的。 比如，你有一个数组，它包含了不同的类型的数据：</p>
+<pre><code class="language-ts">let list: any[] = [1, true, &quot;free&quot;];
+
+list[1] = 100;</code></pre>
+<h3 id="318、void">3.1.8、void</h3>
+<p>某种程度上来说，<code>void</code>类型像是与<code>any</code>类型相反，它表示没有任何类型。 当一个函数没有返回值时，你通常会见到其返回值类型是 <code>void</code>：</p>
+<pre><code class="language-ts">function warnUser(): void {
+    console.log(&quot;This is my warning message&quot;);
+}</code></pre>
+<p>声明一个<code>void</code>类型的变量没有什么大用，因为你只能为它赋予<code>undefined</code>和<code>null</code>：</p>
+<pre><code class="language-ts">let unusable: void = undefined;</code></pre>
+<h3 id="319、null-和-undefined">3.1.9、null 和 undefined</h3>
+<p>TypeScript里，<code>undefined</code>和<code>null</code>两者各自有自己的类型分别叫做<code>undefined</code>和<code>null</code>。 和 <code>void</code>相似，它们的本身的类型用处不是很大：</p>
+<pre><code class="language-ts">// Not much else we can assign to these variables!
+let u: undefined = undefined;
+let n: null = null;</code></pre>
+<blockquote>
+<p>默认情况下<code>null</code>和<code>undefined</code>是所有类型的子类型。 就是说你可以把 <code>null</code>和<code>undefined</code>赋值给<code>number</code>类型的变量。</p>
+<p>然而，当你指定了<code>--strictNullChecks</code>标记，<code>null</code>和<code>undefined</code>只能赋值给<code>void</code>和它们各自。 这能避免 <em>很多</em>常见的问题。 也许在某处你想传入一个 <code>string</code>或<code>null</code>或<code>undefined</code>，你可以使用联合类型<code>string | null | undefined</code>。</p>
+</blockquote>
+<h3 id="3110、never">3.1.10、never</h3>
+<p><code>never</code>类型表示的是<strong>那些永不存在的值的类型</strong>。 例如， <code>never</code>类型是那些总是会抛出异常或根本就不会有返回值的函数表达式或箭头函数表达式的返回值类型； 变量也可能是 <code>never</code>类型，当它们被永不为真的类型保护所约束时。</p>
+<p><code>never</code>类型是任何类型的子类型，也可以赋值给任何类型；然而，<em>没有</em>类型是<code>never</code>的子类型或可以赋值给<code>never</code>类型（除了<code>never</code>本身之外）。 即使 <code>any</code>也不可以赋值给<code>never</code>。</p>
+<p>下面是一些返回<code>never</code>类型的函数：</p>
+<pre><code class="language-ts">// 返回never的函数必须存在无法达到的终点
+function error(message: string): never {
+    throw new Error(message);
+}
+
+// 推断的返回值类型为never
+function fail() {
+    return error(&quot;Something failed&quot;);
+}
+
+// 返回never的函数必须存在无法达到的终点
+function infiniteLoop(): never {
+    while (true) {
+    }
+}</code></pre>
+<h3 id="3111、object">3.1.11、object</h3>
+<p><code>object</code>表示非原始类型，也就是除<code>number</code>，<code>string</code>，<code>boolean</code>，<code>symbol</code>，<code>null</code>或<code>undefined</code>之外的类型。</p>
+<p>使用<code>object</code>类型，就可以更好的表示像<code>Object.create</code>这样的API。例如：</p>
+<pre><code class="language-ts">declare function create(o: object | null): void;
+
+create({ prop: 0 }); // OK
+create(null); // OK
+
+create(42); // Error
+create(&quot;string&quot;); // Error
+create(false); // Error
+create(undefined); // Error</code></pre>
+<h2 id="32、类型断言">3.2、类型断言</h2>
+<p>有时候你会遇到这样的情况，你会比TypeScript更了解某个值的详细信息。 <strong>通常这会发生在你清楚地知道一个实体具有比它现有类型更确切的类型。</strong></p>
+<p>通过<em>类型断言</em>这种方式可以告诉编译器，“相信我，我知道自己在干什么”。 <strong>类型断言好比其它语言里的类型转换</strong>，但是不进行特殊的数据检查和解构。 它没有运行时的影响，只是在编译阶段起作用。 T<strong>ypeScript会假设你，程序员，已经进行了必须的检查。</strong></p>
+<p>类型断言有两种形式。 </p>
+<h3 id="321、语法">3.2.1、&lt;&gt;语法</h3>
+<pre><code class="language-ts">let someValue: any = &quot;this is a string&quot;;
+
+let strLength: number = (&lt;string&gt;someValue).length;</code></pre>
+<h3 id="322、as语法">3.2.2、as语法</h3>
+<pre><code class="language-ts">let someValue: any = &quot;this is a string&quot;;
+
+let strLength: number = (someValue as string).length;</code></pre>
+<p>两种形式是等价的。 至于使用哪个大多数情况下是凭个人喜好；<strong>然而，当你在TypeScript里使用JSX时，只有 <code>as</code>语法断言是被允许的。</strong></p>
+<h2 id="33、变量声明">3.3、变量声明</h2>
+<p><code>var</code> <code>let</code> <code>const</code></p>
+<h2 id="34、接口">3.4、接口</h2>
+<blockquote>
+<p>TypeScript的核心原则之一是对值所具有的<em>结构</em>进行类型检查。 它有时被称做“鸭式辨型法”或“结构性子类型化”。 在TypeScript里，接口的作用就是为这些类型命名和为你的代码或第三方代码定义契约。</p>
+</blockquote>
+<h3 id="341、接口初探">3.4.1、接口初探</h3>
+<p>下面通过一个简单示例来观察接口是如何工作的：</p>
+<pre><code class="language-ts">function printLabel(labelledObj: { label: string }) {
+  console.log(labelledObj.label);
+}
+
+let myObj = { size: 10, label: &quot;Size 10 Object&quot; };
+printLabel(myObj);</code></pre>
+<p><strong>类型检查器会查看<code>printLabel</code>的调用。</strong> <strong><code>printLabel</code>有一个参数，并要求这个对象参数有一个名为<code>label</code>类型为<code>string</code>的属性。</strong> 需要注意的是，我们传入的对象参数实际上会包含很多属性，但是编译器只会检查那些必需的属性是否存在，并且其类型是否匹配。 然而，有些时候TypeScript却并不会这么宽松，我们下面会稍做讲解。</p>
+<p>下面我们重写上面的例子，这次使用接口来描述：必须包含一个<code>label</code>属性且类型为<code>string</code>：</p>
+<pre><code class="language-ts">interface LabelledValue {
+  label: string;
+}
+
+function printLabel(labelledObj: LabelledValue) {
+  console.log(labelledObj.label);
+}
+
+let myObj = {size: 10, label: &quot;Size 10 Object&quot;};
+printLabel(myObj);</code></pre>
+<p><strong><code>LabelledValue</code>接口就好比一个名字，用来描述上面例子里的要求。 它代表了有一个 <code>label</code>属性且类型为<code>string</code>的对象。</strong> 需要注意的是，我们在这里并不能像在其它语言里一样，说传给 <code>printLabel</code>的对象实现了这个接口。我们只会去关注值的外形。 只要传入的对象满足上面提到的必要条件，那么它就是被允许的。</p>
+<p>还有一点值得提的是，<strong>类型检查器不会去检查属性的顺序，只要相应的属性存在并且类型也是对的就可以。</strong></p>
+<h3 id="342、可选属性">3.4.2、可选属性</h3>
+<p><strong>接口里的属性不全都是必需的。 有些是只在某些条件下存在，或者根本不存在。</strong> 可选属性在应用“option bags”模式时很常用，即给函数传入的参数对象中只有部分属性赋值了。</p>
+<p>下面是应用了“option bags”的例子：</p>
+<pre><code class="language-ts">interface SquareConfig {
+  color?: string;
+  width?: number;
+}
+
+function createSquare(config: SquareConfig): {color: string; area: number} {
+  let newSquare = {color: &quot;white&quot;, area: 100};
+  if (config.color) {
+    newSquare.color = config.color;
+  }
+  if (config.width) {
+    newSquare.area = config.width * config.width;
+  }
+  return newSquare;
+}
+
+let mySquare = createSquare({color: &quot;black&quot;});</code></pre>
+<blockquote>
+<p>带有可选属性的接口与普通的接口定义差不多，只是在可选属性名字定义的后面加一个<code>?</code>符号。</p>
+</blockquote>
+<p><strong>可选属性的好处之一是可以对可能存在的属性进行预定义，好处之二是可以捕获引用了不存在的属性时的错误。</strong> 比如，我们故意将 <code>createSquare</code>里的<code>color</code>属性名拼错，就会得到一个错误提示：</p>
+<pre><code class="language-ts">interface SquareConfig {
+  color?: string;
+  width?: number;
+}
+
+function createSquare(config: SquareConfig): { color: string; area: number } {
+  let newSquare = {color: &quot;white&quot;, area: 100};
+  if (config.clor) {
+    // Error: Property &#39;clor&#39; does not exist on type &#39;SquareConfig&#39;
+    newSquare.color = config.clor;
+  }
+  if (config.width) {
+    newSquare.area = config.width * config.width;
+  }
+  return newSquare;
+}
+
+let mySquare = createSquare({color: &quot;black&quot;});</code></pre>
+<h3 id="343、只读属性">3.4.3、只读属性</h3>
+<blockquote>
+<p>一些对象属性只能在对象刚刚创建的时候修改其值。 你可以在属性名前用 <code>readonly</code>来指定只读属性:</p>
+</blockquote>
+<pre><code class="language-ts">interface Point {
+    readonly x: number;
+    readonly y: number;
+}</code></pre>
+<p>你可以通过赋值一个对象字面量来构造一个<code>Point</code>。 <strong>赋值后， <code>x</code>和<code>y</code>再也不能被改变了。</strong></p>
+<pre><code class="language-ts">let p1: Point = { x: 10, y: 20 };
+p1.x = 5; // error!</code></pre>
+<blockquote>
+<p>TypeScript具有<code>ReadonlyArray&lt;T&gt;</code>类型，它与<code>Array&lt;T&gt;</code>相似，只是把所有可变方法去掉了，因此可以确保数组创建后再也不能被修改：</p>
+</blockquote>
+<pre><code class="language-ts">let a: number[] = [1, 2, 3, 4];
+let ro: ReadonlyArray&lt;number&gt; = a;
+ro[0] = 12; // error!
+ro.push(5); // error!
+ro.length = 100; // error!
+a = ro; // error!</code></pre>
+<p>上面代码的最后一行，可以看到<strong>就算把整个<code>ReadonlyArray</code>赋值到一个普通数组也是不可以的。 但是你可以用类型断言重写：</strong></p>
+<pre><code class="language-ts">a = ro as number[];</code></pre>
+<blockquote>
+<p><code>readonly</code> vs <code>const</code></p>
+</blockquote>
+<p>最简单判断该用<code>readonly</code>还是<code>const</code>的方法是看要把它做为变量使用还是做为一个属性。 <strong>做为变量使用的话用<code>const</code>，若做为属性则使用<code>readonly</code>。</strong></p>
+<h3 id="344、额外的属性检查">3.4.4、额外的属性检查</h3>
+<p>我们在第一个例子里使用了接口，TypeScript让我们传入<code>{ size: number; label: string; }</code>到仅期望得到<code>{ label: string; }</code>的函数里。 我们已经学过了可选属性，并且知道他们在“option bags”模式里很有用。</p>
+<p>然而，天真地将这两者结合的话就会像在JavaScript里那样搬起石头砸自己的脚。 比如，拿 <code>createSquare</code>例子来说：</p>
+<pre><code class="language-ts">interface SquareConfig {
+    color?: string;
+    width?: number;
+}
+
+function createSquare(config: SquareConfig): { color: string; area: number } {
+    // ...
+}
+
+let mySquare = createSquare({ colour: &quot;red&quot;, width: 100 });</code></pre>
+<p>注意传入<code>createSquare</code>的参数拼写为<em>colour</em>而不是<code>color</code>。 在JavaScript里，这会默默地失败。</p>
+<p>你可能会争辩这个程序已经正确地类型化了，因为<code>width</code>属性是兼容的，不存在<code>color</code>属性，而且额外的<code>colour</code>属性是无意义的。</p>
+<blockquote>
+<p>然而，TypeScript会认为这段代码可能存在bug。 <strong>对象字面量会被特殊对待而且会经过 <em>额外属性检查</em>，当将它们赋值给变量或作为参数传递的时候。</strong> 如果一个对象字面量存在任何“目标类型”不包含的属性时，你会得到一个错误。</p>
+</blockquote>
+<pre><code class="language-ts">// error: &#39;colour&#39; not expected in type &#39;SquareConfig&#39;
+let mySquare = createSquare({ colour: &quot;red&quot;, width: 100 });</code></pre>
+<p>绕开这些检查非常简单。 最简便的方法是使用类型断言：</p>
+<pre><code class="language-ts">let mySquare = createSquare({ width: 100, opacity: 0.5 } as SquareConfig);</code></pre>
+<p>然而，最佳的方式是能够添加一个字符串索引签名，前提是你能够确定这个对象可能具有某些做为特殊用途使用的额外属性。 <strong>如果 <code>SquareConfig</code>带有上面定义的类型的<code>color</code>和<code>width</code>属性，并且<em>还会</em>带有任意数量的其它属性，那么我们可以这样定义它：</strong></p>
+<pre><code class="language-ts">interface SquareConfig {
+    color?: string;
+    width?: number;
+    [propName: string]: any;
+}</code></pre>
+<p>我们稍后会讲到索引签名，但<strong>在这我们要表示的是<code>SquareConfig</code>可以有任意数量的属性，并且只要它们不是<code>color</code>和<code>width</code>，那么就无所谓它们的类型是什么。</strong></p>
+<p>还有最后一种跳过这些检查的方式，这可能会让你感到惊讶，它就是将这个对象赋值给一个另一个变量： <strong>因为<code>squareOptions</code>不会经过额外属性检查，所以编译器不会报错。</strong></p>
+<pre><code class="language-ts">let squareOptions = { colour: &quot;red&quot;, width: 100 };
+let mySquare = createSquare(squareOptions);</code></pre>
+<p>要留意，在像上面一样的简单代码里，你可能不应该去绕开这些检查。 对于包含方法和内部状态的复杂对象字面量来讲，你可能需要使用这些技巧，但是大部额外属性检查错误是真正的bug。 就是说你遇到了额外类型检查出的错误，比如“option bags”，你应该去审查一下你的类型声明。 在这里，如果支持传入 <code>color</code>或<code>colour</code>属性到<code>createSquare</code>，你应该修改<code>SquareConfig</code>定义来体现出这一点。</p>
+<h3 id="345、函数类型">3.4.5、函数类型</h3>
+<blockquote>
+<p>接口能够描述JavaScript中对象拥有的各种各样的外形。 除了描述带有属性的普通对象外，接口也可以描述函数类型。</p>
+</blockquote>
+<p>为了使用接口表示函数类型，我们需要给接口定义一个调用签名。 它就像是一个只有参数列表和返回值类型的函数定义。参数列表里的每个参数都需要名字和类型。</p>
+<pre><code class="language-ts">interface SearchFunc {
+  (source: string, subString: string): boolean;
+}</code></pre>
+<p>这样定义后，我们可以像使用其它接口一样使用这个函数类型的接口。 下例展示了如何创建一个函数类型的变量，并将一个同类型的函数赋值给这个变量。</p>
+<pre><code class="language-ts">let mySearch: SearchFunc;
+mySearch = function(source: string, subString: string) {
+  let result = source.search(subString);
+  return result &gt; -1;
+}</code></pre>
+<p>对于函数类型的类型检查来说，<strong>函数的参数名不需要与接口里定义的名字相匹配。</strong> 比如，我们使用下面的代码重写上面的例子：</p>
+<pre><code class="language-ts">let mySearch: SearchFunc;
+mySearch = function(src: string, sub: string): boolean {
+  let result = src.search(sub);
+  return result &gt; -1;
+}</code></pre>
+<p><strong>函数的参数会逐个进行检查，要求对应位置上的参数类型是兼容的。</strong> 如果你不想指定类型，TypeScript的类型系统会推断出参数类型，因为函数直接赋值给了 <code>SearchFunc</code>类型变量。 函数的返回值类型是通过其返回值推断出来的（此例是 <code>false</code>和<code>true</code>）。 如果让这个函数返回数字或字符串，类型检查器会警告我们函数的返回值类型与<code>SearchFunc</code>接口中的定义不匹配。</p>
+<pre><code class="language-ts">let mySearch: SearchFunc;
+mySearch = function(src, sub) {
+    let result = src.search(sub);
+    return result &gt; -1;
+}</code></pre>
+<h3 id="346、可索引的类型">3.4.6、可索引的类型</h3>
+<p>与使用接口描述函数类型差不多，我们<strong>也可以描述那些能够“通过索引得到”的类型</strong>，比如<code>a[10]</code>或<code>ageMap[&quot;daniel&quot;]</code>。 <strong>可索引类型具有一个 <em>索引签名</em>，它描述了对象索引的类型，还有相应的索引返回值类型。</strong> 让我们看一个例子：</p>
+<pre><code class="language-ts">interface StringArray {
+  [index: number]: string;
+}
+
+let myArray: StringArray;
+myArray = [&quot;Bob&quot;, &quot;Fred&quot;];
+
+let myStr: string = myArray[0];</code></pre>
+<p>上面例子里，我们定义了<code>StringArray</code>接口，它具有索引签名。 这个索引签名表示了当用 <code>number</code>去索引<code>StringArray</code>时会得到<code>string</code>类型的返回值。</p>
+<p><strong>TypeScript支持两种索引签名：字符串和数字。</strong> <strong>可以同时使用两种类型的索引，但是数字索引的返回值必须是字符串索引返回值类型的子类型。 这是因为当使用 <code>number</code>来索引时，JavaScript会将它转换成<code>string</code>然后再去索引对象。</strong> 也就是说用 <code>100</code>（一个<code>number</code>）去索引等同于使用<code>&quot;100&quot;</code>（一个<code>string</code>）去索引，因此两者需要保持一致。</p>
+<pre><code class="language-ts">class Animal {
+    name: string;
+}
+class Dog extends Animal {
+    breed: string;
+}
+
+// 错误：使用数值型的字符串索引，有时会得到完全不同的Animal!
+interface NotOkay {
+    [x: number]: Animal;
+    [x: string]: Dog;
+}</code></pre>
+<p>字符串索引签名能够很好的描述<code>dictionary</code>模式，并且它们也会确保所有属性与其返回值类型相匹配。 因为字符串索引声明了 <code>obj.property</code>和<code>obj[&quot;property&quot;]</code>两种形式都可以。 下面的例子里， <code>name</code>的类型与字符串索引类型不匹配，所以类型检查器给出一个错误提示：</p>
+<pre><code class="language-ts">interface NumberDictionary {
+  [index: string]: number;
+  length: number;    // 可以，length是number类型
+  name: string       // 错误，`name`的类型与索引类型返回值的类型不匹配
+}</code></pre>
+<p>最后，你可以将索引签名设置为只读，这样就防止了给索引赋值：</p>
+<pre><code class="language-ts">interface ReadonlyStringArray {
+    readonly [index: number]: string;
+}
+let myArray: ReadonlyStringArray = [&quot;Alice&quot;, &quot;Bob&quot;];
+myArray[2] = &quot;Mallory&quot;; // error!</code></pre>
+<p>你不能设置<code>myArray[2]</code>，因为索引签名是只读的。</p>
+<h3 id="347、类类型">3.4.7、类类型</h3>
+<h4 id="3471、实现接口">3.4.7.1、实现接口</h4>
+<p>与C#或Java里接口的基本作用一样，TypeScript也能够用它来明确的强制一个类去符合某种契约。</p>
+<pre><code class="language-ts">interface ClockInterface {
+    currentTime: Date;
+}
+
+class Clock implements ClockInterface {
+    currentTime: Date;
+    constructor(h: number, m: number) { }
+}</code></pre>
+<p>你也可以在接口中描述一个方法，在类里实现它，如同下面的<code>setTime</code>方法一样：</p>
+<pre><code class="language-ts">interface ClockInterface {
+    currentTime: Date;
+    setTime(d: Date);
+}
+
+class Clock implements ClockInterface {
+    currentTime: Date;
+    setTime(d: Date) {
+        this.currentTime = d;
+    }
+    constructor(h: number, m: number) { }
+}</code></pre>
+<p>接口描述了类的公共部分，而不是公共和私有两部分。 它不会帮你检查类是否具有某些私有成员。</p>
+<h4 id="3472、类静态部分与实例部分的区别">3.4.7.2、类静态部分与实例部分的区别</h4>
+<p>当你操作类和接口的时候，你要知道类是具有两个类型的：<strong>静态部分的类型和实例的类型。</strong> 你会注意到，当你用构造器签名去定义一个接口并试图定义一个类去实现这个接口时会得到一个错误：</p>
+<pre><code class="language-ts">interface ClockConstructor {
+    new (hour: number, minute: number);
+}
+
+class Clock implements ClockConstructor {
+    currentTime: Date;
+    constructor(h: number, m: number) { }
+}</code></pre>
+<p>这里因为当一个类实现了一个接口时，只对其实例部分进行类型检查。 constructor存在于类的静态部分，所以不在检查的范围内。</p>
+<p>因此，我们应该直接操作类的静态部分。 看下面的例子，我们定义了两个接口， <code>ClockConstructor</code>为构造函数所用和<code>ClockInterface</code>为实例方法所用。 为了方便我们定义一个构造函数 <code>createClock</code>，它用传入的类型创建实例。</p>
+<pre><code class="language-ts">interface ClockConstructor {
+    new (hour: number, minute: number): ClockInterface;
+}
+interface ClockInterface {
+    tick();
+}
+
+function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
+    return new ctor(hour, minute);
+}
+
+class DigitalClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+        console.log(&quot;beep beep&quot;);
+    }
+}
+class AnalogClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+        console.log(&quot;tick tock&quot;);
+    }
+}
+
+let digital = createClock(DigitalClock, 12, 17);
+let analog = createClock(AnalogClock, 7, 32);</code></pre>
+<p>因为<code>createClock</code>的第一个参数是<code>ClockConstructor</code>类型，在<code>createClock(AnalogClock, 7, 32)</code>里，会检查<code>AnalogClock</code>是否符合构造函数签名。</p>
+<h4 id="3473、继承接口">3.4.7.3、继承接口</h4>
+<p>和类一样，接口也可以相互继承。 这让我们能够从一个接口里复制成员到另一个接口里，可以更灵活地将接口分割到可重用的模块里。</p>
+<pre><code class="language-ts">interface Shape {
+    color: string;
+}
+
+interface Square extends Shape {
+    sideLength: number;
+}
+
+let square = &lt;Square&gt;{};
+square.color = &quot;blue&quot;;
+square.sideLength = 10;</code></pre>
+<p><strong>一个接口可以继承多个接口，创建出多个接口的合成接口。</strong></p>
+<pre><code class="language-ts">interface Shape {
+    color: string;
+}
+
+interface PenStroke {
+    penWidth: number;
+}
+
+interface Square extends Shape, PenStroke {
+    sideLength: number;
+}
+
+let square = &lt;Square&gt;{};
+square.color = &quot;blue&quot;;
+square.sideLength = 10;
+square.penWidth = 5.0;</code></pre>
+<h4 id="3474、混合类型">3.4.7.4、混合类型</h4>
+<p>先前我们提过，接口能够描述JavaScript里丰富的类型。 因为JavaScript其动态灵活的特点，有时你会希望一个对象可以同时具有上面提到的多种类型。</p>
+<p>一个例子就是，<strong>一个对象可以同时做为函数和对象使用，并带有额外的属性。</strong></p>
+<pre><code class="language-ts">interface Counter {
+    (start: number): string;
+    interval: number;
+    reset(): void;
+}
+
+function getCounter(): Counter {
+    let counter = &lt;Counter&gt;function (start: number) { };
+    counter.interval = 123;
+    counter.reset = function () { };
+    return counter;
+}
+
+let c = getCounter();
+c(10);
+c.reset();
+c.interval = 5.0;</code></pre>
+<p>在使用JavaScript第三方库的时候，你可能需要像上面那样去完整地定义类型。</p>
+<h4 id="3475、接口继承类">3.4.7.5、接口继承类</h4>
+<p><strong>当接口继承了一个类类型时，它会继承类的成员但不包括其实现。</strong> 就好像接口声明了所有类中存在的成员，但并没有提供具体实现一样。 <strong>接口同样会继承到类的private和protected成员。 这意味着当你创建了一个接口继承了一个拥有私有或受保护的成员的类时，这个接口类型只能被这个类或其子类所实现（implement）。</strong></p>
+<p>当你有一个庞大的继承结构时这很有用，但要指出的是你的代码只在子类拥有特定属性时起作用。 这个子类除了继承至基类外与基类没有任何关系。 例：</p>
+<pre><code class="language-ts">class Control {
+    private state: any;
+}
+
+interface SelectableControl extends Control {
+    select(): void;
+}
+
+class Button extends Control implements SelectableControl {
+    select() { }
+}
+
+class TextBox extends Control {
+    select() { }
+}
+
+// 错误：“Image”类型缺少“state”属性。
+class Image implements SelectableControl {
+    select() { }
+}
+
+class Location {
+
+}</code></pre>
+<p>在上面的例子里，<code>SelectableControl</code>包含了<code>Control</code>的所有成员，包括私有成员<code>state</code>。 <strong>因为 <code>state</code>是私有成员，所以只能够是<code>Control</code>的子类们才能实现<code>SelectableControl</code>接口。</strong> 因为只有 <code>Control</code>的子类才能够拥有一个声明于<code>Control</code>的私有成员<code>state</code>，这对私有成员的兼容性是必需的。</p>
+<p>在<code>Control</code>类内部，是允许通过<code>SelectableControl</code>的实例来访问私有成员<code>state</code>的。 实际上，<code>SelectableControl</code>接口和拥有<code>select</code>方法的<code>Control</code>类是一样的。 <code>Button</code>和<code>TextBox</code>类是<code>SelectableControl</code>的子类（因为它们都继承自<code>Control</code>并有<code>select</code>方法），但<code>Image</code>和<code>Location</code>类并不是这样的。</p>
+<h2 id="35、类">3.5、类</h2>
+<p>传统的JavaScript程序使用函数和基于原型的继承来创建可重用的组件，但对于熟悉使用面向对象方式的程序员来讲就有些棘手，因为他们用的是基于类的继承并且对象是由类构建出来的。 从ECMAScript 2015，也就是ECMAScript 6开始，JavaScript程序员将能够使用基于类的面向对象的方式。 使用TypeScript，我们允许开发者现在就使用这些特性，并且编译后的JavaScript可以在所有主流浏览器和平台上运行，而不需要等到下个JavaScript版本。</p>
+<p>下面看一个使用类的例子：</p>
+<pre><code class="language-ts">class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    greet() {
+        return &quot;Hello, &quot; + this.greeting;
+    }
+}
+
+let greeter = new Greeter(&quot;world&quot;);</code></pre>
+<p>如果你使用过C#或Java，你会对这种语法非常熟悉。 我们声明一个 <code>Greeter</code>类。这个类有3个成员：一个叫做<code>greeting</code>的属性，一个构造函数和一个 <code>greet</code>方法。</p>
+<p>你会注意到，我们在引用任何一个类成员的时候都用了 <code>this</code>。 它表示我们访问的是类的成员。</p>
+<p>最后一行，我们使用 <code>new</code>构造了 <code>Greeter</code>类的一个实例。 它会调用之前定义的构造函数，创建一个 <code>Greeter</code>类型的新对象，并执行构造函数初始化它。</p>
+<h3 id="351、继承">3.5.1、继承</h3>
+<p>在TypeScript里，我们可以使用常用的面向对象模式。 基于类的程序设计中一种最基本的模式是允许使用继承来扩展现有的类。</p>
+<p>看下面的例子：</p>
+<pre><code class="language-ts">class Animal {
+    move(distanceInMeters: number = 0) {
+        console.log(`Animal moved ${distanceInMeters}m.`);
+    }
+}
+
+class Dog extends Animal {
+    bark() {
+        console.log(&#39;Woof! Woof!&#39;);
+    }
+}
+
+const dog = new Dog();
+dog.bark();
+dog.move(10);
+dog.bark();</code></pre>
+<p>这个例子展示了最基本的继承：<strong>类从基类中继承了属性和方法。 这里， <code>Dog</code>是一个 <em>派生类</em>，它派生自 <code>Animal</code> <em>基类</em>，通过 <code>extends</code>关键字。 派生类通常被称作 <em>子类</em>，基类通常被称作 <em>超类</em>。</strong></p>
+<p>因为 <code>Dog</code>继承了 <code>Animal</code>的功能，因此我们可以创建一个 <code>Dog</code>的实例，它能够 <code>bark()</code>和 <code>move()</code>。</p>
+<p>下面我们来看个更加复杂的例子。</p>
+<pre><code class="language-ts">class Animal {
+    name: string;
+    constructor(theName: string) { this.name = theName; }
+    move(distanceInMeters: number = 0) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}
+
+class Snake extends Animal {
+    constructor(name: string) { super(name); }
+    move(distanceInMeters = 5) {
+        console.log(&quot;Slithering...&quot;);
+        super.move(distanceInMeters);
+    }
+}
+
+class Horse extends Animal {
+    constructor(name: string) { super(name); }
+    move(distanceInMeters = 45) {
+        console.log(&quot;Galloping...&quot;);
+        super.move(distanceInMeters);
+    }
+}
+
+let sam = new Snake(&quot;Sammy the Python&quot;);
+let tom: Animal = new Horse(&quot;Tommy the Palomino&quot;);
+
+sam.move();
+tom.move(34);</code></pre>
+<p>这个例子展示了一些上面没有提到的特性。 这一次，我们使用 <code>extends</code>关键字创建了 <code>Animal</code>的两个子类：<code>Horse</code>和 <code>Snake</code>。</p>
+<p>与前一个例子的不同点是，<strong>派生类包含了一个构造函数，它 <em>必须</em>调用 <code>super()</code>，它会执行基类的构造函数。 而且，在构造函数里访问 <code>this</code>的属性之前，我们 <em>一定</em>要调用 <code>super()</code>。 这个是TypeScript强制执行的一条重要规则。</strong></p>
+<p>这个例子演示了如何在子类里可以重写父类的方法。 <code>Snake</code>类和 <code>Horse</code>类都创建了 <code>move</code>方法，<strong>它们重写了从<code>Animal</code>继承来的 <code>move</code>方法，使得 <code>move</code>方法根据不同的类而具有不同的功能。</strong> 注意，即使 <code>tom</code>被声明为<code>Animal</code>类型，但因为它的值是 <code>Horse</code>，调用 <code>tom.move(34)</code>时，它会调用 <code>Horse</code>里重写的方法：</p>
+<pre><code class="language-text">Slithering...
+Sammy the Python moved 5m.
+Galloping...
+Tommy the Palomino moved 34m.</code></pre>
+<h3 id="352、公共，私有与受保护的修饰符">3.5.2、公共，私有与受保护的修饰符</h3>
+<h4 id="3521、默认为-public">3.5.2.1、默认为 <code>public</code></h4>
+<p>在上面的例子里，我们可以自由的访问程序里定义的成员。 如果你对其它语言中的类比较了解，就会注意到我们在之前的代码里并没有使用 <code>public</code>来做修饰；例如，C#要求必须明确地使用 <code>public</code>指定成员是可见的。 <strong>在TypeScript里，成员都默认为 <code>public</code>。</strong></p>
+<p>你也可以明确的将一个成员标记成 <code>public</code>。 我们可以用下面的方式来重写上面的 <code>Animal</code>类：</p>
+<pre><code class="language-ts">class Animal {
+    public name: string;
+    public constructor(theName: string) { this.name = theName; }
+    public move(distanceInMeters: number) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}</code></pre>
+<h4 id="3522、理解-private">3.5.2.2、理解 <code>private</code></h4>
+<p><strong>当成员被标记成 <code>private</code>时，它就不能在声明它的类的外部访问。</strong>比如：</p>
+<pre><code class="language-ts">class Animal {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+}
+
+new Animal(&quot;Cat&quot;).name; // 错误: &#39;name&#39; 是私有的.</code></pre>
+<p>TypeScript使用的是结构性类型系统。 当我们比较两种不同的类型时，并不在乎它们从何处而来，如果所有成员的类型都是兼容的，我们就认为它们的类型是兼容的。</p>
+<p>然而，当我们比较带有 <code>private</code>或 <code>protected</code>成员的类型的时候，情况就不同了。 如果其中一个类型里包含一个<code>private</code>成员，那么只有当另外一个类型中也存在这样一个 <code>private</code>成员， 并且它们都是来自同一处声明时，我们才认为这两个类型是兼容的。 对于 <code>protected</code>成员也使用这个规则。</p>
+<p>下面来看一个例子，更好地说明了这一点：</p>
+<pre><code class="language-ts">class Animal {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+}
+
+class Rhino extends Animal {
+    constructor() { super(&quot;Rhino&quot;); }
+}
+
+class Employee {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+}
+
+let animal = new Animal(&quot;Goat&quot;);
+let rhino = new Rhino();
+let employee = new Employee(&quot;Bob&quot;);
+
+animal = rhino;
+animal = employee; // 错误: Animal 与 Employee 不兼容.</code></pre>
+<p>这个例子中有 <code>Animal</code>和 <code>Rhino</code>两个类， <code>Rhino</code>是 <code>Animal</code>类的子类。 还有一个 <code>Employee</code>类，其类型看上去与<code>Animal</code>是相同的。 我们创建了几个这些类的实例，并相互赋值来看看会发生什么。 因为 <code>Animal</code>和 <code>Rhino</code>共享了来自 <code>Animal</code>里的私有成员定义 <code>private name: string</code>，因此它们是兼容的。 然而 <code>Employee</code>却不是这样。当把 <code>Employee</code>赋值给 <code>Animal</code>的时候，得到一个错误，说它们的类型不兼容。 尽管 <code>Employee</code>里也有一个私有成员 <code>name</code>，但它明显不是 <code>Animal</code>里面定义的那个。</p>
+<h4 id="3523、理解-protected">3.5.2.3、理解 <code>protected</code></h4>
+<blockquote>
+<p><code>protected</code>修饰符与 <code>private</code>修饰符的行为很相似，但有一点不同， <code>protected</code>成员在派生类中仍然可以访问。</p>
+</blockquote>
+<p>例如：</p>
+<pre><code class="language-ts">class Person {
+    protected name: string;
+    constructor(name: string) { this.name = name; }
+}
+
+class Employee extends Person {
+    private department: string;
+
+    constructor(name: string, department: string) {
+        super(name)
+        this.department = department;
+    }
+
+    public getElevatorPitch() {
+        return `Hello, my name is ${this.name} and I work in ${this.department}.`;
+    }
+}
+
+let howard = new Employee(&quot;Howard&quot;, &quot;Sales&quot;);
+console.log(howard.getElevatorPitch());
+console.log(howard.name); // 错误</code></pre>
+<blockquote>
+<p>注意，我们不能在 <code>Person</code>类外使用 <code>name</code>，但是我们仍然可以通过 <code>Employee</code>类的实例方法访问，因为<code>Employee</code>是由 <code>Person</code>派生而来的。</p>
+</blockquote>
+<p>构造函数也可以被标记成 <code>protected</code>。 这<strong>意味着这个类不能在包含它的类外被实例化，但是能被继承。</strong>比如，</p>
+<pre><code class="language-ts">class Person {
+    protected name: string;
+    protected constructor(theName: string) { this.name = theName; }
+}
+
+// Employee 能够继承 Person
+class Employee extends Person {
+    private department: string;
+
+    constructor(name: string, department: string) {
+        super(name);
+        this.department = department;
+    }
+
+    public getElevatorPitch() {
+        return `Hello, my name is ${this.name} and I work in ${this.department}.`;
+    }
+}
+
+let howard = new Employee(&quot;Howard&quot;, &quot;Sales&quot;);
+let john = new Person(&quot;John&quot;); // 错误: &#39;Person&#39; 的构造函数是被保护的.</code></pre>
+<h3 id="353、readonly修饰符">3.5.3、readonly修饰符</h3>
+<p>你可以使用 <code>readonly</code>关键字将属性设置为只读的。 <strong>只读属性必须在声明时或构造函数里被初始化。</strong></p>
+<pre><code class="language-ts">class Octopus {
+    readonly name: string;
+    readonly numberOfLegs: number = 8;
+    constructor (theName: string) {
+        this.name = theName;
+    }
+}
+let dad = new Octopus(&quot;Man with the 8 strong legs&quot;);
+dad.name = &quot;Man with the 3-piece suit&quot;; // 错误! name 是只读的.</code></pre>
+<h4 id="3531、参数属性">3.5.3.1、参数属性</h4>
+<p>在上面的例子中，我们必须在<code>Octopus</code>类里定义一个只读成员 <code>name</code>和一个参数为 <code>theName</code>的构造函数，并且立刻将 <code>theName</code>的值赋给 <code>name</code>，这种情况经常会遇到。 <strong><em>参数属性</em>可以方便地让我们在一个地方定义并初始化一个成员。</strong> 下面的例子是对之前 <code>Octopus</code>类的修改版，使用了参数属性：</p>
+<pre><code class="language-ts">class Octopus {
+    readonly numberOfLegs: number = 8;
+    constructor(readonly name: string) {
+    }
+}</code></pre>
+<p>注意看我们是如何舍弃了 <code>theName</code>，仅在构造函数里使用 <code>readonly name: string</code>参数来创建和初始化 <code>name</code>成员。 我们把声明和赋值合并至一处。</p>
+<blockquote>
+<p>参数属性通过给构造函数参数前面添加一个访问限定符来声明。 使用 <code>private</code>限定一个参数属性会声明并初始化一个私有成员；对于 <code>public</code>和 <code>protected</code>来说也是一样。</p>
+</blockquote>
+<h3 id="354、存取器">3.5.4、存取器</h3>
+<p><strong>TypeScript支持通过getters/setters来截取对对象成员的访问。 它能帮助你有效的控制对对象成员的访问。</strong></p>
+<p>下面来看如何把一个简单的类改写成使用 <code>get</code>和 <code>set</code>。 首先，我们从一个没有使用存取器的例子开始。</p>
+<pre><code class="language-ts">class Employee {
+    fullName: string;
+}
+
+let employee = new Employee();
+employee.fullName = &quot;Bob Smith&quot;;
+if (employee.fullName) {
+    console.log(employee.fullName);
+}</code></pre>
+<p>我们可以随意的设置 <code>fullName</code>，这是非常方便的，但是这也可能会带来麻烦。</p>
+<p>下面这个版本里，我们先检查用户密码是否正确，然后再允许其修改员工信息。 我们把对 <code>fullName</code>的直接访问了可以检查密码的 <code>set</code>方法。 我们也加了一个 <code>get</code>方法，让上面的例子仍然可以工作。</p>
+<pre><code class="language-ts">let passcode = &quot;secret passcode&quot;;
+
+class Employee {
+    private _fullName: string;
+
+    get fullName(): string {
+        return this._fullName;
+    }
+
+    set fullName(newName: string) {
+        if (passcode &amp;&amp; passcode == &quot;secret passcode&quot;) {
+            this._fullName = newName;
+        }
+        else {
+            console.log(&quot;Error: Unauthorized update of employee!&quot;);
+        }
+    }
+}
+
+let employee = new Employee();
+employee.fullName = &quot;Bob Smith&quot;;
+if (employee.fullName) {
+    alert(employee.fullName);
+}</code></pre>
+<p>我们可以修改一下密码，来验证一下存取器是否是工作的。当密码不对时，会提示我们没有权限去修改员工。</p>
+<p>对于存取器有下面几点需要注意的：</p>
+<p><strong>首先，存取器要求你将编译器设置为输出ECMAScript 5或更高。 不支持降级到ECMAScript 3。 其次，只带有 <code>get</code>不带有 <code>set</code>的存取器自动被推断为 <code>readonly</code>。</strong> 这在从代码生成 <code>.d.ts</code>文件时是有帮助的，因为利用这个属性的用户会看到不允许够改变它的值。</p>
+<h3 id="355、静态属性">3.5.5、静态属性</h3>
+<p>到目前为止，我们只讨论了类的实例成员，那些仅当类被实例化的时候才会被初始化的属性。 <strong>我们也可以创建类的静态成员，这些属性存在于类本身上面而不是类的实例上。</strong> 在这个例子里，我们使用 <code>static</code>定义 <code>origin</code>，因为它是所有网格都会用到的属性。 每个实例想要访问这个属性的时候，都要在 <code>origin</code>前面加上类名。 如同在实例属性上使用 <code>this.</code>前缀来访问属性一样，这里我们使用 <code>Grid.</code>来访问静态属性。</p>
+<pre><code class="language-ts">class Grid {
+    static origin = {x: 0, y: 0};
+    calculateDistanceFromOrigin(point: {x: number; y: number;}) {
+        let xDist = (point.x - Grid.origin.x);
+        let yDist = (point.y - Grid.origin.y);
+        return Math.sqrt(xDist * xDist + yDist * yDist) / this.scale;
+    }
+    constructor (public scale: number) { }
+}
+
+let grid1 = new Grid(1.0);  // 1x scale
+let grid2 = new Grid(5.0);  // 5x scale
+
+console.log(grid1.calculateDistanceFromOrigin({x: 10, y: 10}));
+console.log(grid2.calculateDistanceFromOrigin({x: 10, y: 10}));</code></pre>
+<h3 id="356、抽象类">3.5.6、抽象类</h3>
+<p><strong>抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。</strong> 不同于接口，抽象类可以包含成员的实现细节。<code>abstract</code>关键字是用于定义抽象类和在抽象类内部定义抽象方法。</p>
+<pre><code class="language-ts">abstract class Animal {
+    abstract makeSound(): void;
+    move(): void {
+        console.log(&#39;roaming the earch...&#39;);
+    }
+}</code></pre>
+<p><strong>抽象类中的抽象方法不包含具体实现并且必须在派生类中实现。 抽象方法的语法与接口方法相似。 两者都是定义方法签名但不包含方法体。 然而，抽象方法必须包含 <code>abstract</code>关键字并且可以包含访问修饰符。</strong></p>
+<pre><code class="language-ts">abstract class Department {
+
+    constructor(public name: string) {
+    }
+
+    printName(): void {
+        console.log(&#39;Department name: &#39; + this.name);
+    }
+
+    abstract printMeeting(): void; // 必须在派生类中实现
+}
+
+class AccountingDepartment extends Department {
+
+    constructor() {
+        super(&#39;Accounting and Auditing&#39;); // 在派生类的构造函数中必须调用 super()
+    }
+
+    printMeeting(): void {
+        console.log(&#39;The Accounting Department meets each Monday at 10am.&#39;);
+    }
+
+    generateReports(): void {
+        console.log(&#39;Generating accounting reports...&#39;);
+    }
+}
+
+let department: Department; // 允许创建一个对抽象类型的引用
+department = new Department(); // 错误: 不能创建一个抽象类的实例
+department = new AccountingDepartment(); // 允许对一个抽象子类进行实例化和赋值
+department.printName();
+department.printMeeting();
+department.generateReports(); // 错误: 方法在声明的抽象类中不存在</code></pre>
+<h3 id="357、高级技巧">3.5.7、高级技巧</h3>
+<h4 id="3571、构造函数">3.5.7.1、构造函数</h4>
+<p>当你在TypeScript里声明了一个类的时候，实际上同时声明了很多东西。 首先就是类的 <em>实例</em>的类型。</p>
+<pre><code class="language-ts">class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    greet() {
+        return &quot;Hello, &quot; + this.greeting;
+    }
+}
+
+let greeter: Greeter;
+greeter = new Greeter(&quot;world&quot;);
+console.log(greeter.greet());</code></pre>
+<p>这里，我们写了 <code>let greeter: Greeter</code>，意思是 <code>Greeter</code>类的实例的类型是 <code>Greeter</code>。 这对于用过其它面向对象语言的程序员来讲已经是老习惯了。</p>
+<p>我们也创建了一个叫做 <em>构造函数</em>的值。 这个函数会在我们使用 <code>new</code>创建类实例的时候被调用。 下面我们来看看，上面的代码被编译成JavaScript后是什么样子的：</p>
+<pre><code class="language-ts">let Greeter = (function () {
+    function Greeter(message) {
+        this.greeting = message;
+    }
+    Greeter.prototype.greet = function () {
+        return &quot;Hello, &quot; + this.greeting;
+    };
+    return Greeter;
+})();
+
+let greeter;
+greeter = new Greeter(&quot;world&quot;);
+console.log(greeter.greet());</code></pre>
+<p>上面的代码里， <code>let Greeter</code>将被赋值为构造函数。 当我们调用 <code>new</code>并执行了这个函数后，便会得到一个类的实例。 这个构造函数也包含了类的所有静态属性。 换个角度说，我们可以认为类具有 <em>实例部分</em>与 <em>静态部分</em>这两个部分。</p>
+<p>让我们稍微改写一下这个例子，看看它们之间的区别：</p>
+<pre><code class="language-ts">class Greeter {
+    static standardGreeting = &quot;Hello, there&quot;;
+    greeting: string;
+    greet() {
+        if (this.greeting) {
+            return &quot;Hello, &quot; + this.greeting;
+        }
+        else {
+            return Greeter.standardGreeting;
+        }
+    }
+}
+
+let greeter1: Greeter;
+greeter1 = new Greeter();
+console.log(greeter1.greet());
+
+let greeterMaker: typeof Greeter = Greeter;
+greeterMaker.standardGreeting = &quot;Hey there!&quot;;
+
+let greeter2: Greeter = new greeterMaker();
+console.log(greeter2.greet());</code></pre>
+<p>这个例子里， <code>greeter1</code>与之前看到的一样。 我们实例化 <code>Greeter</code>类，并使用这个对象。 与我们之前看到的一样。</p>
+<p>再之后，我们直接使用类。 我们创建了一个叫做 <code>greeterMaker</code>的变量。 <strong>这个变量保存了这个类或者说保存了类构造函数。 然后我们使用 <code>typeof Greeter</code>，意思是取Greeter类的类型，而不是实例的类型。</strong> 或者更确切的说，&quot;告诉我 <code>Greeter</code>标识符的类型&quot;，也就是构造函数的类型。 这个类型包含了类的所有静态成员和构造函数。 之后，就和前面一样，我们在 <code>greeterMaker</code>上使用 <code>new</code>，创建 <code>Greeter</code>的实例。</p>
+<h4 id="3572、把类当做接口使用">3.5.7.2、把类当做接口使用</h4>
+<p>如上一节里所讲的，类定义会创建两个东西：类的实例类型和一个构造函数。 <strong>因为类可以创建出类型，所以你能够在允许使用接口的地方使用类。</strong></p>
+<pre><code class="language-ts">class Point {
+    x: number;
+    y: number;
+}
+
+interface Point3d extends Point {
+    z: number;
+}
+
+let point3d: Point3d = {x: 1, y: 2, z: 3};</code></pre>
+<h2 id="36、函数">3.6、函数</h2>
+<h2 id="37、泛型">3.7、泛型</h2>
+<h2 id="38、枚举">3.8、枚举</h2>
+<h2 id="39、类型推论">3.9、类型推论</h2>
+<h2 id="310、类型兼容性">3.10、类型兼容性</h2>
+<h2 id="311、高级类型">3.11、高级类型</h2>
+<h2 id="312、symbols">3.12、Symbols</h2>
+<h2 id="313、迭代器和生成器">3.13、迭代器和生成器</h2>
+<h2 id="314、模块">3.14、模块</h2>
+<blockquote>
+<p>内部模块”现在称做“命名空间”。 “外部模块”现在则简称为“模块”。</p>
+</blockquote>
+<p>从ECMAScript 2015开始，JavaScript引入了模块的概念。TypeScript也沿用这个概念。</p>
+<blockquote>
+<p><strong>模块在其自身的作用域里执行，而不是在全局作用域里；</strong></p>
+</blockquote>
+<p>这意味着定义在一个模块里的变量，函数，类等等在模块外部是不可见的，除非你明确地使用<a href="https://www.tslang.cn/docs/handbook/modules.html#export"><code>export</code>形式</a>之一导出它们。 相反，如果想使用其它模块导出的变量，函数，类，接口等的时候，你必须要导入它们，可以使用 <a href="https://www.tslang.cn/docs/handbook/modules.html#import"><code>import</code>形式</a>之一。</p>
+<blockquote>
+<p>模块是自声明的。</p>
+</blockquote>
+<p>两个模块之间的关系是通过在文件级别上使用imports和exports建立的。</p>
+<p>模块使用模块加载器去导入其它的模块。 在运行时，模块加载器的作用是在执行此模块代码前去查找并执行这个模块的所有依赖。 大家最熟知的JavaScript模块加载器是服务于Node.js的 <a href="https://en.wikipedia.org/wiki/CommonJS">CommonJS</a>和服务于Web应用的<a href="http://requirejs.org/">Require.js</a>。</p>
+<h3 id="3141、导出">3.14.1、导出</h3>
+<h4 id="31411、导出声明">3.14.1.1、导出声明</h4>
+<p><strong>任何声明（比如变量，函数，类，类型别名或接口）都能够通过添加<code>export</code>关键字来导出。</strong></p>
+<pre><code class="language-ts">export interface StringValidator {
+    isAcceptable(s: string): boolean;
+}</code></pre>
+<pre><code class="language-ts">export const numberRegexp = /^[0-9]+$/;
+
+export class ZipCodeValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 &amp;&amp; numberRegexp.test(s);
+    }
+}</code></pre>
+<h4 id="31412、导出语句">3.14.1.2、导出语句</h4>
+<p>导出语句很便利，因为我们可能需要对导出的部分重命名，所以上面的例子可以这样改写：</p>
+<pre><code class="language-ts">class ZipCodeValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 &amp;&amp; numberRegexp.test(s);
+    }
+}
+export { ZipCodeValidator };
+export { ZipCodeValidator as mainValidator };</code></pre>
+<h4 id="31413、重新导出">3.14.1.3、重新导出</h4>
+<p>我们经常会去扩展其它模块，并且只导出那个模块的部分内容。 重新导出功能并不会在当前模块导入那个模块或定义一个新的局部变量。</p>
+<pre><code class="language-ts">export class ParseIntBasedZipCodeValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 &amp;&amp; parseInt(s).toString() === s;
+    }
+}
+
+// 导出原先的验证器但做了重命名
+export {ZipCodeValidator as RegExpBasedZipCodeValidator} from &quot;./ZipCodeValidator&quot;;</code></pre>
+<p>或者一个模块可以包裹多个模块，并把他们导出的内容联合在一起通过语法：<code>export * from &quot;module&quot;</code>。</p>
+<pre><code class="language-ts">export * from &quot;./StringValidator&quot;; // exports interface StringValidator
+export * from &quot;./LettersOnlyValidator&quot;; // exports class LettersOnlyValidator
+export * from &quot;./ZipCodeValidator&quot;;  // exports class ZipCodeValidator</code></pre>
+<h3 id="3142、导入">3.14.2、导入</h3>
+<p>模块的导入操作与导出一样简单。 可以使用以下 <code>import</code>形式之一来导入其它模块中的导出内容。</p>
+<blockquote>
+<p>导入一个模块中的某个导出内容</p>
+</blockquote>
+<pre><code class="language-ts">import { ZipCodeValidator } from &quot;./ZipCodeValidator&quot;;
+
+let myValidator = new ZipCodeValidator();</code></pre>
+<p>可以对导入内容重命名</p>
+<pre><code class="language-ts">import { ZipCodeValidator as ZCV } from &quot;./ZipCodeValidator&quot;;
+let myValidator = new ZCV();</code></pre>
+<blockquote>
+<p>将整个模块导入到一个变量，并通过它来访问模块的导出部分</p>
+</blockquote>
+<pre><code class="language-ts">import * as validator from &quot;./ZipCodeValidator&quot;;
+let myValidator = new validator.ZipCodeValidator();</code></pre>
+<blockquote>
+<p>具有副作用的导入模块</p>
+</blockquote>
+<p>尽管不推荐这么做，一些模块会设置一些全局状态供其它模块使用。 这些模块可能没有任何的导出或用户根本就不关注它的导出。 使用下面的方法来导入这类模块：</p>
+<pre><code class="language-ts">import &quot;./my-module.js&quot;;</code></pre>
+<h3 id="3143、默认导出">3.14.3、默认导出</h3>
+<p>每个模块都可以有一个<code>default</code>导出。 默认导出使用 <code>default</code>关键字标记；并且一个模块只能够有一个<code>default</code>导出。 需要使用一种特殊的导入形式来导入 <code>default</code>导出。</p>
+<p><code>default</code>导出十分便利。 比如，像JQuery这样的类库可能有一个默认导出 <code>jQuery</code>或<code>$</code>，并且我们基本上也会使用同样的名字<code>jQuery</code>或<code>$</code>导出JQuery。</p>
+<p>JQuery.d.ts</p>
+<pre><code class="language-ts">declare let $: JQuery;
+export default $;</code></pre>
+<p>App.ts</p>
+<pre><code class="language-ts">import $ from &quot;JQuery&quot;;
+
+$(&quot;button.continue&quot;).html( &quot;Next Step...&quot; );</code></pre>
+<p>类和函数声明可以直接被标记为默认导出。 标记为默认导出的类和函数的名字是可以省略的。</p>
+<h3 id="3144、export--和-import--require">3.14.4、<code>export =</code> 和 <code>import = require()</code></h3>
+<p>CommonJS和AMD的环境里都有一个<code>exports</code>变量，这个变量包含了一个模块的所有导出内容。</p>
+<p>CommonJS和AMD的<code>exports</code>都可以被赋值为一个<code>对象</code>, 这种情况下其作用就类似于 es6 语法里的默认导出，即 <code>export default</code>语法了。虽然作用相似，<strong>但是 <code>export default</code> 语法并不能兼容CommonJS和AMD的<code>exports</code>。</strong></p>
+<p>为了支持CommonJS和AMD的<code>exports</code>, TypeScript提供了<code>export =</code>语法。</p>
+<p><code>export =</code>语法定义一个模块的导出<code>对象</code>。 这里的<code>对象</code>一词指的是类，接口，命名空间，函数或枚举。</p>
+<p><strong>若使用<code>export =</code>导出一个模块，则必须使用TypeScript的特定语法<code>import module = require(&quot;module&quot;)</code>来导入此模块。</strong></p>
+<p>ZipCodeValidator.ts</p>
+<pre><code class="language-ts">let numberRegexp = /^[0-9]+$/;
+class ZipCodeValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 &amp;&amp; numberRegexp.test(s);
+    }
+}
+export = ZipCodeValidator;</code></pre>
+<p>Test.ts</p>
+<pre><code class="language-ts">import zip = require(&quot;./ZipCodeValidator&quot;);
+
+// Some samples to try
+let strings = [&quot;Hello&quot;, &quot;98052&quot;, &quot;101&quot;];
+
+// Validators to use
+let validator = new zip();
+
+// Show whether each string passed each validator
+strings.forEach(s =&gt; {
+  console.log(`&quot;${ s }&quot; - ${ validator.isAcceptable(s) ? &quot;matches&quot; : &quot;does not match&quot; }`);
+});</code></pre>
+<h3 id="3145、生成模块代码">3.14.5、生成模块代码</h3>
+<p>根据编译时指定的模块目标参数，编译器会生成相应的供Node.js (<a href="http://wiki.commonjs.org/wiki/CommonJS">CommonJS</a>)，Require.js (<a href="https://github.com/amdjs/amdjs-api/wiki/AMD">AMD</a>)，<a href="https://github.com/umdjs/umd">UMD</a>，<a href="https://github.com/systemjs/systemjs">SystemJS</a>或<a href="http://www.ecma-international.org/ecma-262/6.0/#sec-modules">ECMAScript 2015 native modules</a> (ES6)模块加载系统使用的代码。 想要了解生成代码中 <code>define</code>，<code>require</code> 和 <code>register</code>的意义，请参考相应模块加载器的文档。</p>
+<p>下面的例子说明了导入导出语句里使用的名字是怎么转换为相应的模块加载器代码的。</p>
+<p>SimpleModule.ts</p>
+<pre><code class="language-ts">import m = require(&quot;mod&quot;);
+export let t = m.something + 1;</code></pre>
+<p>AMD / RequireJS SimpleModule.js</p>
+<pre><code class="language-js">define([&quot;require&quot;, &quot;exports&quot;, &quot;./mod&quot;], function (require, exports, mod_1) {
+    exports.t = mod_1.something + 1;
+});</code></pre>
+<p>CommonJS / Node SimpleModule.js</p>
+<pre><code class="language-js">let mod_1 = require(&quot;./mod&quot;);
+exports.t = mod_1.something + 1;</code></pre>
+<p>UMD SimpleModule.js</p>
+<pre><code class="language-js">(function (factory) {
+    if (typeof module === &quot;object&quot; &amp;&amp; typeof module.exports === &quot;object&quot;) {
+        let v = factory(require, exports); if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === &quot;function&quot; &amp;&amp; define.amd) {
+        define([&quot;require&quot;, &quot;exports&quot;, &quot;./mod&quot;], factory);
+    }
+})(function (require, exports) {
+    let mod_1 = require(&quot;./mod&quot;);
+    exports.t = mod_1.something + 1;
+});</code></pre>
+<p>System SimpleModule.js</p>
+<pre><code class="language-js">System.register([&quot;./mod&quot;], function(exports_1) {
+    let mod_1;
+    let t;
+    return {
+        setters:[
+            function (mod_1_1) {
+                mod_1 = mod_1_1;
+            }],
+        execute: function() {
+            exports_1(&quot;t&quot;, t = mod_1.something + 1);
+        }
+    }
+});</code></pre>
+<p>Native ECMAScript 2015 modules SimpleModule.js</p>
+<pre><code class="language-js">import { something } from &quot;./mod&quot;;
+export let t = something + 1;</code></pre>
+<h3 id="3146、使用其它的javascript库">3.14.6、<code>使用其它的JavaScript库</code></h3>
+<blockquote>
+<p>要想描述非TypeScript编写的类库的类型，我们需要声明类库所暴露出的API。</p>
+</blockquote>
+<p>我们叫它声明因为它不是“外部程序”的具体实现。 它们通常是在 <code>.d.ts</code>文件里定义的。 如果你熟悉C/C++，你可以把它们当做 <code>.h</code>文件。 让我们看一些例子。</p>
+<blockquote>
+<p>npm外部模块</p>
+</blockquote>
+<p>在Node.js里大部分工作是通过加载一个或多个模块实现的。 我们可以<strong>使用顶级的 <code>export</code>声明来为每个模块都定义一个<code>.d.ts</code>文件，但最好还是写在一个大的<code>.d.ts</code>文件里。</strong> 我们使用与构造一个外部命名空间相似的方法，但是这里使用 <code>module</code>关键字并且把名字用引号括起来，方便之后<code>import</code>。 例如：</p>
+<p>node.d.ts (simplified excerpt)</p>
+<pre><code class="language-ts">declare module &quot;url&quot; {
+    export interface Url {
+        protocol?: string;
+        hostname?: string;
+        pathname?: string;
+    }
+
+    export function parse(urlStr: string, parseQueryString?, slashesDenoteHost?): Url;
+}
+
+declare module &quot;path&quot; {
+    export function normalize(p: string): string;
+    export function join(...paths: any[]): string;
+    export let sep: string;
+}</code></pre>
+<p>现在我们可以<code>/// &lt;reference&gt;</code> <code>node.d.ts</code>并且使用<code>import url = require(&quot;url&quot;);</code>或<code>import * as URL from &quot;url&quot;</code>加载模块。</p>
+<pre><code class="language-ts">/// &lt;reference path=&quot;node.d.ts&quot;/&gt;
+import * as URL from &quot;url&quot;;
+let myUrl = URL.parse(&quot;http://www.typescriptlang.org&quot;);</code></pre>
+<blockquote>
+<p>非npm外部模块</p>
+</blockquote>
+<p>在工作中很有可能引用的时一个非npm的模块， 这个模块的代码是使用js完成的（假设有这么一个比较老的私有模块）。那么怎么引入这个模块（copy代码到项目src文件夹下）呢？</p>
+<p>有两个办法可以解决。</p>
+<p>1、使用typescript重写这个模块。</p>
+<p>2、在ts中引入js。</p>
+<p>步骤： </p>
+<p>1、修改tsconfig.json</p>
+<p>“allowJs&quot;: true  允许引用js</p>
+<p>&quot;outDir&quot;: &quot;DIRECTORY&quot;   将tsc编译的js文件单独存放到一个目录下。</p>
+<p>type/logger.ts</p>
+<pre><code>/**
+ * 1、定义一个命名空间时只能在ts文件内定义
+ * 2、引用命名空间的语法 /// &lt;reference path=&quot;../types/logger.ts&quot;/&gt;
+ * 3、在引入命名空间的模块内就可以使用当前的声明了。比如： LoggerJs.EntryType、LoggerJs.EntryType 
+ */
+declare namespace  LoggerJsNamespace {
+    export enum EntryType {Error, Warning, Info}
+
+    export interface Entry {
+        message: string,
+        type?: EntryType
+    }
+
+    export interface logger {
+        (entry: Entry) : void
+    }
+}</code></pre><p>src/test-namespace.ts</p>
+<pre><code>/// &lt;reference path=&quot;../types/logger.ts&quot;/&gt;
+import logger from &#39;../lib/logger/index&#39;
+let log: LoggerJsNamespace.logger = &lt;LoggerJsNamespace.logger&gt;logger
+// log(&#39;hhh&#39;) 报错
+
+log({
+    message: &#39;hello typescript!!&#39;
+})</code></pre><blockquote>
+<p>外部模块简写</p>
+</blockquote>
+<p>假如你不想在使用一个新模块之前花时间去编写声明，你可以采用声明的简写形式以便能够快速使用它。</p>
+<p>declarations.d.ts</p>
+<pre><code class="language-ts">declare module &quot;hot-new-module&quot;;</code></pre>
+<p>简写模块里所有导出的类型将是<code>any</code>。</p>
+<pre><code class="language-ts">import x, {y} from &quot;hot-new-module&quot;;
+x(y);</code></pre>
+<blockquote>
+<p>模块声明通配符</p>
+</blockquote>
+<p>某些模块加载器如<a href="https://github.com/systemjs/systemjs/blob/master/docs/overview.md#plugin-syntax">SystemJS</a> 和 <a href="https://github.com/amdjs/amdjs-api/blob/master/LoaderPlugins.md">AMD</a>支持导入非JavaScript内容。 它们通常会使用一个前缀或后缀来表示特殊的加载语法。 模块声明通配符可以用来表示这些情况。</p>
+<p>声明一个模块可以是npm包名就和上面的示例一样。或者是使用声明通配符， 下面的例子表示在引入第三方模块时如果地址后面带有！logger则会使用下面的声明。</p>
+<p>types/logger.d.ts</p>
+<pre><code class="language-ts">declare module &#39;*!logger&#39; {
+    export enum EntryType {Error, Warning, Info}
+
+    export interface Entry {
+        message: string,
+        type?: EntryType
+    }
+
+    export default function logger(entry: Entry) : void;
+}</code></pre>
+<p>现在你可以就导入匹配`&quot;*!logger&quot;的内容了。</p>
+<p>src/test-module.ts</p>
+<pre><code class="language-ts">/// &lt;reference path=&quot;../types/logger.d.ts&quot;/&gt;
+import logger, {Entry, EntryType} from &#39;../lib/logger/index!logger&#39;
+//logger(&#39;hhh&#39;) //报错
+let entry: Entry = {
+    message: &#39;hello typescript!!&#39;,
+    type: EntryType.Error
+}
+logger(entry)</code></pre>
+<h2 id="315、命名空间">3.15、命名空间</h2>
+<p>我们先来写一段程序并将在整篇文章中都使用这个例子。 我们定义几个简单的字符串验证器，假设你会使用它们来验证表单里的用户输入或验证外部数据。</p>
+<h3 id="3151、所有的验证器都放在一个文件里">3.15.1、所有的验证器都放在一个文件里</h3>
+<pre><code class="language-ts">interface StringValidator {
+    isAcceptable(s: string): boolean;
+}
+
+let lettersRegexp = /^[A-Za-z]+$/;
+let numberRegexp = /^[0-9]+$/;
+
+class LettersOnlyValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return lettersRegexp.test(s);
+    }
+}
+
+class ZipCodeValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 &amp;&amp; numberRegexp.test(s);
+    }
+}
+
+// Some samples to try
+let strings = [&quot;Hello&quot;, &quot;98052&quot;, &quot;101&quot;];
+
+// Validators to use
+let validators: { [s: string]: StringValidator; } = {};
+validators[&quot;ZIP code&quot;] = new ZipCodeValidator();
+validators[&quot;Letters only&quot;] = new LettersOnlyValidator();
+
+// Show whether each string passed each validator
+for (let s of strings) {
+    for (let name in validators) {
+        let isMatch = validators[name].isAcceptable(s);
+        console.log(`&#39;${ s }&#39; ${ isMatch ? &quot;matches&quot; : &quot;does not match&quot; } &#39;${ name }&#39;.`);
+    }
+}</code></pre>
+<h3 id="3152、使用命名空间的验证器">3.15.2、使用命名空间的验证器</h3>
+<p>随着更多验证器的加入，我们需要一种手段来组织代码，以便于在记录它们类型的同时还不用担心与其它对象产生命名冲突。 因此，我们把验证器包裹到一个命名空间内，而不是把它们放在全局命名空间下。</p>
+<p>下面的例子里，把所有与验证器相关的类型都放到一个叫做<code>Validation</code>的命名空间里。 因为我们想让这些接口和类在命名空间之外也是可访问的，所以需要使用 <code>export</code>。 相反的，变量 <code>lettersRegexp</code>和<code>numberRegexp</code>是实现的细节，不需要导出，因此它们在命名空间外是不能访问的。 在文件末尾的测试代码里，由于是在命名空间之外访问，因此需要限定类型的名称，比如 <code>Validation.LettersOnlyValidator</code>。</p>
+<pre><code class="language-ts">namespace Validation {
+    export interface StringValidator {
+        isAcceptable(s: string): boolean;
+    }
+
+    const lettersRegexp = /^[A-Za-z]+$/;
+    const numberRegexp = /^[0-9]+$/;
+
+    export class LettersOnlyValidator implements StringValidator {
+        isAcceptable(s: string) {
+            return lettersRegexp.test(s);
+        }
+    }
+
+    export class ZipCodeValidator implements StringValidator {
+        isAcceptable(s: string) {
+            return s.length === 5 &amp;&amp; numberRegexp.test(s);
+        }
+    }
+}
+
+// Some samples to try
+let strings = [&quot;Hello&quot;, &quot;98052&quot;, &quot;101&quot;];
+
+// Validators to use
+let validators: { [s: string]: Validation.StringValidator; } = {};
+validators[&quot;ZIP code&quot;] = new Validation.ZipCodeValidator();
+validators[&quot;Letters only&quot;] = new Validation.LettersOnlyValidator();
+
+// Show whether each string passed each validator
+for (let s of strings) {
+    for (let name in validators) {
+        console.log(`&quot;${ s }&quot; - ${ validators[name].isAcceptable(s) ? &quot;matches&quot; : &quot;does not match&quot; } ${ name }`);
+    }
+}</code></pre>
+<h3 id="3153、多文件中的命名空间">3.15.3、多文件中的命名空间</h3>
+<p>当应用变得越来越大时，我们需要将代码分离到不同的文件中以便于维护。</p>
+<p>现在，我们把<code>Validation</code>命名空间分割成多个文件。 尽管是不同的文件，它们仍是同一个命名空间，并且在使用的时候就如同它们在一个文件中定义的一样。 因为不同文件之间存在依赖关系，所以我们加入了引用标签来告诉编译器文件之间的关联。 我们的测试代码保持不变。</p>
+<p>Validation.ts</p>
+<pre><code class="language-ts">namespace Validation {
+    export interface StringValidator {
+        isAcceptable(s: string): boolean;
+    }
+}</code></pre>
+<p>LettersOnlyValidator.ts</p>
+<pre><code class="language-ts">/// &lt;reference path=&quot;Validation.ts&quot; /&gt;
+namespace Validation {
+    const lettersRegexp = /^[A-Za-z]+$/;
+    export class LettersOnlyValidator implements StringValidator {
+        isAcceptable(s: string) {
+            return lettersRegexp.test(s);
+        }
+    }
+}</code></pre>
+<p>ZipCodeValidator.ts</p>
+<pre><code class="language-ts">/// &lt;reference path=&quot;Validation.ts&quot; /&gt;
+namespace Validation {
+    const numberRegexp = /^[0-9]+$/;
+    export class ZipCodeValidator implements StringValidator {
+        isAcceptable(s: string) {
+            return s.length === 5 &amp;&amp; numberRegexp.test(s);
+        }
+    }
+}</code></pre>
+<p>Test.ts</p>
+<pre><code class="language-ts">/// &lt;reference path=&quot;Validation.ts&quot; /&gt;
+/// &lt;reference path=&quot;LettersOnlyValidator.ts&quot; /&gt;
+/// &lt;reference path=&quot;ZipCodeValidator.ts&quot; /&gt;
+
+// Some samples to try
+let strings = [&quot;Hello&quot;, &quot;98052&quot;, &quot;101&quot;];
+
+// Validators to use
+let validators: { [s: string]: Validation.StringValidator; } = {};
+validators[&quot;ZIP code&quot;] = new Validation.ZipCodeValidator();
+validators[&quot;Letters only&quot;] = new Validation.LettersOnlyValidator();
+
+// Show whether each string passed each validator
+for (let s of strings) {
+    for (let name in validators) {
+        console.log(`&quot;${ s }&quot; - ${ validators[name].isAcceptable(s) ? &quot;matches&quot; : &quot;does not match&quot; } ${ name }`);
+    }
+}</code></pre>
+<h1 id="4、声明文件">4、声明文件</h1>
+
+            </article> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
+          </body>
+      </html>
