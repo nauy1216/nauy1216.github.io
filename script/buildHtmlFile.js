@@ -12,6 +12,7 @@ function start() {
 function transformAllMd2Html() {
   const rootDir = path.resolve(process.cwd(), 'docs')
   transformDeep(rootDir)
+
   function transformDeep(dir) {
     let dirChildList = fs.readdirSync(dir)
     dirChildList.forEach(child => {
@@ -26,6 +27,7 @@ function transformAllMd2Html() {
     })
   }
 }
+
 function createIndexHtml() {
   const baseUrl = 'https://github.com/chengyuan1216/chengyuan1216.github.io/blob/master/docs/'
   const rootDir = path.resolve(process.cwd(), 'docs')
@@ -44,7 +46,7 @@ function createIndexHtml() {
       ul {
         font-size: 16px;
         font-weight: 700;
-        colo: #333;
+        color: #333;
       }
       li {
         margin: 10px 0;
