@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>loading.md</title>
+          <title>koa.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,7 +37,150 @@
           </head>
           <body>
             <article class="markdown-body">
-                
+                <blockquote>
+<p>application</p>
+</blockquote>
+<pre><code class="language-js">  constructor(options) {
+    super();
+    options = options || {};
+    this.proxy = options.proxy || false;
+    this.subdomainOffset = options.subdomainOffset || 2;
+    this.proxyIpHeader = options.proxyIpHeader || &#39;X-Forwarded-For&#39;;
+    this.maxIpsCount = options.maxIpsCount || 0;
+    this.env = options.env || process.env.NODE_ENV || &#39;development&#39;;
+    if (options.keys) this.keys = options.keys;
+
+    // 保存应用级中间件
+    this.middleware = []; 
+    // 请求上下文，继承全局的context
+    this.context = Object.create(context);
+    // request对象，继承全局的request
+    this.request = Object.create(request);
+    // response对象，继承全局的response
+    this.response = Object.create(response);
+    // util.inspect.custom support for node 6+
+    /* istanbul ignore else */
+    if (util.inspect.custom) {
+      this[util.inspect.custom] = this.inspect;
+    }
+  }
+
+
+  listen(...args) {
+    debug(&#39;listen&#39;);
+    // 调用nodejs原生的api创建服务
+    const server = http.createServer(this.callback());
+    return server.listen(...args);
+  }
+
+  callback() {
+    // 将所有的中间件链式调用
+    const fn = compose(this.middleware);
+
+    if (!this.listenerCount(&#39;error&#39;)) this.on(&#39;error&#39;, this.onerror);
+
+    const handleRequest = (req, res) =&gt; {
+      // 创建请求上下文
+      const ctx = this.createContext(req, res);
+      return this.handleRequest(ctx, fn);
+    };
+
+    return handleRequest;
+  }</code></pre>
+<p>中间件的调用是根据middleware调用的， 每一个中间件是使用<code>async-await</code>函数定义的。这函数同步执行的部分按入栈顺序先进先出， 异步执行部分是先进后出。实现的原理是第一个<code>async</code>的<code>promise</code>的状态依赖下一个<code>async</code>的<code>promise</code>的状态。大概的执行过程如下：</p>
+<pre><code class="language-js">async function middleware2() {
+  console.log(&#39;middleware 2&#39;)
+  await Promise.resolve(middleware3())
+  console.log(&#39;middleware 2 ===&#39;)
+}
+
+async function middleware3() {
+  console.log(&#39;middleware 3&#39;)
+  await Promise.resolve((async function () {
+    await new Promise(resolve =&gt; {
+      setTimeout(() =&gt; {
+        resolve()
+      }, 1000)
+    })
+  })())
+  console.log(&#39;middleware 3 ===&#39;)
+}
+
+Promise.resolve((async function () {
+  console.log(&#39;middleware 1&#39;)
+  await Promise.resolve(middleware2())
+  console.log(&#39;middleware 1 ===&#39;)
+})()) 
+
+// 输出结果
+// middleware 1
+// middleware 2
+// middleware 3
+// middleware 1 ===
+// middleware 2 ===
+// middleware 3 ===</code></pre>
+<blockquote>
+<p>context</p>
+</blockquote>
+<p>代理了<code>response</code>和<code>request</code>上的一些属性和方法。</p>
+<pre><code class="language-js">delegate(proto, &#39;response&#39;)
+  .method(&#39;attachment&#39;)
+  .method(&#39;redirect&#39;)
+  .method(&#39;remove&#39;)
+  .method(&#39;vary&#39;)
+  .method(&#39;has&#39;)
+  .method(&#39;set&#39;)
+  .method(&#39;append&#39;)
+  .method(&#39;flushHeaders&#39;)
+  .access(&#39;status&#39;)
+  .access(&#39;message&#39;)
+  .access(&#39;body&#39;)
+  .access(&#39;length&#39;)
+  .access(&#39;type&#39;)
+  .access(&#39;lastModified&#39;)
+  .access(&#39;etag&#39;)
+  .getter(&#39;headerSent&#39;)
+  .getter(&#39;writable&#39;);
+
+delegate(proto, &#39;request&#39;)
+  .method(&#39;acceptsLanguages&#39;)
+  .method(&#39;acceptsEncodings&#39;)
+  .method(&#39;acceptsCharsets&#39;)
+  .method(&#39;accepts&#39;)
+  .method(&#39;get&#39;)
+  .method(&#39;is&#39;)
+  .access(&#39;querystring&#39;)
+  .access(&#39;idempotent&#39;)
+  .access(&#39;socket&#39;)
+  .access(&#39;search&#39;)
+  .access(&#39;method&#39;)
+  .access(&#39;query&#39;)
+  .access(&#39;path&#39;)
+  .access(&#39;url&#39;)
+  .access(&#39;accept&#39;)
+  .getter(&#39;origin&#39;)
+  .getter(&#39;href&#39;)
+  .getter(&#39;subdomains&#39;)
+  .getter(&#39;protocol&#39;)
+  .getter(&#39;host&#39;)
+  .getter(&#39;hostname&#39;)
+  .getter(&#39;URL&#39;)
+  .getter(&#39;header&#39;)
+  .getter(&#39;headers&#39;)
+  .getter(&#39;secure&#39;)
+  .getter(&#39;stale&#39;)
+  .getter(&#39;fresh&#39;)
+  .getter(&#39;ips&#39;)
+  .getter(&#39;ip&#39;);</code></pre>
+<blockquote>
+<p>request</p>
+</blockquote>
+<p>基于原生请求<code>req</code>对象的一些封装。</p>
+<blockquote>
+<p>response</p>
+</blockquote>
+<p>基于原生请求<code>res</code>对象的一些封装。</p>
+
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

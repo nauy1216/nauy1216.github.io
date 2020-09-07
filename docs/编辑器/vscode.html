@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>loading.md</title>
+          <title>vscode.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,7 +37,16 @@
           </head>
           <body>
             <article class="markdown-body">
-                
+                <blockquote>
+<p>类型检查JavaScript </p>
+</blockquote>
+<p>VS Code允许您在常规JavaScript文件中利用TypeScript的一些高级类型检查和错误报告功能。这是捕获常见编程错误的好方法。</p>
+<p>在JavaScript文件中启用类型检查的最简单方法是添加<code>// @ts-check</code>到文件顶部。</p>
+<pre><code class="language-js">// @ts-check
+let itsAsEasyAs = &#39;abc&#39;;
+itsAsEasyAs = 123; // Error: Type &#39;123&#39; is not assignable to type &#39;string&#39;</code></pre>
+<p>使用<code>// @ts-check</code>是一个很好的方法，如果你只是想尝试一些文件类型检查，但尚未启用它的整个代码库。</p>
+
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>
