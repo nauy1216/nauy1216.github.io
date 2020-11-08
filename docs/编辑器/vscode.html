@@ -37,16 +37,38 @@
           </head>
           <body>
             <article class="markdown-body">
-                <blockquote>
-<p>类型检查JavaScript </p>
-</blockquote>
+                <h3 id="类型检查javascript">类型检查JavaScript</h3>
 <p>VS Code允许您在常规JavaScript文件中利用TypeScript的一些高级类型检查和错误报告功能。这是捕获常见编程错误的好方法。</p>
 <p>在JavaScript文件中启用类型检查的最简单方法是添加<code>// @ts-check</code>到文件顶部。</p>
 <pre><code class="language-js">// @ts-check
 let itsAsEasyAs = &#39;abc&#39;;
 itsAsEasyAs = 123; // Error: Type &#39;123&#39; is not assignable to type &#39;string&#39;</code></pre>
 <p>使用<code>// @ts-check</code>是一个很好的方法，如果你只是想尝试一些文件类型检查，但尚未启用它的整个代码库。</p>
-
+<h3 id="vscode调试">vscode调试</h3>
+<p>调试： <a href="https://c.lanmit.com/Webqianduan/JavaScript/12038.html">https://c.lanmit.com/Webqianduan/JavaScript/12038.html</a>
+`</p>
+<pre><code>{`
+    `// 使用 IntelliSense 了解相关属性。` 
+    `// 悬停以查看现有属性的描述。`
+    `// 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387`
+    `&quot;version&quot;: &quot;0.2.0&quot;,`
+    `&quot;configurations&quot;: [`
+        `{`
+            `&quot;type&quot;: &quot;node&quot;,`
+            `&quot;request&quot;: &quot;launch&quot;,`
+            `&quot;name&quot;: &quot;启动程序&quot;,`
+            `&quot;skipFiles&quot;: [`
+                `&quot;&lt;node_internals&gt;/**&quot;`
+            `],`
+            `&quot;env&quot;:{`
+                `&quot;NODE_ENV&quot;:&quot;development&quot;,`
+                `&quot;UNI_PLATFORM&quot;:&quot;h5&quot;`
+            `},`
+            `&quot;args&quot;: [&quot;uni-serve&quot;],`
+            `&quot;program&quot;: &quot;${file}&quot;`
+        `}`
+    `]`
+`}</code></pre>
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

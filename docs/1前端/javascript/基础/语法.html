@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+      <html>
+          <head>
+          <meta charset="utf-8" >
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>语法.md</title>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
+          <style>
+              .markdown-body {
+                  box-sizing: border-box;
+                  min-width: 200px;
+                  max-width: 980px;
+                  margin: 0 auto;
+                  padding: 45px;
+              }
+              .markdown-body img {
+                  box-sizing: border-box !important;
+                  margin:10px 0 10px 2%;
+                  padding: 20px;
+                  width: 96%;
+                  border-radius: 4px;
+                  box-shadow: 0 0 6px 0px #999;
+              }
+              @media (max-width: 767px) {
+                  .markdown-body {
+                      padding: 15px;
+                  }
+              }
+              @font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,d09GRgABAAAAAAZwABAAAAAACFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEU0lHAAAGaAAAAAgAAAAIAAAAAUdTVUIAAAZcAAAACgAAAAoAAQAAT1MvMgAAAyQAAABJAAAAYFYEU3RjbWFwAAADcAAAAEUAAACAAJThvmN2dCAAAATkAAAABAAAAAQAAAAAZnBnbQAAA7gAAACyAAABCUM+8IhnYXNwAAAGTAAAABAAAAAQABoAI2dseWYAAAFsAAABPAAAAZwcEq9taGVhZAAAAsgAAAA0AAAANgh4a91oaGVhAAADCAAAABoAAAAkCA8DRGhtdHgAAAL8AAAADAAAAAwGAACfbG9jYQAAAsAAAAAIAAAACABiATBtYXhwAAACqAAAABgAAAAgAA8ASm5hbWUAAAToAAABQgAAAlXu73sOcG9zdAAABiwAAAAeAAAAME3QpOBwcmVwAAAEbAAAAHYAAAB/aFGpk3jaTY6xa8JAGMW/O62BDi0tJLYQincXEypYIiGJjSgHniQ6umTsUEyLm5BV6NDBP8Tpts6F0v+k/0an2i+itHDw3v2+9+DBKTzsJNnWJNTgHEy4BgG3EMI9DCEDOGEXzDADU5hBKMIgNPZqoD3SilVaXZCER3/I7AtxEJLtzzuZfI+VVkprxTlXShWKb3TBecG11rwoNlmmn1P2WYcJczl32etSpKnziC7lQyWe1smVPy/Lt7Kc+0vWY/gAgIIEqAN9we0pwKXreiMasxvabDQMM4riO+qxM2ogwDGOZTXxwxDiycQIcoYFBLj5K3EIaSctAq2kTYiw+ymhce7vwM9jSqO8JyVd5RH9gyTt2+J/yUmYlIR0s04n6+7Vm1ozezUeLEaUjhaDSuXHwVRgvLJn1tQ7xiuVv/ocTRF42mNgZGBgYGbwZOBiAAFGJBIMAAizAFoAAABiAGIAznjaY2BkYGAA4in8zwXi+W2+MjCzMIDApSwvXzC97Z4Ig8N/BxYGZgcgl52BCSQKAA3jCV8CAABfAAAAAAQAAEB42mNgZGBg4f3vACQZQABIMjKgAmYAKEgBXgAAeNpjYGY6wTiBgZWBg2kmUxoDA4MPhGZMYzBi1AHygVLYQUCaawqDA4PChxhmh/8ODDEsvAwHgMKMIDnGL0x7gJQCAwMAJd4MFwAAAHjaY2BgYGaA4DAGRgYQkAHyGMF8NgYrIM3JIAGVYYDT+AEjAwuDFpBmA9KMDEwMCh9i/v8H8sH0/4dQc1iAmAkALaUKLgAAAHjaTY9LDsIgEIbtgqHUPpDi3gPoBVyRTmTddOmqTXThEXqrob2gQ1FjwpDvfwCBdmdXC5AVKFu3e5MfNFJ29KTQT48Ob9/lqYwOGZxeUelN2U2R6+cArgtCJpauW7UQBqnFkUsjAY/kOU1cP+DAgvxwn1chZDwUbd6CFimGXwzwF6tPbFIcjEl+vvmM/byA48e6tWrKArm4ZJlCbdsrxksL1AwWn/yBSJKpYbq8AXaaTb8AAHja28jAwOC00ZrBeQNDQOWO//sdBBgYGRiYWYAEELEwMTE4uzo5Zzo5b2BxdnFOcALxNjA6b2ByTswC8jYwg0VlNuoCTWAMqNzMzsoK1rEhNqByEyerg5PMJlYuVueETKcd/89uBpnpvIEVomeHLoMsAAe1Id4AAAAAAAB42oWQT07CQBTGv0JBhagk7HQzKxca2sJCE1hDt4QF+9JOS0nbaaYDCQfwCJ7Au3AHj+LO13FMmm6cl7785vven0kBjHCBhfpYuNa5Ph1c0e2Xu3jEvWG7UdPDLZ4N92nOm+EBXuAbHmIMSRMs+4aUEd4Nd3CHD8NdvOLTsA2GL8M9PODbcL+hD7C1xoaHeLJSEao0FEW14ckxC+TU8TxvsY6X0eLPmRhry2WVioLpkrbp84LLQPGI7c6sOiUzpWIWS5GzlSgUzzLBSikOPFTOXqly7rqx0Z1Q5BAIoZBSFihQYQOOBEdkCOgXTOHA07HAGjGWiIjaPZNW13/+lm6S9FT7rLHFJ6fQbkATOG1j2OFMucKJJsxIVfQORl+9Jyda6Sl1dUYhSCm1dyClfoeDve4qMYdLEbfqHf3O/AdDumsjAAB42mNgYoAAZQYjBmyAGYQZmdhL8zLdDEydARfoAqIAAAABAAMABwAKABMAB///AA8AAQAAAAAAAAAAAAAAAAABAAAAAA==) format('woff')}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown-body .anchor:focus{outline:0}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body .pl-c{color:#6a737d}.markdown-body .pl-c1,.markdown-body .pl-s .pl-v{color:#005cc5}.markdown-body .pl-e,.markdown-body .pl-en{color:#6f42c1}.markdown-body .pl-s .pl-s1,.markdown-body .pl-smi{color:#24292e}.markdown-body .pl-ent{color:#22863a}.markdown-body .pl-k{color:#d73a49}.markdown-body .pl-pds,.markdown-body .pl-s,.markdown-body .pl-s .pl-pse .pl-s1,.markdown-body .pl-sr,.markdown-body .pl-sr .pl-cce,.markdown-body .pl-sr .pl-sra,.markdown-body .pl-sr .pl-sre{color:#032f62}.markdown-body .pl-smw,.markdown-body .pl-v{color:#e36209}.markdown-body .pl-bu{color:#b31d28}.markdown-body .pl-ii{background-color:#b31d28;color:#fafbfc}.markdown-body .pl-c2{background-color:#d73a49;color:#fafbfc}.markdown-body .pl-c2:before{content:"^M"}.markdown-body .pl-sr .pl-cce{color:#22863a;font-weight:700}.markdown-body .pl-ml{color:#735c0f}.markdown-body .pl-mh,.markdown-body .pl-mh .pl-en,.markdown-body .pl-ms{color:#005cc5;font-weight:700}.markdown-body .pl-mi{color:#24292e;font-style:italic}.markdown-body .pl-mb{color:#24292e;font-weight:700}.markdown-body .pl-md{background-color:#ffeef0;color:#b31d28}.markdown-body .pl-mi1{background-color:#f0fff4;color:#22863a}.markdown-body .pl-mc{background-color:#ffebda;color:#e36209}.markdown-body .pl-mi2{background-color:#005cc5;color:#f6f8fa}.markdown-body .pl-mdr{color:#6f42c1;font-weight:700}.markdown-body .pl-ba{color:#586069}.markdown-body .pl-sg{color:#959da5}.markdown-body .pl-corl{color:#032f62;text-decoration:underline}.markdown-body details{display:block}.markdown-body summary{display:list-item}.markdown-body a{background-color:transparent}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body strong{font-weight:inherit;font-weight:bolder}.markdown-body h1{font-size:2em;margin:.67em 0}.markdown-body img{border-style:none}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace;font-size:1em}.markdown-body hr{box-sizing:content-box;height:0;overflow:visible}.markdown-body input{font:inherit;margin:0}.markdown-body input{overflow:visible}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body a{color:#0366d6;text-decoration:none}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{background:0 0;border:0;border-bottom:1px solid #dfe2e5;height:0;margin:15px 0;overflow:hidden}.markdown-body hr:before{content:"";display:table}.markdown-body hr:after{clear:both;content:"";display:table}.markdown-body table{border-collapse:collapse;border-spacing:0}.markdown-body td,.markdown-body th{padding:0}.markdown-body details summary{cursor:pointer}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-bottom:0;margin-top:0}.markdown-body h1{font-size:32px}.markdown-body h1,.markdown-body h2{font-weight:600}.markdown-body h2{font-size:24px}.markdown-body h3{font-size:20px}.markdown-body h3,.markdown-body h4{font-weight:600}.markdown-body h4{font-size:16px}.markdown-body h5{font-size:14px}.markdown-body h5,.markdown-body h6{font-weight:600}.markdown-body h6{font-size:12px}.markdown-body p{margin-bottom:10px;margin-top:0}.markdown-body blockquote{margin:0}.markdown-body ol,.markdown-body ul{margin-bottom:0;margin-top:0;padding-left:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code,.markdown-body pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px}.markdown-body pre{margin-bottom:0;margin-top:0}.markdown-body input::-webkit-inner-spin-button,.markdown-body input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}.markdown-body .border{border:1px solid #e1e4e8!important}.markdown-body .border-0{border:0!important}.markdown-body .border-bottom{border-bottom:1px solid #e1e4e8!important}.markdown-body .rounded-1{border-radius:3px!important}.markdown-body .bg-white{background-color:#fff!important}.markdown-body .bg-gray-light{background-color:#fafbfc!important}.markdown-body .text-gray-light{color:#6a737d!important}.markdown-body .mb-0{margin-bottom:0!important}.markdown-body .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown-body .pl-0{padding-left:0!important}.markdown-body .py-0{padding-bottom:0!important;padding-top:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .py-2{padding-bottom:8px!important;padding-top:8px!important}.markdown-body .pl-3,.markdown-body .px-3{padding-left:16px!important}.markdown-body .px-3{padding-right:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .f6{font-size:12px!important}.markdown-body .lh-condensed{line-height:1.25!important}.markdown-body .text-bold{font-weight:600!important}.markdown-body:before{content:"";display:table}.markdown-body:after{clear:both;content:"";display:table}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-bottom:16px;margin-top:0}.markdown-body hr{background-color:#e1e4e8;border:0;height:.25em;margin:24px 0;padding:0}.markdown-body blockquote{border-left:.25em solid #dfe2e5;color:#6a737d;padding:0 1em}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd{background-color:#fafbfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5;color:#444d56;display:inline-block;font-size:11px;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{font-weight:600;line-height:1.25;margin-bottom:16px;margin-top:24px}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{border-bottom:1px solid #eaecef;padding-bottom:.3em}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{color:#6a737d;font-size:.85em}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-bottom:0;margin-top:0}.markdown-body li{word-wrap:break-all}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{font-size:1em;font-style:italic;font-weight:600;margin-top:16px;padding:0}.markdown-body dl dd{margin-bottom:16px;padding:0 16px}.markdown-body table{display:block;overflow:auto;width:100%}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{border:1px solid #dfe2e5;padding:6px 13px}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{background-color:#fff;box-sizing:content-box;max-width:100%}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body code{background-color:rgba(27,31,35,.05);border-radius:3px;font-size:85%;margin:0;padding:.2em .4em}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{background:0 0;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{background-color:#f6f8fa;border-radius:3px;font-size:85%;line-height:1.45;overflow:auto;padding:16px}.markdown-body pre code{background-color:transparent;border:0;display:inline;line-height:inherit;margin:0;max-width:auto;overflow:visible;padding:0;word-wrap:normal}.markdown-body .commit-tease-sha{color:#444d56;display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:90%}.markdown-body .blob-wrapper{border-bottom-left-radius:3px;border-bottom-right-radius:3px;overflow-x:auto;overflow-y:hidden}.markdown-body .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown-body .blob-num{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;color:rgba(27,31,35,.3);cursor:pointer;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;line-height:20px;min-width:50px;padding-left:10px;padding-right:10px;text-align:right;user-select:none;vertical-align:top;white-space:nowrap;width:1%}.markdown-body .blob-num:hover{color:rgba(27,31,35,.6)}.markdown-body .blob-num:before{content:attr(data-line-number)}.markdown-body .blob-code{line-height:20px;padding-left:10px;padding-right:10px;position:relative;vertical-align:top}.markdown-body .blob-code-inner{color:#24292e;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;overflow:visible;white-space:pre;word-wrap:normal}.markdown-body .pl-token.active,.markdown-body .pl-token:hover{background:#ffea7f;cursor:pointer}.markdown-body kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1;color:#444d56;display:inline-block;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body :checked+.radio-label{border-color:#0366d6;position:relative;z-index:1}.markdown-body .tab-size[data-tab-size="1"]{-moz-tab-size:1;tab-size:1}.markdown-body .tab-size[data-tab-size="2"]{-moz-tab-size:2;tab-size:2}.markdown-body .tab-size[data-tab-size="3"]{-moz-tab-size:3;tab-size:3}.markdown-body .tab-size[data-tab-size="4"]{-moz-tab-size:4;tab-size:4}.markdown-body .tab-size[data-tab-size="5"]{-moz-tab-size:5;tab-size:5}.markdown-body .tab-size[data-tab-size="6"]{-moz-tab-size:6;tab-size:6}.markdown-body .tab-size[data-tab-size="7"]{-moz-tab-size:7;tab-size:7}.markdown-body .tab-size[data-tab-size="8"]{-moz-tab-size:8;tab-size:8}.markdown-body .tab-size[data-tab-size="9"]{-moz-tab-size:9;tab-size:9}.markdown-body .tab-size[data-tab-size="10"]{-moz-tab-size:10;tab-size:10}.markdown-body .tab-size[data-tab-size="11"]{-moz-tab-size:11;tab-size:11}.markdown-body .tab-size[data-tab-size="12"]{-moz-tab-size:12;tab-size:12}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown-body hr{border-bottom-color:#eee}.markdown-body .pl-0{padding-left:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .pl-7{padding-left:48px!important}.markdown-body .pl-8{padding-left:64px!important}.markdown-body .pl-9{padding-left:80px!important}.markdown-body .pl-10{padding-left:96px!important}.markdown-body .pl-11{padding-left:112px!important}.markdown-body .pl-12{padding-left:128px!important}
+/*# sourceMappingURL=github-markdown.min.css.map */
+          </style>
+          <script>
+              window.onload = function() {
+                hljs.initHighlighting()
+              }
+          </script>
+          </head>
+          <body>
+            <article class="markdown-body">
+                <h3 id="1、js效果实现的步骤">1、js效果实现的步骤</h3>
+<p>1、实现静态页面布局，很重要，分析html结构。
+2、分析效果实现原理。
+3、js代码。
+4、兼容问题。</p>
+<h3 id="2、希望把某个元素消失在视线">2、希望把某个元素消失在视线</h3>
+<p>1、display:none;显示为无（不占文档流）
+2、visibility:hidden;隐藏（占文档流）
+3、设置width/height为0px
+4、设置为完全透明
+5、设置left/top
+6、拿一个白色div盖住
+7、设置margin
+8、设置z-index值
+9、从DOM中删除
+........</p>
+<h3 id="3、事件">3、事件</h3>
+<p>鼠标事件、键盘事件、系统事件、表单事件、自定义事件......</p>
+<h3 id="4、注册事件的方法">4、注册事件的方法</h3>
+<p>1、在html代码中，添加属性onclick=&quot;&quot;;
+2、el.onmouseover=function(){};
+3、el.addEventListen(&quot;click&quot;,fn,false);
+注意兼容。</p>
+<h3 id="5、函数">5、函数</h3>
+<p>定义函数的方式：
+1、function fn1(){}
+2、var fn1 = function(){}
+注意两者的区别。</p>
+<p>调用函数的方式：
+函数不会主动执行。
+1、直接调用；函数名();
+2、事件调用；
+3、匿名函数；----自执行、事件调用
+4、定时器</p>
+<h3 id="6、测试">6、测试</h3>
+<p>养成边写边测的习惯
+1、alert()
+2、console.log()</p>
+<h3 id="7、onload">7、onload</h3>
+<p>对象加载完后执行
+window.onload
+img.onload
+body,onload
+.........</p>
+<h3 id="8、属性操作">8、属性操作</h3>
+<p>读：元素.属性名;
+写:元素.属性名 = value;
+属性操作的注意事项
+1、元素.className。不是元素.class。这与元素.id不一样。
+2、js改变元素的样式是通过改变元素的属性来实现的。
+你可以改变单个的元素属性（比如width）来改变元素的样式。
+你也可以改变元素的className，来应用已经定义好的样式，比如换皮肤。。。。</p>
+<h3 id="9、innerhtml与innertext">9、innerHTML与innerText</h3>
+<p>element.innerHTML。
+innerHTML：能识别html标签，写的时候会覆盖原来的内容。
+innerText: 不能识别html标签，写的时候会覆盖原来的内容。</p>
+<h3 id="11、关于用作判断条件的几个注意事项">11、关于用作判断条件的几个注意事项</h3>
+<p>1、相对路径别拿来判断
+2、颜色值别拿来判断
+3、innerHTML的值别拿来判断
+4、背景别拿来判断
+解决办法：
+创造条件。js很多时候都是回避不能做的事情，通过别的办法来达到视觉上的效果。</p>
+<h3 id="12、js方式改浮动">12、js方式改浮动</h3>
+<p>1、通过更改className，这种方式需要提前写好样式文件。
+2、通过cssText改。
+3、IE：odiv.style.styleFloat=&quot;left&quot;;
+标准：odiv.style.cssFloat=&quot;left&quot;;</p>
+<h3 id="13、与">13、[]与.</h3>
+<p>[]里面可以是变量，.后面不能是变量。能用.就能用[]。</p>
+<h3 id="14、for循环问题">14、for循环问题</h3>
+<p>性能问题： 循环内部代码尽量少涉及文档元素。 比如给innerHTML赋值时，应该先将循环的值添加到一个字符串 再赋值给innerHTML。</p>
+<h3 id="15、csstext属性">15、cssText属性</h3>
+<p>用法：odiv.style.cssText=&quot;&quot;;
+右边的值与css样式表的写法一样。
+后写的cssText后覆盖前面的cssText。常用cssText=&quot;&quot;;清空。 会覆盖样式表中的样式。
+外部样式 &lt; 内部样式 &lt; 行间样式 &lt; js设置的样式</p>
+<h3 id="17、this的用法">17、this的用法</h3>
+<p>函数里的this:
+指的是调用当前方法函数的对象。理解当前。
+this所在作用域的函数是谁调用的？</p>
+<pre><code>    function fn1(){
+        alert(this);
+    }
+
+    fn1();//window
+    odiv1.onclick=fn1;//odiv1
+    odiv1.onclick=function(){ fn1();};//window</code></pre><p>方法里的this：</p>
+<p>方法是谁的就指向谁。</p>
+<h3 id="18、元素的自定义属性">18、元素的自定义属性</h3>
+<p>自定义标签属性。
+可以给元素添加任意的属性。
+用法：给元元素添加索引值。</p>
+<h3 id="19、数据类型">19、数据类型</h3>
+<p>五种基本类型：number(NaN) string boolean null undefined
+复合类型：object function
+其他：[] {}
+判断数据类型：typeof
+typeof(null)==object //返回true</p>
+<h3 id="20、null与undefined的区别">20、null与undefined的区别</h3>
+<p>null:空对象。也是一个对象。比如有钢铁侠这个人但现实中找不到。
+undefined：未定义。表示一种状态，此时写的程序应该出问题了。
+null==undefined; 返回true。
+null===undefined; 返回false； 为什么？？？</p>
+<h3 id="21、number">21、Number()</h3>
+<p>作用：将其他类型的数据转换成Number类型。
+特点：从整体上去检测。</p>
+<pre><code>    Number(&quot;100ggg&quot;)       NaN
+
+    Number(&quot;100&quot;)    100
+
+    Number(&quot;&quot;)0(空字符串)
+
+    Number(true)1
+
+    Number(false)0
+
+    Number(function(){alert(0);})NaN
+
+    Number([])0
+
+    Number(null)0
+
+    Number(undefined)NaN</code></pre><h3 id="22、parseint与parsefloat">22、ParseInt()与parseFloat()</h3>
+<p>ParseInt()：
+将字符串解析成整数，不认小数点，直到非数字为止。</p>
+<pre><code>    parseInt(&#39;w123&#39;)            //NaN
+    parseInt(&#39;123w123&#39;)         //123
+    parseInt(&#39;123.456w123&#39;)     //123</code></pre><p>ParseFloat()：</p>
+<p>将字符串解析成浮点数，认小数点，</p>
+<p>直到非数字或第二个小数点为止,只认一个小数点。</p>
+<pre><code>    parseFloat(&#39;123.456w123&#39;)   //123.456
+    parseFloat(&#39;w123.456w123&#39;)  //NaN
+    parseFloat(&#39;123.4.56w123&#39;)  //123.4
+    parseInt(a)==parseFloat(a)  //用来判断是否是整数。</code></pre><h3 id="23、显式转换与隐式转换">23、显式转换与隐式转换</h3>
+<p>显式转换：上面讲的三种方式。
+隐式转换：
+- * / %字符串转数字
++ 数字转字符串
+++ -- 字符串转数字
+&lt; &gt; 字符串转数字
+&#39;10’&gt;9; true
+&#39;10’&gt;&#39;9’; false</p>
+<h3 id="24、数字的比较、字符串的比较">24、数字的比较、字符串的比较</h3>
+<p>数字的比较：比的是大小。
+字符串的比较： 比的是第一个字符的编码值。</p>
+<h3 id="25、与的区别">25、==与===的区别</h3>
+<p>==：只判断值，先转换再比较。
+===：判断值和类型，不转换直接比较。先判断类型，再判断值。</p>
+<h3 id="26、isnan">26、isNaN()</h3>
+<p>原理是先用Number()转换参数再判断,转换后是number的返回false，是NaN则返回true。
+NaN:不是数字的Number类型。</p>
+<pre><code>    isNaN(100)      //false
+    isNaN(&quot;100&quot;)    //false
+    isNaN(&quot;100w&quot;)   //true
+    isNaN(&quot;w100w&quot;)  //true
+    isNaN([])       //false
+    isNaN(NaN)      //true</code></pre><h3 id="27、nan、-undefined、-null-、false之间的比较">27、NaN、 undefined、 null 、false之间的比较</h3>
+<p>NaN和false</p>
+<pre><code>    if(!NaN){alert(0);}     //弹出0
+    NaN==NaN                //false
+    NaN==false              //false
+    NaN===false             //false</code></pre><p>undefined和false</p>
+<pre><code>    if(!undefined){alert(0);}               //弹出0，
+    undefined==false                        //false
+    undefined==undefined                    //true
+    if(undefined==undefined){alert(0);}     //弹出0
+    undefined===undefined                   //true</code></pre><p>null和false</p>
+<pre><code>    if(!null){alert(0);}    //弹出0，
+    null==false             //false
+    null==null              //true
+    null===null             //true</code></pre><p>null和NaN、undefined</p>
+<pre><code>    null==NaN               //false
+    NaN==undefined          //false
+    null==undefined         //true
+    null===undefined        //false</code></pre><h3 id="28、代码重用">28、代码重用</h3>
+<p>1、尽量保证HTML结构一致。
+2、把核心程序实现。
+3、把每组不同的值找出来作为参数，不能作为参数的就进行判断。</p>
+<h3 id="29、作用域">29、作用域</h3>
+<p>1、域：空间、范围、区域
+作用：读、写
+script作用域：全局作用域。自下而上，下面的script内可以访问上面的函数变量。
+函数：局部作用域。由里到外访问。</p>
+<p>2、“js解析器”：姑且这么叫吧。
+（1）预解析(声明提升)
+找出作用域内的var和function：</p>
+<p>变量-----var开头
+初始值是undefined。
+var a=undefined;
+var b=undefined;</p>
+<p>函数-----function开头
+值是函数的代码块
+function b=function(){//代码}
+function c=function(){//代码}
+所有的函数在正式运行前都是函数块。</p>
+<p>遇到重名的只留一个：
+变量与函数重名取函数；
+变量与变量重名取后者；
+函数与函数重名取后者；
+（2）逐行解析代码</p>
+<p>第一个例子：</p>
+<pre><code>    alert(a);                   //function a(){alert(4);}
+    var a=1;
+    alert(a);                    //1
+    function a(){alert(2);}
+    alert(a);                    //1
+    var a=3;
+    alert(a);                    //3
+    function a(){alert(4);}
+    alert(a);                    //3
+    a();                        //报错</code></pre><p>（1）浏览器先执行1区域，在执行2区域，单线程。
+（2）在区域1的变量可在区域2读写。
+（3）只要是域都会发生预解析和逐行解析代码两个步骤。</p>
+<pre><code>script作用域1
+var a=1;
+alert(b);       //报错
+
+script作用域2
+var b=2;
+alert(a);       //1</code></pre><p>两个作用域两次解析。</p>
+<pre><code>    var a=1;
+    function fn1(){
+        alert(a);
+        var a=2;
+    }
+    fn1();          //undefined
+    alert(a);        //1</code></pre><p>作用域链：从函数作用域到全局作用域搜索变量a。
+局部作用域可以访问全局作用域；
+全局作用域不可以直接访问局部作用域。</p>
+<pre><code>    alert(a);       //undefined
+    var a=1;
+    function fn1(){
+        alert(a);
+    }
+    fn1();            //1
+    alert(a);        //1</code></pre><p>函数的参数相当于在函数内部定义了一个变量，不过是通过 传参的形式来赋值的。
+函数内部的局部变量必须使用var定义或参数；</p>
+<pre><code>    var a=1;
+    function fn1(a){
+        alert(a);
+        a=2;
+    }
+    fn1(a);                //1
+    alert(a);            //2</code></pre><p>全局作用域获取局部作用域的方式：
+1、在局部作用域内使用全局作用域的变量，利用全局变量传递。
+2、另一种方式：在函数内部调用全局函数访问。</p>
+<pre><code>    function fn1(){
+        var a=&quot;hello&quot;;
+        fn2(a);
+    }
+
+    fn1();
+
+    function fn2(a){
+        alert(a);
+    }</code></pre><p>if和for里面的大括号不是一个作用域。
+不能对if里面的函数解析（存在兼容问题）。 IE10以下可以。</p>
+<pre><code>    alert(a);        //1
+    if(true){
+        var a=1;
+    }
+    alert(b);        //报错
+    function fn(){
+        var b=1;
+    }
+    alert(fn1); //存在兼容问题
+    if(true){
+        var a=1;
+        function fn1(){
+            alert(123);
+        }
+    }</code></pre><h3 id="30、运算符">30、运算符</h3>
+<p>算术：+、 - 、* 、/ 、%
+赋值：= 、 += 、-= 、 /= 、*=
+关系：&lt; 、 &gt; 、 &lt;= 、 &gt;= 、 == 、!= 、 === 、 !===
+逻辑：&amp;&amp; 、|| 、！、 &amp; 、 |</p>
+<p>&amp;&amp;与&amp;的区别
+false&amp;&amp;alert(0);-----&gt;不弹0，当第一个表达式值为false时后面的表达式不执行。
+false&amp;alert(0);-----&gt;弹0，当第一个表达式值为false时后面的表达式也会执行。</p>
+<p>||与|的区别
+true||alert(0);-------&gt;不弹0，当第一个表达式值为true时后面的表达式不执行。
+true|alert(0);-------&gt;弹0，当第一个表达式值为false时后面的表达式也会执行。</p>
+<h3 id="31、流程控制">31、流程控制</h3>
+<p>1、三种if语句</p>
+<pre><code>    if(){}
+    if(){}else{}
+    if(){}elseif(){}else{}</code></pre><p>2、for循环</p>
+<pre><code>    for(初始化;一个boolean值;一个语句)
+        //循环代码
+    }</code></pre><p>3、while()与do{}while()</p>
+<p>4、switch</p>
+<pre><code>    switch(str){
+        case &quot;str1&quot;:
+            Dosomething1();
+            Break;
+        case &quot;str2&quot;:
+            Dosomething2();
+            Break;
+        default:
+            Dosomething3();
+    }</code></pre><p>break:跳出所有的循环。</p>
+<p>continue：跳出这一次循环。</p>
+<p>return：结束函数的执行，并返回一个值</p>
+<h3 id="32、函数return返回值">32、函数return返回值</h3>
+<p>返回值可以是：number、 string 、boolean、 function 对象（[] {} obj null ）、undefined.......
+1、函数名+() == return后面的值
+2、所有函数默认的返回值：undefined
+3、return后面的任何代码都不执行</p>
+<h3 id="33、函数arguments">33、函数arguments</h3>
+<p>arguments：
+函数实参的集合，这是一个对象，能读写。 当函数的参数个数不能确定时用arguments。</p>
+<pre><code>    function sum(){
+        var n = 0;
+        var len = arguments.length;
+
+        for(var i=0;i&lt; len;i++){
+            n+=arguments[i];
+        }
+
+        return n;
+    }</code></pre><p>掌握好 this 、 return 、 arguments 、 event</p>
+<h3 id="34、获取元素样式的方法">34、获取元素样式的方法</h3>
+<h4 id="标准">标准</h4>
+<p>getComputedStyle()--------------&gt;方法</p>
+<p>例如：getComputedStyle(ele).width</p>
+<h4 id="ie">IE</h4>
+<p>currentStyle-----------------&gt;属性</p>
+<p>例如：el.currentStyle.width</p>
+<p>封装函数：function getStyle(obj , sty){ }</p>
+<h3 id="35、定时器">35、定时器</h3>
+<h4 id="1、setinterval函数，时间">1、setInterval(函数，时间)</h4>
+<p>循环执行</p>
+<p>开：var timer = setInterval(fn,t);</p>
+<p>关：clearInterval(timer);</p>
+<p>注意：如果定时器是由事件控制的，一定要先关再开。</p>
+<h4 id="2、settimeout函数，时间">2、setTimeout(函数，时间)</h4>
+<p>只执行一次</p>
+<p>开：var timer = setTimeout(fn,t);</p>
+<p>关：clearTimeout(timer)</p>
+<h3 id="36、提示框、对话框">36、提示框、对话框</h3>
+<h4 id="1、alert">1、alert</h4>
+<p>alert(&#39;message&#39;);</p>
+<h4 id="2、confirm">2、confirm</h4>
+<p>confirm(‘你确定？？’); 返回true和false</p>
+<h4 id="3、prompt">3、prompt</h4>
+<p>prompt(&quot;输入你的名字！&quot;); 返回输入的值</p>
+
+            </article> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
+          </body>
+      </html>
