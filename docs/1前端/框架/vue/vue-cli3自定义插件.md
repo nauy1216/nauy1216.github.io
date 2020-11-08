@@ -1,3 +1,6 @@
+### 在项目根路径下定义myPlugin.js
+
+```js
 const merge = require('webpack-merge')
 const webpack = require('webpack')
 const path = require('path')
@@ -12,14 +15,6 @@ Test.prototype.apply = function(compiler) {
     console.log(compilation)
   })
 }
-
-// 在package.json中加入下面代码
-/*
-  "vuePlugins": {
-    "service":["myPlugin"]
-  },
-*/
-
 
 module.exports = api => {
     // 修改webpack配置
@@ -59,4 +54,18 @@ module.exports = api => {
 module.exports.defaultModes = {
     'my-build': 'production'
 }
+
+
+```
+
+
+
+### 使用
+
+```json
+// 在package.json中加入下面代码
+  "vuePlugins": {
+    "service":["myPlugin"]
+  }
+```
 
