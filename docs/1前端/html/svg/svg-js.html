@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>算法.md</title>
+          <title>svg-js.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,34 +37,320 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="整数反转">整数反转</h3>
-<pre><code class="language-js">// 整数反转
-/**
- * @param {number} x
- * @return {number}
- */
-var reverse = function (x) {
-  var flag = x &lt; 0 ? -1 : 1
-  var result = flag * Number(String(Math.abs(x)).split(&#39;&#39;).reverse().join(&#39;&#39;))
-  if (result &gt; Math.pow(2, 31) - 1 || result &lt; -Math.pow(2, 31)) {
-    return 0
-  }
-  return result
-}
+                <h3 id="1">1</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;!-- 不是必须 --&gt;
+        &lt;!-- &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/polyfills.js&quot;&gt;&lt;/script&gt; --&gt;
+        &lt;!-- 注意svg.js2.0和3.0不兼容 --&gt;
+        &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/svg.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;drawing&quot;&gt;&lt;/div&gt;
+        &lt;script&gt;
+            var draw = SVG().addTo(&#39;body&#39;).size(300, 300)
+            var rect = draw.rect(100, 100).attr({ fill: &#39;#f06&#39; })
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="2">2</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;!-- 不是必须 --&gt;
+        &lt;!-- &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/polyfills.js&quot;&gt;&lt;/script&gt; --&gt;
+        &lt;!-- 注意svg.js2.0和3.0不兼容 --&gt;
+        &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/svg.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;drawing&quot;&gt;&lt;/div&gt;
+        &lt;script&gt;
+            var draw = SVG().addTo(&#39;body&#39;).size(300, 300)
+            // 1、attr设置属性
+            // 2、stroke的默认宽度是1px
+            // 3、划线时与canvas一样都是从中间往两边画，所以当x=y=0时， 上边和左边的边框都是0.5px, 另外的0.5px被遮住了
+            var rect = draw.rect(100, 100).attr({ 
+                stroke: &#39;#f06&#39;, 
+                fill: &#39;#fff&#39;, 
+                x:0.5, 
+                y:0.5, 
+                &#39;stroke-width&#39;: 0.5,
+                width: 200,
+                height: 200 
+            })
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="3">3</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;!-- 不是必须 --&gt;
+        &lt;!-- &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/polyfills.js&quot;&gt;&lt;/script&gt; --&gt;
+        &lt;!-- 注意svg.js2.0和3.0不兼容 --&gt;
+        &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/svg.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;drawing&quot;&gt;&lt;/div&gt;
+        &lt;script&gt;
+            // 创建svg对象
+            var parent = SVG()
+            parent.size(300, 300)
+            parent.addTo(&#39;#drawing&#39;)
 
-var reverse = function (x) {
-  var flag = x &lt; 0 ? -1 : 1
-  var result = flag * Number(String(Math.abs(x)).split(&#39;&#39;).reverse().join(&#39;&#39;))
-  if (result &gt; 2147483647 || result &lt; -2147483648) {
-    return 0
-  }
-  return result
-}
+            // 创建rect对象
+            var rect = parent.rect(100, 100).attr({ fill: &#39;#f06&#39; })
 
-reverse(123)</code></pre>
-<h3 id=""></h3>
-<h3 id="字符串转整数">字符串转整数</h3>
-<pre><code class="language-js"></code></pre>
+            // 获取svg对象
+            console.log(SVG(&#39;#drawing&#39;))
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="4">4</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;!-- 不是必须 --&gt;
+        &lt;!-- &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/polyfills.js&quot;&gt;&lt;/script&gt; --&gt;
+        &lt;!-- 注意svg.js2.0和3.0不兼容 --&gt;
+        &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/svg.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;drawing&quot;&gt;&lt;/div&gt;
+        &lt;script&gt;
+            /*
+                svg文档嵌套
+            */
+            // 创建svg文档对象
+            var parent = SVG()
+            parent.size(300, 300)
+            parent.addTo(&#39;#drawing&#39;)
+
+            // 创建rect对象
+            var rect = parent.rect(100, 100).attr({ fill: &#39;#f06&#39; })
+
+            // 创建嵌套的svg文档对象
+            var nested = parent.nested()
+            // 在嵌套的svg文档对象内创建rect对象
+            var rect = nested.rect(20, 20).attr({ fill: &#39;green&#39;, x:150,y:150 })
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="5">5</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;!-- 不是必须 --&gt;
+        &lt;!-- &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/polyfills.js&quot;&gt;&lt;/script&gt; --&gt;
+        &lt;!-- 注意svg.js2.0和3.0不兼容 --&gt;
+        &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/svg.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;drawing&quot;&gt;&lt;/div&gt;
+        &lt;script&gt;
+            /*
+                分组
+            */
+            // 创建svg文档对象
+            var parent = SVG()
+            parent.size(300, 300)
+            parent.addTo(&#39;#drawing&#39;)
+
+            // 创建一个group对象
+            // 在创建group或rect时既可以通过构造函数创建也可以直接调用 parent.group 或 parent.rect创建
+            // 区别是通过构造函数创建需要手动添加进文档
+            var group = new SVG.G()
+            var rect1 = new SVG.Rect(100, 100).attr({
+                width:50,
+                height: 50,
+                x: 0,
+                y:0,
+                fill: &#39;#e0e0e0&#39;
+            })
+            var rect2 = new SVG.Rect(100, 100).attr({
+                width:50,
+                height: 50,
+                x: 100,
+                y: 100,
+                fill: &#39;#e0e0e0&#39;
+            })
+            group.add(rect1)
+            group.add(rect2)
+
+            parent.add(group)
+
+            console.log(SVG, &#39;SVG&#39;)
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="6">6</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;!-- 不是必须 --&gt;
+        &lt;!-- &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/polyfills.js&quot;&gt;&lt;/script&gt; --&gt;
+        &lt;!-- 注意svg.js2.0和3.0不兼容 --&gt;
+        &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/svg.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;drawing&quot;&gt;&lt;/div&gt;
+        &lt;script&gt;
+            /*
+                Symbol
+            */
+            // 创建svg文档对象
+            var draw = SVG()
+            draw.size(300, 300)
+            draw.addTo(&#39;#drawing&#39;)
+
+            // 定义symbol
+            var symbol = draw.symbol()
+            symbol.rect(10, 10).attr({ 
+                fill: &#39;#f06&#39;
+            })
+            symbol.rect(10, 10).attr({ 
+                fill: &#39;#f06&#39;
+            })
+
+            // 复用定义的symbol
+            var use  = draw.use(symbol).move(50, 50)
+
+            // var x = 0
+            // setInterval(() =&gt; {
+            //     draw.use(symbol).move(x++, 50)
+            // }, 50)
+
+            console.log(SVG, &#39;SVG&#39;)
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="7">7</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;!-- 不是必须 --&gt;
+        &lt;!-- &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/polyfills.js&quot;&gt;&lt;/script&gt; --&gt;
+        &lt;!-- 注意svg.js2.0和3.0不兼容 --&gt;
+        &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/svg.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;drawing&quot;&gt;&lt;/div&gt;
+        &lt;script&gt;
+            /*
+                defs
+            */
+            // 创建svg文档对象
+            var draw = SVG()
+            draw.size(300, 300)
+            draw.addTo(&#39;#drawing&#39;)
+
+            // 定义图形
+            var rect = draw.defs().rect(100, 100).fill(&#39;#f09&#39;)
+            // 使用
+            var use = draw.use(rect)
+            use.move(100, 100)
+            // 使用
+            var use1 = draw.use(rect)
+            // use1.move(0, 0)
+            //当rect修改时，use也会跟着修改
+            rect.animate(1000).fill(&#39;#f90&#39;);
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="8">8</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;!-- 不是必须 --&gt;
+        &lt;!-- &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/polyfills.js&quot;&gt;&lt;/script&gt; --&gt;
+        &lt;!-- 注意svg.js2.0和3.0不兼容 --&gt;
+        &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/svg.js&quot;&gt;&lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;drawing&quot;&gt;&lt;/div&gt;
+        &lt;script&gt;
+            /*
+                链接
+            */
+            // 创建svg文档对象
+            var draw = SVG()
+            draw.size(300, 300)
+            draw.addTo(&#39;#drawing&#39;)
+
+            var link = draw.link(&#39;http://svgdotjs.github.io/&#39;)
+            var rect = link.rect(100, 100).fill(&#39;#f09&#39;)
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="9">9</h3>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&quot;utf-8&quot; /&gt;
+        &lt;!-- 不是必须 --&gt;
+        &lt;!-- &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/polyfills.js&quot;&gt;&lt;/script&gt; --&gt;
+        &lt;!-- 注意svg.js2.0和3.0不兼容 --&gt;
+        &lt;script src=&quot;https://cdn.bootcss.com/svg.js/3.0.13/svg.js&quot;&gt;&lt;/script&gt;
+        &lt;style&gt;
+            input {
+
+            }
+        &lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;svg viewBox=&quot;0 0 200 200&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+            &lt;foreignObject x=&quot;20&quot; y=&quot;20&quot; width=&quot;160&quot; height=&quot;160&quot;&gt;
+              &lt;input type=&quot;text&quot; style=&quot;width: 100px;&quot; /&gt;
+            &lt;/foreignObject&gt;
+          &lt;/svg&gt;
+        &lt;div id=&quot;drawing&quot;&gt;&lt;/div&gt;
+        &lt;script&gt;
+            /*
+                foreignObject 在svg内使用html
+            */
+            // 创建svg文档对象
+            var draw = SVG()
+            draw.size(300, 300)
+            draw.addTo(&#39;#drawing&#39;)
+
+            // var link = draw.link(&#39;http://svgdotjs.github.io/&#39;)
+            // var rect = link.rect(100, 100).fill(&#39;#f09&#39;).attr({
+            //     x: 200,
+            //     y: 200
+            // })
+
+            var foreignObject = draw.foreignObject(100, 100)
+            // var p = SVG(&#39;&lt;p&gt;hdsfhdjfh&lt;/p&gt;&#39;)
+            // // p.size(100, 100)
+            // p.attr({
+            //     width: 100,
+            //     height: 100,
+            //     // style: &#39;line-height: 100px&#39;
+            // })
+            // console.log(p)
+            // foreignObject.add(p)
+
+
+            // input标签不可用， 可以使用input标签定位
+            var input = SVG(&#39;&lt;input type=&quot;text&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot; /&gt;&#39;)
+            input.attr({
+                width: 100,
+                height: 100,
+                // style: &#39;line-height: 100px&#39;
+            })
+            foreignObject.add(input)
+        &lt;/script&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
