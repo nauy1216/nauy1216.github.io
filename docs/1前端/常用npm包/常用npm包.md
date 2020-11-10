@@ -11,6 +11,12 @@ minimist: 获取命令行参数
 
 
 
+### nodemon
+
+开发服务自动重启。
+
+
+
 Snipaste
 bilibili flv.js
 phaser
