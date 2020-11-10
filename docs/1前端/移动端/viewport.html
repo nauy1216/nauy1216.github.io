@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>选择器.md</title>
+          <title>viewport.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,74 +37,10 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="属性选择器">属性选择器</h3>
-<p>E[atrr]
-p[title] 具有title属性的p元素。
-E[attr=&quot;val&quot;]
-p[title=&#39;word&#39;] 属性title的值为&#39;word&#39;的p元素。
-E[attr<del>=&quot;val&quot;]
-p[class</del>=&quot;world&quot;] world是class属性值列表的一部分的p元素
-注意：
-（1）这里指的是含有world类的p元素，p可能含有其他的类。
-（2）列表。指的是属性值含有指定的单词，前后有空格。
-列表是通过空格切割出来的。
-p[title~=&#39;world&#39;]---》</p>
-<p>√。
-E[attr^=&quot;val&quot;]
-p[title^=&#39;he&#39;] title的值是以&#39;he&#39;开头的p元素。
-E[attr$=&quot;val&quot;]
-p[title$=&#39;he&#39;] title的值是以&#39;he&#39;结尾的p元素。
-E[attr<em>=&quot;val&quot;]
-p[title</em>=&#39;he&#39;] title的值包含&#39;he&#39;的p元素。
-注意：（1）这里不是列表。只要含有即可。
-（2）与E[attr~=&quot;val&quot;]的区别
-E[attr$=&quot;val&quot;]
-p[title$=&#39;he&#39;] title的值是以&#39;he&#39;结尾的p元素。
-E[attr$=&quot;val&quot;]
-p[title$=&#39;he&#39;] title的值是以&#39;he&#39;结尾的p元素。
-E[attr|=&quot;val&quot;]
-p[title|=&#39;he&#39;] title的值是以he或he-开头的p元素</p>
-<h3 id="结构伪类选择器（：可以理解为交集的意思）">结构伪类选择器（：可以理解为交集的意思）</h3>
-<p>E:nth-child(n)
-E父元素中的第n个子元素并且这个元素还是E元素
-满足两个条件：
-1、选择的是E父元素的第n个子元素
-2、这个元素是E元素
-E:nth-child(odd)
-E父元素的所有第奇数个子元素并且这个元素还是E元素
-满足两个条件：
-1、选择的是E父元素的奇数个子元素
-2、这个元素是E元素
-E:nth-child(even)
-E父元素的所有第偶数个子元素并且这个元素还是E元素
-满足两个条件：
-1、选择的是E父元素的偶数个子元素
-2、这个元素是E元素
-E:nth-child(2n)
-E父元素的所有第2n个子元素并且这个元素还是E元素
-可以是任何表达式，n从1开始。
-满足两个条件：
-1、选择的是E父元素的第2n个子元素
-2、这个元素是E元素
-E:nth-last-child()
-从后往前数，用法与nth-child()一样。
-E:nth-of-type(n)
-p:nth-of-type(2)
-找到p的父元素下的第二个p元素。
-注意：
-1、与p:nth-child(2)的区别
-前者：父元素的第二个p元素
-后者：父元素的第二个元素，第二个元素不一定是p元素
-E:nth-last-of-type(n)
-从后往前数，用法与E:nth-of-type(n)一样</p>
-<h3 id="伪类">伪类</h3>
-<p>E:target
-锚a指向的目标且是E元素。</p>
-<pre><code>            target: &lt; p id=&quot;top&quot;&gt;目标&lt;/p&gt;
-            锚：&lt;a href=&quot;#top&quot;&gt;锚&lt;/a&gt;
-</code></pre><p>p:target{}-----&gt;选择锚点的目标 E:disabled 不可点击的表单控件 选择属性disabled为true的表单控件。 </p>
-<p> input:disabled E:enabled 可点击的表单控件 </p>
-<p> input:enabled E:checked 选中的checkbox或radio E:first-line E元素的第一行 p:first-line{} //p的第一行 E:first-letter E元素中的第一个字符 ------------- -------------- E::selection E元素中的文字被选中时 p::selection{color:green;} 段落中被选的文字颜色变为绿色 E::before 生成内容在E前面 例子：在段落前面添加内容&#39;hello&#39; p::before{ content:&quot;hello&quot;;//要添加的内容 background:green; display:block;//默认是内联 } E::after 生成内容在E前面 用法与before一样 --------- E~F E元素毗邻的F兄弟元素,包括E后面所有的F元素 E+F E的下一个F元素，一个E只能有一个F元素 注意：他们的共同点都是只能选择后面的元素，不能选择前面的元素 ----------- E:not(str) 除了......之外的E元素 div:not([width]) //除了有width属性的所有p元素 div:not(.hello) //除了有hello类的所有p元素</p>
+                <p><a href="https://github.com/amfe/article/issues/17">flexible</a></p>
+<p><a href="https://www.jianshu.com/p/4583755b4f69">移动端调试</a></p>
+<p><a href="https://github.com/jawil/blog/issues/21">viewport</a></p>
+<p><a href="https://github.com/hbxeagle/rem">rem</a></p>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
