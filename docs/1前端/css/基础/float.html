@@ -38,14 +38,29 @@
           <body>
             <article class="markdown-body">
                 <h3 id="float">float</h3>
-<p>1、float使元素尽可能在父容器内向左或向右浮动，直到碰到其他的浮动元素或父级。
-2、float使元素脱离文档流，但他有一个特点提升层级半级，被块元素忽略，被内联元素知道。
-3、清除浮动：clear：left/right/both;
-4、特点：
-（1）使块元素在一行显示
-（2）使内联元素支持宽高
-（3）换行被解析了
-（4）不设置宽度时由内容撑开</p>
+<ul>
+<li>1、float使元素尽可能在父容器内向左或向右浮动，直到碰到其他的浮动元素或父级。</li>
+<li>2、float使元素脱离文档流，但他有一个特点提升层级半级，被块元素忽略，被内联元素知道。</li>
+<li>3、清除浮动：clear：left/right/both;</li>
+<li>4、特点：<ol>
+<li>使块元素在一行显示</li>
+<li>使内联元素支持宽高</li>
+<li>换行被解析了</li>
+<li>不设置宽度时由内容撑开</li>
+</ol>
+</li>
+</ul>
+<pre><code class="language-css">&lt;div style=&quot;float: left; width: 200px;height: 200px;background-color: green;&quot;&gt;fff&lt;/div&gt;
+&lt;div style=&quot;float: left; width: 200px;height: 200px;background-color: red;&quot;&gt;fff&lt;/div&gt;
+&lt;div style=&quot;float: left; width: 200px;height: 200px;background-color: #000;&quot;&gt;fff&lt;/div&gt;</code></pre>
+<div style="float: left; width: 200px;height: 200px;background-color: green;">fff</div>
+<div style="float: left; width: 200px;height: 200px;background-color: red;">fff</div>
+<div style="float: left; width: 200px;height: 200px;background-color: #000;">fff</div>
+
+
+
+
+
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
