@@ -1,9 +1,11 @@
-### 待研究
+### 待处理
 
 - https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc
 - Pusher.js
 - quasar.js
 - AudioContext 
+- eval5.js。一个动态执行代码字符串的库。写一个自己的。
+- 封装链式操作库
 
 
 
