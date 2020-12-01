@@ -6,6 +6,9 @@
 - AudioContext 
 - eval5.js。一个动态执行代码字符串的库。写一个自己的。
 - 封装链式操作库
+- http://vuejs.github.io/js-repaint-perfs/nuclear/
+- https://github.com/yyx990803/tucao/issues/1
+- http://vuejs.github.io/js-repaint-perfs/
 
 
 
