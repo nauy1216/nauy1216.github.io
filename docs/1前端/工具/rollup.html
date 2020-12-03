@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>todo.md</title>
+          <title>rollup.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,26 +37,58 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="待处理">待处理</h3>
-<ul>
-<li><a href="https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc">https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc</a></li>
-<li>Pusher.js</li>
-<li>quasar.js</li>
-<li>AudioContext </li>
-<li>eval5.js。一个动态执行代码字符串的库。写一个自己的。</li>
-<li>封装链式操作库</li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/nuclear/">http://vuejs.github.io/js-repaint-perfs/nuclear/</a></li>
-<li><a href="https://github.com/yyx990803/tucao/issues/1">https://github.com/yyx990803/tucao/issues/1</a></li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/">http://vuejs.github.io/js-repaint-perfs/</a></li>
-</ul>
-<blockquote>
-<p>移动端</p>
-</blockquote>
-<ol>
-<li>hybird 模拟原生路由vue-stack-router</li>
-<li>支付宝小程序框架mPaas</li>
-</ol>
+                <p><a href="https://www.rollupjs.com/guide/introduction/#%E6%A6%82%E8%BF%B0overview">https://www.rollupjs.com/guide/introduction/#%E6%A6%82%E8%BF%B0overview</a></p>
+<h3 id="tree-shaking">Tree-shaking</h3>
+<p>除了使用 ES6 模块之外，Rollup 还静态分析代码中的 import，并将排除任何未实际使用的代码。这允许您架构于现有工具和模块之上，而不会增加额外的依赖或使项目的大小膨胀。</p>
+<h3 id="配置文件">配置文件</h3>
+<pre><code class="language-js">// rollup.config.js
+export default {
+  // 核心选项
+  input,     // 必须
+  external,
+  plugins,
 
+  // 额外选项
+  onwarn,
+
+  // danger zone
+  acorn,
+  context,
+  moduleContext,
+  legacy
+
+  output: {  // 必须 (如果要输出多个，可以是一个数组)
+    // 核心选项
+    file,    // 必须
+    format,  // 必须
+    name,
+    globals,
+
+    // 额外选项
+    paths,
+    banner,
+    footer,
+    intro,
+    outro,
+    sourcemap,
+    sourcemapFile,
+    interop,
+
+    // 高危选项
+    exports,
+    amd,
+    indent
+    strict
+  },
+};</code></pre>
+<p>如果你想使用Rollup的配置文件，记得在命令行里加上<code>--config</code>或者<code>-c</code></p>
+<pre><code class="language-shell"># 默认使用rollup.config.js
+rollup --config
+
+# 或者, 使用自定义的配置文件，这里使用my.config.js作为配置文件
+rollup --config my.config.js</code></pre>
+<p>监听源文件是否有改动，如果有改动，重新打包</p>
+<pre><code>-w/--watch</code></pre>
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

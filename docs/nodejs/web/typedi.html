@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>todo.md</title>
+          <title>typedi.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,25 +37,189 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="待处理">待处理</h3>
-<ul>
-<li><a href="https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc">https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc</a></li>
-<li>Pusher.js</li>
-<li>quasar.js</li>
-<li>AudioContext </li>
-<li>eval5.js。一个动态执行代码字符串的库。写一个自己的。</li>
-<li>封装链式操作库</li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/nuclear/">http://vuejs.github.io/js-repaint-perfs/nuclear/</a></li>
-<li><a href="https://github.com/yyx990803/tucao/issues/1">https://github.com/yyx990803/tucao/issues/1</a></li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/">http://vuejs.github.io/js-repaint-perfs/</a></li>
-</ul>
-<blockquote>
-<p>移动端</p>
-</blockquote>
-<ol>
-<li>hybird 模拟原生路由vue-stack-router</li>
-<li>支付宝小程序框架mPaas</li>
-</ol>
+                <p>文档： <a href="https://www.npmjs.com/package/typedi#usage-with-typescript">https://www.npmjs.com/package/typedi#usage-with-typescript</a></p>
+<h3 id="typedi">typedi</h3>
+<p>TypeDI是JavaScript和TypeScript的<a href="https://en.wikipedia.org/wiki/Dependency_injection">依赖项注入</a>工具。使用TypeDI，您可以构建结构良好且易于测试的应用程序。</p>
+<h3 id="安装依赖">安装依赖</h3>
+<pre><code class="language-shell">npm install typedi --save
+npm install reflect-metadata --save
+npm install @types/node --save</code></pre>
+<p>在应用的全局入口引入</p>
+<pre><code class="language-js">import &quot;reflect-metadata&quot;;</code></pre>
+<h3 id="设置tsconfig">设置tsconfig</h3>
+<pre><code class="language-json">&quot;emitDecoratorMetadata&quot;: true,
+&quot;experimentalDecorators&quot;: true,</code></pre>
+<h3 id="使用方法">使用方法</h3>
+<p>Container.get可以在应用的任何地方，获取到SomeClass类的唯一实例(单例模式)。</p>
+<pre><code class="language-js">import &quot;reflect-metadata&quot;;
+import {Service, Container} from &quot;typedi&quot;;
+
+@Service()
+class SomeClass {
+
+    someMethod() {
+    }
+
+}
+
+let someClass = Container.get(SomeClass);
+someClass.someMethod();</code></pre>
+<p>Inject: 依赖注入。</p>
+<pre><code class="language-js">import {Container, Inject, Service} from &quot;typedi&quot;;
+
+@Service()
+class BeanFactory {
+    create() {
+    }
+}
+
+@Service()
+class SugarFactory {
+    create() {
+    }
+}
+
+@Service()
+class WaterFactory {
+    create() {
+    }
+}
+
+@Service()
+class CoffeeMaker {
+
+    @Inject()
+    beanFactory: BeanFactory;
+
+    @Inject()
+    sugarFactory: SugarFactory;
+
+    @Inject()
+    waterFactory: WaterFactory;
+
+    make() {
+        this.beanFactory.create();
+        this.sugarFactory.create();
+        this.waterFactory.create();
+    }
+
+}
+
+let coffeeMaker = Container.get(CoffeeMaker);
+coffeeMaker.make();</code></pre>
+<p>通过构造函数注入，这种方式不需要明确的使用@inject()</p>
+<pre><code class="language-js">import {Container, Service} from &quot;typedi&quot;;
+
+@Service()
+class BeanFactory {
+    create() {
+    }
+}
+
+@Service()
+class SugarFactory {
+    create() {
+    }
+}
+
+@Service()
+class WaterFactory {
+    create() {
+    }
+}
+
+@Service()
+class CoffeeMaker {
+
+    constructor(private beanFactory: BeanFactory,
+                private sugarFactory: SugarFactory,
+                private waterFactory: WaterFactory) {}
+
+    make() {
+        this.beanFactory.create();
+        this.sugarFactory.create();
+        this.waterFactory.create();
+    }
+
+}
+
+let coffeeMaker = Container.get(CoffeeMaker);
+coffeeMaker.make();</code></pre>
+<p>也可以修改service的名字， 通过@Service()的参数传入。</p>
+<pre><code class="language-js">import {Container, Service, Inject} from &quot;typedi&quot;;
+
+interface Factory {
+    create(): void;
+}
+
+@Service(&quot;bean.factory&quot;)
+class BeanFactory implements Factory {
+    create() {
+    }
+}
+
+@Service(&quot;sugar.factory&quot;)
+class SugarFactory implements Factory {
+    create() {
+    }
+}
+
+@Service(&quot;water.factory&quot;)
+class WaterFactory implements Factory {
+    create() {
+    }
+}
+
+@Service(&quot;coffee.maker&quot;)
+class CoffeeMaker {
+
+    beanFactory: Factory;
+    sugarFactory: Factory;
+
+    @Inject(&quot;water.factory&quot;)
+    waterFactory: Factory;
+
+    constructor(@Inject(&quot;bean.factory&quot;) beanFactory: BeanFactory,
+                @Inject(&quot;sugar.factory&quot;) sugarFactory: SugarFactory) {
+        this.beanFactory = beanFactory;
+        this.sugarFactory = sugarFactory;
+    }
+
+    make() {
+        this.beanFactory.create();
+        this.sugarFactory.create();
+        this.waterFactory.create();
+    }
+
+}
+
+let coffeeMaker = Container.get&lt;CoffeeMaker&gt;(&quot;coffee.maker&quot;);
+coffeeMaker.make();</code></pre>
+<p>也可以作为store来注入一些配置项。</p>
+<pre><code class="language-js">import {Container, Service, Inject} from &quot;typedi&quot;;
+
+// somewhere in your global app parameters
+Container.set(&quot;authorization-token&quot;, &quot;RVT9rVjSVN&quot;);
+
+@Service()
+class UserRepository {
+
+    @Inject(&quot;authorization-token&quot;)
+    authorizationToken: string;
+
+}
+
+
+////////////////////////
+Container.set(CoffeeMaker, new FakeCoffeeMaker());
+
+// or for named services
+
+Container.set([
+    { id: &quot;bean.factory&quot;, value: new FakeBeanFactory() },
+    { id: &quot;sugar.factory&quot;, value: new FakeSugarFactory() },
+    { id: &quot;water.factory&quot;, value: new FakeWaterFactory() }
+]);</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

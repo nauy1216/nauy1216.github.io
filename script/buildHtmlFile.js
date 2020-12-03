@@ -43,20 +43,55 @@ function createIndexHtml() {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>liuchengyuan</title>
     <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+      }
+      #menu {
+        width: 300px;
+        height: 100vh;
+        overflow: auto;
+        flex: 0 0 300px;
+      }
+      #content {
+        flex: 1 1 100%;
+        border: none;
+      }
       ul {
         font-size: 16px;
         font-weight: 700;
         color: #333;
+        list-style: none;
+        margin:  0 0 10px 0;
+        padding: 0 0 0 10px;
       }
       li {
-        margin: 10px 0;
+        margin: 4px 0 0 0;
         font-size:14px;
         font-weight: normal;
       }
     </style>
   </head>
   <body>
+    <div id="menu">
     ${htmlStr}
+    </div>
+    <iframe id="content"></iframe>
+    <script>
+    var oMenu = document.body.querySelector("#menu")
+    console.log(oMenu, "oMenu")
+    var oContent = document.body.querySelector("#content")
+    var oA = document.body.querySelector("a")
+    oContent.src = oA.getAttribute("data-href")
+    oMenu.onclick = function(ev) {
+      if (ev.target.getAttribute("data-href")) {
+        oContent.src = ev.target.getAttribute("data-href")
+      }
+    }
+    </script>
   </body>
   </html>
   `
@@ -81,10 +116,10 @@ function createIndexHtml() {
         let url
         if (/.html$/.test(child)) {
           url = 'docs' + '/' + relativeUrl + '/' + child
-          htmlStr += `<li><a href="${url}">${child.split('.')[0]}</a></li>`
+          htmlStr += `<li><a href="javascript:void" data-href="${url}">${child.split('.')[0]}</a></li>`
         } else if (!/.md$/.test(child)) {
           url = baseUrl + '/' + relativeUrl + '/' + child
-          htmlStr += `<li><a href="${url}">${child}</a></li>`
+          htmlStr += `<li><a href="javascript:void" data-href="${url}">${child}</a></li>`
         }
         // htmlStr += `<li><a href="${url}">${child.split('.')[0]}</a></li>`
       }

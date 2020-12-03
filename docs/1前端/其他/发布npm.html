@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>todo.md</title>
+          <title>发布npm.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,24 +37,23 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="待处理">待处理</h3>
-<ul>
-<li><a href="https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc">https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc</a></li>
-<li>Pusher.js</li>
-<li>quasar.js</li>
-<li>AudioContext </li>
-<li>eval5.js。一个动态执行代码字符串的库。写一个自己的。</li>
-<li>封装链式操作库</li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/nuclear/">http://vuejs.github.io/js-repaint-perfs/nuclear/</a></li>
-<li><a href="https://github.com/yyx990803/tucao/issues/1">https://github.com/yyx990803/tucao/issues/1</a></li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/">http://vuejs.github.io/js-repaint-perfs/</a></li>
-</ul>
-<blockquote>
-<p>移动端</p>
-</blockquote>
+                <h3 id="1、注册npm账号">1、注册npm账号</h3>
+<pre><code>npm adduser</code></pre><h3 id="2、登陆npm">2、登陆npm</h3>
+<pre><code>npm login</code></pre><h3 id="3、切换回原始的npm镜像">3、切换回原始的npm镜像</h3>
+<pre><code>npm config set registry https://registry.npmjs.org/
+
+// 淘宝镜像
+npm config set registry https://r.npm.taobao.org/
+https://r.npm.taobao.org/</code></pre><h3 id="4、发布">4、发布</h3>
+<pre><code>npm publish</code></pre><p>发现报了下面的错误：</p>
+<pre><code>npm ERR! code E403
+npm ERR! 403 403 Forbidden - PUT http://registry.npmjs.org/nauy-jschain - Forbidden
+npm ERR! 403 In most cases, you or one of your dependencies are requesting
+npm ERR! 403 a package version that is forbidden by your security policy.</code></pre><p>解决方案：首次注册，没有验证邮箱，去邮箱按步验证，再次发布即可解决</p>
+<p>注意：</p>
 <ol>
-<li>hybird 模拟原生路由vue-stack-router</li>
-<li>支付宝小程序框架mPaas</li>
+<li>包名称不要与npm已有包重名</li>
+<li>以@开头的包比如@vue是某个机构的名称， 需要付费。</li>
 </ol>
 
             </article> 

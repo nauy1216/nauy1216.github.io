@@ -16,6 +16,7 @@ npm login
 npm config set registry https://registry.npmjs.org/
 
 // 淘宝镜像
+npm config set registry https://r.npm.taobao.org/
 https://r.npm.taobao.org/
 ```
 
