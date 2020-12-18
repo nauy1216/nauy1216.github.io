@@ -37,67 +37,9 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="在项目根路径下定义mypluginjs">在项目根路径下定义myPlugin.js</h3>
-<pre><code class="language-js">const merge = require(&#39;webpack-merge&#39;)
-const webpack = require(&#39;webpack&#39;)
-const path = require(&#39;path&#39;)
-const chalk = require(&#39;chalk&#39;)
+                <iframe style="width: 100%; height: 500px" src="http://www.baidu.com">
 
-function Test() {
-
-}
-
-Test.prototype.apply = function(compiler) {
-  compiler.hooks.beforeCompile.tap(&#39;beforeCompile&#39;, (compilation) =&gt; {
-    console.log(compilation)
-  })
-}
-
-module.exports = api =&gt; {
-    // 修改webpack配置
-    api.configureWebpack(webpackConfig =&gt; {
-        return {
-            mode:&#39;development&#39;
-        }
-    })
-    // 注册新的命令
-    api.registerCommand(&#39;play:build&#39;, args =&gt; {
-        console.log(chalk.green(&#39;build start.&#39;))
-        debugger
-        let compiler = webpack({
-            mode: &#39;development&#39;, 
-            devtool: &#39;inline-source-map&#39;,
-            context: process.cwd(),
-            entry: {
-                app: [path.resolve(__dirname,&#39;src/main.js&#39;)]
-            },
-            output: {
-                path: path.resolve(__dirname, &#39;dist&#39;),
-                filename: &#39;[name].js&#39;,
-                chunkFilename: &#39;[id].js&#39;
-            },
-            plugins: [
-                new Test()
-            ]
-        })
-        compiler.run(err =&gt; {
-            if (!err) {
-                console.log(chalk.green(&#39;build success.&#39;))
-            }
-        })
-    })
-}
-
-module.exports.defaultModes = {
-    &#39;my-build&#39;: &#39;production&#39;
-}
-
-</code></pre>
-<h3 id="使用">使用</h3>
-<pre><code class="language-json">// 在package.json中加入下面代码
-  &quot;vuePlugins&quot;: {
-    &quot;service&quot;:[&quot;myPlugin&quot;]
-  }</code></pre>
+<p>jjjj</p>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
