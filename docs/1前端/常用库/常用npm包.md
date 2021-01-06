@@ -25,3 +25,4 @@ phaser
 
 - vm-browserify
 - heapdump
+- Lottie
