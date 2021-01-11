@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>常用npm包.md</title>
+          <title>stylelint.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,22 +37,39 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="fs-extra">fs-extra</h3>
-<p>文件操作相关工具库
-是系统fs模块的扩展，提供了更多便利的 API，并继承了fs模块的 API</p>
-<h3 id="semver">semver</h3>
-<p>minimist: 获取命令行参数</p>
-<h3 id="nodemon">nodemon</h3>
-<p>开发服务自动重启。</p>
-<p>Snipaste
-bilibili flv.js
-phaser</p>
+                <h3 id="1、安装stylelint">1、安装stylelint</h3>
+<p>stylelint是现在最强大的css代码审查工具，由PostCSS提供技术支持。虽然CSS是一种另类的编程语言，通常并不会影响网页的正常运行，但是作为有尊严的前端程序员还是应该注重CSS的书写规范，增强代码可读性。为了方便开发者使用，stylelint社区提供了命令行、打包工具和编辑器上的插件。</p>
+<p>这里除了安装了 stylelint 自身外，还安装了一个 stylelint-order 插件。该插件的作用是强制你按照某个顺序编写 css。例如先写定位，再写盒模型，再写内容区样式，最后写 CSS3 相关属性。</p>
+<pre><code>yarn add stylelint stylelint-order -D</code></pre><h3 id="2、安装配置规则">2、安装配置规则</h3>
+<p>官方提供了stylelint-config-recommended和stylelint-config-standard两种css标准：</p>
 <ul>
-<li>vm-browserify</li>
-<li>heapdump</li>
-<li>Lottie</li>
+<li><a href="https://github.com/stylelint/stylelint-config-recommended"><code>stylelint-config-recommended</code></a> 包含可能报错的rule，code format的css标准</li>
+<li><a href="https://github.com/stylelint/stylelint-config-standard"><code>stylelint-config-standard</code></a> 继承于recommend，一些常见的css书写标准</li>
 </ul>
-
+<pre><code>yarn add stylelint-config-standard stylelint-config-recess-order -D</code></pre><h3 id="3、添加stylelintrcjs配置">3、添加.stylelintrc.js配置</h3>
+<pre><code class="language-javascript">module.exports = {
+  &quot;extends&quot;: [&quot;stylelint-config-standard&quot;, &quot;stylelint-config-recess-order&quot;],
+  &quot;rules&quot;: {
+    // at-rule-no-unknown: 屏蔽一些scss等语法检查
+    &quot;at-rule-no-unknown&quot;: [true, {&quot;ignoreAtRules&quot; :[
+      &quot;mixin&quot;, &quot;extend&quot;, &quot;content&quot;
+    ]}]
+  }
+}
+</code></pre>
+<h3 id="4、安装适配预处理语法的插件">4、安装适配预处理语法的插件</h3>
+<h3 id="5、在vue文件中使用stylelint">5、在vue文件中使用stylelint</h3>
+<p>在运行时通过webpac检测。</p>
+<pre><code>yarn add stylelint-webpack-plugin -D</code></pre><pre><code class="language-javascript">config.plugins.push(new StylelintPlugin({
+    // context: process.cwd(),
+    files: [&#39;src/**/*.{css,scss,vue}&#39;],
+    fix: true,
+    cache: true,
+    emitError: true,
+    emitWarning: true
+}))</code></pre>
+<p>安装stylelint， 使用vscode静态检测。但是最好不要设置下面的代码， 否则将不能识别scss文件。就算是设置为scss也会导致vue文件报错，所以不需要设置。</p>
+<pre><code>&quot;stylelint.syntax&quot;: &quot;html&quot;</code></pre>
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>
