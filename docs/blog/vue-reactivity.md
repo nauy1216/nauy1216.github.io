@@ -154,3 +154,42 @@ function createGetter(isReadonly = false, shallow = false) {
 使得`reactive`对象和`effect`进行了关联。他们是多对多的关系，即当一个`reactive`对象发生改变可能通知多个`effect`, 同样的一个`effect`
 可能订阅了多个`reactive`对象，只要其中一个`reactive`对象发生了改变就会重新执行`effect`。
 
+全局变量`activeEffect`保存了当前正在执行的`effect`。
+当执行`track`方法时, 将会将当前访问的数据添加
+```typescript
+export function track(target: object, type: TrackOpTypes, key: unknown) {
+  // shouldTrack 控制是否追踪的开关
+  // activeEffect 保存当前正在执行的effect
+  if (!shouldTrack || activeEffect === undefined) {
+    return
+  }
+  // 订阅target对象的effect集合，这是一个map对象，target的每一个属性值都对应一个Set对象
+  // Map<string, Set>
+  let depsMap = targetMap.get(target)
+  if (!depsMap) {
+    targetMap.set(target, (depsMap = new Map()))
+  }
+  // 获取访问key的用于保存effect的set对象。
+  let dep = depsMap.get(key)
+  if (!dep) {
+    depsMap.set(key, (dep = new Set()))
+  }
+  // 如果activeEffect还未订阅target[key]
+  if (!dep.has(activeEffect)) {
+    // 数据保存对effect的引用, 当数据发生变化时, 就遍历通知dep中的所有effect
+    dep.add(activeEffect)
+    // effect保存对数据的dep对象的引用, 当effect需要取消对每个数据的订阅时, 就可通过dep移除effect即可
+    activeEffect.deps.push(dep)
+    if (__DEV__ && activeEffect.options.onTrack) {
+      activeEffect.options.onTrack({
+        effect: activeEffect,
+        target,
+        type,
+        key
+      })
+    }
+  }
+}
+```
+
+
