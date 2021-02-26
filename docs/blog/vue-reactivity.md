@@ -59,6 +59,7 @@ function createReactiveObject(
 ```typescript
 export function reactive(target: object) {
   // if trying to observe a readonly proxy, return the readonly version.
+  // 如果target被标记为readonly则直接返回target
   if (target && (target as Target)[ReactiveFlags.IS_READONLY]) {
     return target
   }
@@ -83,7 +84,7 @@ export const mutableHandlers: ProxyHandler<object> = {
 }
 ```
 
-创建`get`的具体逻辑如下：
+##### 创建`get`的具体逻辑如下：
 ```typescript
 function createGetter(isReadonly = false, shallow = false) {
   return function get(target: Target, key: string | symbol, receiver: object) {
@@ -155,7 +156,7 @@ function createGetter(isReadonly = false, shallow = false) {
 可能订阅了多个`reactive`对象，只要其中一个`reactive`对象发生了改变就会重新执行`effect`。
 
 全局变量`activeEffect`保存了当前正在执行的`effect`。
-当执行`track`方法时, 将会将当前访问的数据添加
+当执行`track`方法时, 将会将当前访问的数据添加到`activeEffect`的`deps`上。
 ```typescript
 export function track(target: object, type: TrackOpTypes, key: unknown) {
   // shouldTrack 控制是否追踪的开关
@@ -191,5 +192,195 @@ export function track(target: object, type: TrackOpTypes, key: unknown) {
   }
 }
 ```
+
+
+##### 创建`set`的具体逻辑如下：
+
+```typescript
+function createSetter(shallow = false) {
+  return function set(
+    target: object,
+    key: string | symbol,
+    value: unknown,
+    receiver: object
+  ): boolean {
+    // 旧值
+    const oldValue = (target as any)[key]
+
+    if (!shallow) {
+      // 如果value是一个Proxy对象则将返回对应的target, 如果不是则直接返回value
+      value = toRaw(value)
+      // 如果target不是数组, 并且oldValue是一个ref对象, value不是一个ref对象。
+      if (!isArray(target) && isRef(oldValue) && !isRef(value)) {
+        oldValue.value = value
+        return true
+      }
+    } else {
+      // in shallow mode, objects are set as-is regardless of reactive or not
+    }
+
+    // 判断key是否是target的属性
+    const hadKey =
+      isArray(target) && isIntegerKey(key)
+        ? Number(key) < target.length
+        : hasOwn(target, key)
+    // 赋值
+    const result = Reflect.set(target, key, value, receiver)
+    // don't trigger if target is something up in the prototype chain of original
+
+    // 判断如果是修改原型上的属性将不会触发?????
+    if (target === toRaw(receiver)) {
+      // 针对hadKey做出了两种处理
+      // 如果之前不存在key
+      if (!hadKey) {
+        trigger(target, TriggerOpTypes.ADD, key, value)
+      } else if (hasChanged(value, oldValue)) {
+        trigger(target, TriggerOpTypes.SET, key, value, oldValue)
+      }
+    }
+    return result
+  }
+}
+```
+##### `trigger`的逻辑
+
+```typescript
+export function trigger(
+  target: object, // 操作的目标对象
+  type: TriggerOpTypes, // 操作的类型
+  key?: unknown, // 操作的key
+  newValue?: unknown, // 新值
+  oldValue?: unknown, // 旧值
+  oldTarget?: Map<unknown, unknown> | Set<unknown>
+) {
+  const depsMap = targetMap.get(target)
+  if (!depsMap) {
+    // never been tracked
+    // 没有被订阅过
+    return
+  }
+
+  const effects = new Set<ReactiveEffect>()
+  // 添加除activeEffect外的effect
+  const add = (effectsToAdd: Set<ReactiveEffect> | undefined) => {
+    if (effectsToAdd) {
+      // 遍历Set
+      effectsToAdd.forEach(effect => {
+        if (effect !== activeEffect) {
+          effects.add(effect)
+        }
+      })
+    }
+  }
+
+  if (type === TriggerOpTypes.CLEAR) {
+    // collection being cleared
+    // trigger all effects for target
+    // 遍历Map
+    depsMap.forEach(add)
+  } else if (key === 'length' && isArray(target)) {
+    // 如果target是数组, keys是length, 更新数组的长度
+    depsMap.forEach((dep, key) => {
+      if (key === 'length' || key >= (newValue as number)) {
+        add(dep)
+      }
+    })
+  } else {
+    // schedule runs for SET | ADD | DELETE
+    // key不是undefined时
+    if (key !== void 0) {
+      add(depsMap.get(key))
+    }
+    // also run for iteration key on ADD | DELETE | Map.SET
+    const shouldTriggerIteration =
+      (type === TriggerOpTypes.ADD &&
+        (!isArray(target) || isIntegerKey(key))) ||
+      (type === TriggerOpTypes.DELETE && !isArray(target))
+    if (
+      shouldTriggerIteration ||
+      (type === TriggerOpTypes.SET && target instanceof Map)
+    ) {
+      add(depsMap.get(isArray(target) ? 'length' : ITERATE_KEY))
+    }
+    if (shouldTriggerIteration && target instanceof Map) {
+      add(depsMap.get(MAP_KEY_ITERATE_KEY))
+    }
+  }
+
+  const run = (effect: ReactiveEffect) => {
+    if (__DEV__ && effect.options.onTrigger) {
+      effect.options.onTrigger({
+        effect,
+        target,
+        key,
+        type,
+        newValue,
+        oldValue,
+        oldTarget
+      })
+    }
+    // 执行effect
+    if (effect.options.scheduler) {
+      effect.options.scheduler(effect)
+    } else {
+      effect()
+    }
+  }
+
+  // 通知所有effect
+  effects.forEach(run)
+}
+
+```
+
+### Proxy的用法
+##### `const proxyObj = new Proxy(target, handlers)`
+1、`target`: 需要进行代理的对象。
+2、`handlers`: 一个配置对象，对于每一个被代理的操作，需要提供一个对应的处理函数，该函数将拦截对应的操作。
+3、想要拦截起作用, 需要通过proxyObj对象访问。
+4、如果handlers是一个空对象，那么访问proxyObj就像直接访问target一样。
+
+#####  常用的handlers
+1、`get`
+```javascript
+const handler = {
+  get(target, propKey) {
+    return 'abc';
+  }
+};
+```
+2、`set`
+```javascript
+const handler = {
+  // receiver: proxyObj本身
+  set: function(target, prop, value, receiver) {
+    obj[prop] = receiver;
+  }
+};
+```
+
+```javascript
+function Parent() {
+}
+Parent.prototype.a = 1
+Parent.prototype.b = 2
+
+const target = new Parent()
+target.c = 3
+
+const prox = new Proxy(target, {
+  get(target, key) {
+    console.log(target, key)
+    return target[key]
+  },
+  set(target, key, val, receiver) {
+    console.log(target, key, val, receiver)
+    target[key] = val
+    return true
+  }
+})
+
+```
+
 
 
