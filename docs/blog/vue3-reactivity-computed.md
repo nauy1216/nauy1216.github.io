@@ -59,7 +59,8 @@ class ComputedRefImpl<T> {
       scheduler: () => {
         if (!this._dirty) {
           this._dirty = true
-          // 通知订阅了value的effect
+          // 通知订阅了value的effect, 
+          // 如果有effect订阅了的话, effect将会触发computed的get方法，将会重新计算computed的值
           trigger(toRaw(this), TriggerOpTypes.SET, 'value')
         }
       }
@@ -76,6 +77,7 @@ class ComputedRefImpl<T> {
       this._value = this.effect()
       this._dirty = false
     }
+    // 收集effects
     track(toRaw(this), TrackOpTypes.GET, 'value')
     return this._value
   }
