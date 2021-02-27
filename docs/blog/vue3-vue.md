@@ -91,3 +91,9 @@ registerRuntimeCompiler(compileToFunction)
 // 导出compile方法
 export { compileToFunction as compile }
 ```
+
+
+##### 导出了runtime-dom中所有导出的内容
+```ts
+export * from '@vue/runtime-dom'
+```
