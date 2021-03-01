@@ -452,12 +452,12 @@ useState 的第二个返回值是 dispatch，但是每次都是返回新的，�
 在虚拟 DOM 更新过程中，如果事件句柄相同，那么就不用每次都进行 removeEventListner 与 addEventListner。
 最后就是 useMemo，取得上次缓存的数据，它可以说是 useCallback 的另一种形式。
 
-> useState： setState
-> useReducer：setState
-> useRef: ref
-> useImperativeMethods: ref
-> useContext: context
-> useCallback: 可以对 setState 的优化
-> useMemo: useCallback 的变形
-> useLayoutEffect: 类似 componentDidMount/Update, componentWillUnmount
-> useEffect: 类似于 setState(state, cb)中的 cb，总是在整个更新周期的最后才执行
+- > useState： setState
+- > useReducer：setState
+- > useRef: ref
+- > useImperativeMethods: ref
+- > useContext: context
+- > useCallback: 可以对 setState 的优化
+- > useMemo: useCallback 的变形
+- > useLayoutEffect: 类似 componentDidMount/Update, componentWillUnmount
+- > useEffect: 类似于 setState(state, cb)中的 cb，总是在整个更新周期的最后才执行
