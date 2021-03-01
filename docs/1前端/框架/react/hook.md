@@ -71,7 +71,7 @@ function Example() {
 }
 ```
 
-##### 特点
+##### `特点`
 
 - 当你调用 useEffect 时，就是在告诉 React 在完成对 DOM 的更改后运行你的“副作用”函数。
 
@@ -105,7 +105,7 @@ function FriendStatus(props) {
 }
 ```
 
-### 自定义 hook
+### `自定义 hook`
 
 有时候我们会想要在组件之间重用一些状态逻辑。目前为止，有两种主流方案来解决这个问题：高阶组件和 render props。
 自定义 Hook 可以让你在不增加组件的情况下达到同样的目的。
@@ -130,3 +130,294 @@ function useFriendStatus(friendID) {
   return isOnline;
 }
 ```
+
+### `useMemo`
+
+> useMemo 是针对一个函数，是否多次执行。
+> useMemo 主要用来解决使用 React hooks 产生的无用渲染的性能问题。
+> 在方法函数，由于不能使用 shouldComponentUpdate 处理性能问题，react hooks 新增了 useMemo
+
+##### 使用
+
+> 如果 `useMemo(fn, arr)` 第二个参数匹配，并且其值发生改变，才会多次执行执行，否则只执行一次，如果为空数组[]，fn 只执行一次。
+
+举例说明：
+
+第一次进来时，控制台显示 rich child，当无限点击按钮时，控制台不会打印 rich child。
+但是当改变 props.name 为 props.isChild 时，每点击一次按钮，控制台就会打印一次 rich child。
+
+```jsx
+export default () => {
+  let [isChild, setChild] = useState(false);
+
+  return (
+    <div>
+      <Child isChild={isChild} name="child" />
+      <button onClick={() => setChild(!isChild)}>改变Child</button>
+    </div>
+  );
+};
+
+let Child = (props) => {
+  let getRichChild = () => {
+    console.log("rich child");
+
+    return "rich child";
+  };
+
+  // 使用了useMemo后，只要props.name没有发生变化就不会重复执行getRichChild
+  let richChild = useMemo(() => {
+    //执行相应的函数
+    return getRichChild();
+  }, [props.name]);
+
+  return (
+    <div>
+      isChild: {props.isChild ? "true" : "false"}
+      <br />
+      {richChild}
+    </div>
+  );
+};
+```
+
+##### 解决的问题？
+
+解决了函数式组件内部逻辑函数不必要的重复执行, 通过`useMemo`的第二个参数来控制当那些数据改变后才会重复执行。
+
+### `useCallback()`
+
+##### 解决的问题？
+
+在函数式组件内部给子组件绑定事件时, 每次重新渲染时都会绑定一个新的事件函数(因为每次更新组件函数时都会产生一个新的闭包),
+从而导致子组件的不必要更新。使用`useCallback`解决了这个问题，`useCallback`会将事件处理函数缓存起来, 每次更新的时候都是绑定的同一个函数。
+
+##### 使用方式
+
+```jsx
+import React, { useState, memo, useMemo, useCallback } from "react";
+
+const Child = memo((props) => {
+  console.log(props);
+
+  return (
+    <div>
+      <input type="text" onChange={props.onChange} />
+    </div>
+  );
+});
+
+const Parent = () => {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState("");
+
+  const handleOnChange = useCallback((e) => {
+    setText(e.target.value);
+  }, []);
+
+  return (
+    <div>
+      <div>count: {count}</div>
+      <div>text: {text}</div>
+      <button
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        +1
+      </button>
+      <Child onChange={handleOnChange} />
+    </div>
+  );
+};
+```
+
+> _对比 useMemo，useMemo 缓存的是一个值，useCallback 缓存的是一个函数。_
+
+### `useRef()`
+
+##### 作用
+
+- 用来获取组件实例对象或者是 DOM 对象。
+
+```jsx
+import React, { useState, useEffect, useMemo, useRef } from "react";
+
+export default function App(props) {
+  const [count, setCount] = useState(0);
+
+  const doubleCount = useMemo(() => {
+    return 2 * count;
+  }, [count]);
+
+  const couterRef = useRef();
+
+  useEffect(() => {
+    document.title = `The value is ${count}`;
+    console.log(couterRef.current);
+  }, [count]);
+
+  return (
+    <>
+      <button
+        ref={couterRef}
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        Count: {count}, double: {doubleCount}
+      </button>
+    </>
+  );
+}
+```
+
+- 除了传统的用法之外，它还可以“跨渲染周期”保存数据。
+
+在一个组件中有什么东西可以跨渲染周期，也就是在组件被多次渲染之后依旧不变的属性？第一个想到的应该是 state。没错，一个组件的 state 可以在多次渲染之后依旧不变。但是，state 的问题在于一旦修改了它就会造成组件的重新渲染。
+那么这个时候就可以使用 useRef 来跨越渲染周期存储数据，而且对它修改也不会引起组件渲染。
+
+```jsx
+import React, { useState, useEffect, useMemo, useRef } from "react";
+
+export default function App(props) {
+  const [count, setCount] = useState(0);
+
+  const doubleCount = useMemo(() => {
+    return 2 * count;
+  }, [count]);
+
+  // react将ref的缓存起来了
+  const timerID = useRef();
+
+  useEffect(() => {
+    timerID.current = setInterval(() => {
+      setCount((count) => count + 1);
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    if (count > 10) {
+      clearInterval(timerID.current);
+    }
+  });
+
+  return (
+    <>
+      <button
+        ref={couterRef}
+        onClick={() => {
+          setCount(count + 1);
+        }}
+      >
+        Count: {count}, double: {doubleCount}
+      </button>
+    </>
+  );
+}
+```
+
+### `useLayoutEffect()`
+
+> 其函数签名与 useEffect 相同，但它会*在所有的 DOM 变更之后同步调用 effect*。可以使用它来读取 DOM 布局并同步触发重渲染。在浏览器执行绘制之前，useLayoutEffect 内部的更新计划将被同步刷新。
+
+- `useEffect`和`useLayoutEffect`的区别？
+
+`useEffect` 在渲染时是异步执行，并且要等到浏览器将所有变化渲染到屏幕后才会被执行。
+`useLayoutEffect` 在渲染时是同步执行，其执行时机与 `componentDidMount`，`componentDidUpdate` 一致。
+
+- 对于 useEffect 和 useLayoutEffect 哪一个与 componentDidMount，componentDidUpdate 的是等价的？
+
+useLayoutEffect，因为从源码中调用的位置来看，useLayoutEffect 的 create 函数的调用位置、时机都和 componentDidMount，componentDidUpdate 一致，
+且都是被 React 同步调用，都会阻塞浏览器渲染。
+
+- useEffect 和 useLayoutEffect 哪一个与 componentWillUnmount 的是等价的？
+
+同上，useLayoutEffect 的 detroy 函数的调用位置、时机与 componentWillUnmount 一致，且都是同步调用。
+useEffect 的 detroy 函数从调用时机上来看，更像是 componentDidUnmount (注意 React 中并没有这个生命周期函数)。
+
+- 为什么建议将修改 DOM 的操作里放到 useLayoutEffect 里，而不是 useEffect？
+
+DOM 已经被修改，但但浏览器渲染线程依旧处于被阻塞阶段，所以还没有发生回流、重绘过程。由于内存中的 DOM 已经被修改，通过 useLayoutEffect 可以拿到最新的 DOM 节点，并且在此时对 DOM 进行样式上的修改，假设修改了元素的 height，这些修改会在步骤 11 和 react 做出的更改一起被一次性渲染到屏幕上，依旧只有一次回流、重绘的代价。
+
+如果放在 useEffect 里，useEffect 的函数会在组件渲染到屏幕之后执行，此时对 DOM 进行修改，会触发浏览器再次进行回流、重绘，增加了性能上的损耗。
+
+### `useReducer()`
+
+> 尽管 useReducer 是扩展的 hook， 而 useState 是基本的 hook，但 useState 实际上执行的也是一个 useReducer。
+> 这意味着 useReducer 是更原生的，你能在任何使用 useState 的地方都替换成使用 useReducer。
+
+- 与`useState`一样都返回当前状态和一个改变状态的函数。
+- 比`useState`更强大, 出了接受一个初始值作为第二个参数外， 还接受一个定义改变状态值逻辑的函数。
+
+```jsx
+function ShoppingList() {
+  const inputRef = useRef();
+  const [items, dispatch] = useReducer((state, action) => {
+    switch (action.type) {
+      case 'add':
+        return [
+          ...state,
+          {
+            id: state.length,
+            name: action.name
+          }
+        ];
+      default:
+        return state;
+    }
+  }, []);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch({
+      type: 'add',
+      name: inputRef.current.value
+    });
+    inputRef.current.value = '';
+  }
+
+  return (
+    // ... same ...
+  );
+}
+
+```
+
+- 任何使用`useState`的地方都可以使用`useReducer`代替
+
+```jsx
+function Test() {
+  const [count, setCount] = useState(0)
+  const [count, setCount] = useReducer((state, action) => {
+    return action
+  }, 0)
+
+
+  return (
+    // ...
+  )
+}
+```
+
+### 总结
+
+React Hook 让无狀态组件拥有了许多只有有狀态组件的能力，如自更新能力（setState，使用 useState），
+访问 ref（使用 useRef 或 useImperativeMethods），
+访问 context(使用 useContext)，使用更高级的 setState 设置（useReducer），
+及进行类似生命周期的阶段性方法（useEffect 或 useLayoutEffect）。
+
+当然还有一些 Hook，带来了一些新功能，如 useCallback，这是对事件句柄进行缓存，
+useState 的第二个返回值是 dispatch，但是每次都是返回新的，使用 useCallback，可以让它使用上次的函数。
+在虚拟 DOM 更新过程中，如果事件句柄相同，那么就不用每次都进行 removeEventListner 与 addEventListner。
+最后就是 useMemo，取得上次缓存的数据，它可以说是 useCallback 的另一种形式。
+
+> useState： setState
+> useReducer：setState
+> useRef: ref
+> useImperativeMethods: ref
+> useContext: context
+> useCallback: 可以对 setState 的优化
+> useMemo: useCallback 的变形
+> useLayoutEffect: 类似 componentDidMount/Update, componentWillUnmount
+> useEffect: 类似于 setState(state, cb)中的 cb，总是在整个更新周期的最后才执行
