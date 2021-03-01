@@ -400,6 +400,46 @@ function Test() {
 }
 ```
 
+### useImperativeHandle
+
+正常情况下 `ref` 是不能挂在到函数组件上的，因为函数组件没有实例，但是 `useImperativeHandle` 为我们提供了一个类似实例的东西。
+它帮助我们通过 `useImperativeHandle` 的第 2 个参数，_所返回的对象的内容挂载到 父组件的 ref.current 上_。
+
+_`forwardRef` 会创建一个 `React` 组件，这个组件能够将其接受的 `ref` 属性转发到其组件树下的另一个组件中。_
+
+```jsx
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+  useRef,
+} from "react";
+
+const TestRef = forwardRef((props, ref) => {
+  // 将open方法暴露出去，父组件可以获取到。
+  useImperativeHandle(ref, () => ({
+    open() {
+      console.log("open");
+    },
+  }));
+});
+
+function App() {
+  const ref = useRef();
+  useEffect(() => {
+    // 这里获取的current对象就是，在TestRef中使用useImperativeHandle定义第二参数的返回值的。
+    ref.current.open();
+  }, []);
+
+  return (
+    <>
+      <TestRef ref={ref}></TestRef>
+    </>
+  );
+}
+export default App;
+```
+
 ### 总结
 
 React Hook 让无狀态组件拥有了许多只有有狀态组件的能力，如自更新能力（setState，使用 useState），
