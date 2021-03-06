@@ -28,3 +28,43 @@
 - 缺点
 
 # shadow dom
+
+# 创建自定义事件
+下面的例子定义了一个自定义事件`eventName`, 由于设置了`bubbles: true`所以当`body`触发事件后`doucment`也会接收到事件。
+```js
+var event = new CustomEvent('eventName', {
+  bubbles: true, // 是否冒泡
+  detail: 'aaa'
+})
+
+var eventObj 
+document.body.addEventListener('eventName', function(e) {
+  eventObj = e
+  console.log('body ev', e)
+}, false)
+
+document.addEventListener('eventName', function(e) {
+  console.log('document ev', e, eventObj === e)
+  eventObj === e // true
+}, false)
+
+document.body.dispatchEvent(event)
+```
+
+- `body`和`document`接收的事件对象是同一个对象
+- 通过`dispatchEvent`触发内置事件？
+
+# dom操作api
+- 创建dom节点
+- 创建文本节点
+- 创建注释节点
+- 创建fragment
+- 获取父节点
+- 获取子节点
+- 获取第一个子节点
+- 获取最后一个子节点
+- 获取下一个兄弟节点
+- 获取上一个兄弟节点
+- 将节点a添加到节点b的子节点末尾
+- 节点a移除子节点b
+- 在节点a的子节点b前面插入节点c
