@@ -55,16 +55,48 @@ document.body.dispatchEvent(event)
 - 通过`dispatchEvent`触发内置事件？
 
 # dom操作api
+### 创建节点
 - 创建dom节点
 - 创建文本节点
 - 创建注释节点
 - 创建fragment
+### 获取引用关系
 - 获取父节点
 - 获取子节点
 - 获取第一个子节点
 - 获取最后一个子节点
 - 获取下一个兄弟节点
 - 获取上一个兄弟节点
+
+### 节点操作
 - 将节点a添加到节点b的子节点末尾
 - 节点a移除子节点b
 - 在节点a的子节点b前面插入节点c
+- 用节点a替换节点b的子节点
+
+
+### 节点选择
+
+### 属性操作
+- 设置属性
+- 删除属性
+- 获取属性值
+- 检测是否有某个属性
+
+### 获取样式
+- window.getComputedStyle(document.body) 和 document.body.style的区别？
+ - getComputedStyle只能获取样式不能更改， style能获取
+- ele.getBoundingClientRect()
+
+### 尺寸
+- getBoundingClientRect
+
+- clientWidth、clientHeight、clientLeft、clientTop
+- offsetWidth、offsetHeight、offsetLeft、offsetTop
+- scrollWidth、scrollHeight、scrollLeft、scrollTop
+
+- clientWidth和offsetWidth的区别？
+  - 哪个是包含边框的?bian
+
+- clientLeft和offsetLeft的区别？
+  - 哪个是从内边距的边缘到边框的外边缘的距离(其实等同于边框的宽度)？
