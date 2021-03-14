@@ -100,3 +100,13 @@ document.body.dispatchEvent(event)
 
 - clientLeft和offsetLeft的区别？
   - 哪个是从内边距的边缘到边框的外边缘的距离(其实等同于边框的宽度)？
+
+
+# DOMContentLoaded 与 load 的区别
+> DOMContentLoaded的执行时机
+
+DOM 解析完成后触发，不需要等待图片等其他资源加载完成。
+> load的执行时机
+页面上所有的 DOM, 样式表, 脚本, 图片等资源已经加载完毕才会触发。
+
+> DOMContentLoaded比load先执行。
