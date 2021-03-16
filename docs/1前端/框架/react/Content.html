@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+      <html>
+          <head>
+          <meta charset="utf-8" >
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>Content.md</title>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
+          <style>
+              .markdown-body {
+                  box-sizing: border-box;
+                  min-width: 200px;
+                  max-width: 980px;
+                  margin: 0 auto;
+                  padding: 45px;
+              }
+              .markdown-body img {
+                  box-sizing: border-box !important;
+                  margin:10px 0 10px 2%;
+                  padding: 20px;
+                  width: 96%;
+                  border-radius: 4px;
+                  box-shadow: 0 0 6px 0px #999;
+              }
+              @media (max-width: 767px) {
+                  .markdown-body {
+                      padding: 15px;
+                  }
+              }
+              @font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,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) format('woff')}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown-body .anchor:focus{outline:0}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body .pl-c{color:#6a737d}.markdown-body .pl-c1,.markdown-body .pl-s .pl-v{color:#005cc5}.markdown-body .pl-e,.markdown-body .pl-en{color:#6f42c1}.markdown-body .pl-s .pl-s1,.markdown-body .pl-smi{color:#24292e}.markdown-body .pl-ent{color:#22863a}.markdown-body .pl-k{color:#d73a49}.markdown-body .pl-pds,.markdown-body .pl-s,.markdown-body .pl-s .pl-pse .pl-s1,.markdown-body .pl-sr,.markdown-body .pl-sr .pl-cce,.markdown-body .pl-sr .pl-sra,.markdown-body .pl-sr .pl-sre{color:#032f62}.markdown-body .pl-smw,.markdown-body .pl-v{color:#e36209}.markdown-body .pl-bu{color:#b31d28}.markdown-body .pl-ii{background-color:#b31d28;color:#fafbfc}.markdown-body .pl-c2{background-color:#d73a49;color:#fafbfc}.markdown-body .pl-c2:before{content:"^M"}.markdown-body .pl-sr .pl-cce{color:#22863a;font-weight:700}.markdown-body .pl-ml{color:#735c0f}.markdown-body .pl-mh,.markdown-body .pl-mh .pl-en,.markdown-body .pl-ms{color:#005cc5;font-weight:700}.markdown-body .pl-mi{color:#24292e;font-style:italic}.markdown-body .pl-mb{color:#24292e;font-weight:700}.markdown-body .pl-md{background-color:#ffeef0;color:#b31d28}.markdown-body .pl-mi1{background-color:#f0fff4;color:#22863a}.markdown-body .pl-mc{background-color:#ffebda;color:#e36209}.markdown-body .pl-mi2{background-color:#005cc5;color:#f6f8fa}.markdown-body .pl-mdr{color:#6f42c1;font-weight:700}.markdown-body .pl-ba{color:#586069}.markdown-body .pl-sg{color:#959da5}.markdown-body .pl-corl{color:#032f62;text-decoration:underline}.markdown-body details{display:block}.markdown-body summary{display:list-item}.markdown-body a{background-color:transparent}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body strong{font-weight:inherit;font-weight:bolder}.markdown-body h1{font-size:2em;margin:.67em 0}.markdown-body img{border-style:none}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace;font-size:1em}.markdown-body hr{box-sizing:content-box;height:0;overflow:visible}.markdown-body input{font:inherit;margin:0}.markdown-body input{overflow:visible}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body a{color:#0366d6;text-decoration:none}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{background:0 0;border:0;border-bottom:1px solid #dfe2e5;height:0;margin:15px 0;overflow:hidden}.markdown-body hr:before{content:"";display:table}.markdown-body hr:after{clear:both;content:"";display:table}.markdown-body table{border-collapse:collapse;border-spacing:0}.markdown-body td,.markdown-body th{padding:0}.markdown-body details summary{cursor:pointer}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-bottom:0;margin-top:0}.markdown-body h1{font-size:32px}.markdown-body h1,.markdown-body h2{font-weight:600}.markdown-body h2{font-size:24px}.markdown-body h3{font-size:20px}.markdown-body h3,.markdown-body h4{font-weight:600}.markdown-body h4{font-size:16px}.markdown-body h5{font-size:14px}.markdown-body h5,.markdown-body h6{font-weight:600}.markdown-body h6{font-size:12px}.markdown-body p{margin-bottom:10px;margin-top:0}.markdown-body blockquote{margin:0}.markdown-body ol,.markdown-body ul{margin-bottom:0;margin-top:0;padding-left:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code,.markdown-body pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px}.markdown-body pre{margin-bottom:0;margin-top:0}.markdown-body input::-webkit-inner-spin-button,.markdown-body input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}.markdown-body .border{border:1px solid #e1e4e8!important}.markdown-body .border-0{border:0!important}.markdown-body .border-bottom{border-bottom:1px solid #e1e4e8!important}.markdown-body .rounded-1{border-radius:3px!important}.markdown-body .bg-white{background-color:#fff!important}.markdown-body .bg-gray-light{background-color:#fafbfc!important}.markdown-body .text-gray-light{color:#6a737d!important}.markdown-body .mb-0{margin-bottom:0!important}.markdown-body .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown-body .pl-0{padding-left:0!important}.markdown-body .py-0{padding-bottom:0!important;padding-top:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .py-2{padding-bottom:8px!important;padding-top:8px!important}.markdown-body .pl-3,.markdown-body .px-3{padding-left:16px!important}.markdown-body .px-3{padding-right:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .f6{font-size:12px!important}.markdown-body .lh-condensed{line-height:1.25!important}.markdown-body .text-bold{font-weight:600!important}.markdown-body:before{content:"";display:table}.markdown-body:after{clear:both;content:"";display:table}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-bottom:16px;margin-top:0}.markdown-body hr{background-color:#e1e4e8;border:0;height:.25em;margin:24px 0;padding:0}.markdown-body blockquote{border-left:.25em solid #dfe2e5;color:#6a737d;padding:0 1em}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd{background-color:#fafbfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5;color:#444d56;display:inline-block;font-size:11px;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{font-weight:600;line-height:1.25;margin-bottom:16px;margin-top:24px}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{border-bottom:1px solid #eaecef;padding-bottom:.3em}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{color:#6a737d;font-size:.85em}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-bottom:0;margin-top:0}.markdown-body li{word-wrap:break-all}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{font-size:1em;font-style:italic;font-weight:600;margin-top:16px;padding:0}.markdown-body dl dd{margin-bottom:16px;padding:0 16px}.markdown-body table{display:block;overflow:auto;width:100%}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{border:1px solid #dfe2e5;padding:6px 13px}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{background-color:#fff;box-sizing:content-box;max-width:100%}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body code{background-color:rgba(27,31,35,.05);border-radius:3px;font-size:85%;margin:0;padding:.2em .4em}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{background:0 0;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{background-color:#f6f8fa;border-radius:3px;font-size:85%;line-height:1.45;overflow:auto;padding:16px}.markdown-body pre code{background-color:transparent;border:0;display:inline;line-height:inherit;margin:0;max-width:auto;overflow:visible;padding:0;word-wrap:normal}.markdown-body .commit-tease-sha{color:#444d56;display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:90%}.markdown-body .blob-wrapper{border-bottom-left-radius:3px;border-bottom-right-radius:3px;overflow-x:auto;overflow-y:hidden}.markdown-body .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown-body .blob-num{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;color:rgba(27,31,35,.3);cursor:pointer;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;line-height:20px;min-width:50px;padding-left:10px;padding-right:10px;text-align:right;user-select:none;vertical-align:top;white-space:nowrap;width:1%}.markdown-body .blob-num:hover{color:rgba(27,31,35,.6)}.markdown-body .blob-num:before{content:attr(data-line-number)}.markdown-body .blob-code{line-height:20px;padding-left:10px;padding-right:10px;position:relative;vertical-align:top}.markdown-body .blob-code-inner{color:#24292e;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;overflow:visible;white-space:pre;word-wrap:normal}.markdown-body .pl-token.active,.markdown-body .pl-token:hover{background:#ffea7f;cursor:pointer}.markdown-body kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1;color:#444d56;display:inline-block;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body :checked+.radio-label{border-color:#0366d6;position:relative;z-index:1}.markdown-body .tab-size[data-tab-size="1"]{-moz-tab-size:1;tab-size:1}.markdown-body .tab-size[data-tab-size="2"]{-moz-tab-size:2;tab-size:2}.markdown-body .tab-size[data-tab-size="3"]{-moz-tab-size:3;tab-size:3}.markdown-body .tab-size[data-tab-size="4"]{-moz-tab-size:4;tab-size:4}.markdown-body .tab-size[data-tab-size="5"]{-moz-tab-size:5;tab-size:5}.markdown-body .tab-size[data-tab-size="6"]{-moz-tab-size:6;tab-size:6}.markdown-body .tab-size[data-tab-size="7"]{-moz-tab-size:7;tab-size:7}.markdown-body .tab-size[data-tab-size="8"]{-moz-tab-size:8;tab-size:8}.markdown-body .tab-size[data-tab-size="9"]{-moz-tab-size:9;tab-size:9}.markdown-body .tab-size[data-tab-size="10"]{-moz-tab-size:10;tab-size:10}.markdown-body .tab-size[data-tab-size="11"]{-moz-tab-size:11;tab-size:11}.markdown-body .tab-size[data-tab-size="12"]{-moz-tab-size:12;tab-size:12}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown-body hr{border-bottom-color:#eee}.markdown-body .pl-0{padding-left:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .pl-7{padding-left:48px!important}.markdown-body .pl-8{padding-left:64px!important}.markdown-body .pl-9{padding-left:80px!important}.markdown-body .pl-10{padding-left:96px!important}.markdown-body .pl-11{padding-left:112px!important}.markdown-body .pl-12{padding-left:128px!important}
+/*# sourceMappingURL=github-markdown.min.css.map */
+          </style>
+          <script>
+              window.onload = function() {
+                hljs.initHighlighting()
+              }
+          </script>
+          </head>
+          <body>
+            <article class="markdown-body">
+                <h3 id="什么是-context？">什么是 Context？</h3>
+<p>Context 提供了一种在组件之间共享状态的方式，而不必显式地通过组件树的逐层传递 props, 避免了通过中间元素层层传递 props。
+类似于 vue 的状态管理<code>vuex</code>。</p>
+<h3 id="何时使用-context？">何时使用 Context？</h3>
+<p>Context 设计目的是为了共享那些对于一个组件树而言是“<code>全局</code>”的数据，例如当前认证的用户、主题或首选语言。</p>
+<p>有的时候在组件树中很多不同层级的组件需要访问同样的一批数据。
+Context 能让你将这些数据向组件树下所有的组件进行“广播”，所有的组件都能访问到这些数据，也能访问到后续的数据更新。
+使用 context 的通用的场景包括管理当前的 locale，theme，或者一些缓存数据。</p>
+<h3 id="api-使用">api 使用</h3>
+<h5 id="reactcreatecontext"><code>React.createContext()</code></h5>
+<p>参数接受一个默认值, 返回一个<code>Context</code>对象。</p>
+<pre><code class="language-js">const MyContext = React.createContext(defaultValue);</code></pre>
+<p>创建一个 Context 对象。当 React 渲染一个订阅了这个 Context 对象的组件，
+这个组件会从组件树中离自身最近的那个匹配的 Provider 中读取到当前的 context 值。</p>
+<p>只有当组件所处的树中没有匹配到 Provider 时，其 defaultValue 参数才会生效。</p>
+<h5 id="contextprovider"><code>Context.Provider</code></h5>
+<p>个 Context 对象都会返回一个 Provider React 组件，它允许消费组件订阅 context 的变化。</p>
+<pre><code class="language-jsx">&lt;MyContext.Provider value={/* 某个值 */}&gt;</code></pre>
+<ul>
+<li>Provider 接收一个 value 属性，传递给消费组件。一个 Provider 可以和多个消费组件有对应关系。多个 Provider 也可以嵌套使用，里层的会覆盖外层的数据。</li>
+<li>当 Provider 的 value 值发生变化时，它内部的所有消费组件都会重新渲染。Provider 及其内部 consumer 组件都不受制于 shouldComponentUpdate 函数，因此当 consumer 组件在其祖先组件退出更新的情况下也能更新。</li>
+</ul>
+<h5 id="classcontexttype"><code>Class.contextType</code></h5>
+<p>挂载在 class 上的 contextType 属性会被重赋值为一个由 React.createContext() 创建的 Context 对象。
+这能让你使用 this.context 来消费最近 Context 上的那个值。你可以在任何生命周期中访问到它，包括 render 函数中。
+看下面的例子，区分<code>Class.contextType</code>和<code>Context.Consumer</code>的用法。</p>
+<ul>
+<li>在父组件使用时是一样的，都需要创建 contxt 对象，并且在父组件中使用<code>Context.Provider</code>。</li>
+<li><code>Context.Provider</code>负责提供数据，但是在它们消费<code>context</code>的数据方式是不一样的。
+使用<code>Class.contextType</code>时, 只要将<code>context</code>挂在 class 的静态属性<code>contextType</code>上, 然后在组件内部就可以通过<code>this.context</code>的方式使用了。
+而使用<code>Context.Consumer</code>时是作为一个组件使用的，子组件通过定义的函数参数的方式传入。</li>
+<li><code>Class.contextType</code>的优点是使用方便，缺点是只能接受单一的<code>content</code>。</li>
+</ul>
+<p>孙子组件使用<code>Context.Consumer</code>。</p>
+<pre><code class="language-js">import React, { Component, createContext } from &quot;react&quot;;
+
+const BatteryContext = createContext();
+
+//声明一个孙组件
+class Leaf extends Component {
+  render() {
+    return (
+      &lt;BatteryContext.Consumer&gt;
+        {(battery) =&gt; &lt;h1&gt;Battery : {battery}&lt;/h1&gt;}
+      &lt;/BatteryContext.Consumer&gt;
+    );
+  }
+}
+
+//声明一个子组件
+class Middle extends Component {
+  render() {
+    return &lt;Leaf /&gt;;
+  }
+}
+
+class App extends Component {
+  render() {
+    return (
+      &lt;BatteryContext.Provider value={60}&gt;
+        &lt;Middle /&gt;
+      &lt;/BatteryContext.Provider&gt;
+    );
+  }
+}
+
+export default App;</code></pre>
+<p>孙子组件使用<code>Context.Consumer</code>。</p>
+<pre><code class="language-js">import React, { Component, createContext } from &quot;react&quot;;
+
+const BatteryContext = createContext();
+
+//声明一个孙组件
+class Leaf extends Component {
+  static contextType = BatteryContext;
+  render() {
+    const battery = this.context;
+    return &lt;h1&gt;Battery : {battery}&lt;/h1&gt;;
+  }
+}
+
+//声明一个子组件
+class Middle extends Component {
+  render() {
+    return &lt;Leaf /&gt;;
+  }
+}
+
+class App extends Component {
+  state = {
+    battery: 60,
+  };
+  render() {
+    const { battery } = this.state;
+    return (
+      &lt;BatteryContext.Provider value={battery}&gt;
+        &lt;button
+          type=&quot;button&quot;
+          onClick={() =&gt; this.setState({ battery: battery - 1 })}
+        &gt;
+          减减
+        &lt;/button&gt;
+        &lt;Middle /&gt;
+      &lt;/BatteryContext.Provider&gt;
+    );
+  }
+}
+
+export default App;</code></pre>
+<h5 id="contextconsumer"><code>Context.Consumer</code></h5>
+<pre><code class="language-jsx">&lt;MyContext.Consumer&gt;
+  {value =&gt; /* 基于 context 值进行渲染*/}
+&lt;/MyContext.Consumer&gt;</code></pre>
+<p>这需要函数作为子元素（function as a child）这种做法。
+这个函数接收当前的 context 值，返回一个 React 节点。
+传递给函数的 value 值等同于往上组件树离这个 context 最近的 Provider 提供的 value 值。
+如果没有对应的 Provider，value 参数等同于传递给 createContext() 的 defaultValue。</p>
+<h5 id="contextdisplayname"><code>Context.displayName</code></h5>
+<p>context 对象接受一个名为 displayName 的 property，类型为字符串。
+React DevTools 使用该字符串来确定 context 要显示的内容。</p>
+<pre><code class="language-jsx">const MyContext = React.createContext(/* some value */);
+MyContext.displayName = &#39;MyDisplayName&#39;;
+
+&lt;MyContext.Provider&gt; // &quot;MyDisplayName.Provider&quot; 在 DevTools 中
+&lt;MyContext.Consumer&gt; // &quot;MyDisplayName.Consumer&quot; 在 DevTools 中</code></pre>
+<h3 id="在嵌套组件中更新-context">在嵌套组件中更新 Context</h3>
+<p>从一个在组件树中嵌套很深的组件中更新 context 是很有必要的。
+在这种场景下，你可以通过 context 传递一个函数，使得 consumers 组件更新 context。
+context 将更新 context 的操作封装后提供给<code>consumer</code>组件。</p>
+<pre><code class="language-js">// 确保传递给 createContext 的默认值数据结构是调用的组件（consumers）所能匹配的！
+export const ThemeContext = React.createContext({
+  theme: themes.dark,
+  toggleTheme: () =&gt; {},
+});
+
+function ThemeTogglerButton() {
+  // Theme Toggler 按钮不仅仅只获取 theme 值，它也从 context 中获取到一个 toggleTheme 函数
+  return (
+    &lt;ThemeContext.Consumer&gt;
+      {({ theme, toggleTheme }) =&gt; (
+        &lt;button
+          onClick={toggleTheme}
+          style={{ backgroundColor: theme.background }}
+        &gt;
+          Toggle Theme
+        &lt;/button&gt;
+      )}
+    &lt;/ThemeContext.Consumer&gt;
+  );
+}</code></pre>
+<h3 id="消费多个-context">消费多个 Context</h3>
+<p>了确保 context 快速进行重渲染，React 需要使每一个 consumers 组件的 context 在组件树中成为一个单独的节点。</p>
+<pre><code class="language-jsx">class App extends React.Component {
+  render() {
+    const { signedInUser, theme } = this.props;
+
+    // 提供初始 context 值的 App 组件
+    return (
+      &lt;ThemeContext.Provider value={theme}&gt;
+        &lt;UserContext.Provider value={signedInUser}&gt;
+          &lt;Layout /&gt;
+        &lt;/UserContext.Provider&gt;
+      &lt;/ThemeContext.Provider&gt;
+    );
+  }
+}</code></pre>
+
+            </article> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
+          </body>
+      </html>
