@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>资源链接.md</title>
+          <title>源码.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,25 +37,342 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h5 id="css">css</h5>
-<ol>
-<li><a href="https://www.bootcss.com/">bootstrap</a></li>
-<li><a href="https://www.tailwindcss.cn/">tailwindcss</a></li>
-</ol>
-<h5 id="游戏">游戏</h5>
-<ol>
-<li>playcanvas</li>
-<li>egret</li>
-<li>cocos2d</li>
-</ol>
-<h5 id="学习">学习</h5>
-<ol>
-<li><a href="https://github.com/amandakelake/blog">https://github.com/amandakelake/blog</a></li>
-<li><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></li>
-<li><a href="https://jelly.jd.com/">https://jelly.jd.com/</a></li>
-<li>前端100问 <a href="https://github.com/yygmind/blog/issues/43">https://github.com/yygmind/blog/issues/43</a></li>
-<li><a href="https://github.com/Advanced-Frontend">https://github.com/Advanced-Frontend</a></li>
-</ol>
+                <h1 id="store">Store</h1>
+<p>创建状态容器。创建Store的逻辑都是在构造函数里完成的。</p>
+<ul>
+<li>当在浏览器直接引入vuex时，会自动安装在vue上。<pre><code class="language-js">if (!Vue &amp;&amp; typeof window !== &#39;undefined&#39; &amp;&amp; window.Vue) {
+  install(window.Vue)
+}
+</code></pre>
+</li>
+</ul>
+<p>// 用来标识是否使用commit/dispatch修改数据
+this._committing = false</p>
+<p>// actions
+this._actions</p>
+<p>// mutation
+this._mutations</p>
+<p>// getters
+this._wrappedGetters</p>
+<p>// state
+get state () {
+    return this._vm._data.$state
+}</p>
+<p>// modules
+this._modules</p>
+<p>// namespace
+this._modulesNamespaceMap</p>
+<p>// _subscribers</p>
+<p>// plugins</p>
+<p>// store watcher 也是一个vue实例
+this._watcherVM</p>
+<p>// 执行action
+this.dispatch</p>
+<p>// 执行commit
+this.commit</p>
+<p>// strict mode
+this.strict</p>
+<pre><code>
+# $store是怎样全局注入的？
+
+在beforeCreate中使用了全局mixin。
+```js
+  // 2.0以上版本
+  if (version &gt;= 2) {
+    Vue.mixin({ beforeCreate: vuexInit })
+  } else {
+    // override init and inject vuex init procedure
+    // for 1.x backwards compatibility.
+    const _init = Vue.prototype._init
+    Vue.prototype._init = function (options = {}) {
+      options.init = options.init
+        ? [vuexInit].concat(options.init)
+        : vuexInit
+      _init.call(this, options)
+    }
+  }
+
+  /**
+   * Vuex init hook, injected into each instances init hooks list.
+   */
+
+  // 在breforeCreate里将store注入到每一个组件中
+  function vuexInit () {
+    const options = this.$options
+    // store injection
+    // 如果组件本身的options上有定义store，则使用自己本身的
+    // 比如root组件
+    if (options.store) {
+      this.$store = typeof options.store === &#39;function&#39;
+        ? options.store()
+        : options.store
+    } else if (options.parent &amp;&amp; options.parent.$store) {
+        // 子组件也可以从父组件上获取得到
+      this.$store = options.parent.$store
+    }
+  }</code></pre><h1 id="state">state</h1>
+<p>vuex的响应式数据state其实是在内部调用<code>new Vue()</code>创建一个实例来实现的。</p>
+<pre><code class="language-js">  store._vm = new Vue({
+    data: {
+      $state: state
+    },
+    computed
+  })</code></pre>
+<p>对外暴露的<code>store.state</code>其实是<code>_vm.$state</code>的代理。</p>
+<pre><code class="language-js">get state () {
+    return this._vm._data.$state
+}</code></pre>
+<h1 id="getters">getters</h1>
+<ul>
+<li><p>首先根据用户定义的getters作为<code>_vm</code>实例的computed配置</p>
+</li>
+<li><p>对外暴露了<code>store.getters</code>接口代理所以的computed属性</p>
+<pre><code class="language-js">store.getters = {}
+// reset local getters cache
+store._makeLocalGettersCache = Object.create(null)
+const wrappedGetters = store._wrappedGetters
+
+const computed = {}
+forEachValue(wrappedGetters, (fn, key) =&gt; {
+  // use computed to leverage its lazy-caching mechanism
+  // direct inline function use will lead to closure preserving oldVm.
+  // using partial to return function with only arguments preserved in closure environment.
+  computed[key] = partial(fn, store)
+  Object.defineProperty(store.getters, key, {
+    get: () =&gt; store._vm[key],
+    enumerable: true // for local getters
+  })
+})
+
+store._vm = new Vue({
+  data: {
+    $state: state
+  },
+  computed
+})</code></pre>
+</li>
+</ul>
+<h1 id="storecommit">store.commit</h1>
+<pre><code class="language-js">// type：commmit的类型
+// payload: 提供的数据
+const mutation = { type, payload }
+
+// this._mutations上保存了所有的mutation函数
+const entry = this._mutations[type]
+
+// 遍历entry执行
+this._withCommit(() =&gt; {
+    entry.forEach(function commitIterator (handler) {
+        handler(payload)
+    })
+})
+
+// 通知所有订阅
+this._subscribers
+    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+    .forEach(sub =&gt; sub(mutation, this.state))</code></pre>
+<blockquote>
+<p>问题</p>
+</blockquote>
+<ul>
+<li>通过commit修改数据与直接修改store.state的差异在哪里？<ul>
+<li>strict mode下不会爆粗</li>
+<li>会进行subscribe, 开发工具能感知到</li>
+</ul>
+</li>
+</ul>
+<h1 id="dispatch">dispatch</h1>
+<blockquote>
+<p>在action内部直接修改数据时，devtool是不会生成快照的，只有commit才会。</p>
+</blockquote>
+<pre><code class="language-js">const action = { type, payload }
+
+const entry = this._actions[type]
+
+// 提交前的进行一次subscribe
+try {
+    this._actionSubscribers
+    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+    .filter(sub =&gt; sub.before)
+    .forEach(sub =&gt; sub.before(action, this.state))
+} catch (e) {
+    if (__DEV__) {
+    console.warn(`[vuex] error in before action subscribers: `)
+    console.error(e)
+    }
+}
+
+// 定义的actions返回一个promise
+const result = entry.length &gt; 1
+    ? Promise.all(entry.map(handler =&gt; handler(payload)))
+    : entry[0](payload)
+
+// 返回一个新的promise
+// 当action的promise状态发生变化时， 新的promise也发生变化
+return new Promise((resolve, reject) =&gt; {
+    result.then(res =&gt; {
+        try {
+            // 触发after subscribe
+            this._actionSubscribers
+            .filter(sub =&gt; sub.after)
+            .forEach(sub =&gt; sub.after(action, this.state))
+        } catch (e) {
+            if (__DEV__) {
+            console.warn(`[vuex] error in after action subscribers: `)
+            console.error(e)
+            }
+        }
+        resolve(res)
+    }, error =&gt; {
+        try {
+            // 触发error subscribe
+            this._actionSubscribers
+            .filter(sub =&gt; sub.error)
+            .forEach(sub =&gt; sub.error(action, this.state, error))
+        } catch (e) {
+            if (__DEV__) {
+            console.warn(`[vuex] error in error action subscribers: `)
+            console.error(e)
+            }
+        }
+        reject(error)
+    })
+})
+</code></pre>
+<h1 id="subscribe和subscribeaction">subscribe和subscribeAction</h1>
+<pre><code class="language-js">  subscribe (fn, options) {
+    return genericSubscribe(fn, this._subscribers, options)
+  }
+
+  subscribeAction (fn, options) {
+    const subs = typeof fn === &#39;function&#39; ? { before: fn } : fn
+    return genericSubscribe(subs, this._actionSubscribers, options)
+  }</code></pre>
+<p>genericSubscribe代码：</p>
+<pre><code class="language-js">// 生成subscribe， 返回一个函数用来取消订阅
+function genericSubscribe (fn, subs, options) {
+  // 确保不是重复订阅
+  // prepend属性
+  if (subs.indexOf(fn) &lt; 0) {
+    options &amp;&amp; options.prepend
+      ? subs.unshift(fn)
+      : subs.push(fn)
+  }
+  // 返回一个取消订阅的函数
+  return () =&gt; {
+    const i = subs.indexOf(fn)
+    if (i &gt; -1) {
+      subs.splice(i, 1)
+    }
+  }
+}</code></pre>
+<h1 id="replacestate">replaceState</h1>
+<p>替换所有数据</p>
+<pre><code class="language-js">  // 替换state
+  replaceState (state) {
+    this._withCommit(() =&gt; {
+      this._vm._data.$state = state
+    })
+  }</code></pre>
+<h1 id="strict-mode">strict mode</h1>
+<p>强制只能使用<code>commit</code>和<code>dispatch</code>修改数据，直接修改数据将会报错。具体实现如下：
+<em>_committing标识用来判断数据是否是用过commit和dispatch修改的。</em></p>
+<pre><code class="language-js">function enableStrictMode (store) {
+  store._vm.$watch(function () { return this._data.$state }, () =&gt; {
+    if (__DEV__) {
+      assert(store._committing, `do not mutate vuex store state outside mutation handlers.`)
+    }
+  }, { deep: true, sync: true })
+}</code></pre>
+<h1 id="module和namespace">Module和namespace</h1>
+<h3 id="modulecollection">ModuleCollection</h3>
+<pre><code class="language-js">export default class ModuleCollection {
+  constructor (rawRootModule) {
+    // register root module (Vuex.Store options)
+    // 注册 root Module
+    this.register([], rawRootModule, false)
+  }
+
+  /**
+   * 注册模块
+   * @param {Array&lt;String&gt;} path 
+   * @param {Record&lt;string, any&gt;} rawModule 
+   * @param {Boolean} runtime 
+   */
+  register (path, rawModule, runtime = true) {
+    if (__DEV__) {
+      assertRawModule(path, rawModule)
+    }
+
+    const newModule = new Module(rawModule, runtime)
+    // 如果path === []， 则说明这是root module
+    if (path.length === 0) {
+      this.root = newModule
+    } else {
+      // 获取父模块
+      const parent = this.get(path.slice(0, -1))
+      // 将子模块添加到_children中
+      parent.addChild(path[path.length - 1], newModule)
+    }
+
+    // register nested modules
+    // 注册嵌套子模块
+    if (rawModule.modules) {
+      forEachValue(rawModule.modules, (rawChildModule, key) =&gt; {
+        this.register(path.concat(key), rawChildModule, runtime)
+      })
+    }
+  }
+}</code></pre>
+<h3 id="module">Module</h3>
+<pre><code class="language-js">export default class Module {
+  constructor (rawModule, runtime) {
+    this.runtime = runtime
+    // Store some children item
+    // 存放子模块
+    this._children = Object.create(null)
+    // Store the origin module object which passed by programmer
+    // 传入的options对象
+    this._rawModule = rawModule
+    // module定义的state
+    const rawState = rawModule.state
+
+    // Store the origin module&#39;s state
+    // state可能是一个function，模块复用的时候需要定义成function
+    this.state = (typeof rawState === &#39;function&#39; ? rawState() : rawState) || {}
+  }
+}</code></pre>
+<h3 id="module的处理逻辑">Module的处理逻辑</h3>
+<ul>
+<li><p>1、根据传入的options遍历生成Module树。options本身作为root节点， 定义的modules则作为children。</p>
+<pre><code class="language-js">this._modules = new ModuleCollection(options)</code></pre>
+</li>
+<li><p>2、安装module</p>
+</li>
+</ul>
+<pre><code class="language-js">installModule(this, state, [], this._modules.root)
+
+</code></pre>
+<ul>
+<li>3、特点</li>
+<li>所有模块的数据都会合并到state上去，子模块会挂在父模块数据的同名属性下， 所以如果父模块state的同名属性</li>
+</ul>
+<h1 id="plugins">plugins</h1>
+<p>遍历<code>options.plugins</code>执行每一个定义的<code>plugin</code>，第一个参数是<code>store</code>。</p>
+<pre><code class="language-js">    plugins.forEach(plugin =&gt; plugin(this))</code></pre>
+<h3 id="内置插件">内置插件</h3>
+<ul>
+<li>createLogger</li>
+<li>devtool</li>
+</ul>
+<h1 id="watch">watch</h1>
+<p>使用$watch实现的。</p>
+<pre><code class="language-js">  watch (getter, cb, options) {
+    if (__DEV__) {
+      assert(typeof getter === &#39;function&#39;, `store.watch only accepts a function.`)
+    }
+    return this._watcherVM.$watch(() =&gt; getter(this.state, this.getters), cb, options)
+  }</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

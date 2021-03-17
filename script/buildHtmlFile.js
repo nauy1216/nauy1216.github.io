@@ -1,40 +1,40 @@
-const path = require('path')
-const fs = require('fs')
-const transform = require('./md2html')
+const path = require('path');
+const fs = require('fs');
+const transform = require('./md2html');
 
-start()
+start();
 
 function start() {
-  transformAllMd2Html()
-  createIndexHtml()
+    transformAllMd2Html();
+    createIndexHtml();
 }
 
 function transformAllMd2Html() {
-  const rootDir = path.resolve(process.cwd(), 'docs')
-  transformDeep(rootDir)
+    const rootDir = path.resolve(process.cwd(), 'docs');
+    transformDeep(rootDir);
 
-  function transformDeep(dir) {
-    let dirChildList = fs.readdirSync(dir)
-    dirChildList.forEach(child => {
-      let isDir = fs.statSync(path.resolve(dir, child)).isDirectory()
-      if (!isDir && /\.md$/.test(child)) {
-        transform(child, path.resolve(dir, child))
-        console.log('file: ', path.resolve(dir, child))
-      }
-      if (isDir) {
-        transformDeep(path.resolve(dir, child))
-      }
-    })
-  }
+    function transformDeep(dir) {
+        let dirChildList = fs.readdirSync(dir);
+        dirChildList.forEach(child => {
+            let isDir = fs.statSync(path.resolve(dir, child)).isDirectory();
+            if (!isDir && /\.md$/.test(child)) {
+                transform(child, path.resolve(dir, child));
+                console.log('file: ', path.resolve(dir, child));
+            }
+            if (isDir) {
+                transformDeep(path.resolve(dir, child));
+            }
+        });
+    }
 }
 
 function createIndexHtml() {
-  const baseUrl = 'https://github.com/chengyuan1216/chengyuan1216.github.io/blob/master/docs/'
-  const rootDir = path.resolve(process.cwd(), 'docs')
-  let htmlStr = `<ul>`
-  build(rootDir)
-  htmlStr += `</ul>`
-  htmlStr = `
+    const baseUrl = 'https://github.com/chengyuan1216/chengyuan1216.github.io/blob/master/docs/';
+    const rootDir = path.resolve(process.cwd(), 'docs');
+    let htmlStr = `<ul>`;
+    build(rootDir);
+    htmlStr += `</ul>`;
+    htmlStr = `
   <!DOCTYPE html>
   <html>
   <head>
@@ -64,14 +64,19 @@ function createIndexHtml() {
         font-size: 16px;
         font-weight: 700;
         color: #333;
-        list-style: none;
+        // list-style: none;
         margin:  0 0 10px 0;
         padding: 0 0 0 10px;
       }
       li {
         margin: 4px 0 0 0;
         font-size:14px;
+        font-weight: bold;
+        font-size: 18px;
+      }
+      a {
         font-weight: normal;
+        font-size: 14px;
       }
     </style>
   </head>
@@ -94,35 +99,37 @@ function createIndexHtml() {
     </script>
   </body>
   </html>
-  `
-  fs.writeFile(path.resolve(process.cwd(), 'index.html'), htmlStr, function () {
-    console.log('index.html 更新成功！')
-  })
+  `;
+    fs.writeFile(path.resolve(process.cwd(), 'index.html'), htmlStr, function () {
+        console.log('index.html 更新成功！');
+    });
 
-  function build(dir) {
-    let dirChildList = fs.readdirSync(dir)
-    const noBuildList = ['image', 'source']
-    dirChildList.forEach(child => {
-      let isDir = fs.statSync(path.resolve(dir, child))
-      if (isDir.isDirectory()) {
-        if (!noBuildList.includes(child)) {
-          htmlStr += `<li>${child}<ul>`
-          build(path.resolve(dir, child))
-          htmlStr += `</ul></li>`
-        }
-      } else {
-        console.log(dir)
-        let relativeUrl = dir.split('\\docs\\')[1].replace(/\\/g, '/')
-        let url
-        if (/.html$/.test(child)) {
-          url = 'docs' + '/' + relativeUrl + '/' + child
-          htmlStr += `<li><a href="javascript:void" data-href="${url}">${child.split('.')[0]}</a></li>`
-        } else if (!/.md$/.test(child)) {
-          url = baseUrl + '/' + relativeUrl + '/' + child
-          htmlStr += `<li><a href="javascript:void" data-href="${url}">${child}</a></li>`
-        }
-        // htmlStr += `<li><a href="${url}">${child.split('.')[0]}</a></li>`
-      }
-    })
-  }
+    function build(dir) {
+        let dirChildList = fs.readdirSync(dir);
+        const noBuildList = ['image', 'source'];
+        dirChildList.forEach(child => {
+            let isDir = fs.statSync(path.resolve(dir, child));
+            if (isDir.isDirectory()) {
+                if (!noBuildList.includes(child)) {
+                    htmlStr += `<li>${child}<ul>`;
+                    build(path.resolve(dir, child));
+                    htmlStr += `</ul></li>`;
+                }
+            } else {
+                console.log(dir);
+                let relativeUrl = dir.split('\\docs\\')[1].replace(/\\/g, '/');
+                let url;
+                if (/.html$/.test(child)) {
+                    url = 'docs' + '/' + relativeUrl + '/' + child;
+                    htmlStr += `<li><a href="javascript:void" data-href="${url}">${
+                        child.split('.')[0]
+                    }</a></li>`;
+                } else if (!/.md$/.test(child)) {
+                    url = baseUrl + '/' + relativeUrl + '/' + child;
+                    htmlStr += `<li><a href="javascript:void" data-href="${url}">${child}</a></li>`;
+                }
+                // htmlStr += `<li><a href="${url}">${child.split('.')[0]}</a></li>`
+            }
+        });
+    }
 }
