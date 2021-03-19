@@ -145,12 +145,36 @@ class VueRouter {
 - matcher
 - history
 
-# push
+# push的执行过程
+- 调用$router.push
+- 在router对象内部会交给history对象去处理，执行history.push
+- 调用baseHistory类的transitionTo方法
+- 调用router.match方法匹配到当前地址对应的$route对象，当地址发生
 
 - $router.push
     - $router.history.push
         - $router.history.transitionTo
             - $router.match
             - $router.history.confirmTransition
+
+
+
+# 路由守卫是怎么实现的？
+- 全局守卫
+    - beforeEach
+        - beforeHooks
+    - beforeResolve
+        - resolveHooks
+    - afterEach
+        - afterHooks
+
+- 路由独享
+    - beforeEnter
+
+- 组件内
+    - beforeRouteEnter
+    - beforeRouteUpdate
+    - beforeRouteLeave
+
 
 
