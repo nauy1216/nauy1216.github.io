@@ -149,7 +149,28 @@ class VueRouter {
 - 调用$router.push
 - 在router对象内部会交给history对象去处理，执行history.push
 - 调用baseHistory类的transitionTo方法
-- 调用router.match方法匹配到当前地址对应的$route对象，当地址发生
+- 调用router.match方法匹配到当前地址对应的$route对象，当地址发生后$route对象就会发生改变
+- 调用confirmTransition
+    ```js
+        const { updated, deactivated, activated } = resolveQueue(
+            this.current.matched,
+            route.matched
+        )
+
+        const queue: Array<?NavigationGuard> = [].concat(
+            // in-component leave guards
+            extractLeaveGuards(deactivated), // 组件内守卫 beforeRouteLeave
+            // global before hooks
+            this.router.beforeHooks,        // 全局守卫 beforeEach
+            // in-component update hooks    
+            extractUpdateHooks(updated),    // 组件内守卫 beforeRouteUpdate
+            // in-config enter guards
+            activated.map(m => m.beforeEnter), // 组件内守卫 beforeRouteEnter
+            // async components
+            resolveAsyncComponents(activated) // 全局守卫 beforeResolve
+        )
+    ```
+- 
 
 - $router.push
     - $router.history.push
