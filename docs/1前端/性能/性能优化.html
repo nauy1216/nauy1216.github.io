@@ -37,7 +37,26 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="网络优化">网络优化</h1>
+                <h1 id="首屏优化">首屏优化</h1>
+<p>根据百度用户体验部的研究结果来看,普通用户期望且能够接受的页面加载时间在 3 秒以内。若页面的加载时间过慢,用户就会失去耐心而选择离开。</p>
+<h1 id="script-优化">script 优化</h1>
+<h3 id="加载优化">加载优化</h3>
+<pre><code class="language-html">// 第一种
+&lt;script src=&quot;script.js&quot;&gt;
+// 第二种
+&lt;script async src=&quot;script.js&quot;&gt;
+// 第二种
+&lt;script defer src=&quot;script.js&quot;&gt;</code></pre>
+<ul>
+<li>第一种： 同步脚本加载并立即执行。加载和执行都会阻塞对文档的解析。能保证多个脚本的顺序执行。</li>
+<li>第二种： 异步加载，加载后理解执行。加载不会阻塞， 执行会阻塞。不能保证多个 async 脚本的顺序执行，谁先加载完谁就先执行。</li>
+<li>第三种： 异步加载，文档解析完成后，才会执行。加载和执行都不会阻塞。能保证多个 defer 脚本的顺序执行。对于不支持 defer 的浏览器直接将脚本的加载放在 body 的后面。</li>
+</ul>
+<h3 id="运行时优化">运行时优化</h3>
+<ul>
+<li>1、避免频繁引起重排，将合并多次 dom 操作为一次。</li>
+</ul>
+<h1 id="网络优化">网络优化</h1>
 <ul>
 <li>http2</li>
 <li>CDN</li>
