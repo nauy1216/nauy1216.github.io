@@ -31,9 +31,11 @@ function transformAllMd2Html() {
 function createIndexHtml() {
     const baseUrl = 'https://github.com/chengyuan1216/chengyuan1216.github.io/blob/master/docs/';
     const rootDir = path.resolve(process.cwd(), 'docs');
+
     let htmlStr = `<ul>`;
     build(rootDir);
     htmlStr += `</ul>`;
+
     htmlStr = `
   <!DOCTYPE html>
   <html>
@@ -100,6 +102,7 @@ function createIndexHtml() {
   </body>
   </html>
   `;
+
     fs.writeFile(path.resolve(process.cwd(), 'index.html'), htmlStr, function () {
         console.log('index.html 更新成功！');
     });
