@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>hybridApp.md</title>
+          <title>vue-router.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,7 +37,253 @@
           </head>
           <body>
             <article class="markdown-body">
-                <p><a href="https://juejin.cn/post/6844904031773523976">https://juejin.cn/post/6844904031773523976</a></p>
+                <h1 id="install">install</h1>
+<pre><code class="language-js">export function install(Vue) {
+    if (install.installed &amp;&amp; _Vue === Vue) return;
+    install.installed = true;
+
+    _Vue = Vue;
+
+    const isDef = v =&gt; v !== undefined;
+
+    const registerInstance = (vm, callVal) =&gt; {
+        let i = vm.$options._parentVnode;
+        // 执行registerRouteInstance hook
+        if (isDef(i) &amp;&amp; isDef((i = i.data)) &amp;&amp; isDef((i = i.registerRouteInstance))) {
+            i(vm, callVal);
+        }
+    };
+
+    Vue.mixin({
+        beforeCreate() {
+            debugger;
+            // 如果$options.router存在则是root component
+            if (isDef(this.$options.router)) {
+                this._routerRoot = this;
+                this._router = this.$options.router;
+                // router 初始化
+                this._router.init(this);
+                // 在root component 上定义_route属性
+                // 在子组件内部访问$route时， 其实访问的是root组件的_route属性
+                // _route是响应式的
+                Vue.util.defineReactive(this, &#39;_route&#39;, this._router.history.current);
+            } else {
+                // this._routerRoot 指向的是通过new Vue创建的组件实例
+                this._routerRoot = (this.$parent &amp;&amp; this.$parent._routerRoot) || this;
+            }
+            registerInstance(this, this);
+        },
+        destroyed() {
+            registerInstance(this);
+        },
+    });
+
+    // 挂在原型上， 全局访问
+    Object.defineProperty(Vue.prototype, &#39;$router&#39;, {
+        get() {
+            return this._routerRoot._router;
+        },
+    });
+
+    // 挂在原型上， 全局访问
+    Object.defineProperty(Vue.prototype, &#39;$route&#39;, {
+        get() {
+            return this._routerRoot._route;
+        },
+    });
+
+    Vue.component(&#39;RouterView&#39;, View);
+    Vue.component(&#39;RouterLink&#39;, Link);
+
+    const strats = Vue.config.optionMergeStrategies;
+    // use the same hook merging strategy for route hooks
+    // 合并策略
+    strats.beforeRouteEnter = strats.beforeRouteLeave = strats.beforeRouteUpdate = strats.created;
+}</code></pre>
+<h1 id="vuerouter">VueRouter</h1>
+<pre><code class="language-js">class VueRouter {
+    constructor(options: RouterOptions = {}) {
+        // 使用当前路由的app
+        // 同一个页面可多次被new Vue()注入不同的app实例
+        this.apps = []
+
+        // mode
+        switch (mode) {
+            case &#39;history&#39;:
+                this.history = new HTML5History(this, options.base);
+                break;
+            case &#39;hash&#39;:
+                this.history = new HashHistory(this, options.base, this.fallback);
+                break;
+            case &#39;abstract&#39;:
+                this.history = new AbstractHistory(this, options.base);
+                break;
+            default:
+                if (process.env.NODE_ENV !== &#39;production&#39;) {
+                    assert(false, `invalid mode: ${mode}`);
+                }
+        }
+    }
+
+    // 初始化,在root componnet的beforeCreate中调用
+    // 会根据当前的地址进行初始化渲染视图
+    init(app: any /* Vue component instance */) {
+        this.apps.push(app);
+
+        // 监听使用了router的跟组件
+        app.$once(&#39;hook:destroyed&#39;, () =&gt; {
+            // clean out app from this.apps array once destroyed
+            const index = this.apps.indexOf(app);
+            if (index &gt; -1) this.apps.splice(index, 1);
+            // ensure we still have a main app or null if no apps
+            // we do not release the router so it can be reused
+            if (this.app === app) this.app = this.apps[0] || null;
+
+            if (!this.app) {
+                // clean up event listeners
+                // https://github.com/vuejs/vue-router/issues/2341
+                this.history.teardownListeners();
+            }
+        });
+
+        // main app previously initialized
+        // return as we don&#39;t need to set up new history listener
+        if (this.app) {
+            return;
+        }
+
+        this.app = app;
+
+        const history = this.history;
+
+        if (history instanceof HTML5History || history instanceof HashHistory) {
+            const setupListeners = () =&gt; {
+                history.setupListeners();
+            };
+            // 获取到当前的地址后进行跳转
+            history.transitionTo(history.getCurrentLocation(), setupListeners, setupListeners);
+        }
+
+        // 路由发生改变时
+        history.listen(route =&gt; {
+            this.apps.forEach(app =&gt; {
+                app._route = route;
+            });
+        });
+    }
+}</code></pre>
+<h1 id="router">router</h1>
+<ul>
+<li>matcher</li>
+<li>history</li>
+</ul>
+<h1 id="push的执行过程">push的执行过程</h1>
+<ul>
+<li><p>调用$router.push</p>
+</li>
+<li><p>在router对象内部会交给history对象去处理，执行history.push</p>
+</li>
+<li><p>调用baseHistory类的transitionTo方法</p>
+</li>
+<li><p>调用router.match方法匹配到当前地址对应的$route对象，当地址发生后$route对象就会发生改变</p>
+</li>
+<li><p>调用confirmTransition</p>
+<pre><code class="language-js">      const { updated, deactivated, activated } = resolveQueue(
+          this.current.matched,
+          route.matched
+      )
+
+      const queue: Array&lt;?NavigationGuard&gt; = [].concat(
+          // in-component leave guards
+          extractLeaveGuards(deactivated), // 组件内守卫 beforeRouteLeave
+          // global before hooks
+          this.router.beforeHooks,        // 全局守卫 beforeEach
+          // in-component update hooks    
+          extractUpdateHooks(updated),    // 组件内守卫 beforeRouteUpdate
+          // in-config enter guards
+          activated.map(m =&gt; m.beforeEnter), // 路由独享守卫  beforeEnter
+          // async components
+          // 在异步组件加载完成后
+          // 组件内守卫 beforeRouteEnter 全局守卫 beforeResolve
+          resolveAsyncComponents(activated) 
+      )</code></pre>
+</li>
+<li></li>
+<li><p>$router.push</p>
+<ul>
+<li>$router.history.push<ul>
+<li>$router.history.transitionTo<ul>
+<li>$router.match</li>
+<li>$router.history.confirmTransition</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="路由守卫是怎么实现的？">路由守卫是怎么实现的？</h1>
+<ul>
+<li><p>全局守卫</p>
+<ul>
+<li>beforeEach<ul>
+<li>beforeHooks</li>
+</ul>
+</li>
+<li>beforeResolve<ul>
+<li>resolveHooks</li>
+</ul>
+</li>
+<li>afterEach<ul>
+<li>afterHooks</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>路由独享</p>
+<ul>
+<li>beforeEnter</li>
+</ul>
+</li>
+<li><p>组件内</p>
+<ul>
+<li>beforeRouteEnter</li>
+<li>beforeRouteUpdate</li>
+<li>beforeRouteLeave</li>
+</ul>
+</li>
+</ul>
+<h1 id="配合异步组件">配合异步组件</h1>
+<pre><code class="language-js">{
+    path: &#39;/&#39;,
+    component: () =&gt; {
+        const AsyncComp = () =&gt; ({
+            error: {
+            functional: true,
+            render(h) {
+                return h(&#39;div&#39;, {
+                style: {
+                    color: &#39;red&#39;
+                }
+                }, &#39;404&#39;)
+            }
+            },
+            component: import(&#39;@/views/reportForm/statisticalQuery/purchaseTrakingList&#39;)
+        })
+
+        return Promise.resolve({
+            functional: true,
+            render(h) {
+            return h(AsyncComp)
+            }
+        })
+    },
+}</code></pre>
+<p>或者</p>
+<pre><code class="language-js">{
+    path: &#39;/&#39;,
+    component: import(&#39;@/views/reportForm/statisticalQuery/purchaseTrakingList&#39;)
+}</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

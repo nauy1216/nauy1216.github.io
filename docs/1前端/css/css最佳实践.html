@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>hybridApp.md</title>
+          <title>css最佳实践.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,7 +37,39 @@
           </head>
           <body>
             <article class="markdown-body">
-                <p><a href="https://juejin.cn/post/6844904031773523976">https://juejin.cn/post/6844904031773523976</a></p>
+                <h1 id="bem">BEM</h1>
+<p>BEM的意思就是块（block）、元素（element）、修饰符（modifier）。
+命名约定的模式如下：</p>
+<pre><code class="language-css">.block{}
+.block__element{}
+.block--modifier{}</code></pre>
+<ul>
+<li>.block 代表了更高级别的抽象或组件。</li>
+<li>.block__element 代表.block的后代，用于形成一个完整的.block的整体。</li>
+<li>.block--modifier代表.block的不同状态或不同版本。</li>
+</ul>
+<p>之所以使用两个连字符和下划线而不是一个，是为了让你自己的块可以用单个连字符来界定，如：</p>
+<pre><code class="language-css">.site-search{} /* 块 */
+.site-search__field{} /* 元素 */
+.site-search--full{} /* 修饰符 */    
+</code></pre>
+<p>BEM的关键是光凭名字就可以告诉其他开发者某个标记是用来干什么的。通过浏览HTML代码中的class属性，你就能够明白模块之间是如何关联的：有一些仅仅是组件，有一些则是这些组件的子孙或者是元素,还有一些是组件的其他形态或者是修饰符。我们用一个类比/模型来思考一下下面的这些元素是怎么关联的：</p>
+<pre><code class="language-css">.person{}
+.person__hand{}
+.person--female{}
+.person--female__hand{}
+.person__hand--left{}    </code></pre>
+<blockquote>
+<p>规范不必生搬硬套，还是得看场景。</p>
+</blockquote>
+<h1 id="oocss">OOCSS</h1>
+<h1 id="smacss">SMACSS</h1>
+<h1 id="atomic-design">Atomic Design</h1>
+<blockquote>
+<p>TailwindCSS</p>
+</blockquote>
+<h1 id="css-in-js">CSS-in-js</h1>
+<h1 id="style-module">style module</h1>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
