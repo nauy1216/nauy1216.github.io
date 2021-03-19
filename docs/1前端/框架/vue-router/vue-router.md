@@ -165,9 +165,11 @@ class VueRouter {
             // in-component update hooks    
             extractUpdateHooks(updated),    // 组件内守卫 beforeRouteUpdate
             // in-config enter guards
-            activated.map(m => m.beforeEnter), // 组件内守卫 beforeRouteEnter
+            activated.map(m => m.beforeEnter), // 路由独享守卫  beforeEnter
             // async components
-            resolveAsyncComponents(activated) // 全局守卫 beforeResolve
+            // 在异步组件加载完成后
+            // 组件内守卫 beforeRouteEnter 全局守卫 beforeResolve
+            resolveAsyncComponents(activated) 
         )
     ```
 - 
