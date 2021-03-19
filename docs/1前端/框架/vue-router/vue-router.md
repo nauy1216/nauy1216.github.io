@@ -200,4 +200,39 @@ class VueRouter {
     - beforeRouteLeave
 
 
+# 配合异步组件
+```js
+{
+    path: '/',
+    component: () => {
+        const AsyncComp = () => ({
+            error: {
+            functional: true,
+            render(h) {
+                return h('div', {
+                style: {
+                    color: 'red'
+                }
+                }, '404')
+            }
+            },
+            component: import('@/views/reportForm/statisticalQuery/purchaseTrakingList')
+        })
 
+        return Promise.resolve({
+            functional: true,
+            render(h) {
+            return h(AsyncComp)
+            }
+        })
+    },
+}
+```
+
+或者
+```js
+{
+    path: '/',
+    component: import('@/views/reportForm/statisticalQuery/purchaseTrakingList')
+}
+```
