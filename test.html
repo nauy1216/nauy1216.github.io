@@ -2,76 +2,27 @@
 <html data-framework="vue">
   <head>
     <meta charset="utf-8">
-    <title>    </title>
-    <style>
-      .hello {
-        background: #e0e0e0;
-        font-size: 12px;
-        display: inline;
-      }
-    </style>
+    <title></title>
   </head>
   <body>
-    <div id="app"></div>
-    <script src="vue.js"></script>
+    <form action="http://10.1.1.248:8108/scm/tenant/sysLogin" method=POST>
+        <input type="hidden" name="tenantNo" value="666666" />
+        <input type="hidden" name="userNo" value="admin" />
+        <input type="hidden" name="userPwd" value="MDAwMDAw" />
+    </form>
+    <!-- <script> document.forms[0].submit(); </script>  -->
     <script>
-
-      var ComA = {
-        data() {
-          return {
-            message: 'haha'
-          }
-        },
-        watch: {
-          message() {
-
-          }
-        },
-        methods: {
-          handleClick() {
-            this.message = Math.random()
-          }
-        },
-        render(h) {
-          return h('h1', {
-            ref: 'hello',
-            attrs: {
-              class: 'hello'
-            },
-            on: {
-              click: this.handleClick
-            }
-          }, this.message)
-        }
+      var request = new XMLHttpRequest()
+      request.open('POST', 'http://10.1.1.248:8108/scm/tenant/sysLogin', true)
+      request.setRequestHeader('Content-type', 'application/json')
+      request.send(JSON.stringify({
+        tenantNo: '666666',
+        userNo: 'admin',
+        userPwd: 'MDAwMDAw'
+      }))
+      request.onreadystatechange = function(ev) {
+        console.log(ev)
       }
-
-      var App = {
-        render(h) {
-          return h('div', {
-            ref: 'app',
-            attrs: {
-              class: 'app',
-            }
-          }, 'message')
-        }
-      }
-
-      window.vm = new Vue({
-        el: '#app',
-        components: {
-          App,
-          ComA
-        },
-        methods: {
-          handleClick() {
-            console.log('click')
-          }
-        },
-        template: `
-          <App ref="root">
-          </App>
-        `
-      })
     </script>
   </body>
 </html>
