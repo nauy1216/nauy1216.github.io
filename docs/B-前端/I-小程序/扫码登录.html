@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>小程序原理.md</title>
+          <title>扫码登录.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,36 +37,34 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="文件转换">文件转换</h1>
-<p>打开小程序开发者工具，在调试控制台输入<code>openVendor</code>就会打开小程序的WeappVendor目录，该目录包括以下几个主要内容：</p>
-<ul>
-<li><strong>wcc</strong>可执行程序，用于将wxml内容转换为js内容，执行方式：<code>wcc xxx.wxml</code></li>
-<li><strong>wcsc</strong>可执行程序，用于将wxss内容转换为视图可使用css内容，执行方式 <code>wcsc xxx.wxss</code></li>
-<li><strong>不同版本小程序基础库x.x.x.wxvpkg</strong>, 里面包含小程序基础库WAService和WAWebview</li>
-</ul>
-<h2 id="1、wxml使用wcc转换">1、wxml使用wcc转换</h2>
-<p>正如上面分析的，通过调用小程序内置的可执行程序执行<code>wcc xxx.wxml</code>，将指定的wxml转换为js脚本内容。其具体用法可以--help查看。</p>
-<p>从页面转换的js内容来看，主要记录标签的属性及其值等。另外，转化的js脚本提供最核心的方法是<code>$gwx</code>方法，可以在开发者工具开发控制台访问到，其方法签名如下：</p>
-<pre><code class="language-js">$gwx = function(path, global) {
-    ...
-    return function(env,dd,global){
-        ...
-    }
-}</code></pre>
-<p>该方法根据传入具体的页面wxml路径，找到对应的页面，然后返回一个函数，向该函数传入页面渲染需要的数据（即Page中data对象）就能得到该页面wxml对应的js对象形式表示的dom树。</p>
-<p>另外，我们直接在开发者工具的控制台直接调用，输入如下语句，可以得到的js对象表示如下图：</p>
-<pre><code class="language-js"> $gwx(&#39;./pages/index/index.wxml&#39;)({show: true})</code></pre>
-<h2 id="2、wxss使用wcsc转换">2、wxss使用wcsc转换</h2>
-<p><code>wcsc</code>可执行程序用于处理wxss，小程序底层使用该可执行程序转换为js内容来处理页面css的引用。小程序底层使用<code>wcsc -db -pc</code>来转换对应wxss文件的，其生成的js内容使用eval函数中的字符串表示。</p>
-<p>生成是js主要作用：</p>
-<ul>
-<li><strong>添加尺寸单位rpx转换，可根据屏幕宽度自适应</strong></li>
-<li><strong>提供setCssToHead方法将转换后的css内容添加到header</strong></li>
-</ul>
-<h1 id="开发者工具主入口">开发者工具主入口</h1>
-<p>小程序开发者工具的主入口也是小程序的启动入口，是整个小程序开发者工具的控制层，例如创建或者销毁webview等。它主要包括小程序的视图层的webview，业务逻辑层webview，调试器的webview和编辑区的webview几大块；我们只需关心视图层和业务逻辑层的webview。启动入口对应这一个index.html页面，里面引入主入口js，如下：</p>
-<pre><code>&lt;div id=container class=container&gt;&lt;/div&gt;
-&lt;script src=../js/core/index.js&gt; &lt;/script&gt; </code></pre>
+                <h1 id="参考文档">参考文档</h1>
+<p><a href="https://segmentfault.com/a/1190000015469221">https://segmentfault.com/a/1190000015469221</a></p>
+<h1 id="用户操作流程">用户操作流程</h1>
+<ol>
+<li>进入网页登陆界面，随机生成一个二维码；</li>
+<li>用户通过手机扫描二维码，将微信账号与二维码绑定；</li>
+<li>用户在手机微信点击登录按钮，授权网页登录微信账号；</li>
+<li>网页获得用户的账号信息，将数据显示。</li>
+</ol>
+<h1 id="背后的原理">背后的原理</h1>
+<ol>
+<li>网站页面刷新，网页后台向微信后台请求授权登录；</li>
+<li>微信后台返回登录所需二维码；</li>
+<li>用户通过手机扫描二维码，并在手机上授权登录后，微信后台告知网页后台已授权；</li>
+<li>网页后台向微信后台请求微信账号数据；</li>
+<li>微信后台返回账号数据；</li>
+<li>网页后台接收数据并通过浏览器显示；</li>
+</ol>
+<p><img src="./image/210321-1627.jpeg" alt=""></p>
+<h1 id="以qq邮箱的的微信扫码登录为例">以qq邮箱的的微信扫码登录为例</h1>
+<ol>
+<li>在页面中使用<code>iframe</code>, 向微信服务器请求一个二维码，参数上带有扫码成功后的重定向地址<pre><code class="language-js">https://open.weixin.qq.com/connect/qrconnect?appid=wx5e893ac3cc590290&amp;redirect_uri=https%3A%2F%2Fwx.mail.qq.com%2Flogin%2Flogin%3Fauth_type%3D1%26return_target%3D5%26delegate_url%3Dhttps%253A%252F%252Fmail.qq.com%252Fcgi-bin%252Freadtemplate%253Fcheck%253Dfalse%2526t%253Dloginpage_new_jump_for_xmail&amp;self_redirect=false&amp;response_type=code&amp;scope=snsapi_login&amp;state=state&amp;href=https%3A%2F%2Fres.wx.qq.com%2Fa%2Fwebmail%2Fxmail%2Fres%2Fcss%2Fiframe_wx38793b.css</code></pre>
+</li>
+<li>在iframe中就会生成二维码</li>
+<li>用户微信客户端扫码后，网页会提示扫码成功，并且微信客户端会出现确认登录的按钮。</li>
+<li>用户扫码成功后页面发起重定向并且在重定向的地址上会带有用于识别用的code。拿到code就可以从微信服务端拿到用户的信息了。</li>
+</ol>
+
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

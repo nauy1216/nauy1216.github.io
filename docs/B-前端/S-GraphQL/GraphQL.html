@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>小程序常见问题.md</title>
+          <title>GraphQL.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,76 +37,7 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="在通过-getphonenumber-获取用户手机号进行解密时，开发工具上报wxbizdatacryptdecryptdataillegal-buffer的错误。">在通过 getPhoneNumber 获取用户手机号进行解密时，开发工具上报<code>WXBizDataCrypt.decryptData:Illegal Buffer:</code>的错误。</h3>
-<p>原因是当前的 session_key 已经失效了, session_key 失效的原因是前端代码每次使用<code>wx.checkSession</code>判断当前<code>session_key</code>是否失效，
-如果未失效，则从 localStorage 里获取上一次保存的<code>session_key</code>。
-其实这样看似是没有问题的，但这样的一种场景会出现问题。</p>
-<p>前提： 开发工具和小程序是调用的同一个后台环境的接口。
-当在开发工具登陆获取手机号成功后，此时开发工具localStorage保存了session_key。
-同时在手机上登录小程序获取手机号后，因为此时手机本地上是没有保存session_key的,所以可以成功解码获取手机号。
-当你再次刷新开发工具后再进行获取手机号就会包错，原因是用了老的seesion_key去解密手机号。
-因为手机和开发工具都是调用的同一个后台的接口，所以只要一方重新调用<code>wx.login</code>就会更新session_key。</p>
-<p>开发工具清除缓存重新登录（更新 session_key）就不会出现该问题。</p>
-<p>login的登陆逻辑如下。</p>
-<pre><code class="language-javascript">function login(context) {
-  wx.checkSession({
-    success(code) {
-      //session_key 未过期，并且在本生命周期一直有效
-      let authorLocal = uni.getStorageSync(&quot;AuthorLocal&quot;);
-      if (authorLocal) {
-        context.commit(&quot;setAuthorLocal&quot;, authorLocal);
-      } else {
-        wx.login({
-          success: (res) =&gt; {
-            if (res.code) {
-              console.log(&quot;登录成功&quot;, res);
-              uni.request({
-                url: api.getWxAuthInfo, //用 code 换取 session 和 openid/unionid
-                method: &quot;get&quot;,
-                data: {
-                  js_code: res.code, //wx.login 登录成功后的code
-                },
-                success: (cts) =&gt; {
-                  // 换取成功后 暂存这些数据 留作后续操作
-                  context.commit(&quot;setAuthorLocal&quot;, cts.data.data);
-                  uni.setStorageSync(&quot;AuthorLocal&quot;, cts.data.data); //放在选择店铺
-                },
-              });
-            } else {
-              console.log(&quot;登录失败！&quot; + res.errMsg);
-            }
-          },
-        });
-      }
-    },
-    fail() {
-      // session_key 已经失效，需要重新执行登录流程
-      wx.login({
-        success: (res) =&gt; {
-          if (res.code) {
-            console.log(&quot;登录成功&quot;, res);
-            uni.request({
-              url: api.getWxAuthInfo, //用 code 换取 session 和 openid/unionid
-              method: &quot;get&quot;,
-              data: {
-                js_code: res.code, //wx.login 登录成功后的code
-              },
-              success: (cts) =&gt; {
-                // 换取成功后 暂存这些数据 留作后续操作
-                context.commit(&quot;setAuthorLocal&quot;, cts.data.data);
-                uni.setStorageSync(&quot;AuthorLocal&quot;, cts.data.data); //放在选择店铺
-              },
-            });
-          } else {
-            console.log(&quot;登录失败！&quot; + res.errMsg);
-          }
-        },
-      });
-    },
-  });
-}
-</code></pre>
-
+                
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

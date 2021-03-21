@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>常见的性能问题.md</title>
+          <title>原理.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,13 +37,36 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="长时间的计算逻辑使用webworker执行">长时间的计算逻辑使用WebWorker执行</h1>
-<ol>
-<li><a href="https://juejin.cn/post/6844903939154903048">https://juejin.cn/post/6844903939154903048</a></li>
-</ol>
-<h1 id="超大量数据的表格或列表渲染">超大量数据的表格或列表渲染</h1>
-<h1 id="requestanimationframe和settimeout">requestAnimationFrame和setTimeout</h1>
-
+                <h1 id="文件转换">文件转换</h1>
+<p>打开小程序开发者工具，在调试控制台输入<code>openVendor</code>就会打开小程序的WeappVendor目录，该目录包括以下几个主要内容：</p>
+<ul>
+<li><strong>wcc</strong>可执行程序，用于将wxml内容转换为js内容，执行方式：<code>wcc xxx.wxml</code></li>
+<li><strong>wcsc</strong>可执行程序，用于将wxss内容转换为视图可使用css内容，执行方式 <code>wcsc xxx.wxss</code></li>
+<li><strong>不同版本小程序基础库x.x.x.wxvpkg</strong>, 里面包含小程序基础库WAService和WAWebview</li>
+</ul>
+<h2 id="1、wxml使用wcc转换">1、wxml使用wcc转换</h2>
+<p>正如上面分析的，通过调用小程序内置的可执行程序执行<code>wcc xxx.wxml</code>，将指定的wxml转换为js脚本内容。其具体用法可以--help查看。</p>
+<p>从页面转换的js内容来看，主要记录标签的属性及其值等。另外，转化的js脚本提供最核心的方法是<code>$gwx</code>方法，可以在开发者工具开发控制台访问到，其方法签名如下：</p>
+<pre><code class="language-js">$gwx = function(path, global) {
+    ...
+    return function(env,dd,global){
+        ...
+    }
+}</code></pre>
+<p>该方法根据传入具体的页面wxml路径，找到对应的页面，然后返回一个函数，向该函数传入页面渲染需要的数据（即Page中data对象）就能得到该页面wxml对应的js对象形式表示的dom树。</p>
+<p>另外，我们直接在开发者工具的控制台直接调用，输入如下语句，可以得到的js对象表示如下图：</p>
+<pre><code class="language-js"> $gwx(&#39;./pages/index/index.wxml&#39;)({show: true})</code></pre>
+<h2 id="2、wxss使用wcsc转换">2、wxss使用wcsc转换</h2>
+<p><code>wcsc</code>可执行程序用于处理wxss，小程序底层使用该可执行程序转换为js内容来处理页面css的引用。小程序底层使用<code>wcsc -db -pc</code>来转换对应wxss文件的，其生成的js内容使用eval函数中的字符串表示。</p>
+<p>生成是js主要作用：</p>
+<ul>
+<li><strong>添加尺寸单位rpx转换，可根据屏幕宽度自适应</strong></li>
+<li><strong>提供setCssToHead方法将转换后的css内容添加到header</strong></li>
+</ul>
+<h1 id="开发者工具主入口">开发者工具主入口</h1>
+<p>小程序开发者工具的主入口也是小程序的启动入口，是整个小程序开发者工具的控制层，例如创建或者销毁webview等。它主要包括小程序的视图层的webview，业务逻辑层webview，调试器的webview和编辑区的webview几大块；我们只需关心视图层和业务逻辑层的webview。启动入口对应这一个index.html页面，里面引入主入口js，如下：</p>
+<pre><code>&lt;div id=container class=container&gt;&lt;/div&gt;
+&lt;script src=../js/core/index.js&gt; &lt;/script&gt; </code></pre>
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>
