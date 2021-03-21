@@ -1,9 +1,0 @@
-# css
-
-1. [bootstrap](https://www.bootcss.com/)
-
-2. [tailwindcss](https://www.bootcss.com/)
-
-   
-
-![](./image/life.png)
