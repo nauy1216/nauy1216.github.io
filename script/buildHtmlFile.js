@@ -53,10 +53,10 @@ function createIndexHtml() {
         display: flex;
       }
       #menu {
-        width: 300px;
+        width: 400px;
         height: 100vh;
         overflow: auto;
-        flex: 0 0 300px;
+        flex: 0 0 400px;
       }
       #content {
         flex: 1 1 100%;
@@ -71,7 +71,7 @@ function createIndexHtml() {
         padding: 0 0 0 10px;
       }
       li {
-        margin: 4px 0 0 0;
+        margin: 4px 0 0 20px;
         font-size:14px;
         font-weight: bold;
         font-size: 18px;

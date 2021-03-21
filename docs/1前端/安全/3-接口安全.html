@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>资源链接.md</title>
+          <title>3-接口安全.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,35 +37,51 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="css">css</h1>
+                <h1 id="防篡改">防篡改</h1>
+<h3 id="为什么要防篡改">为什么要防篡改</h3>
+<p>http 是一种无状态的协议, 服务端并不知道客户端发送的请求是否合法, 也并不知道请求中的参数是否正确。
+举个栗子, 现在有个充值的接口, 调用给用户对应的余额</p>
+<pre><code class="language-js">http://localhost/api/user/recharge?user_id=1001&amp;amount=10</code></pre>
 <ol>
-<li><a href="https://www.bootcss.com/">bootstrap</a></li>
-<li><a href="https://www.tailwindcss.cn/">tailwindcss</a></li>
+<li>给指定id的用户加上10块钱的余额</li>
+<li>如果用户id被篡改,余额参数被篡改,也就是说,可以给任何用户加余额</li>
 </ol>
-<h1 id="游戏">游戏</h1>
+<h3 id="如何防篡改---设计sign">如何防篡改 - 设计sign</h3>
 <ol>
-<li>playcanvas</li>
-<li>egret</li>
-<li>cocos2d</li>
-<li>pixi</li>
-<li>Phaser.js</li>
+<li>客户端: 每次请求客户端都带一个 sign 参数给服务端, 这个所谓的 sign 就是一个字符串</li>
+<li>服务端: 每次处理请求之前先验证 sign 是否合法, 如果不合法就不处理</li>
 </ol>
-<h1 id="动画">动画</h1>
+<h3 id="生成-sign-和验证-sign-怎么生成和验证-需要客户端和服务端约定好">生成 sign 和验证 sign: 怎么生成和验证, 需要客户端和服务端约定好</h3>
 <ol>
-<li>TweenMax</li>
+<li>客户端生成 sign: 可使用 公私钥非对称加密 的方式, 也可以使用计算字符串 md5 或者 hash 值的方式, 这个被加密的字符串最好不是固定的,取时间戳, 请求参数等就可以, 每次客户端把生成sign传递给服务端。</li>
+<li>服务端根据约定好的算法验证sign是否正确就可以。</li>
 </ol>
-<h1 id="前端学习">前端学习</h1>
+<p>不一定非得叫 sign 这么个名字, 就是个请求参数的名称而已。</p>
+<pre><code class="language-js">http://localhos/api/assets/recharge?id=1001&amp;amount=10&amp;sign=asdfasdf6sdfs87f67</code></pre>
+<h1 id="防重放">防重放</h1>
+<h3 id="为什么要防重放">为什么要防重放</h3>
+<p>防重放也叫<em>防复用</em>, 简单来说, 就是我获取到这个请求的信息之后, 我什么也不改, 我就拿着接口的参数去重复请求这个充值的接口。
+也就是说我的请求是合法的, 因为所有参数都是跟合法请求一模一样的。 也就是说: 服务端的 sign 验证一定能通过, 但是此时, 我可以去重复请求这个充值的接口, 也就是我能够重复的充值(假设这个接口没有做其他逻辑处理,调用就能充值,我只是假设, 别抬杠), 调用一次加 10 块钱余额, 2次就是20...这就不合理了。</p>
+<h3 id="防重放设计">防重放设计</h3>
+<blockquote>
+<p>客户端在请求中添加两个参数</p>
+</blockquote>
 <ol>
-<li><a href="https://github.com/amandakelake/blog">https://github.com/amandakelake/blog</a></li>
-<li><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></li>
-<li><a href="https://jelly.jd.com/">https://jelly.jd.com/</a></li>
-<li><a href="https://github.com/yygmind/blog/issues/43">前端 100 问</a></li>
-<li><a href="https://github.com/Advanced-Frontend">https://github.com/Advanced-Frontend</a></li>
-<li><a href="https://www.cnblogs.com/cYang2030/p/14111036.html">前端知识思维导图</a></li>
-<li><a href="https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc">https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc</a></li>
-<li><a href="https://github.com/yyx990803/tucao/issues/1">尤雨溪 github</a></li>
-<li><a href="https://tech.meituan.com/2018/10/11/fe-security-csrf.html">美团</a></li>
-<li><a href="https://www.zoo.team/article/jsbridge">政采云前端团队</a></li>
+<li>添加一个随机不重复的字符串参数 比如uuid 至于怎么让他不重复,可以考虑拼接时间戳,md5随机数等</li>
+<li>添加一个请求时间的参数 如 request_time 值就是发送请求时的 时间戳</li>
+</ol>
+<blockquote>
+<p>服务端接收到请求之后</p>
+</blockquote>
+<ol>
+<li>去缓存里中查找 uuid 这个参数对应的值是否存在</li>
+<li>如果不存在: 就把这个uuid的值保存到缓存中, 记录这个请求</li>
+<li>如果已存在: 存在那就证明, 已经请求过一次了, 就不处理这个请求了</li>
+</ol>
+<p>缓存可以是redis也可以是其他存储介质,应该给缓存设计过期时间,因为请求多了,就会有大量的 uuid 保存在缓存中。</p>
+<h3 id="课余作业">课余作业</h3>
+<ol>
+<li>学习微信小程序api的设计</li>
 </ol>
 
             </article> 
