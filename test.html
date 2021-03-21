@@ -5,6 +5,7 @@
     <title></title>
   </head>
   <body>
+    <div title="comment">5 &lt; 7</div>
     <form action="http://10.1.1.248:8108/scm/tenant/sysLogin" method=POST>
         <input type="hidden" name="tenantNo" value="666666" />
         <input type="hidden" name="userNo" value="admin" />
@@ -12,17 +13,17 @@
     </form>
     <!-- <script> document.forms[0].submit(); </script>  -->
     <script>
-      var request = new XMLHttpRequest()
-      request.open('POST', 'http://10.1.1.248:8108/scm/tenant/sysLogin', true)
-      request.setRequestHeader('Content-type', 'application/json')
-      request.send(JSON.stringify({
-        tenantNo: '666666',
-        userNo: 'admin',
-        userPwd: 'MDAwMDAw'
-      }))
-      request.onreadystatechange = function(ev) {
-        console.log(ev)
-      }
+      // var request = new XMLHttpRequest()
+      // request.open('POST', 'http://10.1.1.248:8108/scm/tenant/sysLogin', true)
+      // request.setRequestHeader('Content-type', 'application/json')
+      // request.send(JSON.stringify({
+      //   tenantNo: '666666',
+      //   userNo: 'admin',
+      //   userPwd: 'MDAwMDAw'
+      // }))
+      // request.onreadystatechange = function(ev) {
+      //   console.log(ev)
+      // }
     </script>
   </body>
 </html>
