@@ -37,21 +37,32 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="盒边框背景">盒边框背景</h3>
-<p>border-image:
-复合属性，是border新加的一个属性
-border-image-source；url()；
-引入图片
-border-image-slice:10 10 10 10 ;
-切割的图片尺寸(这里没有单位px) 该属性指定从上，右，下，左方位来分隔图像， 将图像分成4个角，4条边和中间区域共9份， 中间区域始终是透明的（即没图像填充）， 除非加上关键字 fill。
-border-image-width:
-边框宽度
-border-image-repeat:
-边框是平铺，round平铺、repeat重复、stretch（默认）拉伸
-例子：
-border:20px solid red;//必须写，如果下面的语句失效，此时边框填充颜色
-border-image:url(Hydrangeas.jpg) 20 20 20 20 repeat;</p>
-<p>因为border-image是border的一个属性，所以先有border再有border-image 这就是border必须写的原因</p>
+                <h1 id="参考文档">参考文档</h1>
+<p><a href="https://blog.csdn.net/qq_41903941/article/details/90259306">https://blog.csdn.net/qq_41903941/article/details/90259306</a></p>
+<h1 id="盒边框背景">盒边框背景</h1>
+<p><code>border-image</code>通过指定一张图片来取替<code>border-style</code>定义的样式。
+但<code>border-image</code>生效的前提是： <code>border-style</code> 和 <code>border-width</code> 同时为有效值(即 <em>border-style 不为 none，border-width 不为 0</em>)。
+可以把边框背景理解成是<code>border</code>的一个附属属性，如果<code>border</code>不存在或者不显示那么给边框设置任何样式也没有意义了。 </p>
+<h3 id="border-image">border-image:</h3>
+<p>复合属性，是border新加的一个属性</p>
+<h3 id="border-image-source；url；">border-image-source；url()；</h3>
+<p>引入图片</p>
+<h3 id="border-image-slice10-10-10-10">border-image-slice:10 10 10 10;</h3>
+<ul>
+<li>作用将图片切割成九宫格
+切割的图片尺寸(这里没有单位px) 该属性指定从上，右，下，左方位来分隔图像，将图像分成4个角，4条边和中间区域共9份，中间区域始终是透明的（即没图像填充），除非加上关键字 fill。</li>
+</ul>
+<h3 id="border-image-width">border-image-width:</h3>
+<ul>
+<li>作用将使用<code>border-image</code>的dom元素切割成九宫格。然后将图片九宫格的内容填充到dom对应的每一个格子中去。
+边框宽度。</li>
+</ul>
+<h3 id="border-image-repeat">border-image-repeat:</h3>
+<p>边框是平铺，round平铺、repeat重复、stretch（默认）拉伸</p>
+<p>例子：</p>
+<pre><code class="language-css">border:20px solid red;//必须写，如果下面的语句失效，此时边框填充颜色
+border-image:url(Hydrangeas.jpg) 20 20 20 20 repeat;</code></pre>
+<p>因为border-image是border的一个属性，所以先有border再有border-image这就是border必须写的原因。</p>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

@@ -37,33 +37,63 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="线性渐变">线性渐变</h3>
-<p>linear-gradient(角度方向,颜色1 渐变点1,颜色2 渐变点2......)
-角度：0reg 从下往上渐变
-90reg从左往右
-180reg从上往下
-270reg从右往左</p>
-<p>颜色：可以是rgba</p>
-<p>渐变点:前面的颜色渐变到后一种颜色的开始位置</p>
-<p>注意：1、至少得两种颜色才能形成渐变
-渐变的区域是从渐变点1到渐变点2 之间的区域。</p>
-<p>2、颜色可以用#、rgb、rgba表示
-渐变点可以用px、%表示</p>
-<p>3、一般配合background-image使用</p>
-<p>background-image:linear-gradient(0,red 50px, blue 100px);
-此命令表示，从下往上，
-0<del>50px 红色
-50px开始渐变
-50px</del>100px 红色渐变成蓝色
-100px 蓝色
-100px往上 蓝色
-repeating-linear-gradient:重复渐变
-用法与上面一样，只是会重复渐变</p>
-<p>斑马线效果：
-background-image:repeating-linear-gradient(0,green 0px,green 50px,white 50px,white 100px);
-原理：渐变颜色是同一种颜色
-兼容问题：IE678不兼容</p>
-<p>使用ie自带的filter：。。。。。。。。。。。</p>
+                <h1 id="线性渐变">线性渐变</h1>
+<h3 id="linear-gradient">linear-gradient</h3>
+<pre><code class="language-css">linear-gradient(角度方向,颜色1 渐变点1,颜色2 渐变点2......)</code></pre>
+<ol>
+<li><p>角度</p>
+<ul>
+<li>0reg 从下往上渐变</li>
+<li>90reg从左往右</li>
+<li>180reg从上往下</li>
+<li>270reg从右往左</li>
+</ul>
+</li>
+<li><p>颜色</p>
+<ul>
+<li>可以是rgba</li>
+<li>hash</li>
+</ul>
+</li>
+<li><p>渐变点</p>
+<ul>
+<li>前面的颜色渐变到后一种颜色的开始位置</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>注意：</p>
+</blockquote>
+<ol>
+<li>至少得两种颜色才能形成渐变, 渐变的区域是从渐变点1到渐变点2 之间的区域。</li>
+<li>颜色可以用#、rgb、rgba表示, 渐变点可以用px、%表示。</li>
+<li>一般配合background-image使用<pre><code class="language-css">background-image:linear-gradient(0,red 50px, blue 100px);</code></pre>
+此命令表示，从下往上，<code>0~50px 红色</code>, 50px开始渐变, <code>50px~100px 红色渐变成蓝色</code>, 100px 蓝色, <code>100px往上 蓝色</code></li>
+</ol>
+<h3 id="repeating-linear-gradient">repeating-linear-gradient</h3>
+<p>重复渐变， 用法与上面一样，只是会重复渐变</p>
+<h1 id="斑马线效果：">斑马线效果：</h1>
+<pre><code class="language-css">background-image:repeating-linear-gradient(0,green 0px,green 50px,white 50px,white 100px);</code></pre>
+<ul>
+<li>原理：渐变颜色是同一种颜色</li>
+<li>兼容问题：IE678不兼容，使用ie自带的filter。<pre><code class="language-html">&lt;div class=&quot;test1&quot;&gt;&lt;/div&gt;
+&lt;style&gt;
+.test1 {
+height: 100px; 
+background-image: repeating-linear-gradient(90deg,green 0px,green 50px,white 50px,white 100px);
+}
+&lt;/style&gt;</code></pre>
+<div class="test1"></div>
+<style>
+.test1 {
+height: 100px; 
+background-image: repeating-linear-gradient(90deg,green 0px,green 50px,white 50px,white 100px);
+}
+</style>
+
+</li>
+</ul>
+<h1 id="网格线">网格线</h1>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>background.md</title>
+          <title>004-原型模式.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,50 +37,7 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="多背景">多背景</h1>
-<p>css3新加的功能：多背景。</p>
-<h3 id="简写方式">简写方式</h3>
-<pre><code class="language-css">background: url(test1.jpg) no-repeat scroll 10px 20px/50px 60px content-box padding-box, 
-url(test1.jpg) no-repeat scroll 10px 20px/70px 90px content-box padding-box, 
-url(test1.jpg) no-repeat scroll 10px 20px/110px 130px content-box padding-box #aaa;</code></pre>
-<p>书写顺序<code>URL repeat attachment position/size origin clip color</code>, 拆分后;</p>
-<pre><code class="language-css">background-image:url(test1.jpg),url(test2.jpg),url(test3.jpg);
-background-repeat:no-repeat,no-repeat,no-repeat;
-background-attachment:scroll,scroll,scroll;
-background-position:10px 20px,10px 20px,10px 20px;
-background-size:50px 60px,70px 90px,110px 130px;
-background-origin:content-box,content-box,content-box;
-background-clip:padding-box,padding-box,padding-box;
-background-color:#aaa;</code></pre>
-<p>注意：先写的在上面显示，后写的在下面。</p>
-<h3 id="背景尺寸">背景尺寸</h3>
-<p>background-size:</p>
-<ul>
-<li>auto:默认值，不改变图片的尺寸</li>
-<li>长度值：成对出现或一个值出现等比缩放，指定图片的width、height，只有一个值时指定width</li>
-<li>百分比；用法与指定数值一样，</li>
-<li>cover：铺满</li>
-<li>contain：缩放到最大边刚好放下,</li>
-</ul>
-<h3 id="背景显示的起始位置（css2是默认从padding开始显示）">背景显示的起始位置（css2是默认从padding开始显示）</h3>
-<p>background-origin:</p>
-<ul>
-<li>border-box:从border开始显示</li>
-<li>padding-box：从padding开始显示</li>
-<li>content-box：从内容开始显示<blockquote>
-<p>作用：定义背景图片左上角的位置。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="裁剪背景图片">裁剪背景图片</h3>
-<p>background-clip:</p>
-<ul>
-<li>border-box:裁剪掉border以外的部分</li>
-<li>padding-box:裁剪掉padding以外的部分</li>
-<li>content-box:裁剪掉内容以外的部分</li>
-<li>no-clip:不裁剪</li>
-</ul>
-
+                
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

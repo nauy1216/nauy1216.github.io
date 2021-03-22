@@ -37,13 +37,38 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="倒影（镜像）">倒影（镜像）</h3>
-<p>作用：生成盒子的镜像
-用法：选择对称轴、间距
-特点：只兼容webkit
-box-reflect:right 10px ;
-倒影方向
-与倒影之间的距离 [渐变（可选）]</p>
+                <h1 id="倒影（镜像）">倒影（镜像）</h1>
+<ul>
+<li>作用：生成盒子的镜像</li>
+<li>用法：选择对称轴、间距</li>
+<li>特点：<ol>
+<li>只兼容webkit</li>
+<li>镜像不会占用文档流</li>
+</ol>
+</li>
+</ul>
+<pre><code class="language-css">box-reflect:right 10px ; /*倒影方向、 与倒影之间的距离 [渐变（可选）*/
+
+.box1 {
+  background: red;
+  display: inline-block;
+  -webkit-box-reflect:right 10px;
+}</code></pre>
+<div class="box1">box-reflect:right 10px</div>
+<div class="box2">box-reflect:right 10px</div>
+<style>
+.box1 {
+  background: red;
+  display: inline-block;
+  -webkit-box-reflect:right 10px;
+}
+.box2 {
+  display: inline-block;
+  background: green;
+  height: 40px;
+}
+</style>
+
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

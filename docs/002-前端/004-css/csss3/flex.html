@@ -37,117 +37,123 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="弹性盒模型">弹性盒模型</h3>
-<p>最老版本：box inline-box
-过渡版本：flexbox inline-flexbox
-最新版本：flex inline-flex</p>
-<p>学习的是最新的版本。
-特性：
-1、容器不设置宽度时默认是占满一行，高度由内容撑开。
-2、设置为inline-flex,宽度由内容撑开。</p>
-<p>（1）定义：
-flex容器：
-采用flex布局的元素。
-flex项目：
-flex容器内所有的子元素都自动成为容器成员，成为flex项目。</p>
-<p>容器默认存在的两根轴：
-水平的主轴（main axis）：
-开始位置main start
-结束位置 main end
-垂直的交叉轴（cross axis）:
-cross start
-cross end</p>
-<p>项目默认沿主轴排列。
-main size :单个项目占据主轴的空间。
-cross size :单个项目占据交叉轴的空间。</p>
-<p>（2）容器的属性
-1、flex-direction
-决定主轴及其方向（主轴可以设置）
-row（默认）:从左到右
-row-reverse:从右到左
-column:从上到下
-column-reverse:从下到上</p>
-<p>1</p>
-<p>2</p>
-<p>3</p>
-<p>4</p>
-<p>5</p>
-<p>2、flex-wrap:</p>
+                <h1 id="弹性盒模型">弹性盒模型</h1>
+<ol>
+<li>最老版本：box inline-box</li>
+<li>过渡版本：flexbox inline-flexbox</li>
+<li>最新版本：flex inline-flex</li>
+</ol>
+<p>学习的是最新的版本。</p>
+<h1 id="特性：">特性：</h1>
+<ol>
+<li>容器不设置宽度时默认是占满一行，高度由内容撑开。</li>
+<li>设置为inline-flex, 宽度由内容撑开。</li>
+</ol>
+<h1 id="定义：">定义：</h1>
+<ol>
+<li><p>flex容器：采用flex布局的元素。</p>
+</li>
+<li><p>flex项目：flex容器内所有的子元素都自动成为容器成员，成为flex项目。</p>
+</li>
+<li><p>容器默认存在的两根轴：</p>
+</li>
+</ol>
+<ul>
+<li>水平的主轴（main axis）：<ul>
+<li>开始位置 main start</li>
+<li>结束位置 main end</li>
+</ul>
+</li>
+<li>垂直的交叉轴（cross axis）:<ul>
+<li>cross start</li>
+<li>cross end</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>项目默认沿主轴排列。<ul>
+<li>main size :单个项目占据主轴的空间。</li>
+<li>cross size :单个项目占据交叉轴的空间。</li>
+</ul>
+</li>
+</ol>
+<h1 id="容器的属性">容器的属性</h1>
+<h3 id="1flex-direction">1.flex-direction</h3>
+<p>决定主轴及其方向（主轴可以设置）</p>
+<ol>
+<li>row（默认）:从左到右</li>
+<li>row-reverse:从右到左</li>
+<li>column:从上到下</li>
+<li>column-reverse:从下到上</li>
+</ol>
+<h3 id="2-flex-wrap">2. flex-wrap</h3>
 <p>定义一条轴线如果排不下，如何换行。</p>
-<p>nowrap（默认）:不换行。//按比例给项目分配空间。项目的大小改变了。</p>
-<p>wrap:换行，第一行在最上方。//项目的大小没有改变。</p>
-<p>wrap-reverse:换行，第一行在最下方。</p>
-<p>6</p>
-<p>7</p>
-<p>8</p>
-<p>9</p>
-<p>10</p>
-<p>3、flex-flow:row nowrap;</p>
-<p>//上面两个属性的简写形式。</p>
-<p>4、justify-content:</p>
+<ol>
+<li>nowrap（默认）:不换行。//按比例给项目分配空间。项目的大小改变了。</li>
+<li>wrap:换行，第一行在最上方。//项目的大小没有改变。</li>
+<li>wrap-reverse:换行，第一行在最下方。</li>
+</ol>
+<h3 id="3-flex-flow-row-nowrap">3. flex-flow: row nowrap</h3>
+<p><code>flex-direction</code>和<code>flex-wrap</code>两个属性的简写形式。</p>
+<h3 id="4-justify-content">4. justify-content:</h3>
 <p>定义了项目主轴上的对齐方式。</p>
-<p>flex-start（默认）:左对齐</p>
-<p>flex-end:右对齐</p>
-<p>center：居中</p>
-<p>space-between:两端对齐，项目之间间隔相等。</p>
-<p>space-around:每个项目的两边的距离对相等。</p>
-<p>11</p>
-<p>12</p>
-<p>13</p>
-<p>14</p>
-<p>15</p>
-<p>5、align-items（一根轴，项目在主轴上顺交叉轴方向的对齐方式）:</p>
+<ol>
+<li>flex-start（默认）:左对齐</li>
+<li>flex-end:右对齐</li>
+<li>center：居中</li>
+<li>space-between:两端对齐，项目之间间隔相等。</li>
+<li>space-around:每个项目的两边的距离对相等。</li>
+</ol>
+<h3 id="5-align-items（一根轴，项目在主轴上顺交叉轴方向的对齐方式）">5. align-items（一根轴，项目在主轴上顺交叉轴方向的对齐方式）:</h3>
 <p>定义在交叉轴上怎么对齐</p>
-<p>flex-start:交叉轴的起点对齐</p>
-<p>flex-end:交叉轴的终点对齐</p>
-<p>center：交叉轴的中点对齐，都是上下居中。</p>
-<p>baseline：项目的第一行文字的基准线对齐,所有项目的第一行都是对齐的。</p>
-<p>stretch（默认）：如果项目没有指定高度将占满整个容器的高度</p>
+<ol>
+<li>flex-start:交叉轴的起点对齐</li>
+<li>flex-end:交叉轴的终点对齐</li>
+<li>center：交叉轴的中点对齐，都是上下居中。</li>
+<li>baseline：项目的第一行文字的基准线对齐,所有项目的第一行都是对齐的。</li>
+<li>stretch（默认）：如果项目没有指定高度将占满整个容器的高度</li>
+</ol>
 <p>如果项目指定高度默认是起点对齐</p>
-<p>6、align-content（多根主轴，作用对象是轴线）:</p>
+<h3 id="6-align-content（多根主轴，作用对象是轴线）">6. align-content（多根主轴，作用对象是轴线）:</h3>
 <p>定义的多根轴的对齐方式，如果项目只有一根轴线该属性不起作用。</p>
-<p>flex-start:与交叉轴的起点对齐,所有主轴从交叉轴起点开始排列</p>
-<p>flex-end:与交叉轴的终点对齐</p>
-<p>flex-center:与交叉轴的中点对齐</p>
-<p>space-between:</p>
-<p>space-around:</p>
-<p>stretch:轴线占满整个交叉轴</p>
-<p>出现交叉轴的情况：</p>
-<p>项目在一条主轴线上放不下，换行时就会产生多条主轴 这个属性是用来设置多根主轴在交叉轴上的对齐方式。</p>
-<p>16</p>
-<p>17</p>
-<p>18</p>
-<p>19</p>
-<p>20</p>
-<p>（3）项目属性</p>
-<p>1、order：</p>
+<ol>
+<li>flex-start:与交叉轴的起点对齐,所有主轴从交叉轴起点开始排列</li>
+<li>flex-end:与交叉轴的终点对齐</li>
+<li>flex-center:与交叉轴的中点对齐</li>
+<li>space-between:</li>
+<li>space-around:</li>
+<li>stretch:轴线占满整个交叉轴</li>
+</ol>
+<p>出现交叉轴的情况：项目在一条主轴线上放不下，换行时就会产生多条主轴 这个属性是用来设置多根主轴在交叉轴上的对齐方式。</p>
+<h1 id="项目属性">项目属性</h1>
+<h3 id="1order">1.order</h3>
 <p>定义项目的排列顺序，数值越小越靠前，默认是0.</p>
-<p>注意：</p>
-<p>（1）值可以是负数。</p>
-<p>（2）作用是可以改变项目的位置。</p>
-<p>2、flex-grow:</p>
+<ul>
+<li>值可以是负数。</li>
+<li>作用是可以改变项目的位置。</li>
+</ul>
+<h3 id="2flex-grow">2.flex-grow</h3>
 <p>定义项目的放大倍数。默认是0，表示容器有多余空间不放大。</p>
-<p>注意：</p>
-<p>（1）这里放大的只是内容，边框、padding、margin不会放大</p>
-<p>（2）最大只能放大到所有项目填满容器的宽度，此时根据每个项目的放大倍数 作为基数，按比例分配剩余空间。</p>
-<p>（3）值为负数时不起作用。</p>
-<p>3、flex-shrink:</p>
+<ul>
+<li>这里放大的只是内容，边框、padding、margin不会放大</li>
+<li>最大只能放大到所有项目填满容器的宽度，此时根据每个项目的放大倍数 作为基数，按比例分配剩余空间。</li>
+<li>值为负数时不起作用。</li>
+</ul>
+<h3 id="3flex-shrink">3.flex-shrink</h3>
 <p>定义项目的缩小比例。默认是1，即容器空间不足按比例缩小项目。</p>
-<p>注意：</p>
-<p>（1）如果每个项目缩小的比例相同，则是等比缩小。</p>
-<p>（2）如果某个项目的缩小比例为0时表示不缩放。</p>
-<p>4、flex-basis:</p>
-<p>定义了在分配多余空间之前，项目占据的主轴空间。</p>
-<p>浏览器根据这个属性，计算主轴空间是否有剩余。</p>
-<p>他的默认值是auto.即项目的本来大小。</p>
-<p>可以像width一样可以设置占据的主轴空间。</p>
-<p>作用：可以改变项目的尺寸大小。</p>
-<p>5、flex:flex-grow flex-shrink flex-basis的简写 默认为 0 1 auto。</p>
-<p>6、align-self:</p>
-<p>允许单个项目有与其他项目不一样的对齐方式。</p>
-<p>可覆盖align-items属性。</p>
-<p>默认是auto，表示继承父元素的align-items的值。</p>
-<p>使用方法与align-items一样，多了一个auto。</p>
+<ul>
+<li>如果每个项目缩小的比例相同，则是等比缩小。</li>
+<li>如果某个项目的缩小比例为0时表示不缩放。<h3 id="4-flex-basis">4. flex-basis</h3>
+定义了在分配多余空间之前，项目占据的主轴空间。浏览器根据这个属性，计算主轴空间是否有剩余。
+他的默认值是auto.即项目的本来大小。可以像width一样可以设置占据的主轴空间。</li>
+<li>作用：可以改变项目的尺寸大小。</li>
+</ul>
+<h3 id="5-flex">5. flex</h3>
+<p><code>flex-grow flex-shrink flex-basis</code>的简写，默认为 <code>0 1 auto</code>。</p>
+<h3 id="6-align-self">6. align-self</h3>
+<p>允许单个项目有与其他项目不一样的对齐方式。可覆盖align-items属性。
+默认是auto，表示继承父元素的align-items的值。
+使用方法与align-items一样，多了一个auto。</p>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
