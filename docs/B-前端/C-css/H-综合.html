@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>加密算法.md</title>
+          <title>H-综合.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,134 +37,311 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="安全算法">安全算法</h1>
-<blockquote>
-<p>数据传输的4个问题</p>
-</blockquote>
+                <h1 id="bfc">BFC</h1>
+<h3 id="什么是bfc">什么是BFC?</h3>
 <ul>
-<li><p>窃听
-A向B发送消息的过程中， 消息可能被窃听。
-解决：加密。</p>
+<li>块级格式化上下文。(block format context)</li>
+</ul>
+<h3 id="特点">特点</h3>
+<ul>
+<li>一个独立的布局容器，在布局上不会影响外面的元素，也不会影响外面的元素。</li>
+<li>同一个BFC内相邻的两个元素的上下margin会重叠，而不同的BFC内的两个元素的margin是不会重叠的。</li>
+<li>形成了BFC的元素不会与其他浮动元素重叠。</li>
+<li>在BFC元素内部的浮动元素是会被计算在内的。</li>
+</ul>
+<h3 id="形成bfc的场景？">形成BFC的场景？</h3>
+<ul>
+<li><ol>
+<li>根元素或包含根元素的元素，比如html元素</li>
+</ol>
 </li>
-<li><p>假冒
-A向B发送消息，然而B有可能是X冒充的。反过来讲，A也可能是X冒充的。
-解决： 消息验证码或数字签名。
-1、A给想要传给B的数据进行加密，加密后的数据被称为“密文”。
-2、然后将密文发送给B。
-3、B收到密文后，需要将密文解密才能得到原本的数据。把密文恢复到原本的数据，就叫解密。
-4、A将秘钥发送给B。</p>
+<li><ol start="2">
+<li>浮动元素（元素的 float 不是 none）</li>
+</ol>
 </li>
-<li><p>篡改
-即便B收到了A发送的消息，也可能是被X篡改过的。
-解决： 消息验证码或数字签名。</p>
+<li><ol start="3">
+<li>绝对定位元素（元素的 position 为 absolute 或 fixed）</li>
+</ol>
 </li>
-<li><p>事后否认
-B收到了A发过来的带有恶意的消息，但是A却否认是他发的。</p>
+<li><ol start="4">
+<li>行内块元素（元素的 display 为 inline-block）</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>表格单元格（元素的 display为 table-cell，HTML表格单元格默认为该值）</li>
+</ol>
+</li>
+<li><ol start="6">
+<li>表格标题（元素的 display 为 table-caption，HTML表格标题默认为该值）</li>
+</ol>
+</li>
+<li><ol start="7">
+<li>匿名表格单元格元素（元素的 display为 table、table-row、 table-row-group、table-header-group、table-footer-group（分别是HTML table、row、tbody、thead、tfoot的默认属性）或 inline-table）</li>
+</ol>
+</li>
+<li><ol start="8">
+<li>overflow 值不为 visible 的块元素</li>
+</ol>
+</li>
+<li><ol start="9">
+<li>display 值为 flow-root 的元素</li>
+</ol>
+</li>
+<li><ol start="10">
+<li>contain 值为 layout、content或 strict 的元素</li>
+</ol>
+</li>
+<li><ol start="11">
+<li>弹性元素（display为 flex 或 inline-flex元素的直接子元素）</li>
+</ol>
+</li>
+<li><ol start="12">
+<li>网格元素（display为 grid 或 inline-grid 元素的直接子元素）</li>
+</ol>
+</li>
+<li><ol start="13">
+<li>多列容器（元素的 column-count 或 column-width 不为 auto，包括 column-count 为 1）</li>
+</ol>
+</li>
+<li><ol start="14">
+<li>column-span 为 all 的元素始终会创建一个新的BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）。</li>
+</ol>
 </li>
 </ul>
-<h1 id="加密算法">加密算法</h1>
-<h3 id="哈希函数">哈希函数</h3>
-<p>可以把给定的数据转换成固定长度的无规律哈希值。转换后的哈希值可以作为<em>数据摘要</em>。哈希值虽然是数字，但多用十六进制表示。</p>
-<blockquote>
-<p>特征</p>
-</blockquote>
+<h3 id="应用场景？">应用场景？</h3>
 <ul>
-<li>1、输出长度不变，与输入的数据长度无关。</li>
-<li>2、输入的数据相同哈希值必定相同, 前提是使用相同的哈希算法。</li>
-<li>3、即使输入的数据相似，哪怕只有1比特的差别，那么输出的哈希值也会有很大的差别。</li>
-<li>4、即使输入的两eg数据完全不同输出的哈希值也有可能是相同的。虽然出现的概率比较低， 这种现象叫做“哈希冲突”。</li>
-<li>5、不可能从哈希值反推原来的数据。输入和输出不可逆。</li>
-<li>6、求哈希值的计算相对容易。</li>
+<li><p>margin重叠问题。<code>overflow: hidden;</code>使得div1形成了<code>BFC</code>。本来div2的margin会跑到div1的外面，现在形成<code>BFC</code>后就不会了。</p>
+<pre><code class="language-html">&lt;style&gt;
+  .div1 {
+      overflow: hidden;
+      background: pink;
+  }
+  .div2 {
+      width: 200px;
+      height: 200px;
+      background: #e0e0e0;
+      margin: 20px;
+  }
+&lt;/style&gt;
+&lt;div class=&quot;div1&quot;&gt;
+  &lt;div class=&quot;div2&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</li>
+<li><p>清浮动。形成了<code>BFC</code>的元素的高度是计算浮动元素的高度在内的。下面的例子中，如果没加<code>overflow: hidden;</code>div1的高度就会是0，加了就是200px。</p>
+<pre><code class="language-html">&lt;style&gt;
+  * {
+      margin: 0;
+      padding: 0;
+  }
+  .div1 {
+      overflow: hidden;
+      background: pink;
+  }
+  .div2 {
+      width: 200px;
+      height: 200px;
+      background: #e0e0e0;
+      float: left;
+  }
+&lt;/style&gt;
+&lt;div class=&quot;div1&quot;&gt;
+  &lt;div class=&quot;div2&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</li>
+<li><p>阻止普通文档流元素被浮动元素覆盖。如果没加<code>overflow: hidden;</code>的话demo1会浮在在demo2上，并且形成文字环绕的效果。加了之后demo1和demo2
+  互不干扰不会重叠在一起。下面的例子稍微改下就能成为两栏布局。</p>
+<pre><code class="language-html">&lt;style&gt;
+  * {
+      margin: 0;
+      padding: 0;
+  }
+  .demo1 {
+      width: 100px;
+      height: 100px;
+      float: left;
+      background: pink
+  }
+  .demo2 {
+      width: 200px;
+      height: 200px;
+      background: blue;
+      overflow: hidden;
+  }
+&lt;/style&gt;
+</code></pre>
+</li>
+</ul>
+<div class="demo">
+    <div class="demo1">我是一个左侧浮动元素</div>
+    <div class="demo2">我是一个没有设置浮动, 也没有触发BFC的元素</div>
+</div>
+
+<pre><code>
+# 移动端1px
+### 产生1px问题的原因？
+由于`DPR(devicePixelRatio)`设备像素比不为1， 当css设置1px边框时，屏幕上对应的是2个或3个物理像素(具体多少个看设备像素比是多少)。
+所以一像素看起来会很粗。
+
+### 解决1px边框很粗的问题？
+- 使用0.5px
+    - 安卓有兼容问题。
+- 使用transform: scale(0.5)进行缩放
+- 使用viewport全局缩放
+- 使用box-shadow
+```css
+box-shadow: 0  -1px 1px -1px #e5e5e5,   //上边线
+            1px  0  1px -1px #e5e5e5,   //右边线
+            0  1px  1px -1px #e5e5e5,   //下边线
+            -1px 0  1px -1px #e5e5e5;   //左边线</code></pre><ul>
+<li>使用图片</li>
 </ul>
 <blockquote>
-<p>常见的哈希算法</p>
+<p>新项目最好使用的是设置viewport的scale值，这个方法兼容性好，后期写起来方便。老项目的话，改起来可能比较多，用的比较多的方法就是伪元素+transform的方法。</p>
 </blockquote>
+<h1 id="postion">postion</h1>
 <ul>
-<li>MD5</li>
-<li>SHA-1</li>
-<li>SHA-2</li>
+<li>有哪几种定位方式？</li>
+<li>sticky?</li>
+</ul>
+<h1 id="flex">flex</h1>
+<h3 id="容器属性">容器属性</h3>
+<ul>
+<li>display</li>
+<li>flex-direction</li>
+<li>justify-content</li>
+<li>align-items</li>
+<li>flex-wrap</li>
+<li>flex-flow</li>
+<li>align-content<h3 id="项目属性">项目属性</h3>
+</li>
+<li>flex</li>
+<li>flex-shrink</li>
+<li>flex-grow</li>
+<li>order</li>
+<li>flex-basis</li>
+<li>align-self</li>
+</ul>
+<h1 id="回流和重绘">回流和重绘</h1>
+<blockquote>
+<p><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/24">https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/24</a></p>
+</blockquote>
+<h3 id="浏览器渲染机制">浏览器渲染机制</h3>
+<ul>
+<li>浏览器采用流式布局模型（Flow Based Layout）</li>
+<li>浏览器会把HTML解析成DOM，把CSS解析成CSSOM，DOM和CSSOM合并就产生了渲染树（Render Tree）</li>
+<li>有了RenderTree，我们就知道了所有节点的样式，然后计算他们在页面上的大小和位置，最后把节点绘制到页面上</li>
+<li>由于浏览器使用流式布局，对Render Tree的计算通常只需要遍历一次就可以完成，但table及其内部元素除外，他们可能需要多次计算，通常要花3倍于同等元素的时间，这也是为什么要避免使用table布局的原因之一。</li>
+</ul>
+<h3 id="回流（reflow）">回流（reflow）</h3>
+<ul>
+<li><p>定义
+由于节点的几何属性发生改变或者由于样式发生改变而<em>会影响布局</em>的，称为回流。
+回流是影响浏览器性能的关键因素，因为其变化涉及到部分页面（或是整个页面）的布局更新。
+一个元素的回流可能会导致了其所有子元素以及DOM中紧随其后的节点、祖先节点元素的随后的回流。</p>
+</li>
+<li><p>作用
+根据渲染树计算dom元素的位置和集合信息。</p>
+</li>
+</ul>
+<h3 id="重绘（repaint）">重绘（repaint）</h3>
+<ul>
+<li>定义
+由于节点的几何属性发生改变或者由于样式发生改变而<em>不会影响布局</em>的，称为重绘。例如outline, visibility, color、background-color等。</li>
 </ul>
 <blockquote>
-<p><em>SHA-2使用较广泛， MD5和SHA-1存在安全隐患，不推荐使用</em></p>
+<p>回流必定会发生重绘，重绘不一定会引发回流。</p>
 </blockquote>
-<h3 id="共享秘钥加密">共享秘钥加密</h3>
-<p>加密数据的方法可以分为两种：</p>
+<h3 id="浏览器优化">浏览器优化</h3>
+<p>现代浏览器大多都是<em>通过队列机制来批量更新布局</em>，浏览器会把修改操作放在队列中，<em>至少一个浏览器刷新（即16.6ms）才会清空队列</em>，
+但当你获取布局信息的时候，队列中可能有会影响这些属性或方法返回值的操作，即使没有，浏览器也会强制清空队列，触发回流与重绘来确保返回正确的值。
+使用下面的属性时会导致强制触发回流和重绘：</p>
 <ul>
-<li>加密和解密都使用相同秘钥的<em>共享秘钥加密</em>，分别使用不同秘钥的<em>公开秘钥加密</em>。</li>
-<li>共享秘钥加密是加密和解密都使用相同秘钥的一种加密方式，由于使用的秘钥相同，所以这种算法也成为<em>对称加密</em>。</li>
+<li>offsetTop、offsetLeft、offsetWidth、offsetHeight</li>
+<li>scrollTop、scrollLeft、scrollWidth、scrollHeight</li>
+<li>clientTop、clientLeft、clientWidth、clientHeight</li>
+<li>width、height</li>
+<li>getComputedStyle()</li>
+<li>getBoundingClientRect()</li>
+</ul>
+<h3 id="减少回流和重绘">减少回流和重绘</h3>
+<ul>
+<li>css<ul>
+<li>transform代替top</li>
+<li>visibility代替display:none</li>
+<li>避免使用tableb布局</li>
+<li>将动画设置到position属性为absolute或fixed的元素上</li>
+</ul>
+</li>
+<li>js<ul>
+<li>为了减少发生次数，我们可以合并多次对DOM和样式的修改，然后一次处理掉。</li>
+</ul>
+</li>
+</ul>
+<h1 id="css3硬件加速">css3硬件加速</h1>
+<p>cSS3 硬件加速又叫做 GPU 加速，是利用 GPU 进行渲染，减少 CPU 操作的一种优化方案。
+由于 GPU 中的 transform 等 CSS 属性不会触发 repaint，所以能大大提高网页的性能。</p>
+<blockquote>
+<p>CSS 中的以下几个属性能触发硬件加速：</p>
+</blockquote>
+<ul>
+<li>transform</li>
+<li>opacity</li>
+<li>filter</li>
+<li>will-change
+如果有一些元素不需要用到上述属性，但是需要触发硬件加速效果，可以使用一些小技巧来诱导浏览器开启硬件加速。<pre><code class="language-css">.element {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0); 
+  /**或者**/
+  transform: rotateZ(360deg);
+  transform: translate3d(0, 0, 0);
+}</code></pre>
+</li>
 </ul>
 <blockquote>
-<p>共享加密流程：</p>
+<p>注意</p>
 </blockquote>
 <ul>
-<li>1、A把想要传给B的数据使用秘钥进行加密，加密后的数据被称为“密文”。然后将密文发送给B。</li>
-<li>2、B收到密文后，使用相同的秘钥把密文恢复到原本的数据。</li>
-<li>3、假设A需要通过某种手段将秘钥交给B，和密文一样，A又在互联网上向B发送了密钥。B使用收到的密钥对密文进行解密。所以会有一个问题，密钥也可能被X窃听，这样一来，X也可以
-使用秘钥对密文进行解密了。</li>
+<li>1、过多地开启硬件加速可能会<em>耗费较多的内存</em>，因此什么时候开启硬件加速，给多少元素开启硬件加速，需要用测试结果说话。</li>
+<li>2、GPU 渲染会影响字体的抗锯齿效果。这是因为 GPU 和 CPU 具有不同的渲染机制，即使最终硬件加速停止了，文本还是会在动画期间显示得很模糊。</li>
 </ul>
-<blockquote>
-<p>常见的共享秘钥加密算法</p>
+<h1 id="浏览器调试">浏览器调试</h1>
+<h1 id="实现水平垂直居中">实现水平垂直居中</h1>
+<ul>
+<li>定宽高<ul>
+<li>绝对定位 + margin取负值</li>
+<li>绝对定位 + translate</li>
+<li>绝对定位 + top/right/bottom/left + margin</li>
+<li>grid</li>
+<li>flex</li>
+<li>table-cell + vertical-align + inline-block/margin: auto</li>
+</ul>
+</li>
+<li>不定宽高<ul>
+<li>绝对定位 + translate</li>
+<li>table-cell + vertical-align + inline-block/margin: auto</li>
+<li>flex</li>
+<li>grid</li>
+</ul>
+</li>
+</ul>
+<h1 id="布局">布局</h1>
+<ul>
+<li>单列布局</li>
+<li>两列布局</li>
+<li>三栏布局<blockquote>
+<p>特点：中间列自适应宽度，旁边两侧固定宽度</p>
 </blockquote>
 <ul>
-<li>凯撒密码</li>
-<li>AES</li>
-<li>DES</li>
-<li>动态口令</li>
+<li>圣杯布局</li>
+<li>双飞翼布局</li>
+<li>等高布局</li>
+<li>表格布局</li>
+<li>粘连布局</li>
 </ul>
-<p>其中<code>AES</code>应用最广泛。</p>
-<h3 id="公开秘钥加密">公开秘钥加密</h3>
-<ul>
-<li>公开秘钥加密是加密和解密使用不同秘钥的一种加密方法。由于使用的秘钥不同所以这种算法页被称为“非对称加密”。</li>
-<li>加密的用的秘钥叫做“公开秘钥”，解密用的秘钥叫做“私有秘钥”。</li>
-</ul>
-<blockquote>
-<p>公开秘钥加密流程</p>
-</blockquote>
-<ul>
-<li>1、假设A准备通过互联网向B发送数据。</li>
-<li>2、由接收方B来生成公开秘钥和私有秘钥，然后把公开秘钥发给A。</li>
-<li>3、A使用B发来的公开秘钥加密数据。</li>
-<li>4、A将密文发送给B, B再使用私有秘钥对密文进行解密。这样B就得到了原本的数据。</li>
-<li>5、公开秘钥和密文都是通过互联网传输的，因此可能会被X窃听。但是公开秘钥无法解密密文，因此X也无法得到原本的数据。 </li>
-<li>注意：公开秘钥是不怕被人知道的， 但是私有秘钥不能被人知道。*</li>
-</ul>
-<blockquote>
-<p>公开秘钥的问题：X想要窃听A发送给B的数据，于是X也准备了公开秘钥和私有秘钥。</p>
-</blockquote>
-<ul>
-<li>1、在B把公开秘钥发送给A的时候， X把公开秘钥替换成自己的公开秘钥，然后发送给A
-  由于公开秘钥无法显示自己是由谁生成的，所以A不会发现自己收到的公开秘钥已经被人替换。</li>
-<li>2、当A把想要给B的密文发送出去后， X接收了这个密文并解密，接下来X用B生成的公开密钥加密数据发送给B。</li>
-<li>3、从收到密文到解密密文都没发生任何问题，因此B页意识不到数据已经被窃听。这种通过中途替换公开密钥来窃听数据的攻击，叫<em>中间人攻击</em>。</li>
-</ul>
-<p>公开秘钥的可靠性会出现问题就是因为A无法判断收到的公开秘钥是否来自B。想要解决这个问题，就要用到&quot;数字证书&quot;。
-还有一个问题就是加密和解密都比较耗时。</p>
-<blockquote>
-<p>实现公开秘钥加密的算法</p>
-</blockquote>
-<ul>
-<li>RSA算法</li>
-<li>椭圆曲线加密算法
-其中使用最广泛的是RSA算法。</li>
-</ul>
-<h3 id="混合加密">混合加密</h3>
-<blockquote>
-<p>共享秘钥加密存在无法安全传输秘钥的问题，公开秘钥加密又存在加密解密的速度较慢的问题。
-将两者结合就可以实现一种互补的加密方式，“混合加密”。</p>
-</blockquote>
-<ul>
-<li>1、假设A向B发送消息。</li>
-<li>2、A先用<em>共享秘钥</em>对数据进行加密, 得到数据密文。</li>
-<li>3、A然后用<em>公开秘钥</em>对<em>共享秘钥</em>进行加密, 得到秘钥密文。</li>
-<li>4、A将数据密文和共享秘钥密文发送给B。</li>
-<li>5、B使用公开秘钥对应的私有秘钥解密得到共享秘钥，再拿共享秘钥去解密数据密文得到真正的数据。</li>
-</ul>
-<blockquote>
-<p>B要实现生成公开秘钥，然后A从B那里获取公开秘钥, 使用公开秘钥对数据和共享秘钥加密传输给A。
-解决了共享秘钥加密，秘钥发送的安全问题。</p>
-</blockquote>
-<ul>
-<li>迪菲-赫尔曼秘钥交换</li>
+</li>
 </ul>
 
             </article> 

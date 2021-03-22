@@ -37,30 +37,39 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="响应式布局">响应式布局</h3>
-<p>定义：
-建立不同尺寸下的样式表，根据媒体查询不同的屏幕尺寸使用不同的样式表。 先写最需要满足的设备的样式，再同果媒体查询来重新写其它设备的样式。 比如bootstrap就是移动设备优先。</p>
-<p>用法：
-引入样式表时的两种方式
-第一种：通过link直接在html文档引入
-通过添加media属性来分别。</p>
+                <h1 id="响应式布局">响应式布局</h1>
+<h3 id="定义：">定义：</h3>
+<p>建立不同尺寸下的样式表，根据媒体查询不同的屏幕尺寸使用不同的样式表。 先写最需要满足的设备的样式，再通过媒体查询来重新写其它设备的样式。<em>比如bootstrap就是移动设备优先。</em></p>
+<h3 id="用法：">用法：</h3>
+<p>引入样式表时的两种方式。</p>
+<ol>
+<li>第一种：通过link直接在html文档引入
+通过添加media属性来分别。</li>
+</ol>
 <p>语法：</p>
-<p>media = &quot; screen and (min-width:800px)&quot;//表示显示屏最小800px
-media = &quot; screen and (main-width:600px) and (max-width 800px)&quot;//屏幕大小在600到800之间
-media = &quot;all and corientation:portrait&quot;//竖屏
-media = &quot;all and corientation:landscape&quot;//横屏
-第二种：不通过link,直接在样式表中定义样式
-@media screen and (min-width:800px){ }</p>
-<p>或者：
-@import url(&quot;index.css&quot;) screen and (min-width:800px){ }</p>
-<p>例子：</p>
-<pre><code>        @media screen and (max-width:400px){
-            #box{    //里面写css代码
-                padding:20px;
-                -webkit-columns:40px 1;
-            }
-        }
-</code></pre>
+<pre><code class="language-css">/* 表示显示屏最小800px */
+media = &quot; screen and (min-width:800px)&quot;
+
+/* 屏幕大小在600到800之间 */
+media = &quot; screen and (main-width:600px) and (max-width 800px)&quot;
+
+/* 竖屏 */
+media = &quot;all and corientation:portrait&quot;
+
+/* 横屏 */
+media = &quot;all and corientation:landscape&quot;</code></pre>
+<ol start="2">
+<li>第二种：不通过link,直接在样式表中定义样式<pre><code class="language-css">@media screen and (min-width:800px){ }</code></pre>
+或者：<pre><code class="language-css">@import url(&quot;index.css&quot;) screen and (min-width:800px){ }</code></pre>
+例子：</li>
+</ol>
+<pre><code class="language-css">@media screen and (max-width:400px){
+    #box{    //里面写css代码
+        padding:20px;
+        -webkit-columns:40px 1;
+    }
+}</code></pre>
+
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

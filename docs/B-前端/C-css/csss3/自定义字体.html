@@ -37,11 +37,48 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="自定义字体">自定义字体</h3>
-<p>作用：使用自己的字体
-用法：@font-face{}
-自定义字体软件：AsiaFont Studio
-转换字体格式生成兼容代码：<a href="http://www.fontsquirrel.com">www.fontsquirrel.com</a></p>
+                <h1 id="自定义字体">自定义字体</h1>
+<h3 id="作用">作用</h3>
+<ul>
+<li>使用自己的字体。</li>
+<li>字体图标。</li>
+</ul>
+<h3 id="原理">原理</h3>
+<p>在<code>unicode</code>字符集中有一段区域是私人使用区域<code>\uE000 - \uF8FF</code>。这个区域每一个编码都可以自定义成自己的字体文字或者字体图标。</p>
+<ul>
+<li>每一种字体的自定义字体数量是有限的。</li>
+<li>可以定义多种字体，不同的字体显示同一个字符编码是不一样的。</li>
+</ul>
+<h3 id="用法：">用法：</h3>
+<pre><code class="language-css">@font-face {
+  font-family: &quot;iconfont&quot;; /* project id 2266276 */
+  src: url(&quot;//at.alicdn.com/t/font_2266276_bzbylj20bus.eot&quot;);
+  src: url(&quot;//at.alicdn.com/t/font_2266276_bzbylj20bus.eot?#iefix&quot;)
+      format(&quot;embedded-opentype&quot;),
+    url(&quot;//at.alicdn.com/t/font_2266276_bzbylj20bus.woff2&quot;) format(&quot;woff2&quot;),
+    url(&quot;//at.alicdn.com/t/font_2266276_bzbylj20bus.woff&quot;) format(&quot;woff&quot;),
+    url(&quot;//at.alicdn.com/t/font_2266276_bzbylj20bus.ttf&quot;) format(&quot;truetype&quot;),
+    url(&quot;//at.alicdn.com/t/font_2266276_bzbylj20bus.svg#iconfont&quot;) format(&quot;svg&quot;);
+}
+
+
+.iconfont {
+  font-family: &quot;iconfont&quot; !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-13biaoti1:before {
+  content: &quot;\e68d&quot;;
+}</code></pre>
+<h3 id="自定义字体软件：">自定义字体软件：</h3>
+<ul>
+<li>阿里云图标库</li>
+<li>AsiaFont Studio
+转换字体格式生成兼容代码：<a href="http://www.fontsquirrel.com">www.fontsquirrel.com</a></li>
+</ul>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

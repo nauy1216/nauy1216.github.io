@@ -37,61 +37,112 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="动画">动画</h3>
-<p>特点：
-1、动画是异步操作。
-2、在添加一次动画之后，再添加动画是没有效果的，必须用animation：none;清空，再添加。
-3、所谓的动画就是从0 逐渐过渡到100。元素会瞬间变成0的状态，然后慢慢过渡到100。如果0和100不是和 元素之星动画之前的状态一样会显得很突兀。因此，如果不定义0和100，就不会这样了。
-关键帧：keyFrames
-指明多个状态，而之间的过程由计算机自动计算。 元素经由设定多个状态到达指定的状态，两个相邻的状态由过渡完成。</p>
-<p>关键帧的时间单位
-数字表示：0% 25% 100% 等---------&gt;时间轴
-字符表示：from(0%) to(100%)</p>
-<p>定义动画的格式：
-在样式表中定义：
-@keyFrames 动画名称｛
-动画状态
-｝
-例子：</p>
-<pre><code>        @keyFrames move{
-            0%{transform:translate(0,0);}
-            25%{transform:translate(400px,0);}
-            50%{transform:translate(400px,400px);}
-            75%{transform:translate(0,400px);}
-            100%{transform:translate(0,0);}
-        }
-</code></pre><p>使用动画：</p>
-<p> animation：2s move；</p>
-<p>第一个参数是：运动时间</p>
-<p>第二个参数是：动画名称</p>
-<p>必要属性：</p>
-<p>① animation-name:动画名称；</p>
-<p>② animation-duration:时间；</p>
-<p>可选属性：</p>
-<p>① animation-timing-function:动画形式；</p>
-<p>-ease（默认） 逐渐变慢</p>
-<p>-linear 匀速</p>
-<p>-ease-in 加速</p>
-<p>-ease-out 减速</p>
-<p>-ease-int-out 先加速后减速</p>
-<p>-cubic-bezier 贝塞尔曲线</p>
-<p>② animation-delay</p>
-<p>③ animation-iteration-count:重复次数；</p>
-<p>infinite无限次</p>
-<p>④ animation-direction 播放前重置</p>
-<p>alternate 接着上一次</p>
-<p>normal 从0%开始</p>
-<p>⑤ animation-play-state:播放状态</p>
-<p>running</p>
-<p>paused</p>
+                <h1 id="动画">动画</h1>
+<h3 id="特点：">特点：</h3>
+<ol>
+<li>动画是异步操作。</li>
+<li>在添加一次动画之后，再添加动画是没有效果的，必须用<code>animation：none;</code>清空，再添加。</li>
+<li>所谓的动画就是从0 逐渐过渡到100。元素会瞬间变成0的状态，然后慢慢过渡到100。如果0和100的状态不是一样会显得很突兀。因此，如果不定义0和100，就不会这样了。</li>
+</ol>
+<h3 id="关键帧：keyframes">关键帧：keyFrames</h3>
+<p>指明多个状态，而之间的过程由计算机自动计算。 元素经由设定多个状态到达指定的状态，两个相邻的状态由过渡完成。</p>
+<h3 id="关键帧的时间单位">关键帧的时间单位</h3>
+<p>用于定义在指定时间轴位置的帧。</p>
+<ol>
+<li>数字表示:：
+0%、25%、100% </li>
+<li>字符表示：
+from(0%)、to(100%)</li>
+</ol>
+<h3 id="定义动画的格式">定义动画的格式</h3>
+<p>在样式表中定义：</p>
+<pre><code class="language-css">@keyFrames 动画名称｛
+
+    // 动画状态
+
+｝</code></pre>
+<p>例子：</p>
+<pre><code class="language-css">@keyFrames move{
+    0%{transform:translate(0,0);}
+    25%{transform:translate(400px,0);}
+    50%{transform:translate(400px,400px);}
+    75%{transform:translate(0,400px);}
+    100%{transform:translate(0,0);}
+}</code></pre>
+<h3 id="使用动画：">使用动画：</h3>
+<pre><code class="language-css">animation：2s move;</code></pre>
+<ol>
+<li>第一个参数是：运动时间</li>
+<li>第二个参数是：动画名称</li>
+</ol>
+<h3 id="必要属性：">必要属性：</h3>
+<ol>
+<li>animation-name:动画名称；</li>
+<li>animation-duration:时间；</li>
+</ol>
+<h3 id="可选属性：">可选属性：</h3>
+<ol>
+<li><p>animation-timing-function: 动画形式</p>
+<ul>
+<li>ease（默认） 逐渐变慢</li>
+<li>linear 匀速</li>
+<li>ease-in 加速</li>
+<li>ease-out 减速</li>
+<li>ease-int-out 先加速后减速</li>
+<li>cubic-bezier 贝塞尔曲线</li>
+</ul>
+</li>
+<li><p>animation-delay: 延迟时间</p>
+</li>
+<li><p>animation-iteration-count:重复次数</p>
+<ul>
+<li>infinite无限次</li>
+</ul>
+</li>
+<li><p>animation-direction： 播放前重置</p>
+<ul>
+<li>alternate 接着上一次</li>
+<li>normal 从0%开始</li>
+</ul>
+</li>
+<li><p>animation-play-state:播放状态</p>
+<ul>
+<li>running</li>
+<li>paused</li>
+</ul>
+</li>
+</ol>
 <p>使用动画的两个步骤：</p>
-<p>1、定义动画</p>
-<p>2、调用动画</p>
-<p>（1）通过css伪类</p>
-<p>（2）通过js</p>
-<p>a、定义一个class类，里面放好animation的各种属性， 给需要运动的对象添加类</p>
-<p>b、直接操作animation的各种属性（比较麻烦），或使用cssText属性。</p>
-<p>c、通过事件：animationend事件 动画播放完毕触发，只触发一次。</p>
+<ol>
+<li>定义动画</li>
+<li>调用动画<ol>
+<li>通过css类<ul>
+<li>定义一个class类，里面放好animation的各种属性，给需要运动的对象添加类</li>
+</ul>
+</li>
+<li>通过js<ul>
+<li>直接操作animation的各种属性（比较麻烦），或使用cssText属性。</li>
+<li>通过事件：animationend事件 动画播放完毕触发，只触发一次。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="动画暂停的示例">动画暂停的示例</h3>
+<p><code>div</code>的动画默认是暂停的, 当点击页面时动画开启。</p>
+<pre><code class="language-css">div {
+    margin: 50px auto;
+    width: 100px;
+    height: 100px;
+    background: #000;
+    animation: move 1s linear;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}
+
+body:active div {
+    animation-play-state: running;
+}</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

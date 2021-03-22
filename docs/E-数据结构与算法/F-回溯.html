@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>选择器.md</title>
+          <title>F-回溯.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,133 +37,7 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="属性选择器">属性选择器</h1>
-<h3 id="eatrr">E[atrr]</h3>
-<p>p[title] 具有title属性的p元素。</p>
-<h3 id="eattrval">E[attr=&quot;val&quot;]</h3>
-<p>p[title=&#39;word&#39;] 属性title的值为&#39;word&#39;的p元素。</p>
-<h3 id="eattrval-1">E[attr~=&quot;val&quot;]</h3>
-<p>p[class~=&quot;world&quot;] world是class属性值列表的一部分的p元素。</p>
-<blockquote>
-<p>注意：</p>
-</blockquote>
-<ul>
-<li>这里指的是含有world类的p元素，p可能含有其他的类。</li>
-<li>列表。指的是属性值含有指定的单词，前后有空格。列表是通过空格切割出来的。</li>
-</ul>
-<h3 id="eattrval-2">E[attr^=&quot;val&quot;]</h3>
-<p>p[title^=&#39;he&#39;] title的值是以&#39;he&#39;开头的p元素。</p>
-<h3 id="eattrval-3">E[attr$=&quot;val&quot;]</h3>
-<p>p[title$=&#39;he&#39;] title的值是以&#39;he&#39;结尾的p元素。</p>
-<h3 id="eattrval-4">E[attr*=&quot;val&quot;]</h3>
-<p>p[title*=&#39;he&#39;] title的值包含&#39;he&#39;的p元素。</p>
-<blockquote>
-<p>注意：</p>
-</blockquote>
-<ul>
-<li>这里不是列表。只要含有即可。</li>
-<li>与E[attr~=&quot;val&quot;]的区别</li>
-</ul>
-<h3 id="eattrval-5">E[attr|=&quot;val&quot;]</h3>
-<p>p[title|=&#39;he&#39;] title的值是以he或he-开头的p元素</p>
-<h1 id="结构伪类选择器（：可以理解为交集的意思）">结构伪类选择器（：可以理解为交集的意思）</h1>
-<h3 id="enth-childn">E:nth-child(n)</h3>
-<p>E父元素中的第n个子元素并且这个元素还是E元素</p>
-<blockquote>
-<p>满足两个条件：</p>
-</blockquote>
-<ol>
-<li>选择的是E父元素的第n个子元素</li>
-<li>这个元素是E元素</li>
-</ol>
-<h3 id="enth-childodd">E:nth-child(odd)</h3>
-<p>E父元素的所有第奇数个子元素并且这个元素还是E元素</p>
-<blockquote>
-<p>满足两个条件：</p>
-</blockquote>
-<ol>
-<li>选择的是E父元素的奇数个子元素</li>
-<li>这个元素是E元素</li>
-</ol>
-<h3 id="enth-childeven">E:nth-child(even)</h3>
-<p>E父元素的所有第偶数个子元素并且这个元素还是E元素</p>
-<blockquote>
-<p>满足两个条件：</p>
-</blockquote>
-<ol>
-<li>选择的是E父元素的偶数个子元素</li>
-<li>这个元素是E元素</li>
-</ol>
-<h3 id="enth-child2n">E:nth-child(2n)</h3>
-<p>E父元素的所有第2n个子元素并且这个元素还是E元素, 可以是任何表达式，n从1开始。</p>
-<blockquote>
-<p>满足两个条件：</p>
-</blockquote>
-<ol>
-<li>选择的是E父元素的第2n个子元素</li>
-<li>这个元素是E元素</li>
-</ol>
-<h3 id="enth-last-child">E:nth-last-child()</h3>
-<p>从后往前数，用法与nth-child()一样。</p>
-<p>E:nth-of-type(n)
-p:nth-of-type(2)
-找到p的父元素下的第二个p元素。
-注意：
-1、与p:nth-child(2)的区别
-前者：父元素的第二个p元素
-后者：父元素的第二个元素，第二个元素不一定是p元素
-E:nth-last-of-type(n)
-从后往前数，用法与E:nth-of-type(n)一样</p>
-<h1 id="伪类">伪类</h1>
-<h3 id="etarget">E:target</h3>
-<p>锚a指向的目标且是E元素。</p>
-<pre><code class="language-html">  &lt;!-- target:  --&gt;
-  &lt; p id=&quot;top&quot;&gt;目标&lt;/p&gt;
-  &lt;!-- 锚： --&gt;
-  &lt;a href=&quot;#top&quot;&gt;锚&lt;/a&gt;
-
-  &lt;!-- 选择锚点的目标  --&gt;
-  p:target{
-
-  }</code></pre>
-<h3 id="edisabled">E:disabled</h3>
-<p>不可点击的表单控件, 选择属性disabled为true的表单控件。 </p>
-<pre><code class="language-css">input:disabled {
-
-}</code></pre>
-<h3 id="eenabled">E:enabled</h3>
-<p>可点击的表单控件 </p>
-<p> input:enabled </p>
-<h3 id="echecked">E:checked</h3>
-<p>选中的checkbox或radio </p>
-<h3 id="efirst-line">E:first-line</h3>
-<p>E元素的第一行 p:first-line{} //p的第一行 </p>
-<h3 id="efirst-letter">E:first-letter</h3>
-<p>E元素中的第一个字符 ------------- -------------- </p>
-<h3 id="eselection">E::selection</h3>
-<p>E元素中的文字被选中时 p::selection{color:green;} 段落中被选的文字颜色变为绿色</p>
-<h3 id="ebefore">E::before</h3>
-<p>生成内容在E前面。例子：在段落前面添加内容&#39;hello&#39;。</p>
-<pre><code class="language-css">p::before{ 
-  content:&quot;hello&quot;;
-  /* //要添加的内容  */
-  background:green; 
-  display:block;
-  /* //默认是内联  */
-} </code></pre>
-<h3 id="eafter">E::after</h3>
-<p>生成内容在E前面，用法与before一样。</p>
-<h3 id="ef">E~F</h3>
-<p>E元素毗邻的F兄弟元素, 包括E后面所有的F元素。</p>
-<h3 id="ef-1">E+F</h3>
-<p>E的下一个F元素，一个E只能有一个F元素。 注意：他们的共同点都是只能选择后面的元素，不能选择前面的元素。</p>
-<h3 id="enotstr">E:not(str)</h3>
-<p>除了......之外的E元素 </p>
-<pre><code class="language-css">/* //除了有width属性的所有p元素  */
-div:not([width]) 
-/* //除了有hello类的所有p元素 */
-div:not(.hello) </code></pre>
-
+                
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

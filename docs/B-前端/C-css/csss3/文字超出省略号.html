@@ -37,13 +37,26 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="文字超出省略号">文字超出省略号</h3>
+                <h1 id="文字超出省略号">文字超出省略号</h1>
+<blockquote>
 <p>作用：文字超出范围用省略号表示超出的部分。</p>
-<p>white-space:nowrap;//不换行
-overflow:hidden;//超出的范围隐藏
-text-overflow:ellipsis;//ellipsis有省略号 clip没有省略号</p>
-<p>一般配合上面的命令使用。
-如果要实现多行，可以在要换行的地方加br</p>
+</blockquote>
+<h3 id="单行">单行</h3>
+<pre><code class="language-css">white-space:nowrap;/*不换行*/
+overflow:hidden;/*超出的范围隐藏*/
+text-overflow:ellipsis;/*ellipsis有省略号 clip没有省略号*/</code></pre>
+<p>一般配合上面的命令使用。</p>
+<h3 id="多行">多行</h3>
+<p>如果要实现多行，可以在要换行的地方加br。或者</p>
+<pre><code class="language-css">overflow : hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;</code></pre>
+<p>或者使用js实现。</p>
+<ul>
+<li>Clamp.js</li>
+</ul>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
