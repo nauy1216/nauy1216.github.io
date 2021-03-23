@@ -110,43 +110,59 @@ transform-orgin：10px 10px;
 
 > 注意：transform 转换产生的移动平移不会脱离文档流，也不会占用其他元素的位置， 只会覆盖其他的元素。
 
+### matrix(a,b,c,d,e,f)
 矩阵函数： 标准下（包括Ie9+）
-matrix(a,b,c,d,e,f)
-初始情况下matrix(1,0,0,1,0,0)
+
+> 初始情况下matrix(1,0,0,1,0,0)
+
 通过矩阵实现缩放：
-x轴缩放：
-a=x*a
-c=x*c
-e=x*e
-y轴缩放：
-b=x*b
-d=x*d
-f=x*f
+- x轴缩放(scaleX)：
+  - a=x*a
+  - c=x*c
+  - e=x*e
+- y轴缩放(scaleY)：
+  - b=x*b
+  - d=x*d
+  - f=x*f
 
-位移
-x轴位移：e=e+x
-y轴位移：f=f+x
+通过矩阵实现位移：
+- x轴位移(translateX)：
+  - e=e+x
+- y轴位移(translateY)：
+  - f=f+x
 
-倾斜
-x：c=Math.tan(xdeg/180*Math.PI)
-y：b=Math.tan(xdeg/180*Math.PI)
-旋转（没试过）
-a = Math.cos(deg/180*Math.PI)
-b = Math.sin(deg/180*Math.PI)
-c = -Math.sin(deg/180*Math.PI)
-d = Math.cos(deg/180*Math.PI)
+通过矩阵实现倾斜：
+- skewX(xdeg)：
+  - c=Math.tan(xdeg/180*Math.PI)
+- skewY(xdeg)：
+  - b=Math.tan(xdeg/180*Math.PI)
 
-要实现复杂的效果通过多次使用matrix函数实现
-transform:matrix(1,0,0,2,0,0) matrix(1,0,0,1,500,0);
 
-两个问题：
-1、IE678的兼容性怎么解决？
+通过矩阵实现旋转：
+- rotate(deg)
+  1. a = Math.cos(deg/180*Math.PI)
+  2. b = Math.sin(deg/180*Math.PI)
+  3. c = -Math.sin(deg/180*Math.PI)
+  4. d = Math.cos(deg/180*Math.PI)
+
+> 要实现复杂的效果通过多次使用matrix函数实现
+```css
+transform: matrix(1,0,0,2,0,0) matrix(1,0,0,1,500,0);
+```
+
+
+# 两个问题：
+### 1. IE678的兼容性怎么解决？
 使用本身自带的filter
-2、Ie下的旋转基点矫正？
+
+### 2. Ie下的旋转基点矫正？
+
 在标准下旋转基点是不会运动的， 在IE下基点会运动。
 解决：
-第一步：用一个div包住旋转的对象， 对象相对于div定位
-第二步：根据调整定位的left top 来调整基点的位置
+1. 第一步：用一个div包住旋转的对象， 对象相对于div定位
+2. 第二步：根据调整定位的left top 来调整基点的位置
+```css
 left=（div的offsetWidth-对象的offsetWidth）/2
 top =（div的offsetHeight-对象的offsetHeight）/2
+```
 

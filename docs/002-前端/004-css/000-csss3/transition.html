@@ -37,63 +37,77 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="过渡">过渡</h3>
-<p>transition：
-transition-property:要运动的属性样式
--all 所有的属性
--[attr] 指定的样式
--none 无
-transition-duration:运动的时间
-transition-delay:延迟时间
-transition-timing-function:运动形式
--ease（默认） 逐渐变慢
--linear 匀速
--ease-in 加速
--ease-out 减速
--ease-int-out 先加速后减速
--cubic-bezier 贝塞尔曲线</p>
-<p>作用：实现运动的过渡，注重过程,从一个状态到另一个状态。
-用法：transition:1s 1s width ease,1s 1s height ease;
-运动时间
-延迟时间
-属性
-运动形式</p>
-<p>注意：
-（1）不同属性运动过渡用逗号隔开。
-（2）只需要将这个命令放入css语句中即可
-（3）transition的作用是让运动过渡，所以不管是通过什么样的方式 运动均能实现过渡的效果。</p>
-<p>过渡完成事件：
-transitionend:每个样式过渡完成一次就触发一次,所以可能会触发多次。
-兼容问题：
-webkit内核：
-obj.addEventListen(&#39;webkitTransitionEnd&#39;,fn,false);
-ff:
-obj.addEventListen(&#39;transitionEnd&#39;,fn,false);
-例子：</p>
-<pre><code>        var oDiv = document.getElementById(&#39;box&#39;);
+                <h1 id="过渡">过渡</h1>
+<pre><code class="language-css">transition</code></pre>
+<h3 id="transition-property">transition-property</h3>
+<p>要运动的属性样式</p>
+<ul>
+<li>all 所有的属性</li>
+<li>[attr] 指定的样式</li>
+<li>none 无</li>
+</ul>
+<h3 id="transition-duration">transition-duration</h3>
+<p>运动的时间</p>
+<h3 id="transition-delay">transition-delay</h3>
+<p>延迟时间</p>
+<h3 id="transition-timing-function">transition-timing-function</h3>
+<p>运动形式</p>
+<ul>
+<li>ease（默认） 逐渐变慢</li>
+<li>linear 匀速</li>
+<li>ease-in 加速</li>
+<li>ease-out 减速</li>
+<li>ease-int-out 先加速后减速</li>
+<li>cubic-bezier 贝塞尔曲线</li>
+</ul>
+<h1 id="作用">作用</h1>
+<p>实现运动的过渡，注重过程,从一个状态到另一个状态。</p>
+<h1 id="用法：">用法：</h1>
+<pre><code class="language-css">transition:1s 1s width ease, 1s 1s height ease;</code></pre>
+<ul>
+<li>运动时间</li>
+<li>延迟时间</li>
+<li>属性</li>
+<li>运动形式</li>
+</ul>
+<blockquote>
+<p>注意：</p>
+</blockquote>
+<ol>
+<li>不同属性运动过渡用逗号隔开。</li>
+<li>只需要将这个命令放入css语句中即可</li>
+<li>transition的作用是让运动过渡，所以不管是通过什么样的方式 运动均能实现过渡的效果。</li>
+</ol>
+<h1 id="过渡完成事件transitionend">过渡完成事件transitionend</h1>
+<p>每个样式过渡完成一次就触发一次,所以可能会触发多次。</p>
+<h3 id="兼容问题：">兼容问题：</h3>
+<p>webkit内核：</p>
+<pre><code class="language-css">obj.addEventListen(&#39;webkitTransitionEnd&#39;,fn,false);</code></pre>
+<p>ff:</p>
+<pre><code class="language-css">obj.addEventListen(&#39;transitionEnd&#39;,fn,false);</code></pre>
+<h3 id="例子：">例子：</h3>
+<pre><code class="language-js">var oDiv = document.getElementById(&#39;box&#39;);
 
-        oDiv.addEventListener(&#39;webkitTransitionEnd&#39;,fn,false);
+oDiv.addEventListener(&#39;webkitTransitionEnd&#39;, fn, false);
 
-        function fn(){
-            alert(1);
-        }
-</code></pre><p>怎么解决每次过渡完成一个样式就触发一次transitionend事件？？</p>
-<pre><code>        var oDiv = document.getElementById(&#39;box&#39;);
-
-        oDiv.addEventListener(&#39;webkitTransitionEnd&#39;,fn,false);
-
-        function fn(){
-
-            var w= getComputedStyle(this).width
-
-            if(w==&#39;200px&#39;){//只需判断 自己想要监听的属性是否达到最终结果即可
-
-                alert(1);
-
-            }
-
-        }
+function fn(){
+    alert(1);
+}
 </code></pre>
+<p>怎么解决每次过渡完成一个样式就触发一次transitionend事件？？</p>
+<pre><code class="language-js">var oDiv = document.getElementById(&#39;box&#39;);
+
+oDiv.addEventListener(&#39;webkitTransitionEnd&#39;,fn,false);
+
+function fn(){
+    var w= getComputedStyle(this).width
+    if(w==&#39;200px&#39;){
+        //只需判断 自己想要监听的属性是否达到最终结果即可
+        alert(1);
+    }
+}
+</code></pre>
+
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

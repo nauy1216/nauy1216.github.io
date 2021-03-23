@@ -149,41 +149,74 @@ transform: scale(0.5)
 <blockquote>
 <p>注意：transform 转换产生的移动平移不会脱离文档流，也不会占用其他元素的位置， 只会覆盖其他的元素。</p>
 </blockquote>
-<p>矩阵函数： 标准下（包括Ie9+）
-matrix(a,b,c,d,e,f)
-初始情况下matrix(1,0,0,1,0,0)
-通过矩阵实现缩放：
-x轴缩放：
-a=x<em>a
-c=x</em>c
-e=x<em>e
-y轴缩放：
-b=x</em>b
-d=x<em>d
-f=x</em>f</p>
-<p>位移
-x轴位移：e=e+x
-y轴位移：f=f+x</p>
-<p>倾斜
-x：c=Math.tan(xdeg/180<em>Math.PI)
-y：b=Math.tan(xdeg/180</em>Math.PI)
-旋转（没试过）
-a = Math.cos(deg/180<em>Math.PI)
-b = Math.sin(deg/180</em>Math.PI)
-c = -Math.sin(deg/180<em>Math.PI)
-d = Math.cos(deg/180</em>Math.PI)</p>
-<p>要实现复杂的效果通过多次使用matrix函数实现
-transform:matrix(1,0,0,2,0,0) matrix(1,0,0,1,500,0);</p>
-<p>两个问题：
-1、IE678的兼容性怎么解决？
-使用本身自带的filter
-2、Ie下的旋转基点矫正？
-在标准下旋转基点是不会运动的， 在IE下基点会运动。
-解决：
-第一步：用一个div包住旋转的对象， 对象相对于div定位
-第二步：根据调整定位的left top 来调整基点的位置
-left=（div的offsetWidth-对象的offsetWidth）/2
-top =（div的offsetHeight-对象的offsetHeight）/2</p>
+<h3 id="matrixabcdef">matrix(a,b,c,d,e,f)</h3>
+<p>矩阵函数： 标准下（包括Ie9+）</p>
+<blockquote>
+<p>初始情况下matrix(1,0,0,1,0,0)</p>
+</blockquote>
+<p>通过矩阵实现缩放：</p>
+<ul>
+<li>x轴缩放(scaleX)：<ul>
+<li>a=x*a</li>
+<li>c=x*c</li>
+<li>e=x*e</li>
+</ul>
+</li>
+<li>y轴缩放(scaleY)：<ul>
+<li>b=x*b</li>
+<li>d=x*d</li>
+<li>f=x*f</li>
+</ul>
+</li>
+</ul>
+<p>通过矩阵实现位移：</p>
+<ul>
+<li>x轴位移(translateX)：<ul>
+<li>e=e+x</li>
+</ul>
+</li>
+<li>y轴位移(translateY)：<ul>
+<li>f=f+x</li>
+</ul>
+</li>
+</ul>
+<p>通过矩阵实现倾斜：</p>
+<ul>
+<li>skewX(xdeg)：<ul>
+<li>c=Math.tan(xdeg/180*Math.PI)</li>
+</ul>
+</li>
+<li>skewY(xdeg)：<ul>
+<li>b=Math.tan(xdeg/180*Math.PI)</li>
+</ul>
+</li>
+</ul>
+<p>通过矩阵实现旋转：</p>
+<ul>
+<li>rotate(deg)<ol>
+<li>a = Math.cos(deg/180*Math.PI)</li>
+<li>b = Math.sin(deg/180*Math.PI)</li>
+<li>c = -Math.sin(deg/180*Math.PI)</li>
+<li>d = Math.cos(deg/180*Math.PI)</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>要实现复杂的效果通过多次使用matrix函数实现</p>
+</blockquote>
+<pre><code class="language-css">transform: matrix(1,0,0,2,0,0) matrix(1,0,0,1,500,0);</code></pre>
+<h1 id="两个问题：">两个问题：</h1>
+<h3 id="1-ie678的兼容性怎么解决？">1. IE678的兼容性怎么解决？</h3>
+<p>使用本身自带的filter</p>
+<h3 id="2-ie下的旋转基点矫正？">2. Ie下的旋转基点矫正？</h3>
+<p>在标准下旋转基点是不会运动的， 在IE下基点会运动。
+解决：</p>
+<ol>
+<li>第一步：用一个div包住旋转的对象， 对象相对于div定位</li>
+<li>第二步：根据调整定位的left top 来调整基点的位置<pre><code class="language-css">left=（div的offsetWidth-对象的offsetWidth）/2
+top =（div的offsetHeight-对象的offsetHeight）/2</code></pre>
+</li>
+</ol>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
