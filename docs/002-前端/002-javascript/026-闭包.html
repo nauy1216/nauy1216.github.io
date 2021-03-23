@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>020-字符串转数字.md</title>
+          <title>026-闭包.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,34 +37,33 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="parseint">parseInt</h1>
-<p><code>parseInt(str, radix)</code>解析一个字符串并返回指定基数的十进制整数， radix 是2-36之间的整数，表示被解析字符串的基数。</p>
-<h3 id="str第一个参数">str第一个参数</h3>
-<p>如果参数不是一个字符串，则将其转换为字符串(使用ToString抽象操作)。字符串开头的空白符将会被忽略。</p>
-<h3 id="radix第二个参数">radix第二个参数</h3>
-<p><em>从 2 到 36</em>，表示字符串的基数。例如指定 16 表示被解析值是十六进制数。请注意，10不是默认值！</p>
-<h3 id="返回值">返回值</h3>
-<p>从给定的字符串中解析出的一个<em>十进制整数或者NaN</em>。</p>
-<pre><code class="language-js">parseInt(&#39;10&#39;)
-parseInt(&#39;10&#39;, 0) // 10
-parseInt(&#39;10&#39;, 1) // NaN
-parseInt(&#39;10&#39;, 2) // 2
-parseInt(&#39;10&#39;, 3) // 3
-// ...
-parseInt(&#39;10&#39;, 36) // 36
-parseInt(&#39;10&#39;, 37) // NaN
-
-// 字符串前面有空格，或者后面有非数字字符也能解析
-parseInt(&#39;    10r&#39;, 2) // 2</code></pre>
-<h1 id="parsefloat">parseFloat</h1>
-<h1 id="number">Number</h1>
-<pre><code class="language-js">Number(&#39;   2r&#39;) // NaN
-Number(&#39;   2&#39;)  // 2
-Number(&#39;   2    &#39;) // 2
-Number(&#39;   2.3    &#39;) // 2.3
-Number(&#39;   2. 3    &#39;) // NaN
-parseInt(&#39;   2. 3    &#39;) // 2
-parseFloat(&#39;   2. 3    &#39;) // 2</code></pre>
+                <h1 id="闭包">闭包</h1>
+<p>MDN 对闭包的定义为：</p>
+<blockquote>
+<p>闭包是指那些能够访问自由变量的函数。</p>
+</blockquote>
+<p>那什么是自由变量呢？</p>
+<blockquote>
+<p>自由变量是指在函数中使用的，但既不是函数参数也不是函数的局部变量的变量。</p>
+</blockquote>
+<p>由此，我们可以看出闭包共有两部分组成：</p>
+<blockquote>
+<p>闭包 = 函数 + 函数能够访问的自由变量。</p>
+</blockquote>
+<ul>
+<li>从理论上来说： 任何函数都是闭包，因为从创建函数开始就已经保存了全局的上下文，所以能访问外部的自由变量。</li>
+<li>从实践上来说只要满足下面两个要求即可：<ul>
+<li>即使创建函数的上下文已经销毁了， 但是函数依然存在，比如外部函数执行后返回一个新的函数并且被引用。</li>
+<li>使用了自由变量。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>思考：</p>
+</blockquote>
+<ul>
+<li>为什么闭包不会被垃圾回收？</li>
+</ul>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

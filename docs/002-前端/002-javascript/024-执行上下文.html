@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>020-字符串转数字.md</title>
+          <title>024-执行上下文.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,34 +37,124 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="parseint">parseInt</h1>
-<p><code>parseInt(str, radix)</code>解析一个字符串并返回指定基数的十进制整数， radix 是2-36之间的整数，表示被解析字符串的基数。</p>
-<h3 id="str第一个参数">str第一个参数</h3>
-<p>如果参数不是一个字符串，则将其转换为字符串(使用ToString抽象操作)。字符串开头的空白符将会被忽略。</p>
-<h3 id="radix第二个参数">radix第二个参数</h3>
-<p><em>从 2 到 36</em>，表示字符串的基数。例如指定 16 表示被解析值是十六进制数。请注意，10不是默认值！</p>
-<h3 id="返回值">返回值</h3>
-<p>从给定的字符串中解析出的一个<em>十进制整数或者NaN</em>。</p>
-<pre><code class="language-js">parseInt(&#39;10&#39;)
-parseInt(&#39;10&#39;, 0) // 10
-parseInt(&#39;10&#39;, 1) // NaN
-parseInt(&#39;10&#39;, 2) // 2
-parseInt(&#39;10&#39;, 3) // 3
-// ...
-parseInt(&#39;10&#39;, 36) // 36
-parseInt(&#39;10&#39;, 37) // NaN
+                <h1 id="javascript-之执行上下文栈">JavaScript 之执行上下文栈</h1>
+<ol>
+<li>顺序执行？</li>
+<li>如果要问到 JavaScript 代码执行顺序的话，想必写过 JavaScript 的开发者都会有个直观的印象，那就是顺序执行，毕竟：</li>
+</ol>
+<pre><code class="language-js">var foo = function () {
+    console.log(&#39;foo1&#39;)
+}
 
-// 字符串前面有空格，或者后面有非数字字符也能解析
-parseInt(&#39;    10r&#39;, 2) // 2</code></pre>
-<h1 id="parsefloat">parseFloat</h1>
-<h1 id="number">Number</h1>
-<pre><code class="language-js">Number(&#39;   2r&#39;) // NaN
-Number(&#39;   2&#39;)  // 2
-Number(&#39;   2    &#39;) // 2
-Number(&#39;   2.3    &#39;) // 2.3
-Number(&#39;   2. 3    &#39;) // NaN
-parseInt(&#39;   2. 3    &#39;) // 2
-parseFloat(&#39;   2. 3    &#39;) // 2</code></pre>
+foo() // foo1
+
+var foo = function () {
+    console.log(&#39;foo2&#39;)
+}
+
+foo() // foo2</code></pre>
+<p>然而去看这段代码：</p>
+<pre><code class="language-js">function foo() {
+    console.log(&#39;foo1&#39;)
+}
+
+foo() // foo2
+
+function foo() {
+    console.log(&#39;foo2&#39;)
+}
+
+foo() // foo2</code></pre>
+<p>打印的结果却是两个 foo2。刷过面试题的都知道这是因为 JavaScript 引擎并非一行一行地分析和执行程序，而是一段一段地分析执行。
+当执行一段代码的时候，会进行一个“准备工作”，比如第一个例子中的变量提升，和第二个例子中的函数提升。</p>
+<p>但是本文真正想让大家思考的是：这个“一段一段”中的“段”究竟是怎么划分的呢？</p>
+<p>到底 JavaScript 引擎遇到一段怎样的代码时才会做“准备工作”呢？</p>
+<h3 id="可执行代码">可执行代码</h3>
+<p>这就要说到 JavaScript 的可执行代码(executable code)的类型有哪些了？其实很简单，就三种，_全局代码、函数代码、eval 代码_。</p>
+<p>举个例子，当执行到一个函数的时候，就会进行准备工作，这里的“准备工作”，让我们用个更专业一点的说法，就叫做&quot;<em>执行上下文(execution context)</em>&quot;。</p>
+<h3 id="执行上下文栈">执行上下文栈</h3>
+<blockquote>
+<p>接下来问题来了，我们写的函数多了去了，如何管理创建的那么多执行上下文呢？
+所以 JavaScript 引擎创建了<em>执行上下文栈（Execution context stack，ECS）</em>来管理执行上下文。</p>
+</blockquote>
+<p>为了模拟执行上下文栈的行为，让我们定义执行上下文栈是一个数组：</p>
+<pre><code class="language-js">ECStack = []</code></pre>
+<p>试想当 JavaScript 开始要解释执行代码的时候，最先遇到的就是全局代码，所以初始化的时候首先就会向执行上下文栈压入一个全局执行上下文，我们用 <code>globalContext</code> 表示它，并且只有当整个应用程序结束的时候，ECStack 才会被清空，所以程序结束之前， ECStack 最底部永远有个 globalContext。</p>
+<pre><code class="language-js">ECStack = [globalContext]</code></pre>
+<p>现在 JavaScript 遇到下面的这段代码了：</p>
+<pre><code class="language-js">function fun3() {
+    console.log(&#39;fun3&#39;)
+}
+
+function fun2() {
+    fun3()
+}
+
+function fun1() {
+    fun2()
+}
+
+fun1()</code></pre>
+<p>当执行一个函数的时候，就会创建一个执行上下文，并且压入执行上下文栈，当函数执行完毕的时候，就会将函数的执行上下文从栈中弹出。
+知道了这样的工作原理，让我们来看看如何处理上面这段代码：</p>
+<pre><code class="language-js">// 伪代码
+
+// fun1()
+ECStack.push(&lt;fun1&gt; functionContext);
+
+// fun1中竟然调用了fun2，还要创建fun2的执行上下文
+ECStack.push(&lt;fun2&gt; functionContext);
+
+// 擦，fun2还调用了fun3！
+ECStack.push(&lt;fun3&gt; functionContext);
+
+// fun3执行完毕
+ECStack.pop();
+
+// fun2执行完毕
+ECStack.pop();
+
+// fun1执行完毕
+ECStack.pop();
+
+// javascript接着执行下面的代码，但是ECStack底层永远有个globalContext</code></pre>
+<h3 id="解答思考题">解答思考题</h3>
+<blockquote>
+<p>好啦，现在我们已经了解了执行上下文栈是如何处理执行上下文的，所以让我们看看下面的代码：</p>
+</blockquote>
+<pre><code class="language-js">// =====
+var scope = &#39;global scope&#39;
+function checkscope() {
+    var scope = &#39;local scope&#39;
+    function f() {
+        return scope
+    }
+    return f()
+}
+checkscope()
+// ========
+var scope = &#39;global scope&#39;
+function checkscope() {
+    var scope = &#39;local scope&#39;
+    function f() {
+        return scope
+    }
+    return f
+}
+checkscope()()</code></pre>
+<p>两段代码执行的结果一样，但是两段代码究竟有哪些不同呢？</p>
+<p><em>答案就是执行上下文栈的变化不一样。</em></p>
+<p>让我们模拟第一段代码：</p>
+<pre><code class="language-js">ECStack.push(&lt;checkscope&gt; functionContext);
+ECStack.push(&lt;f&gt; functionContext);
+ECStack.pop();
+ECStack.pop();</code></pre>
+<p>让我们模拟第二段代码：</p>
+<pre><code class="language-js">ECStack.push(&lt;checkscope&gt; functionContext);
+ECStack.pop();
+ECStack.push(&lt;f&gt; functionContext);
+ECStack.pop();</code></pre>
+<p>是不是有些不同呢？</p>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
