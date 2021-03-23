@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>F-css性能.md</title>
+          <title>002-npm install的原理.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,10 +37,64 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="动画与图层">动画与图层</h1>
-<p><a href="https://zhuanlan.zhihu.com/p/55454164">https://zhuanlan.zhihu.com/p/55454164</a></p>
-<h1 id="gpu硬件加速">GPU硬件加速</h1>
-<h1 id="重排和重绘">重排和重绘</h1>
+                <h1 id="1-npm-模块安装机制：">1. npm 模块安装机制：</h1>
+<ol>
+<li>发出npm install命令</li>
+<li>查询node_modules目录之中是否已经存在指定模块<ol>
+<li>若存在，不再重新安装</li>
+<li>若不存在<ol>
+<li>npm 向 registry 查询模块压缩包的网址</li>
+<li>下载压缩包，存放在根目录下的.npm目录里</li>
+<li>解压压缩包到当前项目的node_modules目录</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="2-npm-实现原理">2. npm 实现原理</h1>
+<p>输入 npm install 命令并敲下回车后，会经历如下几个阶段（以 npm 5.5.1 为例）：</p>
+<h3 id="1执行工程自身-preinstall">1.执行工程自身 preinstall</h3>
+<p>当前 npm 工程如果定义了 preinstall 钩子此时会被执行。</p>
+<h3 id="2-确定首层依赖模块">2. 确定首层依赖模块</h3>
+<p>首先需要做的是确定工程中的首层依赖，也就是 <code>dependencies</code> 和 <code>devDependencies</code> 属性中直接指定的模块（假设此时没有添加 npm install 参数）。
+工程本身是整棵依赖树的根节点，每个首层依赖模块都是根节点下面的一棵子树，npm 会开启多进程从每个首层依赖模块开始逐步寻找更深层级的节点。</p>
+<h3 id="3-获取模块">3. 获取模块</h3>
+<p>获取模块是一个递归的过程，分为以下几步：</p>
+<ol>
+<li>获取模块信息。在下载一个模块之前，首先要确定其版本，这是因为 package.json 中往往是 semantic version（semver，语义化版本）。此时如果版本描述文件（npm-shrinkwrap.json 或 package-lock.json）中有该模块信息直接拿即可，如果没有则从仓库获取。如 packaeg.json 中某个包的版本是 ^1.1.0，npm 就会去仓库中获取符合 1.x.x 形式的最新版本。</li>
+<li>获取模块实体。上一步会获取到模块的压缩包地址（resolved 字段），npm 会用此地址检查本地缓存，缓存中有就直接拿，如果没有则从仓库下载。</li>
+<li>查找该模块依赖，如果有依赖则回到第1步，如果没有则停止。</li>
+</ol>
+<h3 id="4-模块扁平化（dedupe）">4. 模块扁平化（dedupe）</h3>
+<p>上一步获取到的是一棵完整的依赖树，其中可能包含大量重复模块。比如<code>A</code>模块依赖于<code>loadsh</code>，<code>B</code>模块同样依赖于<code>lodash</code>。在<code>npm3</code>以前会严格按照依赖树的结构进行安装，因此会造成模块冗余。</p>
+<p>从<code>npm3</code>开始默认加入了一个 <code>dedupe</code> 的过程。它会遍历所有节点，逐个将模块放在根节点下面，也就是<code>node-modules</code>的第一层。
+当发现有重复模块时，则将其丢弃。</p>
+<p>这里需要对重复模块进行一个定义，它指的是<code>模块名相同且 semver 兼容</code>。每个<code>semver</code>都对应一段版本允许范围，如果两个模块的版本允许范围存在交集，那么就可以得到一个兼容版本，而不必版本号完全一致，这可以使更多冗余模块在 dedupe 过程中被去掉。</p>
+<p>比如 <code>node-modules</code> 下 <code>foo</code> 模块依赖 <code>lodash@^1.0.0</code>，<code>bar</code> 模块依赖 <code>lodash@^1.1.0</code>，则 <code>^1.1.0</code> 为兼容版本。</p>
+<p>而当 <code>foo</code> 依赖 <code>lodash@^2.0.0</code>，<code>ba</code>r 依赖 <code>lodash@^1.1.0</code>，则依据 semver 的规则，二者不存在兼容版本。
+<em>会将一个版本放在 node_modules 中，另一个仍保留在依赖树里。</em></p>
+<blockquote>
+<p>举个例子，假设一个依赖树原本是这样：</p>
+</blockquote>
+<pre><code>node_modules
+-- foo
+---- lodash@version1
+
+-- bar
+---- lodash@version2</code></pre><p>假设 version1 和 version2 是兼容版本，则经过 dedupe 会成为下面的形式：</p>
+<pre><code>node_modules
+-- foo
+-- bar
+-- lodash（保留的版本为兼容版本）</code></pre><p>假设 version1 和 version2 为非兼容版本，则后面的版本保留在依赖树中：</p>
+<pre><code>node_modules
+-- foo
+-- lodash@version1
+
+-- bar
+---- lodash@version2</code></pre><h3 id="5-安装模块">5. 安装模块</h3>
+<p>这一步将会更新工程中的 node_modules，并执行模块中的生命周期函数（按照 preinstall、install、postinstall 的顺序）。</p>
+<h3 id="6-执行工程自身生命周期">6. 执行工程自身生命周期</h3>
+<p>当前 npm 工程如果定义了钩子此时会被执行（按照 install、postinstall、prepublish、prepare 的顺序）。</p>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

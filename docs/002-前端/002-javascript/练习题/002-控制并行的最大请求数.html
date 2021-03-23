@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>B-cssModule.md</title>
+          <title>002-控制并行的最大请求数.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,12 +37,77 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="参考文档">参考文档</h1>
-<ol>
-<li><a href="https://segmentfault.com/a/1190000014722978">https://segmentfault.com/a/1190000014722978</a></li>
-<li><a href="https://www.cnblogs.com/xiaohuochai/p/8537959.html">https://www.cnblogs.com/xiaohuochai/p/8537959.html</a></li>
-</ol>
+                <h1 id="问题">问题</h1>
+<p>请实现如下函数，可以批量请求数据,所有的 url 地址在 urls 参数中，同时可以通过 max 参数控制请求的并行数，当所有请求结束之后，需要执行 callback 回调函数，发送请求的函数可以直接使用 fetch 即可</p>
 <h1 id=""></h1>
+<pre><code class="language-js">
+/**
+ *
+ * @param {Array&lt;String&gt;} urls
+ * @param {Number} max
+ * @param {Function} callback
+ */
+function sendRequest(urls, max, callback) {
+  if (urls.length === 0) {
+    callback()
+    return
+  }
+  // 当前并行请求的数量
+  let requestCount = 0
+  // 保存请求的结果
+  let result = []
+  let len = urls.length
+  let url
+  // 发送请求
+  send()
+
+  function send() {
+    while (requestCount &lt; max &amp;&amp; urls.length &gt; 0) {
+      requestCount++
+      url = urls.shift()
+
+      fetch(url).then(response =&gt; {
+        // 保存结果
+        result.push({
+          url,
+          response
+        })
+        requestCount--
+      }, error =&gt; {
+        // 保存结果
+        result.push({
+          url,
+          error
+        })
+        requestCount--
+      }).finally(() =&gt; {
+        setTimeout(() =&gt; {
+          //urls不为空则继续请求
+          if (urls.length &gt; 0) {
+            send()
+          } else if (result.length === len)  { // 当返回结果的数量与urls的初始长度一致时，说明全部响应成功
+            callback(result)
+          }
+        }, 100)
+      })
+    }
+  }
+}
+
+let urls = [
+  &#39;https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2580986389,1527418707&amp;fm=27&amp;gp=0.jpg&#39;,
+  &#39;https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1995874357,4132437942&amp;fm=27&amp;gp=0.jpg&#39;,
+  &#39;https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2640393967,721831803&amp;fm=27&amp;gp=0.jpg&#39;,
+  &#39;https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1548525155,1032715394&amp;fm=27&amp;gp=0.jpg&#39;,
+  &#39;https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2434600655,2612296260&amp;fm=27&amp;gp=0.jpg&#39;,
+  &#39;https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2160840192,133594931&amp;fm=27&amp;gp=0.jpg&#39;
+]
+
+
+sendRequest(urls, 2, res =&gt; {
+  console.log(res)
+})
+</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

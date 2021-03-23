@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>资源链接.md</title>
+          <title>001-css最佳实践.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,60 +37,39 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="css">css</h1>
-<ol>
-<li><a href="https://www.bootcss.com/">bootstrap</a></li>
-<li><a href="https://www.tailwindcss.cn/">tailwindcss</a></li>
-</ol>
-<h1 id="游戏">游戏</h1>
-<ol>
-<li>playcanvas</li>
-<li>egret</li>
-<li>cocos2d</li>
-<li>pixi</li>
-<li>Phaser.js</li>
-</ol>
-<h1 id="即时通讯">即时通讯</h1>
-<ol>
-<li><img src="http://docs-im.easemob.com/im/quickstart/guide/introduction" alt="环信"></li>
-<li>小鹅通</li>
-<li>声网</li>
-</ol>
-<h1 id="excel">excel</h1>
-<ol>
-<li>xlsx.js</li>
-</ol>
-<h1 id="日志与监控、埋点">日志与监控、埋点</h1>
-<ol>
-<li>fundebuge</li>
-<li>talkingdata</li>
-<li>grwingio</li>
-</ol>
-<h1 id="动画">动画</h1>
-<ol>
-<li>TweenMax</li>
-</ol>
-<h1 id="工具">工具</h1>
-<ol>
-<li><img src="https://jex.im/regulex" alt="正则学习"></li>
-<li>Can I Use</li>
-<li><img src="https://www.qqxiuzi.cn/zh/unicode-zifu.php?plane=1&ks=10000&js=10FFF" alt="unicode字符查询"></li>
-</ol>
-<h1 id="前端学习">前端学习</h1>
-<ol>
-<li><a href="https://github.com/amandakelake/blog">https://github.com/amandakelake/blog</a></li>
-<li><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></li>
-<li><a href="https://jelly.jd.com/">https://jelly.jd.com/</a></li>
-<li><a href="https://github.com/yygmind/blog/issues/43">前端 100 问</a></li>
-<li><a href="https://github.com/Advanced-Frontend">https://github.com/Advanced-Frontend</a></li>
-<li><a href="https://www.cnblogs.com/cYang2030/p/14111036.html">前端知识思维导图</a></li>
-<li><a href="https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc">info</a></li>
-<li><a href="https://github.com/yyx990803/tucao/issues/1">尤雨溪 github</a></li>
-<li><a href="https://tech.meituan.com/2018/10/11/fe-security-csrf.html">美团</a></li>
-<li><a href="https://www.zoo.team/article/jsbridge">政采云前端团队</a></li>
-<li><a href="https://ajv.js.org/guide/formats.html#string-formats">json校验</a></li>
-<li><a href="https://bitable.feishu.cn/app8Ok6k9qafpMkgyRbfgxeEnet?from=logout&amp;table=tblEnSV2PNAajtWE&amp;view=vewJHSwJVd">试题</a></li>
-</ol>
+                <h1 id="bem">BEM</h1>
+<p>BEM的意思就是块（block）、元素（element）、修饰符（modifier）。
+命名约定的模式如下：</p>
+<pre><code class="language-css">.block{}
+.block__element{}
+.block--modifier{}</code></pre>
+<ul>
+<li>.block 代表了更高级别的抽象或组件。</li>
+<li>.block__element 代表.block的后代，用于形成一个完整的.block的整体。</li>
+<li>.block--modifier代表.block的不同状态或不同版本。</li>
+</ul>
+<p>之所以使用两个连字符和下划线而不是一个，是为了让你自己的块可以用单个连字符来界定，如：</p>
+<pre><code class="language-css">.site-search{} /* 块 */
+.site-search__field{} /* 元素 */
+.site-search--full{} /* 修饰符 */    
+</code></pre>
+<p>BEM的关键是光凭名字就可以告诉其他开发者某个标记是用来干什么的。通过浏览HTML代码中的class属性，你就能够明白模块之间是如何关联的：有一些仅仅是组件，有一些则是这些组件的子孙或者是元素,还有一些是组件的其他形态或者是修饰符。我们用一个类比/模型来思考一下下面的这些元素是怎么关联的：</p>
+<pre><code class="language-css">.person{}
+.person__hand{}
+.person--female{}
+.person--female__hand{}
+.person__hand--left{}    </code></pre>
+<blockquote>
+<p>规范不必生搬硬套，还是得看场景。</p>
+</blockquote>
+<h1 id="oocss">OOCSS</h1>
+<h1 id="smacss">SMACSS</h1>
+<h1 id="atomic-design">Atomic Design</h1>
+<blockquote>
+<p>TailwindCSS</p>
+</blockquote>
+<h1 id="css-in-js">CSS-in-js</h1>
+<h1 id="style-module">style module</h1>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>资源链接.md</title>
+          <title>000-记录.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,60 +37,312 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="css">css</h1>
-<ol>
-<li><a href="https://www.bootcss.com/">bootstrap</a></li>
-<li><a href="https://www.tailwindcss.cn/">tailwindcss</a></li>
+                <h1 id="bfc">BFC</h1>
+<h3 id="什么是bfc">什么是BFC?</h3>
+<ul>
+<li>块级格式化上下文。(block format context)</li>
+</ul>
+<h3 id="特点">特点</h3>
+<ul>
+<li>一个独立的布局容器，在布局上不会影响外面的元素，也不会影响外面的元素。</li>
+<li>同一个BFC内相邻的两个元素的上下margin会重叠，而不同的BFC内的两个元素的margin是不会重叠的。</li>
+<li>形成了BFC的元素不会与其他浮动元素重叠。</li>
+<li>在BFC元素内部的浮动元素是会被计算在内的。</li>
+</ul>
+<h3 id="形成bfc的场景？">形成BFC的场景？</h3>
+<ul>
+<li><ol>
+<li>根元素或包含根元素的元素，比如html元素</li>
 </ol>
-<h1 id="游戏">游戏</h1>
-<ol>
-<li>playcanvas</li>
-<li>egret</li>
-<li>cocos2d</li>
-<li>pixi</li>
-<li>Phaser.js</li>
+</li>
+<li><ol start="2">
+<li>浮动元素（元素的 float 不是 none）</li>
 </ol>
-<h1 id="即时通讯">即时通讯</h1>
-<ol>
-<li><img src="http://docs-im.easemob.com/im/quickstart/guide/introduction" alt="环信"></li>
-<li>小鹅通</li>
-<li>声网</li>
+</li>
+<li><ol start="3">
+<li>绝对定位元素（元素的 position 为 absolute 或 fixed）</li>
 </ol>
-<h1 id="excel">excel</h1>
-<ol>
-<li>xlsx.js</li>
+</li>
+<li><ol start="4">
+<li>行内块元素（元素的 display 为 inline-block）</li>
 </ol>
-<h1 id="日志与监控、埋点">日志与监控、埋点</h1>
-<ol>
-<li>fundebuge</li>
-<li>talkingdata</li>
-<li>grwingio</li>
+</li>
+<li><ol start="5">
+<li>表格单元格（元素的 display为 table-cell，HTML表格单元格默认为该值）</li>
 </ol>
-<h1 id="动画">动画</h1>
-<ol>
-<li>TweenMax</li>
+</li>
+<li><ol start="6">
+<li>表格标题（元素的 display 为 table-caption，HTML表格标题默认为该值）</li>
 </ol>
-<h1 id="工具">工具</h1>
-<ol>
-<li><img src="https://jex.im/regulex" alt="正则学习"></li>
-<li>Can I Use</li>
-<li><img src="https://www.qqxiuzi.cn/zh/unicode-zifu.php?plane=1&ks=10000&js=10FFF" alt="unicode字符查询"></li>
+</li>
+<li><ol start="7">
+<li>匿名表格单元格元素（元素的 display为 table、table-row、 table-row-group、table-header-group、table-footer-group（分别是HTML table、row、tbody、thead、tfoot的默认属性）或 inline-table）</li>
 </ol>
-<h1 id="前端学习">前端学习</h1>
-<ol>
-<li><a href="https://github.com/amandakelake/blog">https://github.com/amandakelake/blog</a></li>
-<li><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></li>
-<li><a href="https://jelly.jd.com/">https://jelly.jd.com/</a></li>
-<li><a href="https://github.com/yygmind/blog/issues/43">前端 100 问</a></li>
-<li><a href="https://github.com/Advanced-Frontend">https://github.com/Advanced-Frontend</a></li>
-<li><a href="https://www.cnblogs.com/cYang2030/p/14111036.html">前端知识思维导图</a></li>
-<li><a href="https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc">info</a></li>
-<li><a href="https://github.com/yyx990803/tucao/issues/1">尤雨溪 github</a></li>
-<li><a href="https://tech.meituan.com/2018/10/11/fe-security-csrf.html">美团</a></li>
-<li><a href="https://www.zoo.team/article/jsbridge">政采云前端团队</a></li>
-<li><a href="https://ajv.js.org/guide/formats.html#string-formats">json校验</a></li>
-<li><a href="https://bitable.feishu.cn/app8Ok6k9qafpMkgyRbfgxeEnet?from=logout&amp;table=tblEnSV2PNAajtWE&amp;view=vewJHSwJVd">试题</a></li>
+</li>
+<li><ol start="8">
+<li>overflow 值不为 visible 的块元素</li>
 </ol>
+</li>
+<li><ol start="9">
+<li>display 值为 flow-root 的元素</li>
+</ol>
+</li>
+<li><ol start="10">
+<li>contain 值为 layout、content或 strict 的元素</li>
+</ol>
+</li>
+<li><ol start="11">
+<li>弹性元素（display为 flex 或 inline-flex元素的直接子元素）</li>
+</ol>
+</li>
+<li><ol start="12">
+<li>网格元素（display为 grid 或 inline-grid 元素的直接子元素）</li>
+</ol>
+</li>
+<li><ol start="13">
+<li>多列容器（元素的 column-count 或 column-width 不为 auto，包括 column-count 为 1）</li>
+</ol>
+</li>
+<li><ol start="14">
+<li>column-span 为 all 的元素始终会创建一个新的BFC，即使该元素没有包裹在一个多列容器中（标准变更，Chrome bug）。</li>
+</ol>
+</li>
+</ul>
+<h3 id="应用场景？">应用场景？</h3>
+<ul>
+<li><p>margin重叠问题。<code>overflow: hidden;</code>使得div1形成了<code>BFC</code>。本来div2的margin会跑到div1的外面，现在形成<code>BFC</code>后就不会了。</p>
+<pre><code class="language-html">&lt;style&gt;
+  .div1 {
+      overflow: hidden;
+      background: pink;
+  }
+  .div2 {
+      width: 200px;
+      height: 200px;
+      background: #e0e0e0;
+      margin: 20px;
+  }
+&lt;/style&gt;
+&lt;div class=&quot;div1&quot;&gt;
+  &lt;div class=&quot;div2&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</li>
+<li><p>清浮动。形成了<code>BFC</code>的元素的高度是计算浮动元素的高度在内的。下面的例子中，如果没加<code>overflow: hidden;</code>div1的高度就会是0，加了就是200px。</p>
+<pre><code class="language-html">&lt;style&gt;
+  * {
+      margin: 0;
+      padding: 0;
+  }
+  .div1 {
+      overflow: hidden;
+      background: pink;
+  }
+  .div2 {
+      width: 200px;
+      height: 200px;
+      background: #e0e0e0;
+      float: left;
+  }
+&lt;/style&gt;
+&lt;div class=&quot;div1&quot;&gt;
+  &lt;div class=&quot;div2&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+</li>
+<li><p>阻止普通文档流元素被浮动元素覆盖。如果没加<code>overflow: hidden;</code>的话demo1会浮在在demo2上，并且形成文字环绕的效果。加了之后demo1和demo2
+  互不干扰不会重叠在一起。下面的例子稍微改下就能成为两栏布局。</p>
+<pre><code class="language-html">&lt;style&gt;
+  * {
+      margin: 0;
+      padding: 0;
+  }
+  .demo1 {
+      width: 100px;
+      height: 100px;
+      float: left;
+      background: pink
+  }
+  .demo2 {
+      width: 200px;
+      height: 200px;
+      background: blue;
+      overflow: hidden;
+  }
+&lt;/style&gt;
+</code></pre>
+</li>
+</ul>
+<div class="demo">
+    <div class="demo1">我是一个左侧浮动元素</div>
+    <div class="demo2">我是一个没有设置浮动, 也没有触发BFC的元素</div>
+</div>
+
+<pre><code>
+# 移动端1px
+### 产生1px问题的原因？
+由于`DPR(devicePixelRatio)`设备像素比不为1， 当css设置1px边框时，屏幕上对应的是2个或3个物理像素(具体多少个看设备像素比是多少)。
+所以一像素看起来会很粗。
+
+### 解决1px边框很粗的问题？
+- 使用0.5px
+    - 安卓有兼容问题。
+- 使用transform: scale(0.5)进行缩放
+- 使用viewport全局缩放
+- 使用box-shadow
+```css
+box-shadow: 0  -1px 1px -1px #e5e5e5,   //上边线
+            1px  0  1px -1px #e5e5e5,   //右边线
+            0  1px  1px -1px #e5e5e5,   //下边线
+            -1px 0  1px -1px #e5e5e5;   //左边线</code></pre><ul>
+<li>使用图片</li>
+</ul>
+<blockquote>
+<p>新项目最好使用的是设置viewport的scale值，这个方法兼容性好，后期写起来方便。老项目的话，改起来可能比较多，用的比较多的方法就是伪元素+transform的方法。</p>
+</blockquote>
+<h1 id="postion">postion</h1>
+<ul>
+<li>有哪几种定位方式？</li>
+<li>sticky?</li>
+</ul>
+<h1 id="flex">flex</h1>
+<h3 id="容器属性">容器属性</h3>
+<ul>
+<li>display</li>
+<li>flex-direction</li>
+<li>justify-content</li>
+<li>align-items</li>
+<li>flex-wrap</li>
+<li>flex-flow</li>
+<li>align-content<h3 id="项目属性">项目属性</h3>
+</li>
+<li>flex</li>
+<li>flex-shrink</li>
+<li>flex-grow</li>
+<li>order</li>
+<li>flex-basis</li>
+<li>align-self</li>
+</ul>
+<h1 id="回流和重绘">回流和重绘</h1>
+<blockquote>
+<p><a href="https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/24">https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/24</a></p>
+</blockquote>
+<h3 id="浏览器渲染机制">浏览器渲染机制</h3>
+<ul>
+<li>浏览器采用流式布局模型（Flow Based Layout）</li>
+<li>浏览器会把HTML解析成DOM，把CSS解析成CSSOM，DOM和CSSOM合并就产生了渲染树（Render Tree）</li>
+<li>有了RenderTree，我们就知道了所有节点的样式，然后计算他们在页面上的大小和位置，最后把节点绘制到页面上</li>
+<li>由于浏览器使用流式布局，对Render Tree的计算通常只需要遍历一次就可以完成，但table及其内部元素除外，他们可能需要多次计算，通常要花3倍于同等元素的时间，这也是为什么要避免使用table布局的原因之一。</li>
+</ul>
+<h3 id="回流（reflow）">回流（reflow）</h3>
+<ul>
+<li><p>定义
+由于节点的几何属性发生改变或者由于样式发生改变而<em>会影响布局</em>的，称为回流。
+回流是影响浏览器性能的关键因素，因为其变化涉及到部分页面（或是整个页面）的布局更新。
+一个元素的回流可能会导致了其所有子元素以及DOM中紧随其后的节点、祖先节点元素的随后的回流。</p>
+</li>
+<li><p>作用
+根据渲染树计算dom元素的位置和集合信息。</p>
+</li>
+</ul>
+<h3 id="重绘（repaint）">重绘（repaint）</h3>
+<ul>
+<li>定义
+由于节点的几何属性发生改变或者由于样式发生改变而<em>不会影响布局</em>的，称为重绘。例如outline, visibility, color、background-color等。</li>
+</ul>
+<blockquote>
+<p>回流必定会发生重绘，重绘不一定会引发回流。</p>
+</blockquote>
+<h3 id="浏览器优化">浏览器优化</h3>
+<p>现代浏览器大多都是<em>通过队列机制来批量更新布局</em>，浏览器会把修改操作放在队列中，<em>至少一个浏览器刷新（即16.6ms）才会清空队列</em>，
+但当你获取布局信息的时候，队列中可能有会影响这些属性或方法返回值的操作，即使没有，浏览器也会强制清空队列，触发回流与重绘来确保返回正确的值。
+使用下面的属性时会导致强制触发回流和重绘：</p>
+<ul>
+<li>offsetTop、offsetLeft、offsetWidth、offsetHeight</li>
+<li>scrollTop、scrollLeft、scrollWidth、scrollHeight</li>
+<li>clientTop、clientLeft、clientWidth、clientHeight</li>
+<li>width、height</li>
+<li>getComputedStyle()</li>
+<li>getBoundingClientRect()</li>
+</ul>
+<h3 id="减少回流和重绘">减少回流和重绘</h3>
+<ul>
+<li>css<ul>
+<li>transform代替top</li>
+<li>visibility代替display:none</li>
+<li>避免使用tableb布局</li>
+<li>将动画设置到position属性为absolute或fixed的元素上</li>
+</ul>
+</li>
+<li>js<ul>
+<li>为了减少发生次数，我们可以合并多次对DOM和样式的修改，然后一次处理掉。</li>
+</ul>
+</li>
+</ul>
+<h1 id="css3硬件加速">css3硬件加速</h1>
+<p>cSS3 硬件加速又叫做 GPU 加速，是利用 GPU 进行渲染，减少 CPU 操作的一种优化方案。
+由于 GPU 中的 transform 等 CSS 属性不会触发 repaint，所以能大大提高网页的性能。</p>
+<blockquote>
+<p>CSS 中的以下几个属性能触发硬件加速：</p>
+</blockquote>
+<ul>
+<li>transform</li>
+<li>opacity</li>
+<li>filter</li>
+<li>will-change
+如果有一些元素不需要用到上述属性，但是需要触发硬件加速效果，可以使用一些小技巧来诱导浏览器开启硬件加速。<pre><code class="language-css">.element {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0); 
+  /**或者**/
+  transform: rotateZ(360deg);
+  transform: translate3d(0, 0, 0);
+}</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>注意</p>
+</blockquote>
+<ul>
+<li>1、过多地开启硬件加速可能会<em>耗费较多的内存</em>，因此什么时候开启硬件加速，给多少元素开启硬件加速，需要用测试结果说话。</li>
+<li>2、GPU 渲染会影响字体的抗锯齿效果。这是因为 GPU 和 CPU 具有不同的渲染机制，即使最终硬件加速停止了，文本还是会在动画期间显示得很模糊。</li>
+</ul>
+<h1 id="浏览器调试">浏览器调试</h1>
+<h1 id="实现水平垂直居中">实现水平垂直居中</h1>
+<ul>
+<li>定宽高<ul>
+<li>绝对定位 + margin取负值</li>
+<li>绝对定位 + translate</li>
+<li>绝对定位 + top/right/bottom/left + margin</li>
+<li>grid</li>
+<li>flex</li>
+<li>table-cell + vertical-align + inline-block/margin: auto</li>
+</ul>
+</li>
+<li>不定宽高<ul>
+<li>绝对定位 + translate</li>
+<li>table-cell + vertical-align + inline-block/margin: auto</li>
+<li>flex</li>
+<li>grid</li>
+</ul>
+</li>
+</ul>
+<h1 id="布局">布局</h1>
+<ul>
+<li>单列布局</li>
+<li>两列布局</li>
+<li>三栏布局<blockquote>
+<p>特点：中间列自适应宽度，旁边两侧固定宽度</p>
+</blockquote>
+<ul>
+<li>圣杯布局</li>
+<li>双飞翼布局</li>
+<li>等高布局</li>
+<li>表格布局</li>
+<li>粘连布局</li>
+</ul>
+</li>
+</ul>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
