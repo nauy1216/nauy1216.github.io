@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>19-模块规范.md</title>
+          <title>012-事件循环和任务队列.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,12 +37,101 @@
           </head>
           <body>
             <article class="markdown-body">
-                <p>1、CommonJS --&gt; nodejs、webpack 同步
-2、esmodule --&gt; es6 同步
-3、amd --&gt; RequireJS 异步
-4、cmd --&gt; Sea.js 异步
-5、umd</p>
-<p>system.js</p>
+                <h1 id="一、任务队列：-宏任务，-微任务-raf">一、任务队列： 宏任务， 微任务, RAF</h1>
+<blockquote>
+<p>执行顺序 微任务 &gt; RAF &gt; Channel &gt; 宏任务</p>
+</blockquote>
+<ol>
+<li>执行一个宏任务(先执行同步代码)--&gt;</li>
+<li>执行所有微任务--&gt;</li>
+<li>UI render--&gt;</li>
+<li>执行下一个宏任务--&gt;</li>
+<li>执行所有微任务--&gt;</li>
+<li>UI render--&gt;......</li>
+</ol>
+<blockquote>
+<p>根据HTML Standard，一轮事件循环执行结束之后，下轮事件循环执行之前开始进行UI render。
+即：macro-task任务执行完毕，接着执行完所有的micro-task任务后，此时本轮循环结束，开始执行UI render。
+UI render完毕之后接着下一轮循环。但是UI render不一定会执行，因为需要考虑ui渲染消耗的性能以及有没有ui变动。</p>
+</blockquote>
+<h1 id="二、宏任务">二、宏任务</h1>
+<p>setTimeout()</p>
+<h1 id="三、微任务">三、微任务</h1>
+<p>Promise.resolve()、queueMicrotask()、MutationObserver
+使用Promise.resolve和queueMicrotask、MutationObserver的优先级是一样的。
+1、为什么需要使用微任务？
+从微任务本身的概念来说的话，就是当我们期望某段代码，不阻塞当前执行的同步代码，同时又期望它尽可能快地执行时，我们就需要它</p>
+<h1 id="四、raf">四、RAF</h1>
+<p>requestAnimationFrame()</p>
+<h1 id="五、channel">五、channel</h1>
+<p>MessageChannel</p>
+<pre><code class="language-js">function Observer(userCallBack) {
+  // 选择需要观察变动的节点
+  const targetNode = document.createElement(&#39;div&#39;);
+
+  // 观察器的配置（需要观察什么变动）
+  const config = {
+    attributes: true,
+    childList: true,
+    subtree: true
+  };
+
+  // 当观察到变动时执行的回调函数
+  const callback = function (mutationsList, observer) {
+    // Use traditional &#39;for loops&#39; for IE 11
+    // for (let mutation of mutationsList) {
+    //   if (mutation.type === &#39;childList&#39;) {
+    //     console.log(&#39;A child node has been added or removed.&#39;);
+    //   } else if (mutation.type === &#39;attributes&#39;) {
+    //     console.log(&#39;The &#39; + mutation.attributeName + &#39; attribute was modified.&#39;);
+    //     userCallBack()
+    //   }
+    // }
+    userCallBack()
+    // 之后，可停止观察
+    observer.disconnect();
+  };
+
+  // 创建一个观察器实例并传入回调函数
+  const observer = new MutationObserver(callback);
+
+  // 以上述配置开始观察目标节点
+  observer.observe(targetNode, config);
+  targetNode.id = targetNode.id == 0 ? 1 : 0
+}
+
+function channel(callback) {
+  var channel = new MessageChannel();
+  var port1 = channel.port1;
+  var port2 = channel.port2;
+  port2.onmessage = function (event) {
+    callback()
+  }
+  port1.postMessage(&#39;&#39;);
+}
+
+setTimeout(() =&gt; {
+  console.log(&#39;setTimeout&#39;)
+})
+channel(() =&gt; {
+  console.log(&#39;channel&#39;)
+})
+requestAnimationFrame(() =&gt; {
+  console.log(&#39;requestAnimationFrame&#39;)
+})
+Promise.resolve().then(() =&gt; {
+  console.log(&#39;Promise&#39;)
+})
+
+Observer(() =&gt; {
+  console.log(&#39;Observer&#39;)
+})
+queueMicrotask(() =&gt; {
+  console.log(&#39;queueMicrotask&#39;)
+})
+
+
+console.log(&#39;sync&#39;)</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>16-事件循环和任务队列.md</title>
+          <title>002-DOM.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,101 +37,135 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="一、任务队列：-宏任务，-微任务-raf">一、任务队列： 宏任务， 微任务, RAF</h1>
+                <h1 id="documentonclick-和-documentaddeventlinstenerclick">document.onclick 和 document.addEventLinstener(&#39;click&#39;)</h1>
+<ul>
+<li>两者不会相互冲突，按注册事件的先后顺序执行</li>
+<li>document.onclick只能添加一个事件处理函数，重复添加会覆盖</li>
+<li>document.addEventLinstener(&#39;click&#39;)可添加多个， 不会被覆盖</li>
+</ul>
+<h1 id="事件冒泡与事件捕获">事件冒泡与事件捕获</h1>
+<ul>
+<li>事件处理的三个阶段？</li>
+<li>事件冒泡和事件捕获是为了解决什么问题？执行顺序。</li>
+<li>事件冒泡的使用场景？ <ul>
+<li>dom事件委托（代理）</li>
+</ul>
+</li>
+<li>事件捕获的使用场景？<ul>
+<li>屏蔽事件</li>
+</ul>
+</li>
+<li>对于iframe里的元素会冒泡到iframe的父级window吗？</li>
+</ul>
+<h3 id="evstoppropagation和evstopimmediatepropagation"><code>ev.stopPropagation()</code>和<code>ev.stopImmediatePropagation</code></h3>
+<ul>
+<li>相同： 他们的作用都是阻止捕获和冒泡阶段中当前事件的进一步传播。</li>
+<li>不相同： <code>ev.stopPropagation()</code>不能阻止当前事件的其他处理函数的执行，<code>ev.stopImmediatePropagation()</code>能阻止当前事件的其他处理函数的执行。</li>
+</ul>
+<h3 id="evpreventdefault"><code>ev.preventDefault()</code></h3>
+<h3 id="evcomposedpath"><code>ev.composedPath()</code></h3>
+<p>调用该侦听器时返回事件路径。 如果影子根节点被创建并且ShadowRoot.mode是关闭的，那么该路径不包括影子树中的节点。</p>
+<h3 id="事件委托">事件委托</h3>
+<ul>
+<li>什么是事件委托？</li>
+<li>优点</li>
+<li>缺点</li>
+</ul>
+<h1 id="shadow-dom">shadow dom</h1>
+<h1 id="创建自定义事件">创建自定义事件</h1>
+<p>下面的例子定义了一个自定义事件<code>eventName</code>, 由于设置了<code>bubbles: true</code>所以当<code>body</code>触发事件后<code>doucment</code>也会接收到事件。</p>
+<pre><code class="language-js">var event = new CustomEvent(&#39;eventName&#39;, {
+  bubbles: true, // 是否冒泡
+  detail: &#39;aaa&#39;
+})
+
+var eventObj 
+document.body.addEventListener(&#39;eventName&#39;, function(e) {
+  eventObj = e
+  console.log(&#39;body ev&#39;, e)
+}, false)
+
+document.addEventListener(&#39;eventName&#39;, function(e) {
+  console.log(&#39;document ev&#39;, e, eventObj === e)
+  eventObj === e // true
+}, false)
+
+document.body.dispatchEvent(event)</code></pre>
+<ul>
+<li><code>body</code>和<code>document</code>接收的事件对象是同一个对象</li>
+<li>通过<code>dispatchEvent</code>触发内置事件？</li>
+</ul>
+<h1 id="dom操作api">dom操作api</h1>
+<h3 id="创建节点">创建节点</h3>
+<ul>
+<li>创建dom节点</li>
+<li>创建文本节点</li>
+<li>创建注释节点</li>
+<li>创建fragment<h3 id="获取引用关系">获取引用关系</h3>
+</li>
+<li>获取父节点</li>
+<li>获取子节点</li>
+<li>获取第一个子节点</li>
+<li>获取最后一个子节点</li>
+<li>获取下一个兄弟节点</li>
+<li>获取上一个兄弟节点</li>
+</ul>
+<h3 id="节点操作">节点操作</h3>
+<ul>
+<li>将节点a添加到节点b的子节点末尾</li>
+<li>节点a移除子节点b</li>
+<li>在节点a的子节点b前面插入节点c</li>
+<li>用节点a替换节点b的子节点</li>
+</ul>
+<h3 id="节点选择">节点选择</h3>
+<h3 id="属性操作">属性操作</h3>
+<ul>
+<li>设置属性</li>
+<li>删除属性</li>
+<li>获取属性值</li>
+<li>检测是否有某个属性</li>
+</ul>
+<h3 id="获取样式">获取样式</h3>
+<ul>
+<li>window.getComputedStyle(document.body) 和 document.body.style的区别？<ul>
+<li>getComputedStyle只能获取样式不能更改， style能获取</li>
+</ul>
+</li>
+<li>ele.getBoundingClientRect()</li>
+</ul>
+<h3 id="尺寸">尺寸</h3>
+<ul>
+<li><p>getBoundingClientRect</p>
+</li>
+<li><p>clientWidth、clientHeight、clientLeft、clientTop</p>
+</li>
+<li><p>offsetWidth、offsetHeight、offsetLeft、offsetTop</p>
+</li>
+<li><p>scrollWidth、scrollHeight、scrollLeft、scrollTop</p>
+</li>
+<li><p>clientWidth和offsetWidth的区别？</p>
+<ul>
+<li>哪个是包含边框的?bian</li>
+</ul>
+</li>
+<li><p>clientLeft和offsetLeft的区别？</p>
+<ul>
+<li>哪个是从内边距的边缘到边框的外边缘的距离(其实等同于边框的宽度)？</li>
+</ul>
+</li>
+</ul>
+<h1 id="domcontentloaded-与-load-的区别">DOMContentLoaded 与 load 的区别</h1>
 <blockquote>
-<p>执行顺序 微任务 &gt; RAF &gt; Channel &gt; 宏任务</p>
+<p>DOMContentLoaded的执行时机</p>
 </blockquote>
-<ol>
-<li>执行一个宏任务(先执行同步代码)--&gt;</li>
-<li>执行所有微任务--&gt;</li>
-<li>UI render--&gt;</li>
-<li>执行下一个宏任务--&gt;</li>
-<li>执行所有微任务--&gt;</li>
-<li>UI render--&gt;......</li>
-</ol>
+<p>DOM 解析完成后触发，不需要等待图片等其他资源加载完成。</p>
 <blockquote>
-<p>根据HTML Standard，一轮事件循环执行结束之后，下轮事件循环执行之前开始进行UI render。
-即：macro-task任务执行完毕，接着执行完所有的micro-task任务后，此时本轮循环结束，开始执行UI render。
-UI render完毕之后接着下一轮循环。但是UI render不一定会执行，因为需要考虑ui渲染消耗的性能以及有没有ui变动。</p>
+<p>load的执行时机
+页面上所有的 DOM, 样式表, 脚本, 图片等资源已经加载完毕才会触发。</p>
 </blockquote>
-<h1 id="二、宏任务">二、宏任务</h1>
-<p>setTimeout()</p>
-<h1 id="三、微任务">三、微任务</h1>
-<p>Promise.resolve()、queueMicrotask()、MutationObserver
-使用Promise.resolve和queueMicrotask、MutationObserver的优先级是一样的。
-1、为什么需要使用微任务？
-从微任务本身的概念来说的话，就是当我们期望某段代码，不阻塞当前执行的同步代码，同时又期望它尽可能快地执行时，我们就需要它</p>
-<h1 id="四、raf">四、RAF</h1>
-<p>requestAnimationFrame()</p>
-<h1 id="五、channel">五、channel</h1>
-<p>MessageChannel</p>
-<pre><code class="language-js">function Observer(userCallBack) {
-  // 选择需要观察变动的节点
-  const targetNode = document.createElement(&#39;div&#39;);
-
-  // 观察器的配置（需要观察什么变动）
-  const config = {
-    attributes: true,
-    childList: true,
-    subtree: true
-  };
-
-  // 当观察到变动时执行的回调函数
-  const callback = function (mutationsList, observer) {
-    // Use traditional &#39;for loops&#39; for IE 11
-    // for (let mutation of mutationsList) {
-    //   if (mutation.type === &#39;childList&#39;) {
-    //     console.log(&#39;A child node has been added or removed.&#39;);
-    //   } else if (mutation.type === &#39;attributes&#39;) {
-    //     console.log(&#39;The &#39; + mutation.attributeName + &#39; attribute was modified.&#39;);
-    //     userCallBack()
-    //   }
-    // }
-    userCallBack()
-    // 之后，可停止观察
-    observer.disconnect();
-  };
-
-  // 创建一个观察器实例并传入回调函数
-  const observer = new MutationObserver(callback);
-
-  // 以上述配置开始观察目标节点
-  observer.observe(targetNode, config);
-  targetNode.id = targetNode.id == 0 ? 1 : 0
-}
-
-function channel(callback) {
-  var channel = new MessageChannel();
-  var port1 = channel.port1;
-  var port2 = channel.port2;
-  port2.onmessage = function (event) {
-    callback()
-  }
-  port1.postMessage(&#39;&#39;);
-}
-
-setTimeout(() =&gt; {
-  console.log(&#39;setTimeout&#39;)
-})
-channel(() =&gt; {
-  console.log(&#39;channel&#39;)
-})
-requestAnimationFrame(() =&gt; {
-  console.log(&#39;requestAnimationFrame&#39;)
-})
-Promise.resolve().then(() =&gt; {
-  console.log(&#39;Promise&#39;)
-})
-
-Observer(() =&gt; {
-  console.log(&#39;Observer&#39;)
-})
-queueMicrotask(() =&gt; {
-  console.log(&#39;queueMicrotask&#39;)
-})
-
-
-console.log(&#39;sync&#39;)</code></pre>
+<blockquote>
+<p>DOMContentLoaded比load先执行。</p>
+</blockquote>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

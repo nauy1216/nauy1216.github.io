@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>9-Worker.md</title>
+          <title>009-requestIdleCallback.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,7 +37,17 @@
           </head>
           <body>
             <article class="markdown-body">
-                
+                <h1 id="requestidlecallback">requestIdleCallback</h1>
+<p>window.requestIdleCallback()方法将在浏览器的空闲时段内调用的函数排队。这使开发者能够在主事件循环上执行后台和低优先级工作，而不会影响延迟关键事件，如动画和输入响应。函数一般会按先进先调用的顺序执行，然而，如果回调函数指定了执行超时时间timeout，则有可能为了在超时前执行函数而打乱执行顺序。</p>
+<blockquote>
+<p>强烈建议使用timeout选项进行必要的工作，否则可能会在触发回调之前经过几秒钟。</p>
+</blockquote>
+<h1 id="语法">语法</h1>
+<pre><code class="language-js">var handle = window.requestIdleCallback(callback[, options])</code></pre>
+<ul>
+<li><code>callback</code>一个在<code>事件循环空闲时</code>即将被调用的函数的引用。函数会接收到一个名为 IdleDeadline 的参数，这个参数可以获取当前空闲时间以及回调是否在超时时间前已经执行的状态。</li>
+</ul>
+
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

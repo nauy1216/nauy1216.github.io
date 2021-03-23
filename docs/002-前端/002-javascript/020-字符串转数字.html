@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>对象拷贝.md</title>
+          <title>020-字符串转数字.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,127 +37,11 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="浅拷贝和深拷贝">浅拷贝和深拷贝</h1>
-<h3 id="浅拷贝">浅拷贝</h3>
+                <h1 id="parseint">parseInt</h1>
+<p><code>parseInt(string, radix)</code>解析一个字符串并返回指定基数的十进制整数， radix 是2-36之间的整数，表示被解析字符串的基数。</p>
 <ol>
-<li>Object.assign()</li>
-<li>扩展运算符</li>
-<li>循环遍历</li>
+<li>第一个参数</li>
 </ol>
-<h3 id="深拷贝">深拷贝</h3>
-<blockquote>
-<p>需要考虑的问题</p>
-</blockquote>
-<ol>
-<li>考虑循环引用</li>
-<li>RegExp</li>
-<li>Date</li>
-<li>Function</li>
-</ol>
-<h1 id="使用-jsonparsejsonstringify">使用 JSON.parse(JSON.stringify())</h1>
-<blockquote>
-<p>存在的问题：</p>
-</blockquote>
-<ol>
-<li>属性值不支持 Function、Regexp、Date、undefined<ul>
-<li>Function 类型、undefined、symbol被过滤掉了</li>
-<li>Date被转成字符串了</li>
-<li>Reg变成了普通的对象</li>
-</ul>
-</li>
-<li>没有对象识别</li>
-<li>对象不能循环引用</li>
-</ol>
-<pre><code class="language-js">/**
- deepClone、shallowClone
- 1、JSON.parse(JSON.stringify())
-  (1) 深拷贝, 
- （2) 属性值不支持Function、Regexp、Date、undefined, 
-  (3)没有对象识别, 
-  (4)对象不能循环引用
- 2、递归
- 深拷贝
- 3、Object.assign()、扩展运算符
- 浅拷贝
- */
-
-function deepCloneByJSON(obj) {
-    return JSON.parse(JSON.stringify(obj));
-}
-
-console.log(
-    deepCloneByJSON({
-        number: 1,
-        string: &#39;www&#39;,
-        bool: false,
-        nullK: null,
-        undefinedK: undefined, // 值是undefined时会过滤掉
-        symbol: Symbol(&#39;123&#39;), // 被过滤掉
-        arr: [[1, 2], 3],
-        func: function () {}, //  值是function时会过滤掉
-        reg: /\d/g, //  变成 {}
-        date: new Date(), // 变成 &quot;2020-09-19T03:31:42.124Z&quot;
-    })
-);</code></pre>
-<h1 id="简单的实现">简单的实现</h1>
-<pre><code class="language-js">function deepClone(obj) {
-    let type = typeOf(obj);
-    console.log(type);
-    switch (type) {
-        // 基本类型直接返回
-        case &#39;String&#39;:
-        case &#39;Number&#39;:
-        case &#39;Boolean&#39;:
-        case &#39;Undefined&#39;:
-        case &#39;Null&#39;:
-        case &#39;Symbol&#39;: {
-            return obj;
-        }
-
-        case &#39;Date&#39;: {
-            return new Date(obj.getTime());
-        }
-
-        case &#39;RegExp&#39;: {
-            let args =
-                &#39;&#39; +
-                (obj.global ? &#39;g&#39; : &#39;&#39;) +
-                (obj.ignoreCase ? &#39;i&#39; : &#39;&#39;) +
-                (obj.multiline ? &#39;m&#39; : &#39;&#39;);
-            let reg = new RegExp(obj.source, args);
-            reg.lastIndex = obj.lastIndex;
-            return reg;
-        }
-
-        // 函数类型直接返回
-        case &#39;Function&#39;: {
-            return obj;
-        }
-
-        case &#39;Array&#39;: {
-            return obj.map(item =&gt; deepClone(item));
-        }
-
-        case &#39;Object&#39;: {
-            let Ctor = obj.constructor;
-            let res = Ctor ? new Ctor() : {};
-            for (let key in obj) {
-                if (obj.hasOwnProperty(key)) {
-                    res[key] = deepClone(obj[key]);
-                }
-            }
-            return res;
-        }
-
-        default: {
-            return obj;
-        }
-    }
-
-    function typeOf(obj) {
-        return Object.prototype.toString.call(obj).slice(8, -1);
-    }
-}</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

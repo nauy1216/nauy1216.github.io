@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>20-post请求的几种数据.md</title>
+          <title>008-requestAnimationFrame.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,40 +37,64 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="post请求的四种数据格式">post请求的四种数据格式</h1>
-<p>协议规定 POST 提交的数据必须放在消息主体（entity-body）中，但协议并没有规定数据必须使用什么编码方式。
-实际上，开发者完全可以自己决定消息主体的格式，只要最后发送的 HTTP 请求满足上面的格式就可以。
-但是，数据发送出去，还要服务端解析成功才有意义。一般服务端语言如 php、python 等，以及它们的 framework，都内置了自动解析常见数据格式的功能。
-服务端通常是根据请求头（headers）中的 Content-Type 字段来获知请求中的消息主体是用何种方式编码，再对主体进行解析。
-所以说到 POST 提交数据方案，包含了 Content-Type 和消息主体编码方式两部分。</p>
-<h3 id="applicationx-www-form-urlencoded">application/x-www-form-urlencoded</h3>
-<p>浏览器的原生 form 表单，如果不设置 enctype 属性，那么最终就会以 application/x-www-form-urlencoded 方式提交数据。</p>
-<ul>
-<li>首先，Content-Type 被指定为 application/x-www-form-urlencoded；</li>
-<li>其次，提交的数据按照 key1=val1&amp;key2=val2 的方式进行编码，key 和 val 都进行了 URL 转码。大部分服务端语言都对这种方式有很好的支持。</li>
-</ul>
-<p>例如：</p>
-<pre><code class="language-js">POST http://www.example.com HTTP/1.1
-Content-Type: application/x-www-form-urlencoded;charset=utf-8
-title=test&amp;sub%5B%5D=1&amp;sub%5B%5D=2&amp;sub%5B%5D=3</code></pre>
-<h3 id="3-multipartform-data">3. multipart/form-data</h3>
-<p>首先生成了一个 boundary 用于分割不同的字段，为了避免与正文内容重复，boundary 很长很复杂。
-然后 Content-Type 里指明了数据是以 mutipart/form-data 来编码，本次请求的 boundary 是什么内容。
-消息主体里按照字段个数又分为多个结构类似的部分，每部分都是以 –boundary 开始，紧接着内容描述信息，然后是回车，
-最后是字段具体内容（文本或二进制）。如果传输的是文件，还要包含文件名和文件类型信息。消息主体最后以 –boundary– 标示结束。</p>
-<pre><code class="language-js">Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryfERI6l1QeXO8bzwW
-------WebKitFormBoundaryfERI6l1QeXO8bzwW
-Content-Disposition: form-data; name=&quot;apictype&quot;
+                <h1 id="requestanimationframe">requestAnimationFrame</h1>
+<p><code>window.requestAnimationFrame()</code> 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。</p>
+<blockquote>
+<p>该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行。</p>
+</blockquote>
+<ol>
+<li><p>回调函数执行次数通常是每秒60次，但在大多数遵循W3C建议的浏览器中，回调函数执行次数通常与<em>浏览器屏幕刷新次数</em>相匹配。</p>
+</li>
+<li><p>为了提高性能和电池寿命，因此在大多数浏览器里，当<code>requestAnimationFrame()</code> 运行在后台标签页或者隐藏的<code>&lt;iframe&gt;</code> 里时，<code>requestAnimationFrame()</code> 会被暂停调用以提升性能和电池寿命。</p>
+</li>
+<li><p>回调函数会被传入DOMHighResTimeStamp参数，DOMHighResTimeStamp指示当前被 requestAnimationFrame() 排序的回调函数被触发的时间。</p>
+</li>
+<li><p>requestAnimationFrame是在主线程上完成。这意味着，如果主线程非常繁忙，requestAnimationFrame的动画效果会大打折扣。</p>
+</li>
+</ol>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<pre><code class="language-js">const element = document.getElementById(&#39;some-element-you-want-to-animate&#39;);
+let start;
 
-1
-------WebKitFormBoundaryfERI6l1QeXO8bzwW
-Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;pay-success.png&quot;
-Content-Type: image/png
+function step(timestamp) {
+  if (start === undefined)
+    start = timestamp;
+  const elapsed = timestamp - start;
 
+  //这里使用`Math.min()`确保元素刚好停在200px的位置。
+  element.style.transform = &#39;translateX(&#39; + Math.min(0.1 * elapsed, 200) + &#39;px)&#39;;
 
-------WebKitFormBoundaryfERI6l1QeXO8bzwW--</code></pre>
-<h3 id="4-applicationjson">4. application/json</h3>
-<h3 id="5-textxml">5. text/xml</h3>
+  if (elapsed &lt; 2000) { // 在两秒后停止动画
+    window.requestAnimationFrame(step);
+  }
+}
+
+window.requestAnimationFrame(step);</code></pre>
+<h1 id="兼容">兼容</h1>
+<pre><code class="language-js">requestID = window.requestAnimationFrame(callback);
+window.requestAnimFrame = (function(){
+    return  window.requestAnimationFrame       || 
+            window.webkitRequestAnimationFrame || 
+            window.mozRequestAnimationFrame    || 
+            window.oRequestAnimationFrame      || 
+            window.msRequestAnimationFrame     || 
+            function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+        };
+})();</code></pre>
+<h1 id="60fps与设备刷新率">60fps与设备刷新率</h1>
+<p>目前大多数设备的屏幕刷新率为<em>60次/秒</em>，如果在页面中有一个动画或者渐变效果，或者用户正在滚动页面，那么浏览器渲染动画或页面的每一帧的速率也需要跟设备屏幕的刷新率保持一致。</p>
+<blockquote>
+<p>卡顿
+其中每个帧的预算时间仅比16毫秒多一点（1秒/ 60 = 16.6毫秒）。但实际上，浏览器有整理工作要做，因此您的所有工作是需要在<em>10毫秒内</em>完成。如果无法符合此预算，帧率将下降，并且内容会在屏幕上抖动。此现象通常称为卡顿，会对用户体验产生负面影响。</p>
+</blockquote>
+<blockquote>
+<p>跳帧
+假如动画切换在 16ms, 32ms, 48ms时分别切换，跳帧就是假如到了32ms，其他任务还未执行完成，没有去执行动画切帧，等到开始进行动画的切帧，已经到了该执行48ms的切帧。就好比你玩游戏的时候卡了，过了一会，你再看画面，它不会停留你卡的地方，或者这时你的角色已经挂掉了。必须在下一帧开始之前就已经绘制完毕。</p>
+</blockquote>
+<p><em>Chrome devtool 查看实时 FPS, 打开 More tools =&gt; Rendering, 勾选 FPS meter</em> </p>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
