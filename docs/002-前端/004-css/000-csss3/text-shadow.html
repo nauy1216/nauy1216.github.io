@@ -37,18 +37,39 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="text-shadow">text-shadow</h3>
-<p>作用：文字阴影
-用法：text-shadow:5px 5px 10px red ;
-横向偏移：
-纵向偏移：
-模糊距离：0-不模糊 值越大越模糊，直到看不见
-阴影颜色：
-阴影叠加：
-text-shadow:5px 5px 10px red,0px 0px 10px green ;
-不同的阴影用逗号隔开。
-渲染顺序：先渲染后面的，再渲染前面的。</p>
+                <h1 id="文字阴影">文字阴影</h1>
+<pre><code class="language-css">text-shadow:5px 5px 10px red ;</code></pre>
+<ul>
+<li>横向偏移：</li>
+<li>纵向偏移：</li>
+<li>模糊距离：0-不模糊 值越大越模糊，直到看不见</li>
+<li>阴影颜色：</li>
+</ul>
+<div class="box">text-shadow</div>
+<style>
+.box {
+  margin: 50px 0;
+  font-size: 50px;
+  text-shadow:5px 5px 10px red ;
+} 
+</style>
 
+
+
+<h1 id="阴影叠加：">阴影叠加：</h1>
+<pre><code class="language-css">text-shadow:10px 10px 10px red, 0px 0px 10px green ;</code></pre>
+<p>不同的阴影用逗号隔开。</p>
+<blockquote>
+<p>渲染顺序：先渲染后面的，再渲染前面的。</p>
+</blockquote>
+<div class="box">text-shadow</div>
+<style>
+.box {
+  margin: 50px 0;
+  font-size: 50px;
+  text-shadow:10px 10px 10px red, 0px 0px 10px green ;
+} 
+</style>
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

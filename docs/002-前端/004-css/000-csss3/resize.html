@@ -38,12 +38,32 @@
           <body>
             <article class="markdown-body">
                 <h3 id="缩放">缩放</h3>
-<pre><code>resize:both|horizontal|vertical;
-both:水平垂直都可以缩放
-horizontal：只有水平方向可以缩放
-vertical：只有垂直方向可以缩放</code></pre><p>配合使用才有效果：overflow:auto;
-兼容：ie不兼容。</p>
-
+<pre><code class="language-css">resize: both|horizontal|vertical;</code></pre>
+<ul>
+<li>both:水平垂直都可以缩放</li>
+<li>horizontal：只有水平方向可以缩放</li>
+<li>vertical：只有垂直方向可以缩放</li>
+</ul>
+<blockquote>
+<p>配合使用才有效果：overflow:auto;</p>
+</blockquote>
+<blockquote>
+<p>兼容：ie不兼容。</p>
+</blockquote>
+<div class="box">box-shadow: 0 10px 10px -10px gray;</div>
+<style>
+.box {
+  margin: 20px;
+  display: inline-block;
+  width: 400px;
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+  background: #e0e0e0;
+  resize: horizontal;
+  overflow: auto;
+} 
+</style>
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

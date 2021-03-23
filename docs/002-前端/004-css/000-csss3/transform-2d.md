@@ -1,37 +1,114 @@
-### 2D变换
+# 2D变换transform
+参数是函数。
+### rotate(90deg)
+旋转。 
+1. 参数的单位是角度。 
+2. 90deg顺时针旋转90度， -90deg逆时针旋转90度。
+> 注意：每次旋转都是从起始位置开始的不会叠加。
+<div class="box">
+<div class="content"></div>
+</div>
+<style>
+.box {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: #e0e0e0;
+}
+.content {
+  width: 100px;
+  height: 100px;
+  background: red;
+  transform: rotate(45deg)
+} 
+</style>
 
-transform：参数是函数
-rotate(90deg)
-旋转。 参数的单位是角度。 90deg顺时针旋转90度， -90deg逆时针旋转90度。
-注意：每次旋转都是从起始位置开始的不会叠加。
 
-scale()
-缩放。 取值为小数和整数。
+### scale()
+缩放。 
+- 取值为小数和整数。
+```css
 scale(0.6,0.5);
-第一个参数是横向 第二个参数是纵向（只有一个参数是x轴）。
-scaleX()
-scaleY()
+```
+- 第一个参数是横向 
+- 第二个参数是纵向（只有一个参数是x轴）。
+<div class="box1">
+<div class="content1"></div>
+</div>
+<style>
+.box1 {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: #e0e0e0;
+}
+.content1 {
+  width: 100px;
+  height: 100px;
+  background: red;
+  transform: scale(0.5)
+} 
+</style>
 
-skew()
-倾斜。角度为正数时，下边界往右拉。 角度为负数时，下边界往左边拉。 右下角的度数是90-倾斜度数。
-skew(10deg,10deg)第一个参数是x轴 第二个参数是y轴（只有一个参数是x轴）。
-skewX()延X轴倾斜。
-skewY()延Y轴倾斜。
+### scaleX()
+### scaleY()
 
-translate()
+### skew()
+倾斜。
+1. 角度为正数时，下边界往右拉。 
+2. 角度为负数时，下边界往左边拉。 
+3. 右下角的度数是90-倾斜度数。
+```css
+skew(10deg,10deg)
+```
+- 第一个参数是x轴 
+- 第二个参数是y轴（只有一个参数是x轴）。
+
+<div class="box2">
+<div class="content2"></div>
+</div>
+<style>
+.box2 {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: #e0e0e0;
+}
+.content2 {
+  width: 100px;
+  height: 100px;
+  background: red;
+  transform: skew(-15deg);
+} 
+</style>
+
+### skewX()
+延X轴倾斜。
+### skewY()
+延Y轴倾斜。
+
+### translate()
 平移。
-translate(100px,100px); 第一个参数是x轴 第二个参数是y轴（一个参数是x轴）。
-translateX()
-translateY()
+```css
+translate(100px,100px); 
+```
+- 第一个参数是x轴 
+- 第二个参数是y轴（一个参数是x轴）。
 
-transform-orgin：
+### translateX()
+### translateY()
+
+### transform-orgin
 指定对象的转换基点。
-用法：transform-orgin：10px 10px;
-第一个参数是横轴坐标，第二个参数是纵轴坐标
-在转换时 基准点是不会运动的。
+```css
+transform-orgin：10px 10px;
+```
+- 第一个参数是横轴坐标
+- 第二个参数是纵轴坐标
 
-注意：
-transform 转换产生的移动平移不会脱离文档流，也不会占用其他元素的位置， 只会覆盖其他的元素。
+在转换时, 基准点是不会运动的。
+
+> 注意：transform 转换产生的移动平移不会脱离文档流，也不会占用其他元素的位置， 只会覆盖其他的元素。
 
 矩阵函数： 标准下（包括Ie9+）
 matrix(a,b,c,d,e,f)

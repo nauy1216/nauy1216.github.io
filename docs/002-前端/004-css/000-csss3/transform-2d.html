@@ -37,34 +37,118 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="2d变换">2D变换</h3>
-<p>transform：参数是函数
-rotate(90deg)
-旋转。 参数的单位是角度。 90deg顺时针旋转90度， -90deg逆时针旋转90度。
-注意：每次旋转都是从起始位置开始的不会叠加。</p>
-<p>scale()
-缩放。 取值为小数和整数。
-scale(0.6,0.5);
-第一个参数是横向 第二个参数是纵向（只有一个参数是x轴）。
-scaleX()
-scaleY()</p>
-<p>skew()
-倾斜。角度为正数时，下边界往右拉。 角度为负数时，下边界往左边拉。 右下角的度数是90-倾斜度数。
-skew(10deg,10deg)第一个参数是x轴 第二个参数是y轴（只有一个参数是x轴）。
-skewX()延X轴倾斜。
-skewY()延Y轴倾斜。</p>
-<p>translate()
-平移。
-translate(100px,100px); 第一个参数是x轴 第二个参数是y轴（一个参数是x轴）。
-translateX()
-translateY()</p>
-<p>transform-orgin：
-指定对象的转换基点。
-用法：transform-orgin：10px 10px;
-第一个参数是横轴坐标，第二个参数是纵轴坐标
-在转换时 基准点是不会运动的。</p>
-<p>注意：
-transform 转换产生的移动平移不会脱离文档流，也不会占用其他元素的位置， 只会覆盖其他的元素。</p>
+                <h1 id="2d变换transform">2D变换transform</h1>
+<p>参数是函数。</p>
+<h3 id="rotate90deg">rotate(90deg)</h3>
+<p>旋转。 </p>
+<ol>
+<li>参数的单位是角度。 </li>
+<li>90deg顺时针旋转90度， -90deg逆时针旋转90度。<blockquote>
+<p>注意：每次旋转都是从起始位置开始的不会叠加。</p>
+</blockquote>
+<div class="box">
+<div class="content"></div>
+</div>
+<style>
+.box {
+display: inline-block;
+width: 100px;
+height: 100px;
+background: #e0e0e0;
+}
+.content {
+width: 100px;
+height: 100px;
+background: red;
+transform: rotate(45deg)
+} 
+</style>
+
+
+</li>
+</ol>
+<h3 id="scale">scale()</h3>
+<p>缩放。 </p>
+<ul>
+<li>取值为小数和整数。<pre><code class="language-css">scale(0.6,0.5);</code></pre>
+</li>
+<li>第一个参数是横向 </li>
+<li>第二个参数是纵向（只有一个参数是x轴）。<div class="box1">
+<div class="content1"></div>
+</div>
+<style>
+.box1 {
+display: inline-block;
+width: 100px;
+height: 100px;
+background: #e0e0e0;
+}
+.content1 {
+width: 100px;
+height: 100px;
+background: red;
+transform: scale(0.5)
+} 
+</style>
+
+</li>
+</ul>
+<h3 id="scalex">scaleX()</h3>
+<h3 id="scaley">scaleY()</h3>
+<h3 id="skew">skew()</h3>
+<p>倾斜。</p>
+<ol>
+<li>角度为正数时，下边界往右拉。 </li>
+<li>角度为负数时，下边界往左边拉。 </li>
+<li>右下角的度数是90-倾斜度数。<pre><code class="language-css">skew(10deg,10deg)</code></pre>
+</li>
+</ol>
+<ul>
+<li>第一个参数是x轴 </li>
+<li>第二个参数是y轴（只有一个参数是x轴）。</li>
+</ul>
+<div class="box2">
+<div class="content2"></div>
+</div>
+<style>
+.box2 {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: #e0e0e0;
+}
+.content2 {
+  width: 100px;
+  height: 100px;
+  background: red;
+  transform: skew(-15deg);
+} 
+</style>
+
+<h3 id="skewx">skewX()</h3>
+<p>延X轴倾斜。</p>
+<h3 id="skewy">skewY()</h3>
+<p>延Y轴倾斜。</p>
+<h3 id="translate">translate()</h3>
+<p>平移。</p>
+<pre><code class="language-css">translate(100px,100px); </code></pre>
+<ul>
+<li>第一个参数是x轴 </li>
+<li>第二个参数是y轴（一个参数是x轴）。</li>
+</ul>
+<h3 id="translatex">translateX()</h3>
+<h3 id="translatey">translateY()</h3>
+<h3 id="transform-orgin">transform-orgin</h3>
+<p>指定对象的转换基点。</p>
+<pre><code class="language-css">transform-orgin：10px 10px;</code></pre>
+<ul>
+<li>第一个参数是横轴坐标</li>
+<li>第二个参数是纵轴坐标</li>
+</ul>
+<p>在转换时, 基准点是不会运动的。</p>
+<blockquote>
+<p>注意：transform 转换产生的移动平移不会脱离文档流，也不会占用其他元素的位置， 只会覆盖其他的元素。</p>
+</blockquote>
 <p>矩阵函数： 标准下（包括Ie9+）
 matrix(a,b,c,d,e,f)
 初始情况下matrix(1,0,0,1,0,0)
