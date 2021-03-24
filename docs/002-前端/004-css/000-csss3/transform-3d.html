@@ -37,7 +37,95 @@
           </head>
           <body>
             <article class="markdown-body">
-                
+                <p><a href="https://blog.csdn.net/three_bird/article/details/51312578">https://blog.csdn.net/three_bird/article/details/51312578</a></p>
+<h1 id="坐标轴">坐标轴</h1>
+<ol>
+<li>左手坐标系</li>
+<li>右手手坐标系</li>
+</ol>
+<p>2D变形的坐标轴是平面的，只存在x轴和y轴，而3D变形的坐标轴则是x、y、z三条轴组成的立体空间，x轴正向、y轴正向、z轴正向分别朝向右、下和屏幕外。</p>
+<h1 id="透视">透视</h1>
+<p>透视是transform变形3D中最重要的内容。如果不设置透视，元素的3D变形效果将无法实现。</p>
+<h3 id="观察者">观察者</h3>
+<p>观察者是浏览器模拟出来的用来观察被透视元素的一个没有尺寸的点，观察者发出视线，类似于一个点光源发出光线。</p>
+<h3 id="被透视元素">被透视元素</h3>
+<p>被透视元素也就是被观察者观察的元素，根据属性设置的不同，它有可能是变形元素本身，也可能是它的父级或祖先其元素，主要进行<code>perspective</code>、<code>perspective-origin</code>等属性的设置。</p>
+<h3 id="变形元素">变形元素</h3>
+<p>顾名思义，就是进行transform3D变形的元素，主要进行transform、transform-origin、backface-visibility等属性的设置。</p>
+<h1 id="透视属性">透视属性</h1>
+<p>透视距离<code>perspective</code>是指观察者沿着平行于z轴的视线与屏幕之间的距离，简称视距。</p>
+<pre><code class="language-css">perspective: 100px;</code></pre>
+<ol>
+<li>不可为0和负数，因为观察者与屏幕距离为0时或者在屏幕背面时是不可以观察到被透视元素的正面的。</li>
+<li>不可取百分比，因为百分比需要相对的元素，但z轴并没有可相对的元素尺寸。</li>
+<li>一般地，物体离得越远，显得越小。反映在perspective属性上，就是该属性值越大，元素的3d效果越不明显。</li>
+<li>设置透视perspective属性的元素就是被透视元素。一般地，该属性只能设置在变形元素的父级或祖先级。因为浏览器会为其子级的变形产生透视效果，但并不会为其自身产生透视效果。</li>
+</ol>
+<h1 id="透视原点">透视原点</h1>
+<p>透视原点<code>perspective-origin</code>是指观察者的位置，一般地，观察者位于与屏幕平行的另一个平面上，观察者始终是与屏幕垂直的。
+<em>观察者的活动区域是被观察元素的盒模型区域。</em></p>
+<pre><code class="language-css">perspective-origin: center;</code></pre>
+<h1 id="变形函数">变形函数</h1>
+<h3 id="matrix3d">matrix3d</h3>
+<p>3d变形函数位移、旋转和缩放都是通过矩阵设置不同的参数而实现的。相比于2d矩阵martrix()的6个参数而言，3d矩阵matrix3d却有12个参数。其变形规则与2dmatrix()类似，只不过是从3<em>3矩阵，变成了4</em>4矩阵。</p>
+<pre><code class="language-css">matrix3d(a,b,c,0,d,e,f,0,g,h,i,0,j,k,l,1)</code></pre>
+<h3 id="translatez、translatex、translatey、、translate3dx-y-z">translateZ()、translateX()、translateY()、、translate3d(x, y, z)</h3>
+<ol>
+<li>x和y可以是长度值，也可以是百分比，百分比是相对于其本身元素水平方向的宽度和垂直方向的高度。</li>
+<li>z只能设置长度值。</li>
+</ol>
+<h3 id="scale3dxyz">scale3d(x,y,z)</h3>
+<p>默认值为scale3d(1,1,1)，当参数为负值时，先翻转再缩放。</p>
+<h3 id="tate3dxyzndeg">tate3d(x,y,z,Ndeg)</h3>
+<ol>
+<li>x、y、z分别用来描述围绕x、y、z轴旋转的矢量值。最终变形元素沿着由(0,0,0)和(x,y,z)这两个点构成的直线为轴，进行旋转。</li>
+<li>当N为正数时，元素进行顺时针旋转；当N为负数时，元素进行逆时针旋转。</li>
+</ol>
+<blockquote>
+<p>rotateX(Ndeg)相当于rotate3d(1,0,0,Ndeg)</p>
+</blockquote>
+<blockquote>
+<p>rotateY(Ndeg)相当于rotate3d(0,1,0,Ndeg)</p>
+</blockquote>
+<blockquote>
+<p>rotateZ(Ndeg)相当于rotate3d(0,0,1,Ndeg)</p>
+</blockquote>
+<h1 id="透视函数">透视函数</h1>
+<blockquote>
+<p>与透视属性的区别？ 
+透视属性应用在变形元素的父级或祖先级。而透视函数perspective()是transform变形函数的一个属性值，应用于变形元素本身。</p>
+</blockquote>
+<h1 id="transform-origin">transform-origin</h1>
+<h1 id="transform-style">transform-style</h1>
+<pre><code class="language-css">transform-style: flat | preserve-3d</code></pre>
+<p>变形风格transform-style允许变形元素及其子元素在3d空间中呈现。变形风格有两个值。flat是默认值，表示2d平面；而perserve-3d表示3d空间。</p>
+<h1 id="backface-visibility">backface-visibility</h1>
+<p>元素的背面默认是可见的。但有时需要让元素背面不可见，这就要用到属性<code>backface-visibility</code>。</p>
+<pre><code class="language-css">backface-visibility: visible | hidden;</code></pre>
+<h1 id="示例">示例</h1>
+<div class="box">
+  <div class="div1"></div>
+  <div class="div2"></div>
+  <div class="div3"></div>
+  <div class="div4"></div>
+  <div class="div5"></div>
+  <div class="div6"></div>
+</div>
+<style>
+.box {
+  position:relative;
+  display: inline-block;
+  width: 200px;
+  height: 200px;
+}
+.box > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+<p></style></p>
+
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

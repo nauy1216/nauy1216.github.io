@@ -10,25 +10,80 @@
      </style>
   </head>
   <body>
-    <div title="comment">5 &lt; 7</div>
-    <form action="http://10.1.1.248:8108/scm/tenant/sysLogin" method=POST>
-        <input type="hidden" name="tenantNo" value="666666" />
-        <input type="hidden" name="userNo" value="admin" />
-        <input type="hidden" name="userPwd" value="MDAwMDAw" />
-    </form>
-    <!-- <script> document.forms[0].submit(); </script>  -->
-    <script>
-      // var request = new XMLHttpRequest()
-      // request.open('POST', 'http://10.1.1.248:8108/scm/tenant/sysLogin', true)
-      // request.setRequestHeader('Content-type', 'application/json')
-      // request.send(JSON.stringify({
-      //   tenantNo: '666666',
-      //   userNo: 'admin',
-      //   userPwd: 'MDAwMDAw'
-      // }))
-      // request.onreadystatechange = function(ev) {
-      //   console.log(ev)
-      // }
-    </script>
+    <div class="box">
+      <div class="div1">1</div>
+      <div class="div2">2</div>
+      <div class="div3">3</div>
+      <div class="div4">4</div>
+      <div class="div5">5</div>
+      <div class="div6">6</div>
+    </div>
+    <style>
+      @keyframes change {
+        20% {
+          transform: rotateY(90deg)  rotateX(90deg);
+        }
+        40% {
+          transform: rotateY(180deg)  rotateX(180deg);
+        }
+        60% {
+          transform: rotateY(270deg)  rotateX(270deg);
+        }
+        80% {
+          transform: rotateY(360deg)  rotateX(360deg);
+        }
+      }
+      .box {
+        position:relative;
+        display: inline-block;
+        width: 200px;
+        height: 200px;
+        /* perspective: 200px; */
+        perspective-origin: 50% 50%;
+        transform-style: preserve-3d;
+        backface-visibility: visible;
+        transform: rotateY(10deg)  rotateX(10deg);
+        /* animation: change 4s infinite; */
+      }
+      .box > div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        line-height: 200px;
+        text-align: center;
+      }
+      .div1 {
+        transform-origin: left center;
+        transform: translateZ(100px) rotateY(90deg);
+        background: pink;
+      }
+      .div2 {
+        transform-origin: center;
+        transform: translateZ(-100px);
+        background: gray;
+      }
+      .div3 {
+        transform-origin: right center;
+        transform: translateZ(100px) rotateY(-90deg);
+        background: orange;
+      }
+      .div4 {
+        transform-origin: center;
+        transform:  translateZ(100px);
+        background: paleturquoise;
+      }
+      .div5 {
+        transform-origin: center top;
+        transform: translateZ(100px) rotateX(-90deg);
+        background: antiquewhite;
+      }
+      .div6 {
+        transform-origin: center bottom;
+        transform: translateZ(100px) rotateX(90deg);
+        background: gold;
+      }
+    </style>
   </body>
 </html>
