@@ -37,7 +37,11 @@
           </head>
           <body>
             <article class="markdown-body">
-                <p><a href="https://blog.csdn.net/three_bird/article/details/51312578">https://blog.csdn.net/three_bird/article/details/51312578</a></p>
+                <ul>
+<li><a href="https://blog.csdn.net/three_bird/article/details/51312578">https://blog.csdn.net/three_bird/article/details/51312578</a></li>
+<li><a href="https://www.jianshu.com/p/373055bff286">https://www.jianshu.com/p/373055bff286</a></li>
+<li><a href="https://www.w3cplus.com/css3/front-end-challenge-accepted-css-3d-cube.html">https://www.w3cplus.com/css3/front-end-challenge-accepted-css-3d-cube.html</a></li>
+</ul>
 <h1 id="坐标轴">坐标轴</h1>
 <ol>
 <li>左手坐标系</li>
@@ -48,10 +52,10 @@
 <p>透视是transform变形3D中最重要的内容。如果不设置透视，元素的3D变形效果将无法实现。</p>
 <h3 id="观察者">观察者</h3>
 <p>观察者是浏览器模拟出来的用来观察被透视元素的一个没有尺寸的点，观察者发出视线，类似于一个点光源发出光线。</p>
-<h3 id="被透视元素">被透视元素</h3>
-<p>被透视元素也就是被观察者观察的元素，根据属性设置的不同，它有可能是变形元素本身，也可能是它的父级或祖先其元素，主要进行<code>perspective</code>、<code>perspective-origin</code>等属性的设置。</p>
+<h3 id="透视元素">透视元素</h3>
+<p>透视元素也就是被观察者观察的元素，根据属性设置的不同，它有可能是变形元素本身，也可能是它的父级或祖先其元素，主要进行<code>perspective</code>、<code>perspective-origin</code>等属性的设置。</p>
 <h3 id="变形元素">变形元素</h3>
-<p>顾名思义，就是进行transform3D变形的元素，主要进行transform、transform-origin、backface-visibility等属性的设置。</p>
+<p>顾名思义，就是进行transform3D变形的元素，主要进行<code>transform</code>、<code>transform-origin</code>、<code>backface-visibility</code>等属性的设置。</p>
 <h1 id="透视属性">透视属性</h1>
 <p>透视距离<code>perspective</code>是指观察者沿着平行于z轴的视线与屏幕之间的距离，简称视距。</p>
 <pre><code class="language-css">perspective: 100px;</code></pre>
@@ -76,7 +80,7 @@
 </ol>
 <h3 id="scale3dxyz">scale3d(x,y,z)</h3>
 <p>默认值为scale3d(1,1,1)，当参数为负值时，先翻转再缩放。</p>
-<h3 id="tate3dxyzndeg">tate3d(x,y,z,Ndeg)</h3>
+<h3 id="rotate3dxyzndeg">rotate3d(x,y,z,Ndeg)</h3>
 <ol>
 <li>x、y、z分别用来描述围绕x、y、z轴旋转的矢量值。最终变形元素沿着由(0,0,0)和(x,y,z)这两个点构成的直线为轴，进行旋转。</li>
 <li>当N为正数时，元素进行顺时针旋转；当N为负数时，元素进行逆时针旋转。</li>
@@ -93,39 +97,207 @@
 <h1 id="透视函数">透视函数</h1>
 <blockquote>
 <p>与透视属性的区别？ 
-透视属性应用在变形元素的父级或祖先级。而透视函数perspective()是transform变形函数的一个属性值，应用于变形元素本身。</p>
+透视属性应用在变形元素的父级或祖先级。而透视函数<code>perspective()</code>是transform变形函数的一个属性值，应用于变形元素本身。</p>
 </blockquote>
 <h1 id="transform-origin">transform-origin</h1>
 <h1 id="transform-style">transform-style</h1>
 <pre><code class="language-css">transform-style: flat | preserve-3d</code></pre>
 <p>变形风格transform-style允许变形元素及其子元素在3d空间中呈现。变形风格有两个值。flat是默认值，表示2d平面；而perserve-3d表示3d空间。</p>
 <h1 id="backface-visibility">backface-visibility</h1>
-<p>元素的背面默认是可见的。但有时需要让元素背面不可见，这就要用到属性<code>backface-visibility</code>。</p>
+<p>定义当元素不面向屏幕时隐藏。</p>
 <pre><code class="language-css">backface-visibility: visible | hidden;</code></pre>
-<h1 id="示例">示例</h1>
-<div class="box">
-  <div class="div1"></div>
-  <div class="div2"></div>
-  <div class="div3"></div>
-  <div class="div4"></div>
-  <div class="div5"></div>
-  <div class="div6"></div>
+<h1 id="总结">总结</h1>
+<ol>
+<li><p>与透视有关的属性</p>
+<ul>
+<li>perspective：设置观察者离屏幕的距离</li>
+<li>perspecttive-origin: 设置观察者在x轴和y轴方向的位置， 默认是在透视元素的盒子中间</li>
+</ul>
+</li>
+<li><p>与显示有关的属性</p>
+<ul>
+<li>transform-style</li>
+</ul>
+</li>
+<li><p>与转换有关的属性</p>
+<ul>
+<li>transform</li>
+</ul>
+</li>
+<li><p>在父级使用perspective和在子级使用<code>transform: perspective()</code>的区别？</p>
+<ul>
+<li>在给父元素加<code>perspective: 800px;</code>属性的时候，会以父元素的某个点为视点，看所有的子元素，所以看到的每个子元素的样式是不一样的。</li>
+<li>在分别给子元素加<code>transform：perspective(800px);</code>属性的时候，会以元素自身的某个点作为视点，所以呈现出的效果还是一样的。</li>
+</ul>
+</li>
+</ol>
+<h1 id="示例1">示例1</h1>
+<pre><code class="language-css">&lt;div class=&quot;box1&quot;&gt;
+  &lt;div class=&quot;content&quot;&gt;
+    &lt;div class=&quot;div1&quot;&gt;1&lt;/div&gt;
+    &lt;div class=&quot;div2&quot;&gt;2&lt;/div&gt;
+    &lt;div class=&quot;div3&quot;&gt;3&lt;/div&gt;
+    &lt;div class=&quot;div4&quot;&gt;4&lt;/div&gt;
+    &lt;div class=&quot;div5&quot;&gt;5&lt;/div&gt;
+    &lt;div class=&quot;div6&quot;&gt;6&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  /*动画*/
+  @keyframes change {
+    20% {
+      transform: rotateY(90deg)  rotateX(90deg);
+    }
+    40% {
+      transform: rotateY(180deg)  rotateX(180deg);
+    }
+    60% {
+      transform: rotateY(270deg)  rotateX(270deg);
+    }
+    80% {
+      transform: rotateY(360deg)  rotateX(360deg);
+    }
+  }
+
+  .box1 {
+    position:relative;
+    perspective: 3000px; /*设置视距*/
+    perspective-origin: 50% 50%;
+  }
+  .box1 .content {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+    transform: rotateY(10deg)  rotateX(10deg);
+    animation: change 8s infinite;
+  }
+  .box1 .content &gt; div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 200px;
+    text-align: center;
+  }
+  .box1 .content &gt; .div1 {
+    transform-origin: left center;
+    transform: translateZ(100px) rotateY(90deg);
+    background: pink;
+  }
+  .box1 .content &gt; .div2 {
+    transform-origin: center;
+    transform: translateZ(-100px);
+    background: gray;
+  }
+  .box1 .content &gt; .div3 {
+    transform-origin: right center;
+    transform: translateZ(100px) rotateY(-90deg);
+    background: orange;
+  }
+  .box1 .content &gt; .div4 {
+    transform-origin: center;
+    transform:  translateZ(100px);
+    background: paleturquoise;
+  }
+  .box1 .content &gt; .div5 {
+    transform-origin: center top;
+    transform: translateZ(100px) rotateX(-90deg);
+    background: antiquewhite;
+  }
+  .box1 .content &gt; .div6 {
+    transform-origin: center bottom;
+    transform: translateZ(100px) rotateX(90deg);
+    background: gold;
+  }
+&lt;/style&gt;</code></pre>
+<blockquote>
+<p>问题：</p>
+</blockquote>
+<ol>
+<li>perspective是必须的吗？</li>
+</ol>
+<div class="box1">
+  <div class="content">
+    <div class="div1">1</div>
+    <div class="div2">2</div>
+    <div class="div3">3</div>
+    <div class="div4">4</div>
+    <div class="div5">5</div>
+    <div class="div6">6</div>
+  </div>
 </div>
 <style>
-.box {
-  position:relative;
-  display: inline-block;
-  width: 200px;
-  height: 200px;
-}
-.box > div {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-<p></style></p>
-
+  @keyframes change {
+    20% {
+      transform: rotateY(90deg)  rotateX(90deg);
+    }
+    40% {
+      transform: rotateY(180deg)  rotateX(180deg);
+    }
+    60% {
+      transform: rotateY(270deg)  rotateX(270deg);
+    }
+    80% {
+      transform: rotateY(360deg)  rotateX(360deg);
+    }
+  }
+  .box1 {
+    position:relative;
+    perspective: 3000px;
+    perspective-origin: 100% 100%;
+  }
+  .box1 .content {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+    backface-visibility: visible;
+    transform: rotateY(10deg)  rotateX(10deg);
+    animation: change 8s infinite;
+  }
+  .box1 .content > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 200px;
+    text-align: center;
+  }
+  .box1 .content > .div1 {
+    transform-origin: left center;
+    transform: translateZ(100px) rotateY(90deg);
+    background: pink;
+  }
+  .box1 .content > .div2 {
+    transform-origin: center;
+    transform: translateZ(-100px);
+    background: gray;
+  }
+  .box1 .content > .div3 {
+    transform-origin: right center;
+    transform: translateZ(100px) rotateY(-90deg);
+    background: orange;
+  }
+  .box1 .content > .div4 {
+    transform-origin: center;
+    transform:  translateZ(100px);
+    background: paleturquoise;
+  }
+  .box1 .content > .div5 {
+    transform-origin: center top;
+    transform: translateZ(100px) rotateX(-90deg);
+    background: antiquewhite;
+  }
+  .box1 .content > .div6 {
+    transform-origin: center bottom;
+    transform: translateZ(100px) rotateX(90deg);
+    background: gold;
+  }
+</style>
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
           </body>

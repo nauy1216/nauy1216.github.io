@@ -51,7 +51,7 @@
 <h1 id="10、闭包">10、闭包</h1>
 <h1 id="11、this-指向">11、this 指向</h1>
 <h1 id="12、原型和原型链">12、原型和原型链</h1>
-<h1 id="bind">bind</h1>
+<h1 id="13、-bind">13、 bind</h1>
 <pre><code class="language-js">function bind(fn, thisObj) {
     return function () {
         thisObj.__fn__ = fn
@@ -73,7 +73,7 @@ bfn() // 1</code></pre>
 <ul>
 <li>如果 this 要绑定 null 呢？</li>
 </ul>
-<h1 id="call">call</h1>
+<h1 id="14、call">14、call</h1>
 <pre><code class="language-js">function call(fn, thisObj) {
     thisObj.__fn__ = fn
     thisObj.__fn__()
@@ -86,10 +86,10 @@ call(
     },
     { a: 1 }
 ) // 1</code></pre>
-<h1 id="手写-promise">手写 Promise</h1>
-<h1 id="setimmediate、settimeout-的区别？">setImmediate、setTimeout 的区别？</h1>
-<h1 id="防抖、节流">防抖、节流</h1>
-<h1 id="介绍下深度优先遍历和广度优先遍历，如何实现？">介绍下深度优先遍历和广度优先遍历，如何实现？</h1>
+<h1 id="15、手写-promise">15、手写 Promise</h1>
+<h1 id="16、setimmediate、settimeout-的区别？">16、setImmediate、setTimeout 的区别？</h1>
+<h1 id="17、防抖、节流">17、防抖、节流</h1>
+<h1 id="18、介绍下深度优先遍历和广度优先遍历，如何实现？">18、介绍下深度优先遍历和广度优先遍历，如何实现？</h1>
 <pre><code class="language-js">let tree = {
     value: 1,
     children: [
@@ -149,11 +149,11 @@ function visitTree1(tree) {
         }
     }
 }</code></pre>
-<h1 id="es5es6-的继承除了写法以外还有什么区别？">ES5/ES6 的继承除了写法以外还有什么区别？</h1>
+<h1 id="19、es5es6-的继承除了写法以外还有什么区别？">19、ES5/ES6 的继承除了写法以外还有什么区别？</h1>
 <blockquote>
 <p>题目： <a href="https://github.com/yygmind/blog/issues/43">https://github.com/yygmind/blog/issues/43</a></p>
 </blockquote>
-<h1 id="执行顺序">执行顺序</h1>
+<h1 id="20、执行顺序">20、执行顺序</h1>
 <pre><code class="language-js">async function async1() {
     console.log(&#39;async1 start&#39;)
     await async2()
@@ -183,8 +183,8 @@ console.log(&#39;script end&#39;)
 // async1 end
 // promise2
 // setTimeout</code></pre>
-<h1 id="js-异步解决方案的发展历程以及优缺点。">JS 异步解决方案的发展历程以及优缺点。</h1>
-<h1 id="通信">通信</h1>
+<h1 id="21、js-异步解决方案的发展历程以及优缺点。">21、JS 异步解决方案的发展历程以及优缺点。</h1>
+<h1 id="22、通信">22、通信</h1>
 <h3 id="同源">同源</h3>
 <ul>
 <li>协议、域名、端口都相同才是同源。</li>
