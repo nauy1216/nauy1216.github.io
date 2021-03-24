@@ -10,13 +10,15 @@
      </style>
   </head>
   <body>
-    <div class="box">
-      <div class="div1">1</div>
-      <div class="div2">2</div>
-      <div class="div3">3</div>
-      <div class="div4">4</div>
-      <div class="div5">5</div>
-      <div class="div6">6</div>
+    <div class="box1">
+      <div class="content">
+        <div class="div1">1</div>
+        <div class="div2">2</div>
+        <div class="div3">3</div>
+        <div class="div4">4</div>
+        <div class="div5">5</div>
+        <div class="div6">6</div>
+      </div>
     </div>
     <style>
       @keyframes change {
@@ -33,19 +35,22 @@
           transform: rotateY(360deg)  rotateX(360deg);
         }
       }
-      .box {
+      .box1 {
         position:relative;
+        perspective: 3000px;
+        perspective-origin: 100% 100%;
+      }
+      .box1 .content {
         display: inline-block;
         width: 200px;
         height: 200px;
-        /* perspective: 200px; */
-        perspective-origin: 50% 50%;
+        perspective-origin: 100% 100%;
         transform-style: preserve-3d;
         backface-visibility: visible;
         transform: rotateY(10deg)  rotateX(10deg);
-        /* animation: change 4s infinite; */
+        animation: change 8s infinite;
       }
-      .box > div {
+      .box1 .content > div {
         position: absolute;
         top: 0;
         left: 0;
@@ -54,32 +59,32 @@
         line-height: 200px;
         text-align: center;
       }
-      .div1 {
+      .box1 .content > .div1 {
         transform-origin: left center;
         transform: translateZ(100px) rotateY(90deg);
         background: pink;
       }
-      .div2 {
+      .box1 .content > .div2 {
         transform-origin: center;
         transform: translateZ(-100px);
         background: gray;
       }
-      .div3 {
+      .box1 .content > .div3 {
         transform-origin: right center;
         transform: translateZ(100px) rotateY(-90deg);
         background: orange;
       }
-      .div4 {
+      .box1 .content > .div4 {
         transform-origin: center;
         transform:  translateZ(100px);
         background: paleturquoise;
       }
-      .div5 {
+      .box1 .content > .div5 {
         transform-origin: center top;
         transform: translateZ(100px) rotateX(-90deg);
         background: antiquewhite;
       }
-      .div6 {
+      .box1 .content > .div6 {
         transform-origin: center bottom;
         transform: translateZ(100px) rotateX(90deg);
         background: gold;
