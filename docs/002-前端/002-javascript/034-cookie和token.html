@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>资源链接.md</title>
+          <title>034-cookie和token.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -37,62 +37,30 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h1 id="css">css</h1>
+                <h1 id="cookie-和-token-都存放在-header-中，为什么不会劫持-token？">cookie 和 token 都存放在 header 中，为什么不会劫持 token？</h1>
+<h1 id="cookie">cookie</h1>
+<p>登陆后后端生成一个sessionid放在cookie中返回给客户端，并且服务端一直记录着这个sessionid，客户端以后每次请求都会带上这个sessionid，服务端通过这个sessionid来验证身份之类的操作。所以别人拿到了cookie拿到了sessionid后，就可以完全替代你。</p>
+<h1 id="token">token</h1>
+<p>登陆后后端并返回一个token给客户端，客户端将这个token存储起来，然后每次客户端请求都需要开发者手动将token放在header中带过去，服务端每次只需要对这个token进行验证就能使用token中的信息来进行下一步操作了。</p>
+<h1 id="xss">xss</h1>
+<p>用户通过各种方式将恶意代码注入到其他用户的页面中。就可以通过脚本获取信息，发起请求，之类的操作。</p>
+<h1 id="csrf">csrf</h1>
+<p>跨站请求攻击，简单地说，是攻击者通过一些技术手段欺骗用户的浏览器去访问一个自己曾经认证过的网站并运行一些操作（如发邮件，发消息，甚至财产操作如转账和购买商品）。由于浏览器曾经认证过，所以被访问的网站会认为是真正的用户操作而去运行。这利用了web中用户身份验证的一个漏洞：简单的身份验证只能保证请求发自某个用户的浏览器，却不能保证请求本身是用户自愿发出的。csrf并不能够拿到用户的任何信息，它只是欺骗用户浏览器，让其以用户的名义进行操作。</p>
+<h1 id="结论">结论</h1>
+<p>上面的两种攻击方式，如果被xss攻击了，不管是token还是cookie，都能被拿到，所以对于xss攻击来说，cookie和token没有什么区别。
+但是对于csrf来说就有区别了。以上面的csrf攻击为例：</p>
 <ol>
-<li><a href="https://www.bootcss.com/">bootstrap</a></li>
-<li><a href="https://www.tailwindcss.cn/">tailwindcss</a></li>
+<li>cookie：用户点击了链接，cookie未失效，导致发起请求后后端以为是用户正常操作，于是进行扣款操作。</li>
+<li>token：用户点击链接，由于浏览器不会自动带上token，所以即使发了请求，后端的token验证不会通过，所以不会进行扣款操作。</li>
 </ol>
-<h1 id="游戏">游戏</h1>
+<blockquote>
 <ol>
-<li>playcanvas</li>
-<li>egret</li>
-<li>cocos2d</li>
-<li>pixi</li>
-<li>Phaser.js</li>
+<li>cookie会被浏览器自动带上， token是开发者手动带上去的。<ol start="2">
+<li>token主要是用来防csrf攻击的，所以有时候也会叫csrf-token。</li>
 </ol>
-<h1 id="即时通讯">即时通讯</h1>
-<ol>
-<li><img src="http://docs-im.easemob.com/im/quickstart/guide/introduction" alt="环信"></li>
-<li>小鹅通</li>
-<li>声网</li>
+</li>
 </ol>
-<h1 id="excel">excel</h1>
-<ol>
-<li>xlsx.js</li>
-</ol>
-<h1 id="日志与监控、埋点">日志与监控、埋点</h1>
-<ol>
-<li>fundebuge</li>
-<li>talkingdata</li>
-<li>grwingio</li>
-</ol>
-<h1 id="动画">动画</h1>
-<ol>
-<li>TweenMax</li>
-</ol>
-<h1 id="工具">工具</h1>
-<ol>
-<li><img src="https://jex.im/regulex" alt="正则学习"></li>
-<li>Can I Use</li>
-<li><img src="https://www.qqxiuzi.cn/zh/unicode-zifu.php?plane=1&ks=10000&js=10FFF" alt="unicode字符查询"></li>
-</ol>
-<h1 id="前端学习">前端学习</h1>
-<ol>
-<li><a href="https://github.com/amandakelake/blog">https://github.com/amandakelake/blog</a></li>
-<li><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></li>
-<li><a href="https://jelly.jd.com/">https://jelly.jd.com/</a></li>
-<li><a href="https://github.com/yygmind/blog/issues/43">前端 100 问</a></li>
-<li><a href="https://github.com/Advanced-Frontend">https://github.com/Advanced-Frontend</a></li>
-<li><a href="https://www.cnblogs.com/cYang2030/p/14111036.html">前端知识思维导图</a></li>
-<li><a href="https://www.infoq.cn/article/DsHtSbi6PwCI1TgLL6Jc">info</a></li>
-<li><a href="https://github.com/yyx990803/tucao/issues/1">尤雨溪 github</a></li>
-<li><a href="https://tech.meituan.com/2018/10/11/fe-security-csrf.html">美团</a></li>
-<li><a href="https://www.zoo.team/article/jsbridge">政采云前端团队</a></li>
-<li><a href="https://ajv.js.org/guide/formats.html#string-formats">json校验</a></li>
-<li><a href="https://bitable.feishu.cn/app8Ok6k9qafpMkgyRbfgxeEnet?from=logout&amp;table=tblEnSV2PNAajtWE&amp;view=vewJHSwJVd">试题</a></li>
-<li><a href="https://github.com/phshy0607/issue-blog-record/issues/11">2019试题</a></li>
-<li><a href="https://github.com/Amybiubiu/Blog/issues/19">试题3</a></li>
-</ol>
+</blockquote>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

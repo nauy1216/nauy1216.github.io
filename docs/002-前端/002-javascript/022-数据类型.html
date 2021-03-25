@@ -67,7 +67,6 @@ BigInt 类型是 JavaScript 中的一个基础的数值类型，可以用任意�
 使用 BigInt，您可以安全地存储和操作大整数，甚至可以超过数字的安全整数限制。
 BigInt 是通过在整数末尾附加 n 或调用构造函数来创建的。</p>
 </blockquote>
-<pre><code class="language-js">var</code></pre>
 <h1 id="2、typeof">2、typeof</h1>
 <blockquote>
 <p>typeof 可以用来判断基本类型、null、object、function。</p>
@@ -162,9 +161,32 @@ a &amp;&amp; b // 大致相当于(roughly equivalent to): a ? b : a;</code></pre
 <p>== 与 ===</p>
 </blockquote>
 <ol>
-<li><em>常见的误区是“== 检查值是否相等，=== 检查值和类型是否相等”</em> </li>
-<li><em>“== 允许在相等比较中进行强制类型转换，而 === 不允许。”</em></li>
+<li>常见的误区是“== 检查值是否相等，=== 检查值和类型是否相等”</li>
+<li>“== 允许在相等比较中进行强制类型转换，而 === 不允许。”</li>
 </ol>
+<h1 id="隐式转换的例子">隐式转换的例子</h1>
+<p>补充下面的代码，执行后打印1。</p>
+<pre><code class="language-js">var a = ?;
+if(a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3){
+     conso.log(1);
+}</code></pre>
+<p><code>==</code>判断之前会做类型转换。每次<code>==</code>都会做类型转换吗？</p>
+<pre><code class="language-js">var a = {
+  i: 1,
+  toString() {
+    return a.i++;
+  }
+}
+
+if( a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3 ) {
+  console.log(1);
+}</code></pre>
+<p>或者</p>
+<pre><code class="language-js">let a = [1,2,3];
+a.toString = a.shift;
+if( a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3 ) {
+  console.log(1);
+}</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
