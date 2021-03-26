@@ -63,6 +63,11 @@ class Md2Html {
                       padding: 15px;
                   }
               }
+              .markdown-body > iframe {
+                width: 100%;
+                height: 100vh;
+                border: none;
+              }
               {{{style}}}
           </style>
           <script>

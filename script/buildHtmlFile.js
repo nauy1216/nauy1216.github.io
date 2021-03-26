@@ -65,8 +65,7 @@ function createIndexHtml() {
       ul {
         font-size: 16px;
         font-weight: 700;
-        color: #333;
-        // list-style: none;
+        color: #273849;
         margin:  0 0 10px 0;
         padding: 0 0 0 10px;
       }
@@ -75,6 +74,12 @@ function createIndexHtml() {
         font-size:14px;
         font-weight: bold;
         font-size: 18px;
+      }
+      li > ul {
+        display: none;
+      }
+      #menu > ul > li {
+        padding: 5px 0;
       }
       a {
         font-weight: normal;
@@ -88,16 +93,21 @@ function createIndexHtml() {
     </div>
     <iframe id="content"></iframe>
     <script>
-    var oMenu = document.body.querySelector("#menu")
-    console.log(oMenu, "oMenu")
-    var oContent = document.body.querySelector("#content")
-    var oA = document.body.querySelector("a")
-    oContent.src = oA.getAttribute("data-href")
-    oMenu.onclick = function(ev) {
-      if (ev.target.getAttribute("data-href")) {
-        oContent.src = ev.target.getAttribute("data-href")
-      }
-    }
+      (function() {
+        var oMenu = document.body.querySelector('#menu');
+        var oContent = document.body.querySelector('#content');
+        var oA = document.body.querySelector('a');
+        oContent.src = oA.getAttribute('data-href');
+        oMenu.onclick = function (ev) {
+            var target = ev.target
+            if (target.getAttribute('data-href')) {
+              oContent.src = target.getAttribute('data-href');
+            } else if (target.tagName && target.tagName.toLowerCase() == 'li') {
+              var ul = target.querySelector('ul')
+              ul.style.display = ul.style.display == 'block'? 'none': 'block';
+            }
+        };
+      })()
     </script>
   </body>
   </html>
