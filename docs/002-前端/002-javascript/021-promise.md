@@ -307,6 +307,9 @@ MyPromise.prototype.catch = function (onRejected) {
 };
 
 MyPromise.prototype.finally = function (fn) {
+  // 1. 不管是resolve还是reject都会执行
+  // 2. finally之后还是返回一个promise
+
   return this.then(
     function (value) {
       return MyPromise.resolve(fn()).then(function () {
