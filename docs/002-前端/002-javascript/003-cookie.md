@@ -47,6 +47,7 @@ secure选项用来设置cookie只在确保安全的请求中才会发送。当�
 
 
 ### sameSite
+> http://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html
 Cookie 的SameSite属性用来限制第三方 Cookie，从而减少安全风险。他可以设置3个值：
 - Strict
 
@@ -67,6 +68,29 @@ Lax规则稍稍放宽，大多数情况也是不发送第三方 Cookie，但是�
 ```js
 document.cookie
 ```
+
+```js
+function getCookie(key) {
+	var arrStr = document.cookie.split("; ");
+
+	for (var i = 0; i < arrStr.length; i ++) {
+		var temp = arrStr[i].split("=");
+
+		if(temp[0] == key) return unescape(temp[1]);
+	}
+}
+
+// 使用正则
+function getCookie1(key) {
+  // document.cookie.match(new RegExp(`${key}=([\\d\\D]*?)(?=; )`))
+  const matched = document.cookie.match(new RegExp(`${key}=([^(; )]*)(?=; )`, ))
+  if (matched) {
+    return matched[1]
+  }
+  return null
+}
+
+```
 ### 添加cookie
 > 注意
 - 同时添加多个cookie的坑。
@@ -84,18 +108,36 @@ document.cookie = "class=111";
 ```
 
 ```js
-function addCookie(objName,objValue,objHours){
-	var str = objName + "=" + escape(objValue);
-	
-	if(objHours > 0){ // 如果不设定过期时间, 浏览器关闭时cookie会自动消失
-		var date = new Date()
-		var ms = objHours * 3600 * 1000;
-		
-		date.setTime(date.getTime() + ms);
-		str += "; expires=" + date.toGMTString() + "; path=/page/;"; // 指定了cookie的path
-	}
-	
-	document.cookie = str;
+function addCookie(key, value, options) {
+    options = options || {};
+    let str = key + '=' + escape(value);
+
+    // 如果不设定过期时间, 浏览器关闭时cookie会自动消失
+    if (options.expires !== undefined) {
+        const date = new Date();
+        const ms = options.expires * 3600 * 1000;
+        date.setTime(date.getTime() + ms);
+        str += '; expires=' + date.toGMTString();
+    }
+
+    // 指定了cookie的path
+    options.path = options.path || '/';
+    str += `; path=${options.path}`;
+
+    // 指定域名，只能是当前域名www.baidu.com或者一级域名.baidu.com
+    if (options.domain) {
+        str += `; Domain=${options.domain}`;
+    }
+
+    // 当secure属性设置为true时，cookie只有在https协议下才能上传到服务器，而在http协议下是没法上传的。
+    if (options.secure) {
+      str += `; secure=true`;
+    }
+
+    // options.HttpOnly 不允许客户端修改
+    // options.SameSite 不允许客户端修改
+
+    document.cookie = str;
 }
 ```
 
@@ -105,6 +147,25 @@ function addCookie(objName,objValue,objHours){
 
 ### 删除cookie
 删除一个cookie 也挺简单，也是重新赋值，只要将这个新cookie的expires 选项设置为一个过去的时间点就行了。但同样要注意，path/domain/这几个选项一定要旧cookie 保持一样。
+
+```js
+// 指定过期时间为过去的时间即可
+function delCookie(key, options) {
+	const exp = new Date();
+	exp.setTime(exp.getTime() - 1);
+  const cval = getCookie(key);
+  let str= ''
+	if (cval != null) {
+    str = key + "=" + cval + "; expires=" + exp.toGMTString();
+    // 指定了cookie的path
+    if (options.path) {
+      str += `; path=${options.path};`
+    }
+    document.cookie = str
+	}
+}
+
+```
 
 
 # 如何设置cookie
