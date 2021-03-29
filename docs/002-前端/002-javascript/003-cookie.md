@@ -83,6 +83,22 @@ document.cookie = "age=12";
 document.cookie = "class=111";
 ```
 
+```js
+function addCookie(objName,objValue,objHours){
+	var str = objName + "=" + escape(objValue);
+	
+	if(objHours > 0){ // 如果不设定过期时间, 浏览器关闭时cookie会自动消失
+		var date = new Date()
+		var ms = objHours * 3600 * 1000;
+		
+		date.setTime(date.getTime() + ms);
+		str += "; expires=" + date.toGMTString() + "; path=/page/;"; // 指定了cookie的path
+	}
+	
+	document.cookie = str;
+}
+```
+
 ### 修改cookie
 只需要重新赋值就行，旧的值会被新的值覆盖。但要注意一点，在设置新cookie时，path/domain这几个选项一定要旧cookie 保持一样。否则不会修改旧值，而是添加了一个新的 cookie。
 
@@ -97,3 +113,21 @@ document.cookie = "class=111";
 
 # CSRF攻击
 Cookie 往往用来存储用户的身份信息，恶意网站可以设法*伪造带有正确 Cookie 的 HTTP 请求*，这就是 CSRF 攻击。
+
+
+# 注意
+### 在客户端设置cookie的path时只能设置当前页面地址
+1. 比如说当前页面是`http://localhost:8080/a#/home`, 那么path只能设置为`/a`,设置其他的值都不行。
+```js
+// 在a页面能设置成功b
+document.cookie=`test=123;path=/a`
+// 在a页面不能设置成功
+document.cookie=`test=123;path=/b`
+```
+
+2. 在切换到不同的地址时看到的cookie也是不一样的， 在`/a`是看不到path设置为`/b`的cookie的。
+
+
+### 同域名情况下，cookie同名同路径的话，会被覆盖
+也就是说域名相同但是端口不同，cookie是可以共享的。
+> cookie只和域名、path有关， 和端口无关。
