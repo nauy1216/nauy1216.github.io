@@ -46,14 +46,20 @@ if (isDef(data) && isDef(i = data.hook) && isDef(i = i.prepatch)) {
 ```
 
 # 执行`transition`的render
+1. 取children的第一个节点children[0]作为render的返回值, 在这个例子中是一个tag为p的vnode。
+2. 将从`transition`上获取到的属性给children[0].data.transition
+```js
+const data: Object = (child.data || (child.data = {})).transition = extractTransitionData(this)
+```
+
 # 执行`transition`的patch
-1. 因为在render内部返回的vnode是children, 代码中也是用了v-if, 所以来回切换时，是空节点和tag为p的节点来回切换。
+1. 在这个例子中点击切换时组件`transition`内部的根节点tag是变化的不能进行patchVnode的逻辑。
 2. 所以每次patch都是执行createElm的逻辑
 
 # createElm创建新的dom
-1. 根据新的vnode创建dom元素p
-2. 调用`createChildren(vnode, children, insertedVnodeQueue)`创建子节点dom, 在`createChildren`内部会调用`createElm`创建， 形成递归。
-3. 调用新的vnode的createHook更新dom元素p。
+1. 根据vnode创建dom元素p
+2. 调用`createChildren(vnode, children, insertedVnodeQueue)`创建子节点dom, 在`createChildren`内部会调用`createElm`创建， 形成递归。在这里是创建一个文本节点。
+3. 执行`invokeCreateHooks`， 内部调用vnode的createHook更新dom元素p。
     1. updateAttrs
     2. updateClass
     3. updateDOMListeners
