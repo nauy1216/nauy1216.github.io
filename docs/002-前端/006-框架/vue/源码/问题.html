@@ -437,6 +437,12 @@ if (isDef(existing)) {
 <h1 id="函数式组件">函数式组件</h1>
 <h1 id="异步组件">异步组件</h1>
 <h1 id="transition">transition</h1>
+<ol>
+<li>在insert hook中添加类fade-enter和fade-enter-active</li>
+<li>同时在下一轮nextFrame(下一帧)移除fade-enter, 添加fade-enter-to</li>
+<li>动画执行结束后，移除fade-enter-to和fade-enter-active</li>
+<li>transition在隐藏时会渲染成一个空的文本节点</li>
+</ol>
 <h1 id="keep-alive">keep-alive</h1>
 <h1 id="input标签的v-model和组件的v-model">input标签的v-model和组件的v-model</h1>
 <h1 id="input使用v-model加上lazy时和不加的区别？">input使用v-model加上lazy时和不加的区别？</h1>
@@ -456,6 +462,38 @@ if (isDef(existing)) {
 <li>$slots、$scopedSlots</li>
 </ol>
 <h1 id="extendoptions、options、sealedoptions、superoptions">extendOptions、options、sealedOptions、superOptions</h1>
+<ol>
+<li>三者的区别？</li>
+</ol>
+<h1 id="vnode-hook-1">vnode hook?</h1>
+<ol>
+<li><p>组件：</p>
+<ol>
+<li>init</li>
+<li>insert</li>
+<li>prepatch</li>
+<li>destroy</li>
+</ol>
+</li>
+<li><p>dom</p>
+<ol>
+<li>create：创建dom元素后， 执行create更新属性、事件...</li>
+<li>update: patchVnode时， 执行update更新属性、事件...</li>
+<li>remove</li>
+<li>destroy</li>
+<li>active</li>
+</ol>
+</li>
+<li><p>其他</p>
+<ol>
+<li>postpatch： 自己和children都patch完成后执行</li>
+</ol>
+</li>
+</ol>
+<h1 id="组件的根节点不一致时组件实例不能复用？">组件的根节点不一致时组件实例不能复用？</h1>
+<ol>
+<li>待验证</li>
+</ol>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
