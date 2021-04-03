@@ -6,7 +6,10 @@
 -   封装链式操作库
 -   http://vuejs.github.io/js-repaint-perfs/nuclear/
 -   http://vuejs.github.io/js-repaint-perfs/
--   有数
+-   腾讯有数
+-   material ui
+-   可视化编程、ast
+-   写掘金文章
 
 > 移动端
 
