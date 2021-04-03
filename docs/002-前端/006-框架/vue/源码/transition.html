@@ -85,16 +85,21 @@ new Vue({
     i(oldVnode, vnode)
 }</code></pre>
 <h1 id="执行transition的render">执行<code>transition</code>的render</h1>
+<ol>
+<li>取children的第一个节点children[0]作为render的返回值, 在这个例子中是一个tag为p的vnode。</li>
+<li>将从<code>transition</code>上获取到的属性给children[0].data.transition<pre><code class="language-js">const data: Object = (child.data || (child.data = {})).transition = extractTransitionData(this)</code></pre>
+</li>
+</ol>
 <h1 id="执行transition的patch">执行<code>transition</code>的patch</h1>
 <ol>
-<li>因为在render内部返回的vnode是children, 代码中也是用了v-if, 所以来回切换时，是空节点和tag为p的节点来回切换。</li>
+<li>在这个例子中点击切换时组件<code>transition</code>内部的根节点tag是变化的不能进行patchVnode的逻辑。</li>
 <li>所以每次patch都是执行createElm的逻辑</li>
 </ol>
 <h1 id="createelm创建新的dom">createElm创建新的dom</h1>
 <ol>
-<li>根据新的vnode创建dom元素p</li>
-<li>调用<code>createChildren(vnode, children, insertedVnodeQueue)</code>创建子节点dom, 在<code>createChildren</code>内部会调用<code>createElm</code>创建， 形成递归。</li>
-<li>调用新的vnode的createHook更新dom元素p。<ol>
+<li>根据vnode创建dom元素p</li>
+<li>调用<code>createChildren(vnode, children, insertedVnodeQueue)</code>创建子节点dom, 在<code>createChildren</code>内部会调用<code>createElm</code>创建， 形成递归。在这里是创建一个文本节点。</li>
+<li>执行<code>invokeCreateHooks</code>， 内部调用vnode的createHook更新dom元素p。<ol>
 <li>updateAttrs</li>
 <li>updateClass</li>
 <li>updateDOMListeners</li>

@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>minimist.md</title>
+          <title>003-ts-node.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -42,8 +42,28 @@
           </head>
           <body>
             <article class="markdown-body">
-                <p><a href="https://www.npmjs.com/package/minimist">文档</a></p>
-<p> node获取命令行参数。</p>
+                <h3 id="ts-node"><code>ts-node</code></h3>
+<ol>
+<li><code>ts-node</code>是<code>tsc</code>和<code>node</code>的结合。相当于先执行<code>tsc</code>将<code>ts</code>文件编译成<code>js</code>文件，然后使用<code>node</code>执行编译生成的<code>js</code>文件。</li>
+</ol>
+<h3 id="问题">问题</h3>
+<ol>
+<li><p>当<code>tsconfig.json</code>设置<code>&quot;module&quot;:&quot;ESNext&quot;</code>时报错</p>
+<pre><code class="language-js">import NumberChain from &quot;./chain/NumberChain&quot;;
+^^^^^^
+
+SyntaxError: Cannot use import statement outside a module</code></pre>
+<p>原因：本质原因是<code>node</code>不支持<code>import</code></p>
+<p>解决：</p>
+<ol>
+<li>将<code>&quot;module&quot;:&quot;ESNext&quot;</code>改成<code>&quot;module&quot;:&quot;CommanJs&quot;</code></li>
+<li><code>node13</code>可以运行</li>
+<li>使用<code>babel</code>转换</li>
+</ol>
+</li>
+<li><p>别名识别不了</p>
+</li>
+</ol>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

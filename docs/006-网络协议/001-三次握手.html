@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>todo.md</title>
+          <title>001-三次握手.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -42,26 +42,29 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="待处理">待处理</h3>
-<ul>
-<li>Pusher.js</li>
-<li>quasar.js</li>
-<li>AudioContext</li>
-<li>eval5.js。一个动态执行代码字符串的库。写一个自己的。</li>
-<li>封装链式操作库</li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/nuclear/">http://vuejs.github.io/js-repaint-perfs/nuclear/</a></li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/">http://vuejs.github.io/js-repaint-perfs/</a></li>
-<li>腾讯有数</li>
-<li>material ui</li>
-<li>可视化编程、ast</li>
-<li>写掘金文章</li>
-</ul>
+                <h1 id="参考文档">参考文档</h1>
+<p><a href="https://baijiahao.baidu.com/s?id=1654225744653405133&amp;wfr=spider&amp;for=pc">https://baijiahao.baidu.com/s?id=1654225744653405133&amp;wfr=spider&amp;for=pc</a></p>
+<h1 id="为什么要进行第三次握手？">为什么要进行第三次握手？</h1>
+<h3 id="1为了防止服务器端开启一些无用的连接增加服务器开销。">1.为了防止服务器端开启一些无用的连接增加服务器开销。</h3>
+<p>“第三次握手”是客户端向服务器端发送数据，这个数据就是要告诉服务器，客户端有没有收到服务器“第二次握手”时传过去的数据。若发送的这个数据是“收到了”的信息，接收后服务器就正常建立TCP连接，否则建立TCP连接失败，服务器关闭连接端口。由此减少服务器开销和接收到失效请求发生的错误。
+2. 防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。</p>
 <blockquote>
-<p>移动端</p>
+<p>三次握手若是失败， 则关闭tcp连接。</p>
 </blockquote>
+<h3 id="思考">思考</h3>
 <ol>
-<li>hybird 模拟原生路由 vue-stack-router</li>
-<li>支付宝小程序框架 mPaas</li>
+<li>三次握手就是确保客户端和服务器都知道双方都能正常发送和接受数据。</li>
+<li>假设没有3次握手会出现什么样的情况？那么就无法保证双方是否能正常通信。
+客户端像服务器发送一条消息， 服务器接受到后，返回消息给客户端。但如果客户端收不到消息呢？
+过一段时间请求超时， 客户端又会再次发送请求给服务器，此时上一次的连接还未关闭， 这样就会造成服务器资源的浪费。</li>
+</ol>
+<h1 id="四次挥手">四次挥手</h1>
+<p>四次挥手即TCP连接的释放(解除)。连接的释放必须是一方主动释放，另一方被动释放。</p>
+<ol>
+<li><p>前&quot;两次挥手&quot;既让服务器端知道了客户端想要释放连接，也让客户端知道了服务器端了解了自己想要释放连接的请求。于是，可以确认关闭客户端到服务器端方向上的连接了。</p>
+</li>
+<li><p>后“两次挥手”既让客户端知道了服务器端准备好释放连接了，也让服务器端知道了客户端了解了自己准备好释放连接了。于是，可以确认关闭服务器端到客户端方向上的连接了，由此完成“四次挥手”。</p>
+</li>
 </ol>
 
             </article> 
