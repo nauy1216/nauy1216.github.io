@@ -1,4 +1,5 @@
 # 参考
+- https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
 - https://blog.csdn.net/dennis_jiang/article/details/105389519
 
 ```js
