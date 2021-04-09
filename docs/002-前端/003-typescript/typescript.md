@@ -1482,6 +1482,39 @@ let point3d: Point3d = {x: 1, y: 2, z: 3};
 ```
 
 ## 3.6、函数
+### 3.6.1 为函数定义类型
+```js
+function add(x: number, y: number): number {
+    return x + y;
+}
+
+let myAdd = function(x: number, y: number): number { return x + y; };
+```
+
+### 3.6.2 书写完整函数类型
+```js
+let myAdd: (x: number, y: number) => number = function(x: number, y: number): number { return x + y; };
+```
+1. 函数类型包含两部分：参数类型和返回值类型。 当写出完整函数类型的时候，这两部分都是需要的。
+2. 只要参数类型是匹配的，那么就认为它是有效的函数类型，而不在乎参数名是否正确。
+3. 对于返回值，我们在函数和返回值类型之前使用( =>)符号，使之清晰明了。如果函数没有返回任何值，你也必须指定返回值类型为 void而不能留空。
+4. 函数的类型只是由参数类型和返回值组成的。 函数中使用的捕获变量不会体现在类型里。 实际上，这些变量是函数的隐藏状态并不是组成API的一部分。
+
+### 3.6.3 推断类型
+如果你在赋值语句的一边指定了类型但是另一边没有类型的话，TypeScript编译器会自动识别出类型：
+```js
+// myAdd has the full function type
+let myAdd = function(x: number, y: number): number { return x + y; };
+
+// The parameters `x` and `y` have the type number
+let myAdd: (baseValue: number, increment: number) => number =
+    function(x, y) { return x + y; };
+```
+**这叫做“按上下文归类”，是类型推论的一种。 它帮助我们更好地为程序指定类型。**
+
+
+### 3.6.4 可选参数和默认参数
+
 
 ## 3.7、泛型
 
