@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>todo.md</title>
+          <title>006-内存泄漏.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -42,27 +42,19 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="待处理">待处理</h3>
-<ul>
-<li>Pusher.js</li>
-<li>quasar.js</li>
-<li>AudioContext</li>
-<li>eval5.js。一个动态执行代码字符串的库。写一个自己的。</li>
-<li>封装链式操作库</li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/nuclear/">http://vuejs.github.io/js-repaint-perfs/nuclear/</a></li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/">http://vuejs.github.io/js-repaint-perfs/</a></li>
-<li>腾讯有数</li>
-<li>material ui</li>
-<li>可视化编程、ast</li>
-<li>写掘金文章</li>
-<li>找一个ui库看源码</li>
-</ul>
-<blockquote>
-<p>移动端</p>
-</blockquote>
+                <h3 id="常见的造成内存泄漏的方式">常见的造成内存泄漏的方式</h3>
 <ol>
-<li>hybird 模拟原生路由 vue-stack-router</li>
-<li>支付宝小程序框架 mPaas</li>
+<li>意外的全局变量</li>
+<li>console.log</li>
+</ol>
+<p>作为前端平时使用console.log在控制台打出相对应的信息可以说是非常常见。但如果没有去掉console.log可能会存在内存泄漏。因为在代码运行之后需要在开发工具能查看对象信息，所以传递给console.log的对象是不能被垃圾回收。</p>
+<ol start="3">
+<li>闭包</li>
+<li>DOM泄漏</li>
+</ol>
+<p>忘记释放已经缓存的DOM。</p>
+<ol start="5">
+<li>被遗忘的定时器</li>
 </ol>
 
             </article> 

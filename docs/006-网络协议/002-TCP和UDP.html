@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>todo.md</title>
+          <title>002-TCP和UDP.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -42,27 +42,31 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="待处理">待处理</h3>
+                <h3 id="1、tcp和udp的区别？">1、TCP和UDP的区别？</h3>
+<ol>
+<li>TCP面向连接 （如打电话要先拨号建立连接）; UDP是无连接的，即发送数据之前不需要建立连接</li>
+<li>TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付Tcp通过校验和，重传控制，序号标识，滑动窗口、确认应答实现可靠传输。如丢包时的重发控制，还可以对次序乱掉的分包进行顺序控制。</li>
+<li>UDP具有较好的实时性，工作效率比TCP高，适用于对高速传输和实时性有较高的通信或广播通信。</li>
+<li>每一条TCP连接只能是点到点的; UDP支持一对一，一对多，多对一和多对多的交互通信</li>
+<li>TCP对系统资源要求较多，UDP对系统资源要求较少。 </li>
+</ol>
+<h3 id="2、tcp和udp的区别？">2、tcp和udp的区别？</h3>
 <ul>
-<li>Pusher.js</li>
-<li>quasar.js</li>
-<li>AudioContext</li>
-<li>eval5.js。一个动态执行代码字符串的库。写一个自己的。</li>
-<li>封装链式操作库</li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/nuclear/">http://vuejs.github.io/js-repaint-perfs/nuclear/</a></li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/">http://vuejs.github.io/js-repaint-perfs/</a></li>
-<li>腾讯有数</li>
-<li>material ui</li>
-<li>可视化编程、ast</li>
-<li>写掘金文章</li>
-<li>找一个ui库看源码</li>
+<li>（基于连接vs无连接）tcp是面向连接的（三次握手；四次挥手）；udp不是面向连接的</li>
+<li>（重量级vs轻量级）tcp是一个重量级的协议；udp则是轻量级的协议。一个tcp数据报的报头大小最少20字节，udp数据报的包头固定8个字节</li>
+<li>（可靠性）tcp交付保证：如果消息在传输中丢失，那么它将重发；udp没有交付保证，一个数据包在运输过程中可能丢失。</li>
+<li>（有序性）消息到达网络的另一端可能是无序的，tcp协议将为你拍好序。Udp不提供任何有序性的保证。</li>
+<li>（速度）tcp慢，适合传输大量数据；udp快，适合传输少量数据。</li>
+<li>（流量控制和拥塞控制）TCP有流量控制和拥塞控制，udp没有。</li>
+<li>tcp面向字节流，udp面向报文</li>
+<li>tcp只能单播，不能发送广播和组播；udp可以广播和组播。</li>
 </ul>
 <blockquote>
-<p>移动端</p>
+<p>Tcp应用：邮件传输     udp应用：qq聊天、qq视频</p>
 </blockquote>
+<h3 id="3、和http的区别？">3、和http的区别？</h3>
 <ol>
-<li>hybird 模拟原生路由 vue-stack-router</li>
-<li>支付宝小程序框架 mPaas</li>
+<li>TPC/IP协议是传输层协议，主要解决数据如何在网络中传输，而HTTP是应用层协议，主要解决如何包装数据。 </li>
 </ol>
 
             </article> 

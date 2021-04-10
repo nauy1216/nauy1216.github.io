@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>todo.md</title>
+          <title>000-记录.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -42,28 +42,44 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="待处理">待处理</h3>
-<ul>
-<li>Pusher.js</li>
-<li>quasar.js</li>
-<li>AudioContext</li>
-<li>eval5.js。一个动态执行代码字符串的库。写一个自己的。</li>
-<li>封装链式操作库</li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/nuclear/">http://vuejs.github.io/js-repaint-perfs/nuclear/</a></li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/">http://vuejs.github.io/js-repaint-perfs/</a></li>
-<li>腾讯有数</li>
-<li>material ui</li>
-<li>可视化编程、ast</li>
-<li>写掘金文章</li>
-<li>找一个ui库看源码</li>
-</ul>
-<blockquote>
-<p>移动端</p>
-</blockquote>
-<ol>
-<li>hybird 模拟原生路由 vue-stack-router</li>
-<li>支付宝小程序框架 mPaas</li>
-</ol>
+                <h3 id="defaultprops">defaultProps</h3>
+<p>为组建指定默认属性。</p>
+<h3 id="getsnapshotbeforeupdate">getSnapshotBeforeUpdate()</h3>
+<p>getSnapshotBeforeUpdate()为React生命周期函数， 在render()之前调用。
+它使得组件能在发生更改之前从 DOM 中捕获一些信息（例如，滚动位置）。
+此生命周期的任何返回值将作为参数传递给 componentDidUpdate()。</p>
+<pre><code class="language-jsx">class ScrollingList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.listRef = React.createRef();
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    // 我们是否在 list 中添加新的 items ？
+    // 捕获滚动位置以便我们稍后调整滚动位置。
+    if (prevProps.list.length &lt; this.props.list.length) {
+      const list = this.listRef.current;
+      return list.scrollHeight - list.scrollTop;
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // 如果我们 snapshot 有值，说明我们刚刚添加了新的 items，
+    // 调整滚动位置使得这些新 items 不会将旧的 items 推出视图。
+    //（这里的 snapshot 是 getSnapshotBeforeUpdate 的返回值）
+    if (snapshot !== null) {
+      const list = this.listRef.current;
+      list.scrollTop = list.scrollHeight - snapshot;
+    }
+  }
+
+  render() {
+    return (
+      &lt;div ref={this.listRef}&gt;{/* ...contents... */}&lt;/div&gt;
+    );
+  }
+}</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

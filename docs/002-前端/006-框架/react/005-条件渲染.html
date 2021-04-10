@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>todo.md</title>
+          <title>005-条件渲染.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -42,28 +42,109 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="待处理">待处理</h3>
+                <h3 id="条件渲染">条件渲染</h3>
+<p>在不同的条件下渲染不同的组件。比如下面的例子：
+登录和未登录页面上渲染的内容是不一样的。</p>
+<pre><code class="language-js">function UserGreeting(props) {
+  return &lt;h1&gt;Welcome back!&lt;/h1&gt;;
+}
+
+function GuestGreeting(props) {
+  return &lt;h1&gt;Please sign up.&lt;/h1&gt;;
+}
+
+function Greeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return &lt;UserGreeting /&gt;;
+  }
+  return &lt;GuestGreeting /&gt;;
+}</code></pre>
+<h3 id="元素变量">元素变量</h3>
 <ul>
-<li>Pusher.js</li>
-<li>quasar.js</li>
-<li>AudioContext</li>
-<li>eval5.js。一个动态执行代码字符串的库。写一个自己的。</li>
-<li>封装链式操作库</li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/nuclear/">http://vuejs.github.io/js-repaint-perfs/nuclear/</a></li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/">http://vuejs.github.io/js-repaint-perfs/</a></li>
-<li>腾讯有数</li>
-<li>material ui</li>
-<li>可视化编程、ast</li>
-<li>写掘金文章</li>
-<li>找一个ui库看源码</li>
+<li>什么是元素变量</li>
 </ul>
-<blockquote>
-<p>移动端</p>
-</blockquote>
-<ol>
-<li>hybird 模拟原生路由 vue-stack-router</li>
-<li>支付宝小程序框架 mPaas</li>
-</ol>
+<p>使用变量来储存元素。 它可以帮助你有条件地渲染组件的一部分，而其他的渲染部分并不会因此而改变。</p>
+<pre><code class="language-js">class LoginControl extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.state = { isLoggedIn: false };
+  }
+
+  handleLoginClick() {
+    this.setState({ isLoggedIn: true });
+  }
+
+  handleLogoutClick() {
+    this.setState({ isLoggedIn: false });
+  }
+
+  render() {
+    const isLoggedIn = this.state.isLoggedIn;
+    // 定义元素变量button，给变量可以复制vnode或者null
+    let button;
+    if (isLoggedIn) {
+      button = &lt;LogoutButton onClick={this.handleLogoutClick} /&gt;;
+    } else {
+      button = &lt;LoginButton onClick={this.handleLoginClick} /&gt;;
+    }
+
+    return (
+      &lt;div&gt;
+        &lt;Greeting isLoggedIn={isLoggedIn} /&gt;
+        {button}
+      &lt;/div&gt;
+    );
+  }
+}</code></pre>
+<h3 id="与运算符">与运算符 &amp;&amp;</h3>
+<p>通过花括号包裹代码，你可以在 JSX 中嵌入任何表达式。这也包括 JavaScript 中的逻辑与 (&amp;&amp;) 运算符。它可以很方便地进行元素的条件渲染。</p>
+<pre><code class="language-js">function Mailbox(props) {
+  const unreadMessages = props.unreadMessages;
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Hello!&lt;/h1&gt;
+      {unreadMessages.length &gt; 0 &amp;&amp; (
+        &lt;h2&gt;You have {unreadMessages.length} unread messages.&lt;/h2&gt;
+      )}
+    &lt;/div&gt;
+  );
+}</code></pre>
+<p><em>之所以能这样做，是因为在 JavaScript 中，true &amp;&amp; expression 总是会返回 expression, 而 false &amp;&amp; expression 总是会返回 false。因此，如果条件是 true，&amp;&amp; 右侧的元素就会被渲染，如果是 false，React 会忽略并跳过它。</em></p>
+<h3 id="三目运算符">三目运算符</h3>
+<p>另一种内联条件渲染的方法是使用 JavaScript 中的三目运算符 <code>condition ? true : false</code>。</p>
+<pre><code class="language-js">render() {
+  const isLoggedIn = this.state.isLoggedIn;
+  return (
+    &lt;div&gt;
+      {isLoggedIn
+        ? &lt;LogoutButton onClick={this.handleLogoutClick} /&gt;
+        : &lt;LoginButton onClick={this.handleLoginClick} /&gt;
+      }
+    &lt;/div&gt;
+  );
+}
+
+render() {
+  const isLoggedIn = this.state.isLoggedIn;
+  return (
+    &lt;div&gt;
+      The user is &lt;b&gt;{isLoggedIn ? &#39;currently&#39; : &#39;not&#39;}&lt;/b&gt; logged in.
+    &lt;/div&gt;
+  );
+}</code></pre>
+<h3 id="阻止组件渲染">阻止组件渲染</h3>
+<p>返回<code>null</code>即可。</p>
+<pre><code class="language-js">function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+
+  return &lt;div className=&quot;warning&quot;&gt;Warning!&lt;/div&gt;;
+}</code></pre>
+<p>在组件的 render 方法中返回 null 并不会影响组件的生命周期, 只是页面不展示内容而已。例如，上面这个示例中，<code>componentDidUpdate</code> 依然会被调用。</p>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

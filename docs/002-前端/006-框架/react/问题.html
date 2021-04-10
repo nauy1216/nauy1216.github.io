@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>todo.md</title>
+          <title>问题.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -42,28 +42,56 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="待处理">待处理</h3>
+                <h1 id="路由篇">路由篇</h1>
+<h3 id="react-router-config">react-router-config</h3>
 <ul>
-<li>Pusher.js</li>
-<li>quasar.js</li>
-<li>AudioContext</li>
-<li>eval5.js。一个动态执行代码字符串的库。写一个自己的。</li>
-<li>封装链式操作库</li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/nuclear/">http://vuejs.github.io/js-repaint-perfs/nuclear/</a></li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/">http://vuejs.github.io/js-repaint-perfs/</a></li>
-<li>腾讯有数</li>
-<li>material ui</li>
-<li>可视化编程、ast</li>
-<li>写掘金文章</li>
-<li>找一个ui库看源码</li>
+<li>原理？
+也是使用了<code>Switch</code>和<code>Route</code>组件。只不过是把遍历的过程封装起来了。</li>
 </ul>
-<blockquote>
-<p>移动端</p>
-</blockquote>
-<ol>
-<li>hybird 模拟原生路由 vue-stack-router</li>
-<li>支付宝小程序框架 mPaas</li>
-</ol>
+<pre><code class="language-js">function renderRoutes(routes, extraProps, switchProps) {
+  if (extraProps === void 0) {
+    extraProps = {};
+  }
+
+  if (switchProps === void 0) {
+    switchProps = {};
+  }
+
+  return routes
+    ? React.createElement(
+        reactRouter.Switch,
+        switchProps,
+        routes.map(function (route, i) {
+          return React.createElement(reactRouter.Route, {
+            key: route.key || i,
+            path: route.path,
+            exact: route.exact,
+            strict: route.strict,
+            render: function render(props) {
+              return route.render
+                ? route.render(
+                    _extends({}, props, {}, extraProps, {
+                      route: route,
+                    })
+                  )
+                : React.createElement(
+                    route.component,
+                    _extends({}, props, extraProps, {
+                      route: route,
+                    })
+                  );
+            },
+          });
+        })
+      )
+    : null;
+}</code></pre>
+<p>传给路由组件的<code>props</code>也被修改了。</p>
+<pre><code class="language-ts">export interface RouteConfigComponentProps&lt;
+  Params extends { [K in keyof Params]?: string } = {}
+&gt; extends RouteComponentProps&lt;Params&gt; {
+  route?: RouteConfig;
+}</code></pre>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

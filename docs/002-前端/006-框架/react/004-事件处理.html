@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>todo.md</title>
+          <title>004-事件处理.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -42,28 +42,162 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="待处理">待处理</h3>
+                <h3 id="一、事件处理">一、事件处理</h3>
 <ul>
-<li>Pusher.js</li>
-<li>quasar.js</li>
-<li>AudioContext</li>
-<li>eval5.js。一个动态执行代码字符串的库。写一个自己的。</li>
-<li>封装链式操作库</li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/nuclear/">http://vuejs.github.io/js-repaint-perfs/nuclear/</a></li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/">http://vuejs.github.io/js-repaint-perfs/</a></li>
-<li>腾讯有数</li>
-<li>material ui</li>
-<li>可视化编程、ast</li>
-<li>写掘金文章</li>
-<li>找一个ui库看源码</li>
+<li>React 事件的命名采用小驼峰式（camelCase），而不是纯小写。</li>
 </ul>
+<p>比如 Dom 元素的点击事件写成<code>onclick</code>, 那么在 react 中就是<code>onClick</code></p>
+<ul>
+<li><p>使用 JSX 语法时你需要传入一个函数作为事件处理函数，而不是一个字符串。</p>
+</li>
+<li><p>不能通过返回 false 的方式阻止默认行为。你必须显式的使用 <code>preventDefault</code> 。</p>
+</li>
+</ul>
+<p>下面的代码定义了一个函数式组件：
+e 是一个合成事件。React 根据 W3C 规范来定义这些合成事件，所以你不需要担心跨浏览器的兼容性问题。</p>
+<pre><code class="language-js">function ActionLink() {
+  function handleClick(e) {
+    e.preventDefault();
+    console.log(&quot;The link was clicked.&quot;);
+  }
+
+  return (
+    &lt;a href=&quot;#&quot; onClick={handleClick}&gt;
+      Click me
+    &lt;/a&gt;
+  );
+}</code></pre>
+<h5 id="1、合成事件（syntheticevent）">1、合成事件（SyntheticEvent）</h5>
+<ul>
+<li>什么是合成事件？</li>
+</ul>
+<p><code>SyntheticEvent</code> 实例将被传递给你的事件处理函数，它是浏览器的<em>原生事件的跨浏览器包装器</em>。
+除兼容所有浏览器外，它还拥有和浏览器原生事件相同的接口，包括 <code>stopPropagation()</code> 和 <code>preventDefault()</code>。</p>
+<ul>
+<li>如何使用浏览器的底层事件？</li>
+</ul>
+<p>如果因为某些原因，当你需要使用浏览器的底层事件时，只需要使用 <code>nativeEvent</code> 属性来获取即可。
+每个 SyntheticEvent 对象都包含以下属性：</p>
+<pre><code class="language-js">boolean bubbles
+boolean cancelable
+DOMEventTarget currentTarget
+boolean defaultPrevented
+number eventPhase
+boolean isTrusted
+DOMEvent nativeEvent
+void preventDefault()
+boolean isDefaultPrevented()
+void stopPropagation()
+boolean isPropagationStopped()
+void persist()
+DOMEventTarget target
+number timeStamp
+string type
+</code></pre>
+<h5 id="事件池">事件池</h5>
+<ul>
+<li>为什么要使用事件池？</li>
+</ul>
+<p>为了重用<code>SyntheticEvent</code>对象, 减少内存的占用。</p>
+<ul>
+<li><code>SyntheticEvent</code>对象不能异步使用？</li>
+</ul>
+<p>SyntheticEvent 是合并而来。这意味着 SyntheticEvent 对象可能会被重用，而且在事件回调函数被调用后，所有的属性都会无效。
+出于性能考虑，你不能通过异步访问事件。</p>
+<pre><code class="language-js">function onClick(event) {
+  console.log(event); // =&gt; nullified object.
+  console.log(event.type); // =&gt; &quot;click&quot;
+  const eventType = event.type; // =&gt; &quot;click&quot;
+
+  setTimeout(function () {
+    console.log(event.type); // =&gt; null
+    console.log(eventType); // =&gt; &quot;click&quot;
+  }, 0);
+
+  // 不起作用，this.state.clickEvent 的值将会只包含 null
+  this.setState({ clickEvent: event });
+
+  // 你仍然可以导出事件属性
+  this.setState({ eventType: event.type });
+}</code></pre>
 <blockquote>
-<p>移动端</p>
+<p>如果你想异步访问事件属性，你需在事件上调用 event.persist()，此方法会从池中移除合成事件，允许用户代码保留对事件的引用。</p>
 </blockquote>
-<ol>
-<li>hybird 模拟原生路由 vue-stack-router</li>
-<li>支付宝小程序框架 mPaas</li>
-</ol>
+<p><em>但不知什么原因，在异步访问 SyntheticEvent 时并没有出现上述的问题。测试代码使用的版本是 17.0.1。</em></p>
+<h5 id="2、事件的冒泡与捕获">2、事件的冒泡与捕获</h5>
+<p>如需注册捕获阶段的事件处理函数，则应为事件名添加 Capture。例如，处理捕获阶段的点击事件请使用 onClickCapture，而不是 onClick。</p>
+<h5 id="3、事件处理函数">3、事件处理函数</h5>
+<p>当定义 class 组件时，注意<code>this</code>的指向。</p>
+<pre><code class="language-js">class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isToggleOn: true };
+
+    // 为了在回调中使用 `this`，这个绑定是必不可少的
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState((state) =&gt; ({
+      isToggleOn: !state.isToggleOn,
+    }));
+  }
+
+  render() {
+    return (
+      &lt;button onClick={this.handleClick}&gt;
+        {this.state.isToggleOn ? &quot;ON&quot; : &quot;OFF&quot;}
+      &lt;/button&gt;
+    );
+  }
+}</code></pre>
+<p>解决办法：</p>
+<ul>
+<li>使用<code>bind</code>绑定<code>this</code></li>
+</ul>
+<pre><code class="language-js">this.handleClick = this.handleClick.bind(this);</code></pre>
+<ul>
+<li>使用实验性的 <code>public class fields</code> 语法，你可以使用 <code>class fields</code> 正确的绑定回调函数：</li>
+</ul>
+<pre><code class="language-js">class LoggingButton extends React.Component {
+  // 此语法确保 `handleClick` 内的 `this` 已被绑定。
+  // 注意: 这是 *实验性* 语法。
+  handleClick = () =&gt; {
+    console.log(&quot;this is:&quot;, this);
+  };
+
+  render() {
+    return &lt;button onClick={this.handleClick}&gt;Click me&lt;/button&gt;;
+  }
+}</code></pre>
+<ul>
+<li>回调中使用箭头函数。</li>
+</ul>
+<p>此语法问题在于每次渲染 LoggingButton 时都会创建不同的回调函数。
+在大多数情况下，这没什么问题，但如果该回调函数作为 prop 传入子组件时，这些组件可能会进行额外的重新渲染。
+我们通常建议在构造器中绑定或使用 class fields 语法来避免这类性能问题。</p>
+<pre><code class="language-js">class LoggingButton extends React.Component {
+  handleClick() {
+    console.log(&quot;this is:&quot;, this);
+  }
+
+  render() {
+    // 此语法确保 `handleClick` 内的 `this` 已被绑定。
+    return &lt;button onClick={() =&gt; this.handleClick()}&gt;Click me&lt;/button&gt;;
+  }
+}</code></pre>
+<h5 id="4、向事件处理程序传递参数">4、向事件处理程序传递参数</h5>
+<p>在循环中，通常我们会为事件处理函数传递额外的参数。
+例如，若 id 是你要删除那一行的 ID，以下两种方式都可以向事件处理函数传递参数：</p>
+<pre><code class="language-js">&lt;button onClick={(e) =&gt; this.deleteRow(id, e)}&gt;Delete Row&lt;/button&gt;
+&lt;button onClick={this.deleteRow.bind(this, id)}&gt;Delete Row&lt;/button&gt;</code></pre>
+<p>上面两种方式是等价的。但也有区别：</p>
+<ul>
+<li><p>使用箭头函数的方式，必须显示的传入事件对象。</p>
+</li>
+<li><p>通过 bind 的方式，事件对象以及更多的参数将会被隐式的进行传递。</p>
+</li>
+</ul>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  

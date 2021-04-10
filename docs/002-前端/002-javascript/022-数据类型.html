@@ -143,10 +143,11 @@ a + b // &quot;420&quot; 这个地方，注意一下
 c + d // 42
 a + d // &quot;420&quot;
 [] + {} // [object object]
-+[] // 0 这里的{}会被当作是一个代码块，所以本质上是+[]
+{} + [] // 0 这里的{}会被当作是一个代码块，所以本质上是+[]
 console.log({} + []) // [object object]
 +[] // 0
--[] // -0</code></pre>
+-[] // -0
+[] == ![] // true</code></pre>
 <blockquote>
 <p>隐式强制类型转换为布尔值</p>
 </blockquote>

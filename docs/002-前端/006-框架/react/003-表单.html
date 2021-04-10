@@ -3,7 +3,7 @@
           <head>
           <meta charset="utf-8" >
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <title>todo.md</title>
+          <title>003-表单.md</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
           <style>
               .markdown-body {
@@ -42,28 +42,101 @@
           </head>
           <body>
             <article class="markdown-body">
-                <h3 id="待处理">待处理</h3>
-<ul>
-<li>Pusher.js</li>
-<li>quasar.js</li>
-<li>AudioContext</li>
-<li>eval5.js。一个动态执行代码字符串的库。写一个自己的。</li>
-<li>封装链式操作库</li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/nuclear/">http://vuejs.github.io/js-repaint-perfs/nuclear/</a></li>
-<li><a href="http://vuejs.github.io/js-repaint-perfs/">http://vuejs.github.io/js-repaint-perfs/</a></li>
-<li>腾讯有数</li>
-<li>material ui</li>
-<li>可视化编程、ast</li>
-<li>写掘金文章</li>
-<li>找一个ui库看源码</li>
-</ul>
+                <h3 id="表单">表单</h3>
 <blockquote>
-<p>移动端</p>
+<p>在 React 里，HTML 表单元素的工作方式和其他的 DOM 元素有些不同，这是因为表单元素通常会保持一些内部的 state。</p>
 </blockquote>
-<ol>
-<li>hybird 模拟原生路由 vue-stack-router</li>
-<li>支付宝小程序框架 mPaas</li>
-</ol>
+<h3 id="受控组件">受控组件</h3>
+<p>在 HTML 中，表单元素（如<code>&lt;input&gt;</code>、 <code>&lt;textarea&gt;</code> 和 <code>&lt;select&gt;</code>）之类的表单元素通常自己维护 state，并根据用户输入进行更新。
+而在 React 中，可变状态（mutable state）通常保存在组件的 state 属性中，并且只能通过使用 setState()来更新。</p>
+<p>我们可以把两者结合起来，使 React 的 state 成为“唯一数据源”。
+渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。
+被 React 以这种方式控制取值的表单输入元素就叫做“_受控组件_”。
+所谓的<code>受控组件</code>其实就是原生组件的状态由 react 组件的 state 控制。 如果<code>input</code>或者其他表单元素未绑定<code>value</code>或者在
+用户输入时并没有更新组件的 state，此时表单元素的表现看起来就是<em>没反应</em>，这是 react 故意这样做的就是为了让表单元素的内部状态与 react 组件
+的状态保持一致。</p>
+<pre><code class="language-ts">type State = {
+  value: string;
+};
+
+export default class NameForm extends React.Component&lt;{}, State&gt; {
+  constructor(props) {
+    super(props);
+    this.state = { value: &quot;&quot; };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    // 注释掉下面的代码时， 用户输入将不会有反应
+    this.setState({ value: event.target.value });
+  }
+
+  handleSubmit(event) {
+    alert(&quot;提交的名字: &quot; + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      &lt;form onSubmit={this.handleSubmit}&gt;
+        &lt;label&gt;
+          名字:
+          &lt;input
+            type=&quot;text&quot;
+            value={this.state.value}
+            onChange={this.handleChange}
+          /&gt;
+        &lt;/label&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;提交&quot; /&gt;
+      &lt;/form&gt;
+    );
+  }
+}</code></pre>
+<blockquote>
+<p>对于受控组件来说，输入的值始终由 React 的 state 驱动。</p>
+</blockquote>
+<h5 id="受控组件输入空值">受控组件输入空值</h5>
+<p>在受控组件上指定 value 的 prop 会阻止用户更改输入。
+如果你指定了 value，但输入仍可编辑，则可能是你<code>意外地将 value 设置为 undefined 或 null</code>。</p>
+<p>下面的代码演示了这一点。（输入最初被锁定，但在短时间延迟后变为可编辑。）</p>
+<pre><code class="language-js">ReactDOM.render(&lt;input value=&quot;hi&quot; /&gt;, mountNode);
+
+setTimeout(function () {
+  ReactDOM.render(&lt;input value={null} /&gt;, mountNode);
+}, 1000);</code></pre>
+<h3 id="非受控组件">非受控组件</h3>
+<blockquote>
+<p>在大多数情况下，我们推荐使用 受控组件 来处理表单数据。
+在一个受控组件中，表单数据是由 React 组件来管理的。
+另一种替代方案是使用非受控组件，这时表单数据将交由 DOM 节点来处理。</p>
+</blockquote>
+<p>在 React 渲染生命周期时，表单元素上的 value 将会覆盖 DOM 节点中的值，在非受控组件中，你经常希望 React 能赋予组件一个初始值，但是不去控制后续的更新。 在这种情况下, 你可以指定一个 defaultValue 属性，而不是 value。</p>
+<pre><code class="language-js">render() {
+  return (
+    &lt;form onSubmit={this.handleSubmit}&gt;
+      &lt;label&gt;
+        Name:
+        &lt;input
+          defaultValue=&quot;Bob&quot;
+          type=&quot;text&quot;
+          ref={this.input} /&gt;
+      &lt;/label&gt;
+      &lt;input type=&quot;submit&quot; value=&quot;Submit&quot; /&gt;
+    &lt;/form&gt;
+  );
+}</code></pre>
+<h3 id="textarea"><code>textarea</code></h3>
+<p>在 HTML 中, <code>textarea</code> 元素通过其子元素定义其文本:</p>
+<pre><code class="language-html">&lt;textarea&gt;
+  你好， 这是在 text area 里的文本
+&lt;/textarea&gt;</code></pre>
+<p>而在 React 中，<code>&lt;textarea&gt;</code> 使用 value 属性代替。这样，可以使得使用 <code>&lt;textarea&gt;</code> 的表单和使用单行 input 的表单非常类似：</p>
+<h3 id="select"><code>select</code></h3>
+<h3 id="文件-input-标签">文件 input 标签</h3>
+<pre><code class="language-html">&lt;input type=&quot;file&quot; /&gt;</code></pre>
+<p>因为它的 value 只读，所以它是 React 中的一个非受控组件。将与其他非受控组件在后续文档中一起讨论。</p>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
