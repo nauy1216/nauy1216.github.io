@@ -236,3 +236,73 @@ class VueRouter {
     component: import('@/views/reportForm/statisticalQuery/purchaseTrakingList')
 }
 ```
+
+
+# history会保存state对象吗？
+不会，这个和`react-router`的实现不一样。只是简单的保存了一个`key`。
+```js
+export function pushState (url?: string, replace?: boolean) {
+  saveScrollPosition()
+  // try...catch the pushState call to get around Safari
+  // DOM Exception 18 where it limits to 100 pushState calls
+  const history = window.history
+  try {
+    if (replace) {
+      // preserve existing history state as it could be overriden by the user
+      const stateCopy = extend({}, history.state)
+      stateCopy.key = getStateKey()
+      history.replaceState(stateCopy, '', url)
+    } else {
+      history.pushState({ key: setStateKey(genStateKey()) }, '', url)
+    }
+  } catch (e) {
+    window.location[replace ? 'replace' : 'assign'](url)
+  }
+}
+```
+
+# 直接修改hash值和通过router api的区别？
+### 1. 底层都是调用的同一个方法， 不过一个是主动调用一个是被动调用。
+直接修改hash。
+```js
+const handleRoutingEvent = () => {
+    const current = this.current
+    if (!ensureSlash()) {
+        return
+    }
+    this.transitionTo(getHash(), route => {
+        if (supportsScroll) {
+            handleScroll(this.router, route, current, true)
+        }
+        if (!supportsPushState) {
+            replaceHash(route.fullPath)
+        }
+    })
+}
+
+const eventType = supportsPushState ? 'popstate' : 'hashchange'
+window.addEventListener(
+    eventType,
+    handleRoutingEvent
+)
+this.listeners.push(() => {
+    window.removeEventListener(eventType, handleRoutingEvent)
+})
+```
+调用`router api`。
+```js
+push (location: RawLocation, onComplete?: Function, onAbort?: Function) {
+    const { current: fromRoute } = this
+    this.transitionTo(
+        location,
+        route => {
+        pushHash(route.fullPath)
+        handleScroll(this.router, route, fromRoute, false)
+        onComplete && onComplete(route)
+        },
+        onAbort
+    )
+}
+```
+
+### 2. 直接更改hash值的话查询参数需要自己拼接
