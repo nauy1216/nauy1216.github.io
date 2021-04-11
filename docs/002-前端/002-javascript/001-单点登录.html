@@ -130,6 +130,19 @@
 <ul>
 <li><a href="http://10.1.1.248:9601">http://10.1.1.248:9601</a></li>
 </ul>
+<h1 id="cas登陆流程图">cas登陆流程图</h1>
+<ul>
+<li>参考文档：
+<a href="https://blog.csdn.net/qq_33200676/article/details/82981742">https://blog.csdn.net/qq_33200676/article/details/82981742</a>
+<img src="./image/210411-1443.png" alt=""></li>
+</ul>
+<h1 id="cas退出流程">cas退出流程</h1>
+<ol>
+<li><p>任意系统登出，都会跳转到sso认证中心进行统一登出，通过sessionId找到相应的token，再找到对应需要注销的子系统机器sessionId，跳转到子系统，销毁局部session。</p>
+</li>
+<li><p>销毁全局session（sso认证中心的session），删除token信息和数据库中的子系统信息，跳转到登录页面 </p>
+</li>
+</ol>
 
             </article> 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
