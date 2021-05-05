@@ -3,8 +3,13 @@
     1. github下载插件
     2. 安装插件
     3. 在开发环境下图标是红色的， 生产环境下是蓝色的
+    4. 当打开react17项目时控制台报错，原因是要安装4.0版本的devtool 解决办法参考https://blog.csdn.net/Leo_xian/article/details/112899961
+
+
 2. Redux DevTools
-    1. 下载redux-devtools
+    1. 下载redux-devtools, https://github.com/reduxjs/redux-devtools
+    2. 打包
+    3. 修改代码
 
 # 二、路由
 ### 文档
