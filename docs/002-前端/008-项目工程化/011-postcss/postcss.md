@@ -1,2 +1,2 @@
 # 参考文档
-https://segmentfault.com/a/1190000003909268
+https://posthtml.org/#/plugins/guide
