@@ -1,1 +1,0 @@
-https://github.com/minhuaF/blog/issues/2#
