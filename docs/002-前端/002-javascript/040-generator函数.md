@@ -1,1 +1,2 @@
 - http://www.alloyteam.com/2016/02/generators-in-depth/
+- https://segmentfault.com/a/1190000023652879
