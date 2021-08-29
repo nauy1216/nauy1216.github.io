@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+      <html>
+          <head>
+          <meta charset="utf-8" >
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>003-scss.md</title>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
+          <style>
+              .markdown-body {
+                  box-sizing: border-box;
+                  min-width: 200px;
+                  max-width: 980px;
+                  margin: 0 auto;
+                  padding: 45px;
+              }
+              .markdown-body img {
+                  box-sizing: border-box !important;
+                  margin:10px 0 10px 2%;
+                  padding: 20px;
+                  width: 96%;
+                  border-radius: 4px;
+                  box-shadow: 0 0 6px 0px #999;
+              }
+              @media (max-width: 767px) {
+                  .markdown-body {
+                      padding: 15px;
+                  }
+              }
+              .markdown-body > iframe {
+                width: 100%;
+                height: 100vh;
+                border: none;
+              }
+              @font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,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) format('woff')}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown-body .anchor:focus{outline:0}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body .pl-c{color:#6a737d}.markdown-body .pl-c1,.markdown-body .pl-s .pl-v{color:#005cc5}.markdown-body .pl-e,.markdown-body .pl-en{color:#6f42c1}.markdown-body .pl-s .pl-s1,.markdown-body .pl-smi{color:#24292e}.markdown-body .pl-ent{color:#22863a}.markdown-body .pl-k{color:#d73a49}.markdown-body .pl-pds,.markdown-body .pl-s,.markdown-body .pl-s .pl-pse .pl-s1,.markdown-body .pl-sr,.markdown-body .pl-sr .pl-cce,.markdown-body .pl-sr .pl-sra,.markdown-body .pl-sr .pl-sre{color:#032f62}.markdown-body .pl-smw,.markdown-body .pl-v{color:#e36209}.markdown-body .pl-bu{color:#b31d28}.markdown-body .pl-ii{background-color:#b31d28;color:#fafbfc}.markdown-body .pl-c2{background-color:#d73a49;color:#fafbfc}.markdown-body .pl-c2:before{content:"^M"}.markdown-body .pl-sr .pl-cce{color:#22863a;font-weight:700}.markdown-body .pl-ml{color:#735c0f}.markdown-body .pl-mh,.markdown-body .pl-mh .pl-en,.markdown-body .pl-ms{color:#005cc5;font-weight:700}.markdown-body .pl-mi{color:#24292e;font-style:italic}.markdown-body .pl-mb{color:#24292e;font-weight:700}.markdown-body .pl-md{background-color:#ffeef0;color:#b31d28}.markdown-body .pl-mi1{background-color:#f0fff4;color:#22863a}.markdown-body .pl-mc{background-color:#ffebda;color:#e36209}.markdown-body .pl-mi2{background-color:#005cc5;color:#f6f8fa}.markdown-body .pl-mdr{color:#6f42c1;font-weight:700}.markdown-body .pl-ba{color:#586069}.markdown-body .pl-sg{color:#959da5}.markdown-body .pl-corl{color:#032f62;text-decoration:underline}.markdown-body details{display:block}.markdown-body summary{display:list-item}.markdown-body a{background-color:transparent}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body strong{font-weight:inherit;font-weight:bolder}.markdown-body h1{font-size:2em;margin:.67em 0}.markdown-body img{border-style:none}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace;font-size:1em}.markdown-body hr{box-sizing:content-box;height:0;overflow:visible}.markdown-body input{font:inherit;margin:0}.markdown-body input{overflow:visible}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body a{color:#0366d6;text-decoration:none}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{background:0 0;border:0;border-bottom:1px solid #dfe2e5;height:0;margin:15px 0;overflow:hidden}.markdown-body hr:before{content:"";display:table}.markdown-body hr:after{clear:both;content:"";display:table}.markdown-body table{border-collapse:collapse;border-spacing:0}.markdown-body td,.markdown-body th{padding:0}.markdown-body details summary{cursor:pointer}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-bottom:0;margin-top:0}.markdown-body h1{font-size:32px}.markdown-body h1,.markdown-body h2{font-weight:600}.markdown-body h2{font-size:24px}.markdown-body h3{font-size:20px}.markdown-body h3,.markdown-body h4{font-weight:600}.markdown-body h4{font-size:16px}.markdown-body h5{font-size:14px}.markdown-body h5,.markdown-body h6{font-weight:600}.markdown-body h6{font-size:12px}.markdown-body p{margin-bottom:10px;margin-top:0}.markdown-body blockquote{margin:0}.markdown-body ol,.markdown-body ul{margin-bottom:0;margin-top:0;padding-left:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code,.markdown-body pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px}.markdown-body pre{margin-bottom:0;margin-top:0}.markdown-body input::-webkit-inner-spin-button,.markdown-body input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}.markdown-body .border{border:1px solid #e1e4e8!important}.markdown-body .border-0{border:0!important}.markdown-body .border-bottom{border-bottom:1px solid #e1e4e8!important}.markdown-body .rounded-1{border-radius:3px!important}.markdown-body .bg-white{background-color:#fff!important}.markdown-body .bg-gray-light{background-color:#fafbfc!important}.markdown-body .text-gray-light{color:#6a737d!important}.markdown-body .mb-0{margin-bottom:0!important}.markdown-body .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown-body .pl-0{padding-left:0!important}.markdown-body .py-0{padding-bottom:0!important;padding-top:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .py-2{padding-bottom:8px!important;padding-top:8px!important}.markdown-body .pl-3,.markdown-body .px-3{padding-left:16px!important}.markdown-body .px-3{padding-right:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .f6{font-size:12px!important}.markdown-body .lh-condensed{line-height:1.25!important}.markdown-body .text-bold{font-weight:600!important}.markdown-body:before{content:"";display:table}.markdown-body:after{clear:both;content:"";display:table}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-bottom:16px;margin-top:0}.markdown-body hr{background-color:#e1e4e8;border:0;height:.25em;margin:24px 0;padding:0}.markdown-body blockquote{border-left:.25em solid #dfe2e5;color:#6a737d;padding:0 1em}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd{background-color:#fafbfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5;color:#444d56;display:inline-block;font-size:11px;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{font-weight:600;line-height:1.25;margin-bottom:16px;margin-top:24px}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{border-bottom:1px solid #eaecef;padding-bottom:.3em}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{color:#6a737d;font-size:.85em}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-bottom:0;margin-top:0}.markdown-body li{word-wrap:break-all}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{font-size:1em;font-style:italic;font-weight:600;margin-top:16px;padding:0}.markdown-body dl dd{margin-bottom:16px;padding:0 16px}.markdown-body table{display:block;overflow:auto;width:100%}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{border:1px solid #dfe2e5;padding:6px 13px}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{background-color:#fff;box-sizing:content-box;max-width:100%}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body code{background-color:rgba(27,31,35,.05);border-radius:3px;font-size:85%;margin:0;padding:.2em .4em}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{background:0 0;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{background-color:#f6f8fa;border-radius:3px;font-size:85%;line-height:1.45;overflow:auto;padding:16px}.markdown-body pre code{background-color:transparent;border:0;display:inline;line-height:inherit;margin:0;max-width:auto;overflow:visible;padding:0;word-wrap:normal}.markdown-body .commit-tease-sha{color:#444d56;display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:90%}.markdown-body .blob-wrapper{border-bottom-left-radius:3px;border-bottom-right-radius:3px;overflow-x:auto;overflow-y:hidden}.markdown-body .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown-body .blob-num{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;color:rgba(27,31,35,.3);cursor:pointer;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;line-height:20px;min-width:50px;padding-left:10px;padding-right:10px;text-align:right;user-select:none;vertical-align:top;white-space:nowrap;width:1%}.markdown-body .blob-num:hover{color:rgba(27,31,35,.6)}.markdown-body .blob-num:before{content:attr(data-line-number)}.markdown-body .blob-code{line-height:20px;padding-left:10px;padding-right:10px;position:relative;vertical-align:top}.markdown-body .blob-code-inner{color:#24292e;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;overflow:visible;white-space:pre;word-wrap:normal}.markdown-body .pl-token.active,.markdown-body .pl-token:hover{background:#ffea7f;cursor:pointer}.markdown-body kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1;color:#444d56;display:inline-block;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body :checked+.radio-label{border-color:#0366d6;position:relative;z-index:1}.markdown-body .tab-size[data-tab-size="1"]{-moz-tab-size:1;tab-size:1}.markdown-body .tab-size[data-tab-size="2"]{-moz-tab-size:2;tab-size:2}.markdown-body .tab-size[data-tab-size="3"]{-moz-tab-size:3;tab-size:3}.markdown-body .tab-size[data-tab-size="4"]{-moz-tab-size:4;tab-size:4}.markdown-body .tab-size[data-tab-size="5"]{-moz-tab-size:5;tab-size:5}.markdown-body .tab-size[data-tab-size="6"]{-moz-tab-size:6;tab-size:6}.markdown-body .tab-size[data-tab-size="7"]{-moz-tab-size:7;tab-size:7}.markdown-body .tab-size[data-tab-size="8"]{-moz-tab-size:8;tab-size:8}.markdown-body .tab-size[data-tab-size="9"]{-moz-tab-size:9;tab-size:9}.markdown-body .tab-size[data-tab-size="10"]{-moz-tab-size:10;tab-size:10}.markdown-body .tab-size[data-tab-size="11"]{-moz-tab-size:11;tab-size:11}.markdown-body .tab-size[data-tab-size="12"]{-moz-tab-size:12;tab-size:12}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown-body hr{border-bottom-color:#eee}.markdown-body .pl-0{padding-left:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .pl-7{padding-left:48px!important}.markdown-body .pl-8{padding-left:64px!important}.markdown-body .pl-9{padding-left:80px!important}.markdown-body .pl-10{padding-left:96px!important}.markdown-body .pl-11{padding-left:112px!important}.markdown-body .pl-12{padding-left:128px!important}
+/*# sourceMappingURL=github-markdown.min.css.map */
+          </style>
+          <script>
+              window.onload = function() {
+                hljs.initHighlighting()
+              }
+          </script>
+          </head>
+          <body>
+            <article class="markdown-body">
+                <h1 id="1、安装编译环境">1、安装编译环境</h1>
+<h1 id="2、编译scss文件">2、编译scss文件</h1>
+<h1 id="3、scss语法学习">3、scss语法学习</h1>
+<p>Sass 有两种语法格式。一种是 SCSS， 另一种是最早的sass语法。</p>
+<h2 id="31、嵌套规则">3.1、嵌套规则</h2>
+<pre><code>#main p {
+  color: #00ff00;
+  width: 97%;
+
+  .redbox {
+    background-color: #ff0000;
+    color: #000000;
+  }
+}</code></pre><p> 编译后：</p>
+<pre><code>#main p {
+  color: #00ff00;
+  width: 97%; }
+  #main p .redbox {
+    background-color: #ff0000;
+    color: #000000; }</code></pre><h2 id="32、父选择器">3.2、父选择器 <code>&amp;</code></h2>
+<pre><code>a {
+  font-weight: bold;
+  text-decoration: none;
+  &amp;:hover { text-decoration: underline; }
+  body.firefox &amp; { font-weight: normal; }
+}</code></pre><p>编译后：</p>
+<pre><code>a {
+  font-weight: bold;
+  text-decoration: none; }
+  a:hover {
+    text-decoration: underline; }
+  body.firefox a {
+    font-weight: normal; }</code></pre><p>注意： <code>&amp;</code> 必须作为选择器的第一个字符，其后可以跟随后缀生成复合的选择器（猜测在编译的过程中&amp;会作为变量和后面的字符串拼接）。</p>
+<pre><code>#main {
+  color: black;
+  &amp;-sidebar { border: 1px solid; }
+}  </code></pre><h2 id="33、属性嵌套">3.3、属性嵌套</h2>
+<pre><code>.funky {
+  font: {
+    family: fantasy;
+    size: 30em;
+    weight: bold;
+  }
+}</code></pre><p>编译后：</p>
+<pre><code>.funky {
+  font-family: fantasy;
+  font-size: 30em;
+  font-weight: bold; }</code></pre><p>命名空间也可以包含自己的属性值，例如：</p>
+<pre><code>.funky {
+  font: 20px/24px {
+    family: fantasy;
+    weight: bold;
+  }
+}</code></pre><p>编译后：</p>
+<pre><code>.funky {
+  font: 20px/24px;
+    font-family: fantasy;
+    font-weight: bold; }</code></pre><h2 id="34、占位符选择器-foo">3.4、占位符选择器 <code>%foo</code></h2>
+<h1 id="4、sassscript">4、SassScript</h1>
+<p>在 CSS 属性的基础上 Sass 提供了一些名为 SassScript 的新功能。 SassScript 可作用于任何属性，允许属性使用变量、算数运算等额外功能。</p>
+<h2 id="41、变量--variables-">4.1、变量 <code>$</code> (Variables: <code>$</code>)</h2>
+<p>变量以美元符号开头，赋值方法与 CSS 属性的写法一样：</p>
+<pre><code>$width: 5em; // 定义一个变量
+
+#main {
+  width: $width; // 使用变量
+}</code></pre><blockquote>
+<p>变量支持块级作用域，嵌套规则内定义的变量只能在嵌套规则内使用（<strong>局部变量</strong>），不在嵌套规则内定义的变量则可在任何地方使用（<strong>全局变量</strong>）。将局部变量转换为全局变量可以添加 <strong>!global</strong> 声明。</p>
+</blockquote>
+<pre><code>#main {
+  $width: 5em !global; // 虽然在局部定义的， 但是加上！global后就会变成全局变量
+  width: $width;
+}
+
+#sidebar {
+  width: $width;
+}</code></pre><p>编译后：</p>
+<pre><code>#main {
+  width: 5em;
+}
+
+#sidebar {
+  width: 5em;
+}</code></pre><h2 id="42、数据类型-data-types">4.2、数据类型 (Data Types)</h2>
+<p>sassScript支持以下的数据类型：</p>
+<ul>
+<li>数字，<code>1, 2, 13, 10px</code></li>
+<li>字符串，有引号字符串与无引号字符串，<code>&quot;foo&quot;, &#39;bar&#39;, baz</code></li>
+<li>颜色，<code>blue, #04a3f9, rgba(255,0,0,0.5)</code></li>
+<li>布尔型，<code>true, false</code></li>
+<li>空值，<code>null</code></li>
+<li>数组 (list)，用空格或逗号作分隔符，<code>1.5em 1em 0 2em, Helvetica, Arial, sans-serif</code></li>
+<li>maps, 相当于 JavaScript 的 object，<code>(key1: value1, key2: value2)</code></li>
+</ul>
+<h3 id="421、字符串-strings">4.2.1、字符串 (Strings)</h3>
+<p>SassScript 支持 CSS 的两种字符串类型：</p>
+<p>1、有引号字符串 (quoted strings)，如 <code>&quot;Lucida Grande&quot;</code> <code>&#39;http://sass-lang.com&#39;</code>；</p>
+<p>2、无引号字符串 (unquoted strings)，如 <code>sans-serif</code> <code>bold</code>，</p>
+<blockquote>
+<p>在编译 CSS 文件时不会改变其类型。只有一种情况例外，使用 <code>#{}</code> (interpolation) 时，有引号字符串将被编译为无引号字符串。</p>
+</blockquote>
+<pre><code>@mixin firefox-message($selector) {
+  // 如果选择器使用变量时需要使用#{}, 属性使用变量的用法不同。 
+  body.firefox #{$selector}:before {
+    content: &quot;Hi, Firefox users!&quot;;
+  }
+}
+@include firefox-message(&quot;.header&quot;);</code></pre><p>编译后：</p>
+<pre><code>body.firefox .header:before {
+  content: &quot;Hi, Firefox users!&quot;; }</code></pre><h3 id="422、数组-lists">4.2.2、数组 (Lists)</h3>
+<p>数组 (lists) 指 Sass 如何处理 CSS 中 <code>margin: 10px 15px 0 0</code> 或者 <code>font-face: Helvetica, Arial, sans-serif</code> 这样通过空格或者逗号分隔的一系列的值。</p>
+<h2 id="43、运算-operations">4.3、运算 (Operations)</h2>
+<h3 id="431、数字运算-number-operations">4.3.1、数字运算 (Number Operations)</h3>
+<pre><code>p {
+  width: 1in + 8pt;
+}</code></pre><p>编译后</p>
+<pre><code>p {
+  width: 1.111in; }</code></pre><blockquote>
+<p><code>/</code> 在 CSS 中通常起到分隔数字的用途，SassScript 作为 CSS 语言的拓展当然也支持这个功能，同时也赋予了 <code>/</code> 除法运算的功能。也就是说，如果 <code>/</code> 在 SassScript 中把两个数字分隔，编译后的 CSS 文件中也是同样的作用。</p>
+</blockquote>
+<p>以下三种情况 <code>/</code> 将被视为除法运算符号：</p>
+<ul>
+<li>如果值，或值的一部分，是变量或者函数的返回值</li>
+<li>如果值被圆括号包裹</li>
+<li>如果值是算数表达式的一部分</li>
+</ul>
+<pre><code>p {
+  font: 10px/8px;             // Plain CSS, no division
+  $width: 1000px;
+  width: $width/2;            // Uses a variable, does division
+  width: round(1.5)/2;        // Uses a function, does division
+  height: (500px/2);          // Uses parentheses, does division
+  margin-left: 5px + 8px/2px; // Uses +, does division
+}</code></pre><p>编译后：</p>
+<pre><code>p {
+  font: 10px/8px;
+  width: 500px;
+  height: 250px;
+  margin-left: 9px; }</code></pre><blockquote>
+<p>如果需要使用变量，同时又要确保 <code>/</code> 不做除法运算而是完整地编译到 CSS 文件中，只需要用 <strong><code>#{}</code> 插值语句</strong>将变量包裹。</p>
+</blockquote>
+<pre><code>p {
+  $font-size: 12px;
+  $line-height: 30px;
+  font: #{$font-size}/#{$line-height};
+}</code></pre><p>编译后</p>
+<pre><code>p {
+  font: 12px/30px; } </code></pre><h3 id="432、颜色值运算-color-operations">4.3.2、颜色值运算 (Color Operations)</h3>
+<blockquote>
+<p>颜色值的运算是分段计算进行的，也就是分别计算红色，绿色，以及蓝色的值。</p>
+</blockquote>
+<pre><code>p {
+  color: #010203 + #040506;
+}</code></pre><p>编译后：</p>
+<pre><code>p {
+  color: #050709; } // 计算 01 + 04 = 05 02 + 05 = 07 03 + 06 = 09</code></pre><h3 id="433、字符串运算-string-operations">4.3.3、字符串运算 (String Operations)</h3>
+<pre><code>p {
+  cursor: e + -resize;
+}</code></pre><p>编译后：</p>
+<pre><code>p {
+  cursor: e-resize; }</code></pre><h2 id="44、函数-functions">4.4、函数 (Functions)</h2>
+<p>SassScript 定义了多种函数，有些甚至可以通过普通的 CSS 语句调用：</p>
+<pre><code>p {
+  color: hsl(0, 100%, 50%);
+}
+
+// 编译后
+p {
+  color: #ff0000; }</code></pre><blockquote>
+<p>关键词参数 (Keyword Arguments)</p>
+</blockquote>
+<p>关键词参数给函数提供了更灵活的接口，以及容易调用的参数。关键词参数可以打乱顺序使用，如果使用默认值也可以省缺，另外，参数名被视为变量名，下划线、短横线可以互换使用。</p>
+<pre><code>p {
+  color: hsl($hue: 0, $saturation: 100%, $lightness: 50%);
+}</code></pre><h2 id="45、插值语句--interpolation-">4.5、插值语句 <code>#{}</code> (Interpolation: <code>#{}</code>)</h2>
+<blockquote>
+<p>通过 <code>#{}</code> 插值语句可以在<strong>选择器</strong>或<strong>属性名</strong>中使用变量</p>
+</blockquote>
+<pre><code class="language-scss">$name: foo;
+$attr: border;
+p.#{$name} {
+  #{$attr}-color: blue;
+}
+
+// 编译后
+p.foo {
+  border-color: blue; }</code></pre>
+<h2 id="46、变量定义-default-variable-defaults-default">4.6、变量定义 <code>!default</code> (Variable Defaults: <code>!default</code>)</h2>
+<p>可以在变量的结尾添加 <code>!default</code> 给一个未通过 <code>!default</code> 声明赋值的变量赋值，此时，如果变量已经被赋值，不会再被重新赋值，但是如果变量还没有被赋值，则会被赋予新的值。</p>
+<pre><code class="language-scss">例1：
+$content: &quot;First content&quot;;
+$content: &quot;Second content?&quot; !default; // 在上面$content已经被赋值了所以不会再赋值
+$new_content: &quot;First time reference&quot; !default;
+
+#main {
+  content: $content;
+  new-content: $new_content;
+}
+
+// 编译后
+#main {
+  content: &quot;First content&quot;;
+  new-content: &quot;First time reference&quot;; }
+
+例2：
+$content: null;
+$content: &quot;Non-null content&quot; !default;// 在上面并没有赋值所以会使用这里的值
+
+#main {
+  content: $content;
+}
+
+// 编译后
+#main {
+  content: &quot;Non-null content&quot;; }</code></pre>
+<h1 id="5、-rules-与指令--rules-and-directives">5、@-Rules 与指令 (@-Rules and Directives)</h1>
+<p>Sass 支持所有的 CSS3 @-Rules，以及 Sass 特有的 “指令”（directives）。</p>
+<h2 id="51、import">5.1、@import</h2>
+<p>Sass 拓展了 <code>@import</code> 的功能，允许其导入 SCSS 或 Sass 文件。被导入的文件将合并编译到同一个 CSS 文件中，另外，被导入的文件中所包含的变量或者混合指令 (mixin) 都可以在导入的文件中使用。</p>
+<pre><code class="language-scss">@import &quot;foo.scss&quot;;</code></pre>
+<h3 id="511、分音-partials">5.1.1、分音 (Partials)</h3>
+<p>如果需要导入 SCSS 或者 Sass 文件，但又不希望将其编译为 CSS，只需要在文件名前添加下划线，这样会告诉 Sass 不要编译这些文件，但导入语句中却不需要添加下划线。</p>
+<p>例如，将文件命名为 <code>_colors.scss</code>，便不会编译 <code>_colours.css</code> 文件。</p>
+<pre><code class="language-scss">@import &quot;colors&quot;;</code></pre>
+<p>上面的例子，导入的其实是 <code>_colors.scss</code> 文件</p>
+<p>注意，不可以同时存在添加下划线与未添加下划线的同名文件，添加下划线的文件将会被忽略。</p>
+<h3 id="512、嵌套-import">5.1.2、嵌套 @import</h3>
+<blockquote>
+<p>可以将 <code>@import</code> 嵌套进 CSS 样式或者 <code>@media</code> 中，与平时的用法效果相同，只是这样导入的样式只能出现在嵌套的层中。</p>
+</blockquote>
+<p>假设 example.scss 文件包含以下样式：</p>
+<pre><code class="language-scss">.example {
+  color: red;
+}</code></pre>
+<p>然后导入到 <code>#main</code> 样式内</p>
+<pre><code class="language-scss">#main {
+  @import &quot;example&quot;;
+}</code></pre>
+<p>将会被编译为</p>
+<pre><code class="language-css">#main .example {
+  color: red;
+}</code></pre>
+<h3 id="513、media">5.1.3、@media</h3>
+<blockquote>
+<p>如果 <code>@media</code> 嵌套在 CSS 规则内，编译时，<code>@media</code> 将被编译到文件的最外层，包含嵌套的父选择器。这个功能让 <code>@media</code> 用起来更方便，不需要重复使用选择器，也不会打乱 CSS 的书写流程。</p>
+</blockquote>
+<pre><code class="language-scss">.sidebar {
+  width: 300px;
+  @media screen and (orientation: landscape) {
+    width: 500px;
+  }
+}</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">.sidebar {
+  width: 300px; }
+  @media screen and (orientation: landscape) {
+    .sidebar {
+      width: 500px; } }</code></pre>
+<blockquote>
+<p>@media<code>的 queries 允许互相嵌套使用，编译时，Sass 自动添加</code>and</p>
+</blockquote>
+<pre><code>@media screen {
+  .sidebar {
+    @media (orientation: landscape) {
+      width: 500px;
+    }
+  }
+}</code></pre><p>编译为</p>
+<pre><code class="language-css">@media screen and (orientation: landscape) {
+  .sidebar {
+    width: 500px; } }</code></pre>
+<blockquote>
+<p><code>@media</code> 甚至可以使用 SassScript（比如变量，函数，以及运算符）代替条件的名称或者值：</p>
+</blockquote>
+<pre><code class="language-scss">$media: screen;
+$feature: -webkit-min-device-pixel-ratio;
+$value: 1.5;
+
+@media #{$media} and ($feature: $value) {
+  .sidebar {
+    width: 500px;
+  }
+}</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">@media screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  .sidebar {
+    width: 500px; } }</code></pre>
+<h3 id="514、extend">5.1.4、@extend</h3>
+<h3 id="515、extend-only-选择器-extend-only-selectors">5.1.5、@extend-Only 选择器 (@extend-Only Selectors)</h3>
+<pre><code class="language-scss">// This ruleset won&#39;t be rendered on its own.
+#context a%extreme {
+  color: blue;
+  font-weight: bold;
+  font-size: 2em;
+}</code></pre>
+<p>占位符选择器需要通过延伸指令使用，用法与 class 或者 id 选择器一样，被延伸后，占位符选择器本身不会被编译。</p>
+<pre><code class="language-scss">.notice {
+  @extend %extreme;
+}</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">// 将%extreme替换成.notice
+#context a.notice {
+  color: blue;
+  font-weight: bold;
+  font-size: 2em; }</code></pre>
+<h3 id="515、debug">5.1.5、@debug</h3>
+<p>代码调试</p>
+<pre><code class="language-scss">@debug 10em + 12em;</code></pre>
+<p>编译为</p>
+<pre><code>Line 1 DEBUG: 22em</code></pre><h3 id="516、warn">5.1.6、@warn</h3>
+<pre><code class="language-scss">@mixin adjust-location($x, $y) {
+  @if unitless($x) {
+    @warn &quot;Assuming #{$x} to be in pixels&quot;;
+    $x: 1px * $x;
+  }
+  @if unitless($y) {
+    @warn &quot;Assuming #{$y} to be in pixels&quot;;
+    $y: 1px * $y;
+  }
+  position: relative; left: $x; top: $y;
+}</code></pre>
+<h3 id="517、error">5.1.7、@error</h3>
+<pre><code class="language-scss">@mixin adjust-location($x, $y) {
+  @if unitless($x) {
+    @error &quot;$x may not be unitless, was #{$x}.&quot;;
+  }
+  @if unitless($y) {
+    @error &quot;$y may not be unitless, was #{$y}.&quot;;
+  }
+  position: relative; left: $x; top: $y;
+}</code></pre>
+<h1 id="6、控制指令">6、控制指令</h1>
+<h2 id="61、-if">6.1、 if()</h2>
+<p>？？？</p>
+<h2 id="62、-if">6.2、 @if</h2>
+<blockquote>
+<p>当 <code>@if</code> 的表达式返回值不是 <code>false</code> 或者 <code>null</code> 时，条件成立，输出 <code>{}</code> 内的代码：</p>
+</blockquote>
+<pre><code class="language-scss">p {
+  @if 1 + 1 == 2 { border: 1px solid; }
+  @if 5 &lt; 3 { border: 2px dotted; }
+  @if null  { border: 3px double; }
+}</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">p {
+  border: 1px solid; }</code></pre>
+<p><code>@if</code> 声明后面可以跟多个 <code>@else if</code> 声明，或者一个 <code>@else</code> 声明。如果 <code>@if</code> 声明失败，Sass 将逐条执行 <code>@else if</code> 声明，如果全部失败，最后执行 <code>@else</code> 声明，例如：</p>
+<pre><code class="language-scss">$type: monster;
+p {
+  @if $type == ocean {
+    color: blue;
+  } @else if $type == matador {
+    color: red;
+  } @else if $type == monster {
+    color: green;
+  } @else {
+    color: black;
+  }
+}</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">p {
+  color: green; }</code></pre>
+<h2 id="63、for">6.3、@for</h2>
+<p><code>@for</code> 指令可以在限制的范围内重复输出格式，每次按要求（变量的值）对输出结果做出变动。这个指令包含两种格式：<code>@for $var from &lt;start&gt; through &lt;end&gt;</code>，或者 <code>@for $var from &lt;start&gt; to &lt;end&gt;</code>，区别在于 <code>through</code> 与 <code>to</code> 的含义：<em>当使用 through 时，条件范围包含 <start> 与 <end> 的值，而使用 to 时条件范围只包含 <start> 的值不包含 <end> 的值</em>。另外，<code>$var</code> 可以是任何变量，比如 <code>$i</code>；<code>&lt;start&gt;</code> 和 <code>&lt;end&gt;</code> 必须是整数值。</p>
+<pre><code class="language-scss">@for $i from 1 through 3 {
+  .item-#{$i} { width: 2em * $i; }
+}</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">.item-1 {
+  width: 2em; }
+.item-2 {
+  width: 4em; }
+.item-3 {
+  width: 6em; }</code></pre>
+<h2 id="64、each">6.4、@each</h2>
+<p><code>@each</code> 指令的格式是 <code>$var in &lt;list&gt;</code>, <code>$var</code> 可以是任何变量名，比如 <code>$length</code> 或者 <code>$name</code>，而 <code>&lt;list&gt;</code> 是一连串的值，也就是值列表。</p>
+<p><code>@each</code> 将变量 <code>$var</code> 作用于值列表中的每一个项目，然后输出结果，例如：</p>
+<pre><code class="language-scss">@each $animal in puma, sea-slug, egret, salamander {
+  .#{$animal}-icon {
+    background-image: url(&#39;/images/#{$animal}.png&#39;);
+  }
+}</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">.puma-icon {
+  background-image: url(&#39;/images/puma.png&#39;); }
+.sea-slug-icon {
+  background-image: url(&#39;/images/sea-slug.png&#39;); }
+.egret-icon {
+  background-image: url(&#39;/images/egret.png&#39;); }
+.salamander-icon {
+  background-image: url(&#39;/images/salamander.png&#39;); }</code></pre>
+<h2 id="65、while">6.5、@while</h2>
+<p><code>@while</code> 指令重复输出格式直到表达式返回结果为 <code>false</code>。这样可以实现比 <code>@for</code> 更复杂的循环，只是很少会用到。例如：</p>
+<pre><code class="language-scss">$i: 6;
+@while $i &gt; 0 {
+  .item-#{$i} { width: 2em * $i; }
+  $i: $i - 2;
+}
+.item-6 {
+  width: 12em; }
+
+.item-4 {
+  width: 8em; }
+
+.item-2 {
+  width: 4em; }</code></pre>
+<h1 id="7、-混合指令-mixin-directives">7、 混合指令 (Mixin Directives)</h1>
+<p>混合指令（Mixin）用于定义可重复使用的样式。</p>
+<pre><code class="language-scss">@mixin large-text {
+  font: {
+    family: Arial;
+    size: 20px;
+    weight: bold;
+  }
+  color: #ff0000;
+}</code></pre>
+<pre><code class="language-scss">.page-title {
+  @include large-text;
+  padding: 4px;
+  margin-top: 10px;
+}</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">.page-title {
+  font-family: Arial;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff0000;
+  padding: 4px;
+  margin-top: 10px; }</code></pre>
+<p>混合样式中也可以包含其他混合样式，比如</p>
+<pre><code class="language-scss">@mixin compound {
+  @include highlighted-background;
+  @include header-text;
+}
+@mixin highlighted-background { background-color: #fc0; }
+@mixin header-text { font-size: 20px; }</code></pre>
+<blockquote>
+<p>参数 (Arguments)</p>
+</blockquote>
+<pre><code class="language-scss">@mixin sexy-border($color, $width) {
+  border: {
+    color: $color;
+    width: $width;
+    style: dashed;
+  }
+}
+p { @include sexy-border(blue, 1in); }</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">p {
+  border-color: blue;
+  border-width: 1in;
+  border-style: dashed; }</code></pre>
+<blockquote>
+<p>参数的默认值</p>
+</blockquote>
+<pre><code class="language-scss">@mixin sexy-border($color, $width: 1in) {
+  border: {
+    color: $color;
+    width: $width;
+    style: dashed;
+  }
+}
+p { @include sexy-border(blue); }
+h1 { @include sexy-border(blue, 2in); }</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">p {
+  border-color: blue;
+  border-width: 1in;
+  border-style: dashed; }
+
+h1 {
+  border-color: blue;
+  border-width: 2in;
+  border-style: dashed; }</code></pre>
+<blockquote>
+<p>关键词参数 (Keyword Arguments)</p>
+</blockquote>
+<p>混合指令也可以使用关键词参数，上面的例子也可以写成：</p>
+<pre><code class="language-scss">p { @include sexy-border($color: blue); }
+h1 { @include sexy-border($color: blue, $width: 2in); }</code></pre>
+<blockquote>
+<p>参数变量 (Variable Arguments)</p>
+</blockquote>
+<p>有时，不能确定混合指令需要使用多少个参数，比如一个关于 <code>box-shadow</code> 的混合指令不能确定有多少个 &#39;shadow&#39; 会被用到。这时，可以使用参数变量 <code>…</code> 声明（写在参数的最后方）告诉 Sass 将这些参数视为值列表处理：</p>
+<pre><code class="language-scss">@mixin box-shadow($shadows...) {
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+  box-shadow: $shadows;
+}
+.shadows {
+  @include box-shadow(0px 4px 5px #666, 2px 6px 10px #999);
+}</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">.shadowed {
+  -moz-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+  -webkit-box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+  box-shadow: 0px 4px 5px #666, 2px 6px 10px #999;
+}</code></pre>
+<blockquote>
+<p>向混合样式中导入内容 (Passing Content Blocks to a Mixin)， 有点像slot ^_^</p>
+</blockquote>
+<pre><code class="language-scss">@mixin apply-to-ie6-only {
+  * html {
+    @content;
+  }
+}
+@include apply-to-ie6-only {
+  #logo {
+    background-image: url(/logo.gif);
+  }
+}</code></pre>
+<p><strong>为便于书写，@mixin 可以用 = 表示，而 @include 可以用 + 表示</strong>，所以上面的例子可以写成：</p>
+<pre><code class="language-sass">=apply-to-ie6-only
+  * html
+    @content
+
++apply-to-ie6-only
+  #logo
+    background-image: url(/logo.gif)</code></pre>
+<p><strong>注意：</strong> 当 <code>@content</code> 在指令中出现过多次或者出现在循环中时，额外的代码将被导入到每一个地方。</p>
+<h1 id="8、函数指令">8、函数指令</h1>
+<pre><code class="language-scss">$grid-width: 40px;
+$gutter-width: 10px;
+
+@function grid-width($n) {
+  @return $n * $grid-width + ($n - 1) * $gutter-width;
+}
+
+#sidebar { width: grid-width(5); }</code></pre>
+<p>编译为</p>
+<pre><code class="language-css">#sidebar {
+  width: 240px; }</code></pre>
+<h1 id="9、输出格式-output-style">9、输出格式 (Output Style)</h1>
+<p>Sass 提供了四种编译后代码输出格式，可以通过 <code>:style option</code> 选项设定，或者在命令行中使用 <code>--style</code> 选项。</p>
+
+            </article> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
+          </body>
+      </html>

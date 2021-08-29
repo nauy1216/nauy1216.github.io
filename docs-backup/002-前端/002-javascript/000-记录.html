@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+      <html>
+          <head>
+          <meta charset="utf-8" >
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>000-记录.md</title>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
+          <style>
+              .markdown-body {
+                  box-sizing: border-box;
+                  min-width: 200px;
+                  max-width: 980px;
+                  margin: 0 auto;
+                  padding: 45px;
+              }
+              .markdown-body img {
+                  box-sizing: border-box !important;
+                  margin:10px 0 10px 2%;
+                  padding: 20px;
+                  width: 96%;
+                  border-radius: 4px;
+                  box-shadow: 0 0 6px 0px #999;
+              }
+              @media (max-width: 767px) {
+                  .markdown-body {
+                      padding: 15px;
+                  }
+              }
+              .markdown-body > iframe {
+                width: 100%;
+                height: 100vh;
+                border: none;
+              }
+              @font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,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) format('woff')}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown-body .anchor:focus{outline:0}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body .pl-c{color:#6a737d}.markdown-body .pl-c1,.markdown-body .pl-s .pl-v{color:#005cc5}.markdown-body .pl-e,.markdown-body .pl-en{color:#6f42c1}.markdown-body .pl-s .pl-s1,.markdown-body .pl-smi{color:#24292e}.markdown-body .pl-ent{color:#22863a}.markdown-body .pl-k{color:#d73a49}.markdown-body .pl-pds,.markdown-body .pl-s,.markdown-body .pl-s .pl-pse .pl-s1,.markdown-body .pl-sr,.markdown-body .pl-sr .pl-cce,.markdown-body .pl-sr .pl-sra,.markdown-body .pl-sr .pl-sre{color:#032f62}.markdown-body .pl-smw,.markdown-body .pl-v{color:#e36209}.markdown-body .pl-bu{color:#b31d28}.markdown-body .pl-ii{background-color:#b31d28;color:#fafbfc}.markdown-body .pl-c2{background-color:#d73a49;color:#fafbfc}.markdown-body .pl-c2:before{content:"^M"}.markdown-body .pl-sr .pl-cce{color:#22863a;font-weight:700}.markdown-body .pl-ml{color:#735c0f}.markdown-body .pl-mh,.markdown-body .pl-mh .pl-en,.markdown-body .pl-ms{color:#005cc5;font-weight:700}.markdown-body .pl-mi{color:#24292e;font-style:italic}.markdown-body .pl-mb{color:#24292e;font-weight:700}.markdown-body .pl-md{background-color:#ffeef0;color:#b31d28}.markdown-body .pl-mi1{background-color:#f0fff4;color:#22863a}.markdown-body .pl-mc{background-color:#ffebda;color:#e36209}.markdown-body .pl-mi2{background-color:#005cc5;color:#f6f8fa}.markdown-body .pl-mdr{color:#6f42c1;font-weight:700}.markdown-body .pl-ba{color:#586069}.markdown-body .pl-sg{color:#959da5}.markdown-body .pl-corl{color:#032f62;text-decoration:underline}.markdown-body details{display:block}.markdown-body summary{display:list-item}.markdown-body a{background-color:transparent}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body strong{font-weight:inherit;font-weight:bolder}.markdown-body h1{font-size:2em;margin:.67em 0}.markdown-body img{border-style:none}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace;font-size:1em}.markdown-body hr{box-sizing:content-box;height:0;overflow:visible}.markdown-body input{font:inherit;margin:0}.markdown-body input{overflow:visible}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body a{color:#0366d6;text-decoration:none}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{background:0 0;border:0;border-bottom:1px solid #dfe2e5;height:0;margin:15px 0;overflow:hidden}.markdown-body hr:before{content:"";display:table}.markdown-body hr:after{clear:both;content:"";display:table}.markdown-body table{border-collapse:collapse;border-spacing:0}.markdown-body td,.markdown-body th{padding:0}.markdown-body details summary{cursor:pointer}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-bottom:0;margin-top:0}.markdown-body h1{font-size:32px}.markdown-body h1,.markdown-body h2{font-weight:600}.markdown-body h2{font-size:24px}.markdown-body h3{font-size:20px}.markdown-body h3,.markdown-body h4{font-weight:600}.markdown-body h4{font-size:16px}.markdown-body h5{font-size:14px}.markdown-body h5,.markdown-body h6{font-weight:600}.markdown-body h6{font-size:12px}.markdown-body p{margin-bottom:10px;margin-top:0}.markdown-body blockquote{margin:0}.markdown-body ol,.markdown-body ul{margin-bottom:0;margin-top:0;padding-left:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code,.markdown-body pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px}.markdown-body pre{margin-bottom:0;margin-top:0}.markdown-body input::-webkit-inner-spin-button,.markdown-body input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}.markdown-body .border{border:1px solid #e1e4e8!important}.markdown-body .border-0{border:0!important}.markdown-body .border-bottom{border-bottom:1px solid #e1e4e8!important}.markdown-body .rounded-1{border-radius:3px!important}.markdown-body .bg-white{background-color:#fff!important}.markdown-body .bg-gray-light{background-color:#fafbfc!important}.markdown-body .text-gray-light{color:#6a737d!important}.markdown-body .mb-0{margin-bottom:0!important}.markdown-body .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown-body .pl-0{padding-left:0!important}.markdown-body .py-0{padding-bottom:0!important;padding-top:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .py-2{padding-bottom:8px!important;padding-top:8px!important}.markdown-body .pl-3,.markdown-body .px-3{padding-left:16px!important}.markdown-body .px-3{padding-right:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .f6{font-size:12px!important}.markdown-body .lh-condensed{line-height:1.25!important}.markdown-body .text-bold{font-weight:600!important}.markdown-body:before{content:"";display:table}.markdown-body:after{clear:both;content:"";display:table}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-bottom:16px;margin-top:0}.markdown-body hr{background-color:#e1e4e8;border:0;height:.25em;margin:24px 0;padding:0}.markdown-body blockquote{border-left:.25em solid #dfe2e5;color:#6a737d;padding:0 1em}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd{background-color:#fafbfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5;color:#444d56;display:inline-block;font-size:11px;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{font-weight:600;line-height:1.25;margin-bottom:16px;margin-top:24px}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{border-bottom:1px solid #eaecef;padding-bottom:.3em}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{color:#6a737d;font-size:.85em}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-bottom:0;margin-top:0}.markdown-body li{word-wrap:break-all}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{font-size:1em;font-style:italic;font-weight:600;margin-top:16px;padding:0}.markdown-body dl dd{margin-bottom:16px;padding:0 16px}.markdown-body table{display:block;overflow:auto;width:100%}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{border:1px solid #dfe2e5;padding:6px 13px}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{background-color:#fff;box-sizing:content-box;max-width:100%}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body code{background-color:rgba(27,31,35,.05);border-radius:3px;font-size:85%;margin:0;padding:.2em .4em}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{background:0 0;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{background-color:#f6f8fa;border-radius:3px;font-size:85%;line-height:1.45;overflow:auto;padding:16px}.markdown-body pre code{background-color:transparent;border:0;display:inline;line-height:inherit;margin:0;max-width:auto;overflow:visible;padding:0;word-wrap:normal}.markdown-body .commit-tease-sha{color:#444d56;display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:90%}.markdown-body .blob-wrapper{border-bottom-left-radius:3px;border-bottom-right-radius:3px;overflow-x:auto;overflow-y:hidden}.markdown-body .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown-body .blob-num{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;color:rgba(27,31,35,.3);cursor:pointer;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;line-height:20px;min-width:50px;padding-left:10px;padding-right:10px;text-align:right;user-select:none;vertical-align:top;white-space:nowrap;width:1%}.markdown-body .blob-num:hover{color:rgba(27,31,35,.6)}.markdown-body .blob-num:before{content:attr(data-line-number)}.markdown-body .blob-code{line-height:20px;padding-left:10px;padding-right:10px;position:relative;vertical-align:top}.markdown-body .blob-code-inner{color:#24292e;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;overflow:visible;white-space:pre;word-wrap:normal}.markdown-body .pl-token.active,.markdown-body .pl-token:hover{background:#ffea7f;cursor:pointer}.markdown-body kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1;color:#444d56;display:inline-block;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body :checked+.radio-label{border-color:#0366d6;position:relative;z-index:1}.markdown-body .tab-size[data-tab-size="1"]{-moz-tab-size:1;tab-size:1}.markdown-body .tab-size[data-tab-size="2"]{-moz-tab-size:2;tab-size:2}.markdown-body .tab-size[data-tab-size="3"]{-moz-tab-size:3;tab-size:3}.markdown-body .tab-size[data-tab-size="4"]{-moz-tab-size:4;tab-size:4}.markdown-body .tab-size[data-tab-size="5"]{-moz-tab-size:5;tab-size:5}.markdown-body .tab-size[data-tab-size="6"]{-moz-tab-size:6;tab-size:6}.markdown-body .tab-size[data-tab-size="7"]{-moz-tab-size:7;tab-size:7}.markdown-body .tab-size[data-tab-size="8"]{-moz-tab-size:8;tab-size:8}.markdown-body .tab-size[data-tab-size="9"]{-moz-tab-size:9;tab-size:9}.markdown-body .tab-size[data-tab-size="10"]{-moz-tab-size:10;tab-size:10}.markdown-body .tab-size[data-tab-size="11"]{-moz-tab-size:11;tab-size:11}.markdown-body .tab-size[data-tab-size="12"]{-moz-tab-size:12;tab-size:12}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown-body hr{border-bottom-color:#eee}.markdown-body .pl-0{padding-left:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .pl-7{padding-left:48px!important}.markdown-body .pl-8{padding-left:64px!important}.markdown-body .pl-9{padding-left:80px!important}.markdown-body .pl-10{padding-left:96px!important}.markdown-body .pl-11{padding-left:112px!important}.markdown-body .pl-12{padding-left:128px!important}
+/*# sourceMappingURL=github-markdown.min.css.map */
+          </style>
+          <script>
+              window.onload = function() {
+                hljs.initHighlighting()
+              }
+          </script>
+          </head>
+          <body>
+            <article class="markdown-body">
+                <h1 id="1、最新的-ecmascript-标准定义了-9-种数据类型">1、最新的 ECMAScript 标准定义了 9 种数据类型:</h1>
+<h1 id="2、typeof">2、typeof</h1>
+<h1 id="3、显示类型转换">3、显示类型转换</h1>
+<h1 id="4、隐式类型转换">4、隐式类型转换</h1>
+<h1 id="5、作用域">5、作用域</h1>
+<h2 id="静态作用域与动态作用域">静态作用域与动态作用域</h2>
+<h1 id="6、作用域链">6、作用域链</h1>
+<h1 id="7、let-和-const-的块级作用域">7、let 和 const 的块级作用域</h1>
+<h3 id="var-与-const、let-的区别？">var 与 const、let 的区别？</h3>
+<h1 id="8、javascript-之执行上下文栈">8、JavaScript 之执行上下文栈</h1>
+<h1 id="9、变量对象了解">9、变量对象(了解)</h1>
+<h1 id="10、闭包">10、闭包</h1>
+<h1 id="11、this-指向">11、this 指向</h1>
+<h1 id="12、原型和原型链">12、原型和原型链</h1>
+<h1 id="13、-bind">13、 bind</h1>
+<pre><code class="language-js">function bind(fn, thisObj) {
+    return function () {
+        thisObj.__fn__ = fn
+        thisObj.__fn__()
+        thisObj.__fn__ = void 0
+    }
+}
+
+var bfn = bind(
+    function () {
+        console.log(this.a)
+    },
+    { a: 1 }
+)
+bfn() // 1</code></pre>
+<blockquote>
+<p>思考</p>
+</blockquote>
+<ul>
+<li>如果 this 要绑定 null 呢？</li>
+</ul>
+<h1 id="14、call">14、call</h1>
+<pre><code class="language-js">function call(fn, thisObj) {
+    thisObj.__fn__ = fn
+    thisObj.__fn__()
+    thisObj.__fn__ = void 0
+}
+
+call(
+    function () {
+        console.log(this.a)
+    },
+    { a: 1 }
+) // 1</code></pre>
+<h1 id="15、手写-promise">15、手写 Promise</h1>
+<h1 id="16、setimmediate、settimeout-的区别？">16、setImmediate、setTimeout 的区别？</h1>
+<h1 id="17、防抖、节流">17、防抖、节流</h1>
+<h1 id="18、介绍下深度优先遍历和广度优先遍历，如何实现？">18、介绍下深度优先遍历和广度优先遍历，如何实现？</h1>
+<pre><code class="language-js">let tree = {
+    value: 1,
+    children: [
+        {
+            value: 2,
+            children: [
+                {
+                    value: 6,
+                },
+            ],
+        },
+        {
+            value: 3,
+            children: [
+                {
+                    value: 7,
+                },
+            ],
+        },
+        {
+            value: 4,
+            children: [
+                {
+                    value: 8,
+                },
+            ],
+        },
+        {
+            value: 5,
+        },
+    ],
+}
+
+// 深度优先
+function visitTree(tree) {
+    if (!tree) return
+    console.log(tree.value)
+    if (tree.children) {
+        for (let i = 0; i &lt; tree.children.length; i++) {
+            visitTree(tree.children[i])
+        }
+    }
+}
+
+// 广度优先
+function visitTree1(tree) {
+    if (!tree) return
+    console.log(tree.value)
+    const queue = [tree]
+    let i
+    while ((i = queue.shift())) {
+        console.log(i.value)
+        if (i.children) {
+            i.children.forEach(item =&gt; {
+                queue.push(item)
+            })
+        }
+    }
+}</code></pre>
+<h1 id="19、es5es6-的继承除了写法以外还有什么区别？">19、ES5/ES6 的继承除了写法以外还有什么区别？</h1>
+<blockquote>
+<p>题目： <a href="https://github.com/yygmind/blog/issues/43">https://github.com/yygmind/blog/issues/43</a></p>
+</blockquote>
+<h1 id="20、执行顺序">20、执行顺序</h1>
+<pre><code class="language-js">async function async1() {
+    console.log(&#39;async1 start&#39;)
+    await async2()
+    console.log(&#39;async1 end&#39;)
+}
+async function async2() {
+    console.log(&#39;async2&#39;)
+}
+console.log(&#39;script start&#39;)
+setTimeout(function () {
+    console.log(&#39;setTimeout&#39;)
+}, 0)
+async1()
+new Promise(function (resolve) {
+    console.log(&#39;promise1&#39;)
+    resolve()
+}).then(function () {
+    console.log(&#39;promise2&#39;)
+})
+console.log(&#39;script end&#39;)
+
+// script start
+// async1 start
+// async2
+// promise1
+// script end
+// async1 end
+// promise2
+// setTimeout</code></pre>
+<h1 id="21、js-异步解决方案的发展历程以及优缺点。">21、JS 异步解决方案的发展历程以及优缺点。</h1>
+<h1 id="22、通信">22、通信</h1>
+<ol>
+<li>同源</li>
+<li>同源策略限制</li>
+<li>为什么 form 提交不会有跨域行为而 ajax 有？</li>
+<li>简单请求跨域和复杂请求跨域</li>
+<li>跨域通信</li>
+</ol>
+<h1 id="23、跨窗口通信">23、跨窗口通信</h1>
+<h1 id="24、输入-url-到页面渲染的过程">24、输入 URL 到页面渲染的过程</h1>
+<h1 id="25、tcp-三次握手，-四次挥手">25、TCP 三次握手， 四次挥手</h1>
+<h3 id="26、三次握手">26、三次握手</h3>
+<ul>
+<li>目的：防止 server 端一直等待，浪费资源。</li>
+</ul>
+<h1 id="27、-重定向-301-和-302">27、 重定向 301 和 302</h1>
+<h1 id="28、缓存304">28、缓存304</h1>
+<ol>
+<li>请求时浏览器缓存 from memory cache 和 from disk cache 的依据是什么，哪些数据什么时候存放在 Memory Cache 和 Disk Cache中？</li>
+</ol>
+<h1 id="29、负载均衡">29、负载均衡</h1>
+<h1 id="30、nginx-反向代理">30、nginx 反向代理</h1>
+<h1 id="31、csrf">31、csrf</h1>
+<h1 id="32、xss">32、xss</h1>
+<h1 id="33、cookie-和-token-都存放在-header-中，为什么不会劫持-token？">33、cookie 和 token 都存放在 header 中，为什么不会劫持 token？</h1>
+<h1 id="34、数组flatten">34、数组flatten</h1>
+<h1 id="35、实现一个-sleep-函数">35、实现一个 sleep 函数</h1>
+<pre><code class="language-js">function sleep(time) {
+  return new Promise((resolve) =&gt; {
+    setTimeout(resolve, time)
+  })
+}
+
+async function test() {
+  console.log(0)
+  await sleep(1000)
+  console.log(1)
+}
+
+test()</code></pre>
+<h1 id="36、为什么通常在发送数据埋点请求的时候使用的是-1x1-像素的透明-gif-图片？">36、为什么通常在发送数据埋点请求的时候使用的是 1x1 像素的透明 gif 图片？</h1>
+<p>英文术语叫：image beacon。
+一般做法是服务器用一个1x1的gif图片来作为响应，当然这有点浪费服务器资源。因此用header来响应比较合适，目前比较合适的做法是服务器发送&quot;204 No Content&quot;，即“服务器成功处理了请求，但不需要返回任何实体内容”。另外该脚本的位置一般放在页面最后以免阻塞页面渲染,并且一般情况下也不需要append到DOM中。通过它的onerror和onload事件来检测发送状态。</p>
+<h3 id="特点">特点</h3>
+<ul>
+<li>能够完成整个 HTTP 请求+响应（尽管不需要响应内容）</li>
+<li>触发 GET 请求之后不需要获取和处理数据、服务器也不需要发送数据</li>
+<li>跨域友好</li>
+<li>执行过程无阻塞</li>
+<li>相比 XMLHttpRequest 对象发送 GET 请求，性能上更好</li>
+<li>GIF的最低合法体积最小（最小的BMP文件需要74个字节，PNG需要67个字节，而合法的GIF，只需要43个字节）</li>
+<li>使用的时候注意图片会有缓存。</li>
+</ul>
+<h1 id="37、实现-5add3minus2-功能">37、实现 (5).add(3).minus(2) 功能</h1>
+<pre><code class="language-js">Number.prototype.add = function add(number) {
+  return this.valueOf() + number
+}
+Number.prototype.minus = function minus(number) {
+  return this.valueOf() - number
+}
+
+console.log((5).add(4).minus(1)) // 8</code></pre>
+<h1 id="38、vue-的响应式原理中-objectdefineproperty-有什么缺陷？">38、Vue 的响应式原理中 Object.defineProperty 有什么缺陷？</h1>
+<h1 id="39、sort的默认排序">39、sort的默认排序</h1>
+<h1 id="40">40</h1>
+<pre><code class="language-js">var a = {n: 1};
+var b = a;
+a.x = a = {n: 2};
+
+console.log(a.x)     
+console.log(b.x)</code></pre>
+<h1 id="40、冒泡排序如何实现，时间复杂度是多少，-还可以如何改进？">40、冒泡排序如何实现，时间复杂度是多少， 还可以如何改进？</h1>
+<h1 id="41、某公司-1-到-12-月份的销售额存在一个对象里面">41、某公司 1 到 12 月份的销售额存在一个对象里面</h1>
+<p>如下：{1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]。</p>
+<h1 id="42、symboliterator">42、Symbol.iterator</h1>
+<pre><code class="language-js">var arr = [1, 2, 3]
+var iterator = arr[Symbol.iterator]()
+console.log(iterator.next()) // {value: 1, done: false}
+console.log(iterator.next()) // {value: 2, done: false}
+console.log(iterator.next()) // {value: 1, done: false}
+console.log(iterator.next()) // {value: undefined, done: true}</code></pre>
+<h1 id="43、要求设计-lazyman-类，实现以下功能。">43、要求设计 LazyMan 类，实现以下功能。</h1>
+<pre><code class="language-js">LazyMan(&#39;Tony&#39;);
+// Hi I am Tony
+
+LazyMan(&#39;Tony&#39;).sleep(10).eat(&#39;lunch&#39;);
+// Hi I am Tony
+// 等待了10秒...
+// I am eating lunch
+
+LazyMan(&#39;Tony&#39;).eat(&#39;lunch&#39;).sleep(10).eat(&#39;dinner&#39;);
+// Hi I am Tony
+// I am eating lunch
+// 等待了10秒...
+// I am eating diner
+
+LazyMan(&#39;Tony&#39;).eat(&#39;lunch&#39;).eat(&#39;dinner&#39;).sleepFirst(5).sleep(10).eat(&#39;junk food&#39;);
+// Hi I am Tony
+// 等待了5秒...
+// I am eating lunch
+// I am eating dinner
+// 等待了10秒...
+// I am eating junk food</code></pre>
+<pre><code class="language-js">class LazyMan {
+  constructor(name) {
+    if (!(this instanceof LazyMan)) {
+      console.log(&#39;call&#39;)
+      return new LazyMan(name)
+    }
+    this.name = name
+    this.queue = []
+    console.log(`Hi I am ${name}`)
+
+    setTimeout(async () =&gt; {
+      for (let fn of this.queue) {
+        await fn()
+      }
+    })
+  }
+
+  sleepFirst(time) {
+    this.queue.unshift(() =&gt; {
+      return new Promise(resolve =&gt; {
+        setTimeout(() =&gt; {
+          console.log(`等待了${time}秒...`)
+          resolve()
+        }, time)
+      })
+    })
+    return this
+  }
+
+  sleep(time) {
+    this.queue.push(() =&gt; {
+      return new Promise(resolve =&gt; {
+        setTimeout(() =&gt; {
+          console.log(`等待了${time}秒...`)
+          resolve()
+        }, time)
+      })
+    })
+    return this
+  }
+
+  eat(food) {
+    this.queue.push(() =&gt; {
+      console.log(`I am eating ${food}`)
+    })
+    return this
+  }
+}</code></pre>
+<h1 id="44、分析比较-opacity-0、visibility-hidden、display-none-优劣和适用场景。">44、分析比较 opacity: 0、visibility: hidden、display: none 优劣和适用场景。</h1>
+<h1 id="45、箭头函数与普通函数（function）的区别是什么？构造函数（function）可以使用-new-生成实例，那么箭头函数可以吗？为什么？">45、箭头函数与普通函数（function）的区别是什么？构造函数（function）可以使用 new 生成实例，那么箭头函数可以吗？为什么？</h1>
+<h1 id="46、已知如下代码，如何修改才能让图片宽度为-300px-？注意下面代码不可修改。">46、已知如下代码，如何修改才能让图片宽度为 300px ？注意下面代码不可修改。</h1>
+<pre><code class="language-html">&lt;img src=&quot;1.jpg&quot; style=&quot;width:480px!important;”&gt;</code></pre>
+<h1 id="47、-如何设计实现无缝轮播">47、 如何设计实现无缝轮播</h1>
+<h1 id="48、模拟实现一个-promisefinally">48、模拟实现一个 Promise.finally</h1>
+<h1 id="49、abcd-和-abcd，哪个性能更高？">49、a.b.c.d 和 a[&#39;b&#39;][&#39;c&#39;][&#39;d&#39;]，哪个性能更高？</h1>
+<h1 id="50、es6-代码转成-es5-代码的实现思路是什么">50、ES6 代码转成 ES5 代码的实现思路是什么</h1>
+<h1 id="51、如何把一个字符串的大小写取反（大写变小写小写变大写），例如-abc-变成-abc-。">51、如何把一个字符串的大小写取反（大写变小写小写变大写），例如 ’AbC&#39; 变成 &#39;aBc&#39; 。</h1>
+<h1 id="52、介绍下-webpack-热更新原理，是如何做到在不刷新浏览器的前提下更新页面的">52、介绍下 webpack 热更新原理，是如何做到在不刷新浏览器的前提下更新页面的</h1>
+<h1 id="53、为什么普通-for-循环的性能远远高于-foreach-的性能，请解释其中的原因。">53、为什么普通 for 循环的性能远远高于 forEach 的性能，请解释其中的原因。</h1>
+<h1 id="54">54</h1>
+<pre><code class="language-js">function fn() {
+   &#39;use strict&#39;;
+    console.log(this) // undefined
+}</code></pre>
+<h1 id="55、数组里面有10万个数据，取第一个元素和第10万个元素的时间相差多少">55、数组里面有10万个数据，取第一个元素和第10万个元素的时间相差多少</h1>
+<h1 id="56、使用-javascript-proxy-实现简单的数据绑定">56、使用 JavaScript Proxy 实现简单的数据绑定</h1>
+<pre><code class="language-js">function typeOf(obj) {
+  return Object.prototype.toString.call(obj).slice(8, -1)
+}
+
+function Observer(data) {
+  const DepMap = new Map()
+  return new Proxy(data, {
+    set(obj, prop, value) {
+      // console.log(&#39;set&#39;, obj, prop, value)
+      let oldValue = obj[prop]
+      let newValue = obj[prop] = typeOf(value) === &#39;Object&#39; ? Observer(value) : value
+      if (oldValue !== newValue) {
+        let dep = DepMap.get(prop)
+        if (dep) {
+          dep.notify()
+        }
+      }
+    },
+    get(obj, prop) {
+      // console.log(&#39;get&#39;, obj, prop)
+      if (!DepMap.has(prop) &amp;&amp; prop in obj) {
+        DepMap.set(prop, new Dep())
+      }
+      let dep = DepMap.get(prop)
+      let value = obj[prop]
+      if (typeOf(value) === &#39;Object&#39;) {
+        value = Observer(value)
+      }
+      if (Dep.target) {
+        dep.depend(Dep.target)
+      }
+      return value
+    },
+    deleteProperty(obj, prop) {
+      delete obj[prop]
+      let dep = DepMap.get(prop)
+      if (dep) {
+        dep.notify()
+        DepMap.delete(prop)
+      }
+      console.log(&#39;deleteProperty&#39;, obj, prop)
+    }
+  })
+}
+
+class Dep {
+  constructor() {
+    this.subscribe = []
+  }
+  depend(effect) {
+    this.subscribe.push(effect)
+    effect.depend(this)
+  }
+  cancel(effect) {
+    let index = this.subscribe.indexOf(effect)
+    if (index &gt; -1) {
+      this.subscribe.splice(index, 1)
+    }
+  }
+  notify() {
+    let arr = this.subscribe.slice()
+    for (let effect of arr) {
+      try {
+        effect.exec()
+      } catch (e) {
+        console.error(e)
+      }
+    }
+  }
+}
+Dep.target = null
+
+function effect(callback) {
+  if (typeOf(callback) === &#39;Function&#39; &amp;&amp; !callback._effect) {
+    const effectObj = {
+      value: undefined,
+      deps: [],
+      depend(dep) {
+        this.deps.push(dep)
+      },
+      cancel() {
+        this.deps.forEach((dep) =&gt; {
+          dep.cancel(this)
+        })
+        this.deps = []
+      }
+    }
+    callback._effect = effectObj
+    effectObj.exec = callback
+    Dep.target = effectObj
+    callback()
+  }
+  return () =&gt; {
+    callback._effect.cancel()
+    callback._effect = undefined
+  }
+}
+
+let p = Observer([1, 2])
+let cancel = effect(() =&gt; {
+  console.log(&#39;effect ===&gt; p[0]&#39;, p[0])
+})
+// // console.log(&#39;p.b.c&#39;, p.b.c)
+// // cancel()
+setTimeout(() =&gt; {
+  p[0] = 6
+}, 2000)
+</code></pre>
+<h1 id="57、-给定一个数组，将数组中的元素向右移动-k-个位置，其中-k-是非负数。">57、 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。</h1>
+<pre><code class="language-js">// 输入: [1, 2, 3, 4, 5, 6, 7] 和 k = 3
+// 输出: [5, 6, 7, 1, 2, 3, 4]
+
+arr.splice(-k).concat(arr)</code></pre>
+<h1 id="58、vue-的父组件和子组件生命周期钩子执行顺序是什么">58、Vue 的父组件和子组件生命周期钩子执行顺序是什么</h1>
+<h1 id="59、请实现一个-add-函数，满足以下功能。">59、请实现一个 add 函数，满足以下功能。</h1>
+<pre><code class="language-js">add(1);             // 1
+add(1)(2);      // 3
+add(1)(2)(3)；// 6
+add(1)(2, 3); // 6
+add(1, 2)(3); // 6
+add(1, 2, 3); // 6</code></pre>
+<h1 id="60、将index作为key的坑">60、将index作为key的坑</h1>
+<pre><code class="language-js">new Vue({
+    data() {
+        return {
+            list: [1, 2, 3]
+        }
+    },
+    methods: {
+        handleClick() {
+            this.list.push(Math.random())
+            // this.list.unshift(Math.random()) 
+        }
+    },
+    template:`
+        &lt;div @click=&quot;handleClick&quot;&gt;
+            &lt;div v-for=&quot;(item, index) in list&quot; :key=&quot;index&gt;{{item}}&lt;/div&gt;
+        &lt;/div&gt;
+    `
+})</code></pre>
+<h1 id="61、将index作为key的好处？">61、将index作为key的好处？</h1>
+<h1 id="62、hmr模块替换后vue做了什么？">62、hmr模块替换后vue做了什么？</h1>
+
+            </article> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
+          </body>
+      </html>

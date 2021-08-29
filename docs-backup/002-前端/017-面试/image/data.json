@@ -1,0 +1,105 @@
+{
+    "compName": "MpPage",
+    "styles": {
+        "paddingTop": 0,
+        "paddingRight": 0,
+        "paddingBottom": 0,
+        "paddingLeft": 0,
+        "backgroundColor": "transparent",
+        "backgroundImage": "",
+        "backgroundSize": "contain",
+        "backgroundPosition": "center",
+        "backgroundRepeat": "no-repeat"
+    },
+    "attributes": {
+        "navigationBarBackgroundColor": "#ED1E1E",
+        "navigationBarBackgroundImage": null,
+        "navigationBarTextStyle": "#333333",
+        "type": ""
+    },
+    "remark": "MpPage",
+    "hidden": false,
+    "uuid": "367a10e0-7a6f-11eb-be61-8d5f48a48504",
+    "id": "136",
+    "title": "商品列表",
+    "share": {
+        "title": "",
+        "image": "",
+        "allowShare": true
+    },
+    "awasq": {
+        "image": "",
+        "id": "",
+        "text": ""
+    },
+    "children": [
+        {
+            "compName": "MpSearchBox",
+            "styles": {
+                "backgroundColor": "#fff",
+                "backgroundImage": "",
+                "backgroundSize": "contain",
+                "backgroundPosition": "center",
+                "backgroundRepeat": "no-repeat"
+            },
+            "attributes": {
+                "hotKeywords": "",
+                "borderRadiusStyle": 1,
+                "height": 64,
+                "boxColor": "#f6f6f6",
+                "fontColor": "#666"
+            },
+            "remark": "商品搜索框",
+            "hidden": false,
+            "uuid": "584e0910-7c27-11eb-9afa-d30b017dff53"
+        },
+        {
+            "compName": "MpPageNavigation",
+            "styles": {
+                "backgroundColor": null
+            },
+            "attributes": {
+                "theme": 1,
+                "scrollX": 1,
+                "fontColor": "#333333",
+                "activeColor": "#ff4444",
+                "pages": [
+                    {
+                        "title": "单品",
+                        "link": {
+                            "name": "单品模块",
+                            "id": 140
+                        }
+                    },
+                    {
+                        "title": "分类",
+                        "image": "",
+                        "link": {
+                            "name": "分类模块",
+                            "id": 141
+                        }
+                    },
+                    {
+                        "title": "标签",
+                        "image": "",
+                        "link": {
+                            "name": "标签模块",
+                            "id": 142
+                        }
+                    },
+                    {
+                        "title": "多品",
+                        "image": "",
+                        "link": {
+                            "name": "自定义模块商品列表",
+                            "id": 139
+                        }
+                    }
+                ]
+            },
+            "remark": "微页面导航",
+            "hidden": false,
+            "uuid": "0e65d670-7c13-11eb-b561-331807ac523d"
+        }
+    ]
+}

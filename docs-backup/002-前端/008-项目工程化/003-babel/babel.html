@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+      <html>
+          <head>
+          <meta charset="utf-8" >
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>babel.md</title>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/github-gist.min.css" rel="stylesheet">  
+          <style>
+              .markdown-body {
+                  box-sizing: border-box;
+                  min-width: 200px;
+                  max-width: 980px;
+                  margin: 0 auto;
+                  padding: 45px;
+              }
+              .markdown-body img {
+                  box-sizing: border-box !important;
+                  margin:10px 0 10px 2%;
+                  padding: 20px;
+                  width: 96%;
+                  border-radius: 4px;
+                  box-shadow: 0 0 6px 0px #999;
+              }
+              @media (max-width: 767px) {
+                  .markdown-body {
+                      padding: 15px;
+                  }
+              }
+              .markdown-body > iframe {
+                width: 100%;
+                height: 100vh;
+                border: none;
+              }
+              @font-face{font-family:octicons-link;src:url(data:font/woff;charset=utf-8;base64,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) format('woff')}.markdown-body .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom}.markdown-body .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px}.markdown-body .anchor:focus{outline:0}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#1b1f23;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;color:#24292e;line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body .pl-c{color:#6a737d}.markdown-body .pl-c1,.markdown-body .pl-s .pl-v{color:#005cc5}.markdown-body .pl-e,.markdown-body .pl-en{color:#6f42c1}.markdown-body .pl-s .pl-s1,.markdown-body .pl-smi{color:#24292e}.markdown-body .pl-ent{color:#22863a}.markdown-body .pl-k{color:#d73a49}.markdown-body .pl-pds,.markdown-body .pl-s,.markdown-body .pl-s .pl-pse .pl-s1,.markdown-body .pl-sr,.markdown-body .pl-sr .pl-cce,.markdown-body .pl-sr .pl-sra,.markdown-body .pl-sr .pl-sre{color:#032f62}.markdown-body .pl-smw,.markdown-body .pl-v{color:#e36209}.markdown-body .pl-bu{color:#b31d28}.markdown-body .pl-ii{background-color:#b31d28;color:#fafbfc}.markdown-body .pl-c2{background-color:#d73a49;color:#fafbfc}.markdown-body .pl-c2:before{content:"^M"}.markdown-body .pl-sr .pl-cce{color:#22863a;font-weight:700}.markdown-body .pl-ml{color:#735c0f}.markdown-body .pl-mh,.markdown-body .pl-mh .pl-en,.markdown-body .pl-ms{color:#005cc5;font-weight:700}.markdown-body .pl-mi{color:#24292e;font-style:italic}.markdown-body .pl-mb{color:#24292e;font-weight:700}.markdown-body .pl-md{background-color:#ffeef0;color:#b31d28}.markdown-body .pl-mi1{background-color:#f0fff4;color:#22863a}.markdown-body .pl-mc{background-color:#ffebda;color:#e36209}.markdown-body .pl-mi2{background-color:#005cc5;color:#f6f8fa}.markdown-body .pl-mdr{color:#6f42c1;font-weight:700}.markdown-body .pl-ba{color:#586069}.markdown-body .pl-sg{color:#959da5}.markdown-body .pl-corl{color:#032f62;text-decoration:underline}.markdown-body details{display:block}.markdown-body summary{display:list-item}.markdown-body a{background-color:transparent}.markdown-body a:active,.markdown-body a:hover{outline-width:0}.markdown-body strong{font-weight:inherit;font-weight:bolder}.markdown-body h1{font-size:2em;margin:.67em 0}.markdown-body img{border-style:none}.markdown-body code,.markdown-body kbd,.markdown-body pre{font-family:monospace,monospace;font-size:1em}.markdown-body hr{box-sizing:content-box;height:0;overflow:visible}.markdown-body input{font:inherit;margin:0}.markdown-body input{overflow:visible}.markdown-body [type=checkbox]{box-sizing:border-box;padding:0}.markdown-body *{box-sizing:border-box}.markdown-body input{font-family:inherit;font-size:inherit;line-height:inherit}.markdown-body a{color:#0366d6;text-decoration:none}.markdown-body a:hover{text-decoration:underline}.markdown-body strong{font-weight:600}.markdown-body hr{background:0 0;border:0;border-bottom:1px solid #dfe2e5;height:0;margin:15px 0;overflow:hidden}.markdown-body hr:before{content:"";display:table}.markdown-body hr:after{clear:both;content:"";display:table}.markdown-body table{border-collapse:collapse;border-spacing:0}.markdown-body td,.markdown-body th{padding:0}.markdown-body details summary{cursor:pointer}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-bottom:0;margin-top:0}.markdown-body h1{font-size:32px}.markdown-body h1,.markdown-body h2{font-weight:600}.markdown-body h2{font-size:24px}.markdown-body h3{font-size:20px}.markdown-body h3,.markdown-body h4{font-weight:600}.markdown-body h4{font-size:16px}.markdown-body h5{font-size:14px}.markdown-body h5,.markdown-body h6{font-weight:600}.markdown-body h6{font-size:12px}.markdown-body p{margin-bottom:10px;margin-top:0}.markdown-body blockquote{margin:0}.markdown-body ol,.markdown-body ul{margin-bottom:0;margin-top:0;padding-left:0}.markdown-body ol ol,.markdown-body ul ol{list-style-type:lower-roman}.markdown-body ol ol ol,.markdown-body ol ul ol,.markdown-body ul ol ol,.markdown-body ul ul ol{list-style-type:lower-alpha}.markdown-body dd{margin-left:0}.markdown-body code,.markdown-body pre{font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px}.markdown-body pre{margin-bottom:0;margin-top:0}.markdown-body input::-webkit-inner-spin-button,.markdown-body input::-webkit-outer-spin-button{-webkit-appearance:none;appearance:none;margin:0}.markdown-body .border{border:1px solid #e1e4e8!important}.markdown-body .border-0{border:0!important}.markdown-body .border-bottom{border-bottom:1px solid #e1e4e8!important}.markdown-body .rounded-1{border-radius:3px!important}.markdown-body .bg-white{background-color:#fff!important}.markdown-body .bg-gray-light{background-color:#fafbfc!important}.markdown-body .text-gray-light{color:#6a737d!important}.markdown-body .mb-0{margin-bottom:0!important}.markdown-body .my-2{margin-bottom:8px!important;margin-top:8px!important}.markdown-body .pl-0{padding-left:0!important}.markdown-body .py-0{padding-bottom:0!important;padding-top:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .py-2{padding-bottom:8px!important;padding-top:8px!important}.markdown-body .pl-3,.markdown-body .px-3{padding-left:16px!important}.markdown-body .px-3{padding-right:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .f6{font-size:12px!important}.markdown-body .lh-condensed{line-height:1.25!important}.markdown-body .text-bold{font-weight:600!important}.markdown-body:before{content:"";display:table}.markdown-body:after{clear:both;content:"";display:table}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-bottom:16px;margin-top:0}.markdown-body hr{background-color:#e1e4e8;border:0;height:.25em;margin:24px 0;padding:0}.markdown-body blockquote{border-left:.25em solid #dfe2e5;color:#6a737d;padding:0 1em}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd{background-color:#fafbfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5;color:#444d56;display:inline-block;font-size:11px;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{font-weight:600;line-height:1.25;margin-bottom:16px;margin-top:24px}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{border-bottom:1px solid #eaecef;padding-bottom:.3em}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{color:#6a737d;font-size:.85em}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-bottom:0;margin-top:0}.markdown-body li{word-wrap:break-all}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{font-size:1em;font-style:italic;font-weight:600;margin-top:16px;padding:0}.markdown-body dl dd{margin-bottom:16px;padding:0 16px}.markdown-body table{display:block;overflow:auto;width:100%}.markdown-body table th{font-weight:600}.markdown-body table td,.markdown-body table th{border:1px solid #dfe2e5;padding:6px 13px}.markdown-body table tr{background-color:#fff;border-top:1px solid #c6cbd1}.markdown-body table tr:nth-child(2n){background-color:#f6f8fa}.markdown-body img{background-color:#fff;box-sizing:content-box;max-width:100%}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body code{background-color:rgba(27,31,35,.05);border-radius:3px;font-size:85%;margin:0;padding:.2em .4em}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{background:0 0;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{background-color:#f6f8fa;border-radius:3px;font-size:85%;line-height:1.45;overflow:auto;padding:16px}.markdown-body pre code{background-color:transparent;border:0;display:inline;line-height:inherit;margin:0;max-width:auto;overflow:visible;padding:0;word-wrap:normal}.markdown-body .commit-tease-sha{color:#444d56;display:inline-block;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:90%}.markdown-body .blob-wrapper{border-bottom-left-radius:3px;border-bottom-right-radius:3px;overflow-x:auto;overflow-y:hidden}.markdown-body .blob-wrapper-embedded{max-height:240px;overflow-y:auto}.markdown-body .blob-num{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;color:rgba(27,31,35,.3);cursor:pointer;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;line-height:20px;min-width:50px;padding-left:10px;padding-right:10px;text-align:right;user-select:none;vertical-align:top;white-space:nowrap;width:1%}.markdown-body .blob-num:hover{color:rgba(27,31,35,.6)}.markdown-body .blob-num:before{content:attr(data-line-number)}.markdown-body .blob-code{line-height:20px;padding-left:10px;padding-right:10px;position:relative;vertical-align:top}.markdown-body .blob-code-inner{color:#24292e;font-family:SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;font-size:12px;overflow:visible;white-space:pre;word-wrap:normal}.markdown-body .pl-token.active,.markdown-body .pl-token:hover{background:#ffea7f;cursor:pointer}.markdown-body kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1;color:#444d56;display:inline-block;font:11px SFMono-Regular,Consolas,Liberation Mono,Menlo,Courier,monospace;line-height:10px;padding:3px 5px;vertical-align:middle}.markdown-body :checked+.radio-label{border-color:#0366d6;position:relative;z-index:1}.markdown-body .tab-size[data-tab-size="1"]{-moz-tab-size:1;tab-size:1}.markdown-body .tab-size[data-tab-size="2"]{-moz-tab-size:2;tab-size:2}.markdown-body .tab-size[data-tab-size="3"]{-moz-tab-size:3;tab-size:3}.markdown-body .tab-size[data-tab-size="4"]{-moz-tab-size:4;tab-size:4}.markdown-body .tab-size[data-tab-size="5"]{-moz-tab-size:5;tab-size:5}.markdown-body .tab-size[data-tab-size="6"]{-moz-tab-size:6;tab-size:6}.markdown-body .tab-size[data-tab-size="7"]{-moz-tab-size:7;tab-size:7}.markdown-body .tab-size[data-tab-size="8"]{-moz-tab-size:8;tab-size:8}.markdown-body .tab-size[data-tab-size="9"]{-moz-tab-size:9;tab-size:9}.markdown-body .tab-size[data-tab-size="10"]{-moz-tab-size:10;tab-size:10}.markdown-body .tab-size[data-tab-size="11"]{-moz-tab-size:11;tab-size:11}.markdown-body .tab-size[data-tab-size="12"]{-moz-tab-size:12;tab-size:12}.markdown-body .task-list-item{list-style-type:none}.markdown-body .task-list-item+.task-list-item{margin-top:3px}.markdown-body .task-list-item input{margin:0 .2em .25em -1.6em;vertical-align:middle}.markdown-body hr{border-bottom-color:#eee}.markdown-body .pl-0{padding-left:0!important}.markdown-body .pl-1{padding-left:4px!important}.markdown-body .pl-2{padding-left:8px!important}.markdown-body .pl-3{padding-left:16px!important}.markdown-body .pl-4{padding-left:24px!important}.markdown-body .pl-5{padding-left:32px!important}.markdown-body .pl-6{padding-left:40px!important}.markdown-body .pl-7{padding-left:48px!important}.markdown-body .pl-8{padding-left:64px!important}.markdown-body .pl-9{padding-left:80px!important}.markdown-body .pl-10{padding-left:96px!important}.markdown-body .pl-11{padding-left:112px!important}.markdown-body .pl-12{padding-left:128px!important}
+/*# sourceMappingURL=github-markdown.min.css.map */
+          </style>
+          <script>
+              window.onload = function() {
+                hljs.initHighlighting()
+              }
+          </script>
+          </head>
+          <body>
+            <article class="markdown-body">
+                <p>[TOC]</p>
+<h1 id="1、babel是什么？">1、babel是什么？</h1>
+<blockquote>
+<p>Babel 是一个 JavaScript 编译器</p>
+</blockquote>
+<p>Babel 是一个工具链，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其他环境中。下面列出的是 Babel 能为你做的事情：</p>
+<ul>
+<li>语法转换</li>
+<li>通过 Polyfill 方式在目标环境中添加缺失的特性 (通过 <a href="https://www.babeljs.cn/docs/babel-polyfill">@babel/polyfill</a> 模块)</li>
+<li>源码转换 (codemods)</li>
+<li>更多...</li>
+</ul>
+<h1 id="2、创建项目">2、创建项目</h1>
+<p>初始化项目</p>
+<pre><code>npm init -y</code></pre><p>安装babel所需的包</p>
+<pre><code>npm install --save-dev @babel/core @babel/cli @babel/preset-env
+npm install --save @babel/polyfill</code></pre><p>在项目的根目录下创建一个命名为 <code>babel.config.js</code> 的配置文件，其内容为：</p>
+<pre><code>const presets = [
+  [
+    &quot;@babel/env&quot;,
+    {
+      targets: {
+        edge: &quot;17&quot;,
+        firefox: &quot;60&quot;,
+        chrome: &quot;67&quot;,
+        safari: &quot;11.1&quot;,
+      },
+      useBuiltIns: &quot;usage&quot;,
+    },
+  ],
+];
+
+module.exports = { presets };</code></pre><p>创建src/index.js文件</p>
+<pre><code>const getTime = () =&gt; new Date().toLocaleString()</code></pre><p>修改package.json</p>
+<p>下面的命令表示把src下的文件编译后输出到lib文件夹。</p>
+<pre><code>&quot;babel&quot;: &quot;babel src  --out-dir lib&quot;</code></pre><p>运行 npm run babel, 发现多了一个lib文件。</p>
+<p>编译后的index.js就在里面</p>
+<pre><code>&quot;use strict&quot;;
+
+const getTime = () =&gt; new Date().toLocaleString();</code></pre><p>发现es6的箭头函数并没有编译成es5的语法， 这是因为babel还未配置的缘故。</p>
+<blockquote>
+<p>解决上面没有编译成es5代码其实很简单。修改babel.config.js。</p>
+<pre><code>targets: {
+    node: 4
+    //   edge: &quot;17&quot;,
+    //   firefox: &quot;60&quot;,
+    //   chrome: &quot;67&quot;,
+    //   safari: &quot;11.1&quot;,
+}</code></pre></blockquote>
+<h1 id="3、babel起步">3、babel起步</h1>
+<p>你所需要的所有的 Babel 模块都是作为独立的 npm 包发布的，并且（从版本 7 开始）都是以 <code>@babel</code> 作为冠名的。这种模块化的设计能够让每种工具都针对特定使用情况进行设计。</p>
+<h2 id="31、babelcore">3.1、@babel/core</h2>
+<p>Babel 的核心功能包含在 <a href="https://www.babeljs.cn/docs/babel-core">@babel/core</a> 模块中。</p>
+<h2 id="32、babelcli">3.2、@babel/cli</h2>
+<p><a href="https://www.babeljs.cn/docs/babel-cli">@babel/cli</a> 是一个能够从终端（命令行）使用的工具</p>
+<pre><code>npm install --save-dev @babel/core @babel/cli
+
+./node_modules/.bin/babel src --out-dir lib</code></pre><p>这将解析 <code>src</code> 目录下的所有 JavaScript 文件，并应用我们所指定的代码转换功能，然后把每个文件输出到 <code>lib</code> 目录下。由于我们还没有指定任何代码转换功能，所以输出的代码将与输入的代码相同（不保留原代码格式）。我们可以将我们所需要的代码转换功能作为参数传递进去。</p>
+<p>上面的示例中我们使用了 <code>--out-dir</code> 参数。你可以通过 <code>--help</code> 参数来查看命令行工具所能接受的所有参数列表。但是现在对我们来说最重要的是 <code>--plugins</code> 和 <code>--presets</code> 这两个参数。</p>
+<h3 id="321、插件和预设（preset）">3.2.1、插件和预设（preset）</h3>
+<blockquote>
+<p>代码转换功能以插件的形式出现，插件是小型的 JavaScript 程序，用于指导 Babel 如何对代码进行转换。你甚至可以编写自己的插件将你所需要的任何代码转换功能应用到你的代码上。</p>
+</blockquote>
+<h4 id="3211-plugins">3.2.1.1 plugins</h4>
+<p>例如将 ES2015+ 语法转换为 ES5 语法，我们可以使用诸如 <code>@babel/plugin-transform-arrow-functions</code> 之类的官方插件：</p>
+<pre><code>npm install --save-dev @babel/plugin-transform-arrow-functions</code></pre><p>修改package.json</p>
+<pre><code>&quot;babel&quot;: &quot;babel src  --out-dir lib --plugins=@babel/plugin-transform-arrow-functions&quot;</code></pre><p>重新执行 npm run babel ,  重新编译后的index.js为。</p>
+<pre><code>&quot;use strict&quot;;
+
+const getTime = function getTime() {
+  return new Date().toLocaleString();
+};</code></pre><p>使用了<code>@babel/plugin-transform-arrow-functions</code>插件后箭头函数被编译成了es5的语法。</p>
+<p>这是个好的开始！！！</p>
+<p>但是编译后的代码依然会残余其他的 ES2015+ 的特性，我们希望对它们也进行转换。我们不需要一个接一个地添加所有需要的插件，我们可以使用一个 &quot;preset&quot; （即一组预先设定的插件）。</p>
+<h4 id="3212-preset">3.2.1.2 preset</h4>
+<blockquote>
+<p>preset(预设)</p>
+<p>你可以理解为预先配置好的一系列插件的集合，而不需要你一个一个的去配置。</p>
+</blockquote>
+<p>就像插件一样，你也可以根据自己所需要的插件组合创建一个自己的 preset 并将其分享出去。J对于当前的用例而言，我们可以使用一个名称为 <code>env</code> 的 preset。</p>
+<pre><code>npm install --save-dev @babel/preset-env</code></pre><p>修改package.json</p>
+<pre><code>&quot;babel&quot;: &quot;babel src  --out-dir lib --presets=@babel/env&quot;</code></pre><p>修改src/index.js</p>
+<pre><code>const getTime = () =&gt; new Date().toLocaleString()
+
+class Test {
+    constructor() {
+        this.printTime()
+    }
+
+    printTime() {
+        const time = getTime()
+        console.log(time)
+    }
+}</code></pre><p>重新编译后， 你会发现class语法也被编译成了es5的语法。</p>
+<h2 id="33、babelpreset-env">3.3、@babel/preset-env</h2>
+<p>在上面已经了解到这是一系列插件的预设。</p>
+<h2 id="34、babelpolyfill">3.4、@babel/polyfill</h2>
+<p><a href="https://www.babeljs.cn/docs/babel-polyfill">@babel/polyfill</a> 模块包括 <a href="https://github.com/zloirock/core-js">core-js</a> 和一个自定义的 <a href="https://github.com/facebook/regenerator/blob/master/packages/regenerator-runtime/runtime.js">regenerator runtime</a> 模块用于模拟完整的 ES2015+ 环境。</p>
+<p>这意味着你可以使用诸如 <code>Promise</code> 和 <code>WeakMap</code> 之类的新的内置组件、 <code>Array.from</code> 或 <code>Object.assign</code> 之类的静态方法、 <code>Array.prototype.includes</code> 之类的实例方法以及生成器函数（generator functions）（前提是你使用了 <a href="https://www.babeljs.cn/docs/babel-plugin-transform-regenerator">regenerator</a> 插件）。<strong><u>为了添加这些功能，polyfill 将添加到全局范围（global scope）和类似 <code>String</code> 这样的内置原型（native prototypes）中。</u></strong></p>
+<p>对于软件库/工具的作者来说，这可能太多了。如果你不需要类似 <code>Array.prototype.includes</code> 的实例方法，可以使用 <a href="https://www.babeljs.cn/docs/babel-plugin-transform-runtime">transform runtime</a> 插件而不是对全局范围（global scope）造成污染的 <code>@babel/polyfill</code>。</p>
+<blockquote>
+<p>注意，使用 <code>--save</code> 参数而不是 <code>--save-dev</code>，因为这是一个需要在你的源码之前运行的 polyfill。</p>
+</blockquote>
+<pre><code>npm install --save @babel/polyfill</code></pre><p>幸运的是，我们所使用的 <code>env</code> preset 提供了一个 <code>&quot;useBuiltIns&quot;</code> 参数，当此参数设置为 <code>&quot;usage&quot;</code> 时，就会加载上面所提到的最后一个优化措施，也就是只包含你所需要的 polyfill。</p>
+<pre><code>useBuiltIns: &quot;usage&quot;</code></pre><blockquote>
+<p>总结</p>
+<p>我们使用 <code>@babel/cli</code> 从终端运行 Babel，利用 <code>@babel/polyfill</code> 来模拟所有新的 JavaScript 功能，而 <code>env</code>preset 只对我们所使用的并且目标浏览器中缺失的功能进行代码转换和加载 polyfill。</p>
+</blockquote>
+<blockquote>
+<p>引用别人的一段理解：解释的很好
+babel 编译过程处理第一种情况 - 统一语法的形态，通常是高版本语法编译成低版本的，比如 ES6 语法编译成 ES5 或 ES3。而 babel-polyfill 处理第二种情况 - 让目标浏览器支持所有特性，不管它是全局的，还是原型的，或是其它。这样，通过 babel-polyfill，不同浏览器在特性支持上就站到同一起跑线。</p>
+<p>polyfill我们又称垫片，见名知意，所谓垫片也就是垫平不同浏览器或者不同环境下的差异，因为有的环境支持这个函数，有的环境不支持这种函数，解决的是有与没有的问题，这个是靠单纯的@babel/preset-env不能解决的，因为@babel/preset-env解决的是将高版本写法转化成低版本写法的问题，因为不同环境下低版本的写法有可能不同而已。</p>
+</blockquote>
+<blockquote>
+<p>我的理解：</p>
+<p>插件： 负责语法的转换。</p>
+<p>polyfill:   为不支持某种特性的构建目标提供功能支持。比如说在低版本的IE浏览器中不支持String.prototype.padStart,  所以不能使用&#39;abc&#39;.padStart(10, &#39;*&#39;)。但是引入@babel/polfill就可以解决这个问题。</p>
+<p>插件的作用是语法转换， 而polfill是功能的增强。</p>
+</blockquote>
+<h2 id="35、babelnode">3.5、@babel/node</h2>
+<p>babel-node 工具提供了一个支持 ES6 的 REPL 交互式运行环境。在此环境中，我们可以做一些简单的代码调试。</p>
+<p>babel-node 是 babel-cli 的附带工具，所以只要安装了 babel-cli ，就可以直接使用 babel-node 啦。</p>
+<p>自己经常在本地写一些 js 脚本进行文件处理等工作，常常会使用 import 语法引入模块。但是 Node 在默认情况下是不支持 import 和 export 的。但是如果使用babel-node的话就可以成功运行。</p>
+<blockquote>
+<p>由于性能问题，babel-node 仅限于在本地调试时使用，上线生产环境的代码还是需要使用 babel 进行转换，再使用 node 运行。</p>
+</blockquote>
+<h2 id="36、babelruntime">3.6、@babel/runtime</h2>
+<p>@babel/runtime的作用是提供统一的模块化的helper。</p>
+<blockquote>
+<p>那什么是helper？ </p>
+</blockquote>
+<p>我们举个例子：我们编译之后的index.js代码里面有不少新增加的函数，如classCallCheck，defineProperties，createClass，这种函数就是helper。</p>
+<blockquote>
+<p>那这种helper跟我们的@babel/runtime有什么关系？</p>
+</blockquote>
+<p>我们接着看，比如像这个createClass就是我们将es6的class关键字转化成传统js时生成的一个函数，那么如果我有很多个js文件中都定义了class类，那么在编译转化时就会产生大量相同的createClass方法，那这些_createClass这样的helper方法是不是冗余太多，因为它们基本都是一样的，所以我们能不能采用一个统一的方式提供这种helper，也就是利用es或者node的模块化的方式提供helper，将这些helper做成一个模块来引入到代码中，岂不是可以减少这些helper函数的重复书写。</p>
+<pre><code>npm i @babel/runtime -S</code></pre><h2 id="37、babelplugin-transform-runtime">3.7、@babel/plugin-transform-runtime</h2>
+<p>这个包的作用其实就是辅助@babel/runtime的，因为有了@babel/plugin-transform-runtime它会帮我自动动态require @babel/runtime中的内容，如果没有这个@babel/plugin-transform-runtime，那么我们要使用@babel/runtime中的内容，就只有像require(&#39;@babel/polyfill&#39;)那样人工去手动添加了，所以@babel/plugin-transform-runtime非常方便，由于@babel/plugin-transform-runtime是一个插件，所以它是需要配置到babel.config.js中的，这一点要记住。</p>
+<pre><code>npm i @babel/plugin-transform-runtime -S</code></pre><pre><code>&quot;plugins&quot;: [
+    &quot;@babel/plugin-transform-runtime&quot;
+]</code></pre><p>设置<code>plugin-transform-runtime</code>插件前编译成的代码：</p>
+<pre><code>&quot;use strict&quot;;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(&quot;Cannot call a class as a function&quot;); } }
+
+function _defineProperties(target, props) { for (var i = 0; i &lt; props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (&quot;value&quot; in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var getTime = function getTime() {
+  return new Date().toLocaleString();
+};
+
+var Test =
+/*#__PURE__*/
+function () {
+  function Test() {
+    _classCallCheck(this, Test);
+
+    this.printTime();
+  }
+
+  _createClass(Test, [{
+    key: &quot;printTime&quot;,
+    value: function printTime() {
+      var time = getTime();
+      console.log(time);
+    }
+  }]);
+
+  return Test;
+}();</code></pre><p>设置<code>plugin-transform-runtime</code>插件后编译成的代码：</p>
+<pre><code>&quot;use strict&quot;;
+
+var _interopRequireDefault = require(&quot;@babel/runtime/helpers/interopRequireDefault&quot;);
+
+var _classCallCheck2 = _interopRequireDefault(require(&quot;@babel/runtime/helpers/classCallCheck&quot;));
+
+var _createClass2 = _interopRequireDefault(require(&quot;@babel/runtime/helpers/createClass&quot;));
+
+var getTime = function getTime() {
+  return new Date().toLocaleString();
+};
+
+var Test =
+/*#__PURE__*/
+function () {
+  function Test() {
+    (0, _classCallCheck2.default)(this, Test);
+    this.printTime();
+  }
+
+  (0, _createClass2.default)(Test, [{
+    key: &quot;printTime&quot;,
+    value: function printTime() {
+      var time = getTime();
+      console.log(time);
+    }
+  }]);
+  return Test;
+}();</code></pre><blockquote>
+<p>总结</p>
+<p>不使用plugin-transform-runtime会在每个文件中注入大量的类似_classCallCheck的helper代码， 使用后会以模块的形式引入helper代码。</p>
+</blockquote>
+<h2 id="38、babelplugin-transform-">3.8、@babel/plugin-transform-***</h2>
+<p>类似于@babel/plugin-transform-arrow-functions的插件， 这里就不一一说了。</p>
+<h1 id="4、配置">4、配置</h1>
+<p>如果不进行任何配置，上述 preset 所包含的插件将支持所有最新的 JavaScript （ES2015、ES2016 等）特性。但是 preset 也是支持参数的。我们来看看另一种传递参数的方法：配置文件，而不是通过终端控制台同时传递 cli 和 preset 的参数。</p>
+<blockquote>
+<p>根据你的需要，可以通过几种不同的方式来使用配置文件。另外，请务必阅读我们关于如何 <a href="https://www.babeljs.cn/docs/configuration">配置 Babel</a>的深入指南以了解更多信息。</p>
+</blockquote>
+<pre><code>console.log(&#39;babel.config.js&#39;)
+module.exports = { 
+    presets: [
+        [
+          &quot;@babel/preset-env&quot;,
+          {
+            targets: {
+                ie: &quot;9&quot;,
+                edge: &quot;17&quot;,
+                firefox: &quot;60&quot;,
+                chrome: &quot;67&quot;,
+                safari: &quot;11.1&quot;,
+            },
+            useBuiltIns: &quot;usage&quot;,
+          },
+        ],
+    ],
+    plugins: [
+        // &quot;@babel/plugin-syntax-dynamic-import&quot;,
+        [&quot;@babel/plugin-proposal-decorators&quot;, { &quot;legacy&quot;: true }],
+        &quot;@babel/plugin-transform-runtime&quot;
+    ]
+};</code></pre><h1 id="5、plugins">5、plugins</h1>
+<p>Babel 是一个编译器（输入源码 =&gt; 输出编译后的代码）。就像其他编译器一样，编译过程分为三个阶段：解析、转换和打印输出。</p>
+<p>现在，Babel 虽然开箱即用，但是什么动作都不做。它基本上类似于 <code>const babel = code =&gt; code;</code> ，将代码解析之后再输出同样的代码。如果想要 Babel 做一些实际的工作，就需要为其添加插件。</p>
+<p>除了一个一个的添加插件，你还可以以 <a href="https://www.babeljs.cn/docs/presets">preset</a> 的形式启用一组插件。</p>
+<h2 id="51、转换插件">5.1、转换插件</h2>
+<p>这些插件用于转换你的代码。</p>
+<blockquote>
+<p>转换插件将启用相应的语法插件，因此你不必同时指定这两种插件。</p>
+</blockquote>
+<h2 id="52、语法插件">5.2、语法插件</h2>
+<p>这些插件只允许 Babel <strong>解析（parse）</strong> 特定类型的语法（而不是转换）。</p>
+<blockquote>
+<p>注意：转换插件会自动启用语法插件。因此，如果你已经使用了相应的转换插件，则不需要指定语法插件。</p>
+</blockquote>
+<h2 id="53、插件preset-路径">5.3、插件/Preset 路径</h2>
+<p>如果插件再 npm 上，你可以输入插件的名称，babel 会自动检查它是否已经被安装到 <code>node_modules</code> 目录下</p>
+<pre><code class="language-json">{
+  &quot;plugins&quot;: [&quot;babel-plugin-myPlugin&quot;]
+}
+
+Copy</code></pre>
+<p>你还可以指定插件的相对/绝对路径。</p>
+<pre><code class="language-json">{
+  &quot;plugins&quot;: [&quot;./node_modules/asdf/plugin&quot;]
+}</code></pre>
+<h2 id="54、插件的短名称">5.4、插件的短名称</h2>
+<p>如果插件名称的前缀为 <code>babel-plugin-</code>，你还可以使用它的短名称：</p>
+<pre><code class="language-js">{
+  &quot;plugins&quot;: [
+    &quot;myPlugin&quot;,
+    &quot;babel-plugin-myPlugin&quot; // 两个插件实际是同一个
+  ]
+}
+
+Copy</code></pre>
+<p>这也适用于带有冠名（scope）的插件：</p>
+<pre><code class="language-js">{
+  &quot;plugins&quot;: [
+    &quot;@org/babel-plugin-name&quot;,
+    &quot;@org/name&quot; // 两个插件实际是同一个
+  ]
+}</code></pre>
+<h2 id="55、插件顺序">5.5、插件顺序</h2>
+<blockquote>
+<p>插件的排列顺序很重要。</p>
+</blockquote>
+<p>这意味着如果两个转换插件都将处理“程序（Program）”的某个代码片段，则将根据转换插件或 preset 的排列顺序依次执行。</p>
+<ul>
+<li>插件在 Presets 前运行。</li>
+<li>插件顺序从前往后排列。</li>
+<li>Preset 顺序是颠倒的（从后往前）。</li>
+</ul>
+<p>例如：</p>
+<pre><code class="language-json">{
+  &quot;plugins&quot;: [&quot;transform-decorators-legacy&quot;, &quot;transform-class-properties&quot;]
+}
+
+Copy</code></pre>
+<p>先执行 <code>transform-decorators-legacy</code> ，在执行 <code>transform-class-properties</code>。</p>
+<p>重要的时，preset 的顺序是 <em>颠倒的</em>。如下设置：</p>
+<pre><code class="language-json">{
+  &quot;presets&quot;: [&quot;es2015&quot;, &quot;react&quot;, &quot;stage-2&quot;]
+}
+
+Copy</code></pre>
+<p>将按如下顺序执行：<code>stage-2</code>、<code>react</code> 然后是 <code>es2015</code>。</p>
+<p>这主要的是为了确保向后兼容，因为大多数用户将 &quot;es2015&quot; 排在 &quot;stage-0&quot; 之前。有关详细信息，请参阅 <a href="https://github.com/babel/notes/blob/master/2016/2016-08/august-01.md#potential-api-changes-for-traversal">notes on potential traversal API changes</a>。</p>
+<h2 id="56、插件参数">5.6、插件参数</h2>
+<p>插件和 preset 都可以接受参数，参数由插件名和参数对象组成一个数组，可以在配置文件中设置。</p>
+<p>如果不指定参数，下面这几种形式都是一样的：</p>
+<pre><code class="language-json">{
+  &quot;plugins&quot;: [&quot;pluginA&quot;, [&quot;pluginA&quot;], [&quot;pluginA&quot;, {}]]
+}
+
+Copy</code></pre>
+<p>要指定参数，请传递一个以参数名作为键（key）的对象。</p>
+<pre><code class="language-json">{
+  &quot;plugins&quot;: [
+    [
+      &quot;transform-async-to-module-method&quot;,
+      {
+        &quot;module&quot;: &quot;bluebird&quot;,
+        &quot;method&quot;: &quot;coroutine&quot;
+      }
+    ]
+  ]
+}
+
+Copy</code></pre>
+<p>preset 的设置参数的工作原理完全相同：</p>
+<pre><code class="language-json">{
+  &quot;presets&quot;: [
+    [
+      &quot;env&quot;,
+      {
+        &quot;loose&quot;: true,
+        &quot;modules&quot;: false
+      }
+    ]
+  ]
+}</code></pre>
+<h2 id="57、插件开发">5.7、插件开发</h2>
+<h1 id="6、preset">6、preset</h1>
+<p>不想自己动手组合插件？没问题！preset 可以作为 Babel 插件的组合，甚至可以作为可以共享的 <a href="https://www.babeljs.cn/docs/options"><code>options</code></a> 配置。</p>
+<h2 id="61、官方-preset">6.1、官方 Preset</h2>
+<ul>
+<li><a href="https://www.babeljs.cn/docs/babel-preset-env">@babel/preset-env</a></li>
+<li><a href="https://www.babeljs.cn/docs/babel-preset-flow">@babel/preset-flow</a></li>
+<li><a href="https://www.babeljs.cn/docs/babel-preset-react">@babel/preset-react</a></li>
+<li><a href="https://www.babeljs.cn/docs/babel-preset-typescript">@babel/preset-typescript</a></li>
+</ul>
+<h2 id="62、创建-preset">6.2、创建 Preset</h2>
+<p>如需创建一个自己的 preset，只需导出一份配置即可。</p>
+<blockquote>
+<p>可以是返回一个插件数组...</p>
+</blockquote>
+<pre><code class="language-js">module.exports = function() {
+  return {
+    plugins: [
+      &quot;pluginA&quot;,
+      &quot;pluginB&quot;,
+      &quot;pluginC&quot;,
+    ]
+  };
+}</code></pre>
+<blockquote>
+<p>preset 可以包含其他的 preset，以及带有参数的插件。</p>
+</blockquote>
+<pre><code class="language-js">module.exports = () =&gt; ({
+  presets: [
+    require(&quot;@babel/preset-env&quot;),
+  ],
+  plugins: [
+    [require(&quot;@babel/plugin-proposal-class-properties&quot;), { loose: true }],
+    require(&quot;@babel/plugin-proposal-object-rest-spread&quot;),
+  ],
+});</code></pre>
+<h2 id="63、preset-的路径">6.3、Preset 的路径</h2>
+<p>如果 preset 在 npm 上，你可以输入 preset 的名称，babel 将检查是否已经将其安装到 <code>node_modules</code> 目录下了</p>
+<pre><code class="language-json">{
+  &quot;presets&quot;: [&quot;babel-preset-myPreset&quot;]
+}
+
+Copy</code></pre>
+<p>你还可以指定指向 preset 的绝对或相对路径。</p>
+<pre><code class="language-json">{
+  &quot;presets&quot;: [&quot;./myProject/myPreset&quot;]
+}</code></pre>
+<h2 id="64、preset-的短名称">6.4、Preset 的短名称</h2>
+<p>如果 preset 名称的前缀为 <code>babel-preset-</code>，你还可以使用它的短名称：</p>
+<pre><code class="language-js">{
+  &quot;presets&quot;: [
+    &quot;myPreset&quot;,
+    &quot;babel-preset-myPreset&quot; // equivalent
+  ]
+}
+
+Copy</code></pre>
+<p>这也适用于带有冠名（scope）的 preset：</p>
+<pre><code class="language-js">{
+  &quot;presets&quot;: [
+    &quot;@org/babel-preset-name&quot;,
+    &quot;@org/name&quot; // equivalent
+  ]
+}</code></pre>
+<h2 id="65、preset-的参数">6.5、Preset 的参数</h2>
+<p>插件和 preset 都可以接受参数，参数由插件名和参数对象组成一个数组，可以在配置文件中设置。</p>
+<p>如果不指定参数，下面这几种形式都是一样的：</p>
+<pre><code class="language-json">{
+  &quot;presets&quot;: [
+    &quot;presetA&quot;,
+    [&quot;presetA&quot;],
+    [&quot;presetA&quot;, {}],
+  ]
+}
+
+Copy</code></pre>
+<p>要指定参数，请传递一个以参数名作为键（key）的对象。</p>
+<pre><code class="language-json">{
+  &quot;presets&quot;: [
+    [&quot;@babel/preset-env&quot;, {
+      &quot;loose&quot;: true,
+      &quot;modules&quot;: false
+    }]
+  ]
+}</code></pre>
+
+            </article> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>  
+          </body>
+      </html>
