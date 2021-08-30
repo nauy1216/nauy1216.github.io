@@ -1,6 +1,6 @@
 ### clientWidth、clientHeight
 
-可视区宽高 = 样式宽高+padding
+**可视区宽高 = 样式宽高+padding**
 （1）oBj.clientWidth(可以是任何元素)
 （2）文档元素可区尺寸：
 document.documentElement.clientWidth
@@ -8,10 +8,14 @@ document.documentElement.clientWidth
 （3）如果有滚动条会减去滚动条的距离。
 例如：div加了滚动条后可视区的宽度就减少了。
 
+
+
 ### offsetWidth、offsetHeight
 
-样式宽高+padding+border
+**样式宽高+padding+border**
 和内部内容是否超出元素大小无关 只和本来设定的尺寸有关。
+
+
 
 ### scrollWidth、scrollHeight
 
@@ -25,10 +29,14 @@ document.documentElement.clientWidth
 ff、IE：内容高+padding-top
 chrome：内容高+padding-top+padding-bottom
 
+
+
 ### clientTop、clientLeft
 
 元素的border宽度。
 只能获取上边框和左边框，右边框和下边框可以自己计算。
+
+
 
 ### scrollTop、scrollLeft
 
@@ -47,29 +55,37 @@ document.documentElement.scrollLeft
 （1）屏幕缩放对于滚动距离有影响。屏幕放大滚动的距离不一样，但占滚动条的比例是不变的。
 （2）window、document.body才有onscroll事件，除非某个元素自己的滚动条。
 
+
+
 ### clientX、clientY
 
 相对于浏览器屏幕左上角的坐标。
-当一个鼠标点击或鼠标移动并且一个事件发生时， 鼠标到浏览器可视区的距离。
+当一个鼠标点击或鼠标移动并且一个事件发生时， **鼠标到浏览器可视区的距离**。
 
 e.clientX
 e.clientY
 不会因为浏览器窗口变化或者放大而变化。
 
+
+
 ### screenX、screenY
 
-当一个鼠标点击或鼠标移动并且一个事件发生时， 鼠标 相对于设备屏幕的坐标。
+当一个鼠标点击或鼠标移动并且一个事件发生时， **鼠标相对于设备屏幕的坐标**。
 
 e.screenX
 e.screenY
 
+
+
 ### offsetX、offsetY
 
-当一个鼠标点击或鼠标移动并且一个事件发生时， 鼠标 相对于事件目标的位置。
+当一个鼠标点击或鼠标移动并且一个事件发生时， **鼠标相对于事件目标的位置**。
 
 e.offsetX
 e.offsetY
-例如：点击一个div就是相对于div左上角的坐标。
+例如：**点击一个div就是相对于div左上角的坐标**。
+
+
 
 ### pageX、pageY
 
@@ -77,6 +93,8 @@ e.offsetY
 
 e.pageX
 e.pageY
+
+
 
 ### offsetLeft 、offsetTop
 
@@ -88,11 +106,11 @@ IE6、7：自己有定位，则是到定位父级的距离。 自己没有定位
 默认都是到html的距离。
 注意此时offsetParent是body。
 
-3、父级边框内侧到子级边框外侧距离。
+3、**父级边框内侧到子级边框外侧距离**。
+
+
 
 ### 浏览器窗口尺寸
-
-
 
 #### window.innerWidth、window.innerHeight
 

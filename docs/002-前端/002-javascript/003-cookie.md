@@ -1,6 +1,57 @@
 # cookie是什么？
 
+定义 用于存储数据，当用户访问了某个网页的时候，我们就可以通过 cookie来访问这电脑上存储的数据。
+
+1. **不同的浏览器存放的cookie位置不一样**，不能通用。 **cookie的存储是以域名的形式区分的，相同域名不同端口是可以共享cookie的。**。
+
+2. cookie的数据可以设置名字。 例如：
+
+   ```js
+   document.cookie="名字=值",//写 
+   document.cookie;//读取的是所有数据
+   ```
+
+   
+
+3. 可以重复写多个”名字=值”，此时获取网站下的cookie时， 得到字符串形式的值，包含了当前网站下所有的cookie。 所有的cookie都是以**分号+空格**连接起来的。
+
+4. 一个域名下存放的cookie**数量是有限**的，不同的浏览器存放 的个数不一样。
+
+5. 每个cookie存放的**内容大小也是有限制**，不同的浏览器存放 的大小不一样
+
+6. 如果我们想长时间存放一个cookie，需要在设置这个cookie 的时候同时设置一个过期的时间。
+   cookie默认是临时存储的，当浏览器关闭时直接销毁。
+   例如：
+
+   ```js
+   var oDate = new Date();
+   var d = 5;
+   oDate.setDate(oDate.getDate()+d);
+   document.cookie='age=32;expires='+oDate.toGMTString;
+   ```
+
+   
+
+7. 内容最好编码存放
+   编码：**encodeURL()**
+   解码：**decodeURL()**
+
+   
+
+8. 获取cookie
+   原理：拆分两次 split(‘; ’) split(‘=’)
+   封装：
+   setcookie()
+   getcookie()
+   removecookie()
+
+
+
 # cookie的作用？
+
+
+
+
 
 
 # cookie是怎么工作的？
@@ -8,9 +59,12 @@
 当网页要发http请求时，浏览器会先检查是否有相应的cookie，有则自动添加在request header中的cookie字段中。
 但在 localStorage 出现之前，cookie被滥用当做了存储工具。
 什么数据都放在cookie中，即使这些数据只在页面中使用而不需要随请求传送到服务端。
+
 > 当然cookie标准还是做了一些限制的：
 - 每个域名下的cookie 的大小最大为4KB
 - 每个域名下的cookie数量最多为20个（但很多浏览器厂商在具体实现时支持大于20个）。
+
+
 
 # cookie的格式
 cookie本身就是存储在浏览器中的字符串。但这个字符串是有格式的，由键值对 key=value构成，键值对之间由一个分号和一个空格隔开。

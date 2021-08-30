@@ -1,6 +1,6 @@
 ### 1、什么是DOM？
 
-1、document object model
+1、Document Object Model
 2、作用：为了能让js操作页面的元素。
 3、DOM会把文档看成是一棵节点树。
 4、根元素是html。
@@ -20,15 +20,13 @@ document.body
 
 ### 3、元素节点的常用属性
 
-
-
 #### 1、childNodes
 
 作用：获取元素的子节点列表集合
 
 用法：ele.childNodes。返回的集合有length属性。
 
-标准：包括元素节点、文本节点。
+标准：**包括元素节点、文本节点。**
 
 非标准IE（6、7、8）：元素节点。
 
@@ -58,7 +56,7 @@ ele.attributes[0].nodeType
 
 用法：ele.children
 
-标准： 元素节点。
+标准： **元素节点**。
 
 非标准IE：元素节点。
 
@@ -134,13 +132,13 @@ var oL2= oL1.previousElementSibling || oL1.previousSibling;
 
 #### 9、parentNode
 
-当前节点的父节点
+**当前节点的父节点**
 
 没有兼容问题
 
 #### 10、offsetParent
 
-作用：最近的有定位的父节点
+作用：**最近的有定位的父节点**
 
 如果没有定位父级标准默认是body。
 
@@ -299,3 +297,15 @@ select的value值就是这个option的值。
 2、阻止表单提交：return false；
 
 3、也可以通过submit()方法来提交。
+
+
+
+### 7、getBoundingClientRect()
+
+Element.getBoundingClientRect() 方法返回元素的大小及其相对于视口的位置。IE5+ 兼容。
+
+```javascript
+// rect 是一个具有四个属性left、top、right、bottom的DOMRect对象
+var rect = obj.getBoundingClientRect();
+```
+
