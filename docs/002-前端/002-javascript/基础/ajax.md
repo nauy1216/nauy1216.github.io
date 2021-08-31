@@ -11,7 +11,7 @@
 IE6及以下不支持原生的XMLHttpRequest对象。 
 
 IE6: 使用 new ActiveObject()创建
-IE7+及其他：new XMLHttpRequest()
+IE7+及其他：**new XMLHttpRequest()**
 
 
 
