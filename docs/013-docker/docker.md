@@ -44,7 +44,10 @@ image 文件生成的容器实例，本身也是一个文件，称为容器文�
 
 - 启动容器
 ```shell
-docker container run hello-world
+docker container run -d -p 8000:3000 hello-world
+# -d 后台运行
+# -p 主机端口:容器端口
+# 
 ```
 ***注意，docker container run命令具有自动抓取 image 文件的功能。如果发现本地没有指定的 image 文件，就会从仓库自动抓取。因此，前面的docker image pull命令并不是必需的步骤。***
 
@@ -84,10 +87,14 @@ docker container rm [containerID]
 
 
 # 构建image
-```
+```shell
 $ docker image build -t koa-demo .
 # 或者
 $ docker image build -t koa-demo:0.0.1 .
+
+# -t 构建镜像的tag
+# -f Dockerfile文件的路径，默认是./Dockerfile
+# . 指定docker构建镜像的上下文
 ```
 
 

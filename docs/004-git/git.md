@@ -483,3 +483,15 @@ git push -u origin feature
 ```
 
 test
+
+
+# 设置用户名和邮箱
+```shell
+# 全局设置
+git config --global user.name "liuchengyuan"
+git config --global user.email "liuchengyuan@qq.cn"
+
+# 设置指定仓库
+git config user.name "liuchengyuan"
+git config user.email "836623330@qq.com"
+```
