@@ -7,3 +7,7 @@
 # 路由拦截
 # @loadable/component 
 按需加载
+
+# keep-alive
+- react-router-cache-route
+- react-activation
