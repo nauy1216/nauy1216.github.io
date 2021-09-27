@@ -11,6 +11,8 @@
 -   可视化编程、ast
 -   写掘金文章
 -   找一个ui库看源码
+-   手写async/await
+-   rust/go/WebAssembly
 
 > 移动端
 
