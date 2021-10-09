@@ -67,6 +67,7 @@ https://juejin.cn/post/6844904017487724557
 2. 修改webpack配置
 3. 在服务端渲染时异步数据怎么回填
 4. 注意组件的同构（需要同时能够在浏览器和node环境运行正常）, node环境下能执行的生命周期有哪些。
+    - http://www.ayqy.net/blog/react-ssr-api/
 5. router和redux
 
 
