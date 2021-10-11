@@ -1,0 +1,2 @@
+- https://www.ruanyifeng.com/blog/2019/04/oauth_design.html
+- https://www.ruanyifeng.com/blog/2019/04/oauth-grant-types.html

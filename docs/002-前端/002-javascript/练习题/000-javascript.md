@@ -252,7 +252,36 @@ Object.prototype.toString()
 
 # 虚拟列表的原理？
 
-# WebWorker的缺点是什么？
+# WebWorker的缺点是什么？WebWorker是怎样和主线程通信的？除此之外还有其他的方式解决主线程占用的问题吗？
+
+# react的时间切片的实现为什么不用generator实现？
+
+# dom绑定的回调函数是宏任务还是微任务？
+
+# 浏览器为什么要阻止跨域？跨域的条件？哪些资源涉及到跨域？如何解决跨域？跨域请求会到服务器吗？
+
+# js怎么实现多线程并发？ Concurrent.Thread.js
+
+# 组件库设计有什么原则？
+
+# commonjs的原理？
+
+# 对象深拷贝需要注意的问题？
+
+# encodeURIComponent和encodeURI的区别？
+
+# 商城秒杀倒计时怎么和服务器时间同步？
+
+# 浏览器和nodejs中事件循环的区别？
+
+
+# OAuth2.0的登录流程
+
+
+
+
+
+
 
 
 
