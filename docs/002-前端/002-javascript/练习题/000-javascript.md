@@ -266,7 +266,7 @@ Object.prototype.toString()
 
 # commonjs的原理？
 
-# 对象深拷贝需要注意的问题？
+# 对象深拷贝需要注意的问题？JSON.stringify有什么缺陷？
 
 # encodeURIComponent和encodeURI的区别？
 
@@ -278,7 +278,15 @@ Object.prototype.toString()
 # OAuth2.0的登录流程
 
 
+# reduce的实现？
 
+# typescript中有哪些js没有的类型？
+
+# tree sharking的原理？
+- https://segmentfault.com/a/1190000038962700
+
+# fiddler抓包的原理？
+- https://juejin.cn/post/6902235732304527374
 
 
 
