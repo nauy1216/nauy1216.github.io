@@ -288,25 +288,11 @@ Object.prototype.toString()
 # fiddler抓包的原理？
 - https://juejin.cn/post/6902235732304527374
 
-# 如何计算滚动条的宽度？
-
-```javascript
-const scrollContainer = document.createElement('div');
-const scrollContent = document.createElement('div');
-
-scrollContainer.style = 'position:fixed;z-index:-1;width:50px;height:50px;overflow:scroll;';
-
-scrollContent.style = 'height:100px;';
-
-scrollContainer.append(scrollContent);
-document.body.append(scrollContainer);
-
-const scrollBarWidth = scrollContainer.offsetWidth - scrollContent.offsetWidth;
-```
-
-***如果是mac的话，scrollBarWidth计算出来的值永远是0，因为滚动条不占用可视区的空间***
-
 # 微任务为什么会阻塞UI渲染？
+
+# 闭包
+- 什么是闭包?
+- 闭包的特点？
 
 
 
