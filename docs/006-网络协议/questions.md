@@ -154,8 +154,11 @@ OPTIONS请求方法的**主要用途**有两个：
 
 HTTP和HTTPS协议的主要区别如下：
 
+- HTTP 的URL 以http:// 开头，而HTTPS 的URL 以https:// 开头
+
 - HTTPS协议需要CA证书，费用较高；而HTTP协议不需要；
-- HTTP协议是超文本传输协议，信息是明文传输的，HTTPS则是具有安全性的SSL加密传输协议；
+- HTTP 是不安全的，而 HTTPS 是安全的。HTTP协议是超文本传输协议，信息是明文传输的，HTTPS则是具有安全性的SSL加密传输协议；
+- 在OSI 网络模型中，HTTP工作于应用层，而HTTPS 的安全传输机制工作在传输层
 - 使用不同的连接方式，端口也不同，**HTTP协议端口是80，HTTPS协议端口是443**；
 - HTTP协议连接很简单，是无状态的；HTTPS协议是有SSL和HTTP协议构建的可进行加密传输、身份认证的网络协议，比HTTP更加安全。
 
@@ -442,6 +445,24 @@ HTTP 传输的报文必须是一发一收，但是，里面的任务被放在一
 
 - Etag、If-None-Match
 - Last-Modified、If-Modified-Since
+
+
+
+### 22、什么是Http协议无状态协议?怎么解决Http协议无状态协议?
+
+-  无状态协议对于事务处理没有记忆能力。也就是说，当客户端一次HTTP请求完成以后，客户端再发送一次HTTP请求，HTTP并不知道当前客户端是一个"老用户"。
+
+- 可以使用Cookie来解决无状态的问题，Cookie就相当于一个通行证，第一次访问的时候给客户端发送一个Cookie，当客户端再次来的时候，拿着Cookie(通行证)，那么服务器就知道这个是"老用户"。
+
+### 3、URI和URL的区别
+
+**URI**
+
+是uniform resource identifier，统一资源标识符，用来唯一的标识一个资源。
+
+**URL**
+
+是uniform resource locator，统一资源定位器，它是一种具体的URI，即URL可以用来标识一个资源，而且还指明了如何locate这个资源。
 
 
 
