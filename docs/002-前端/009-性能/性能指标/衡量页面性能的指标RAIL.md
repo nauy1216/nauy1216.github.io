@@ -1,4 +1,5 @@
-https://tuzilingdang.github.io/2019/07/04/frontend-performance-index-detail/#
+- https://tuzilingdang.github.io/2019/07/04/frontend-performance-index-detail/#
+- https://web.dev/rail/
 
 # 常用性能指标
 
