@@ -176,7 +176,7 @@ console.log(window.myAPI)
 
 
 
-## 多进程模型[#](https://www.electronjs.org/zh/docs/latest/tutorial/process-model#多进程模型)
+### 多进程模型
 
 为了解决这个问题，Chrome 团队决定让每个标签页在自己的进程中渲染， 从而限制了一个网页上的有误或恶意代码可能导致的对整个应用程序造成的伤害。 然后用单个浏览器进程控制这些標籤頁进程，以及整个应用程序的生命周期。 下方来自 [Chrome 漫画](https://www.google.com/googlebooks/chrome/) 的图表可视化了此模型：
 
@@ -230,6 +230,14 @@ Electron 应用程序的结构非常相似。 作为应用开发者，您控制�
   
 
 主进程还能通过 Electron 的 [`app`](https://www.electronjs.org/zh/docs/latest/api/app) 模块来控制您应用程序的生命周期。 该模块提供了一整套的事件和方法，可以使你添加自定义的应用程序行为 ( 例如：以编程方式退出您的应用程序、修改程序坞或显示关于面板 ) 。
+
+
+
+
+
+
+
+### session
 
 
 
