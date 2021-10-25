@@ -1,4 +1,5 @@
 - https://www.ruanyifeng.com/blog/2018/07/web-worker.html
+- 验证postMessage可传递的数据累型。
 
 # WebWorker
 
@@ -199,7 +200,9 @@ worker.addEventListener('error', function (event) {
 - 需要注意的是，这种通信是**拷贝关系**，即是传值而不是传址，**Worker 对通信内容的修改，不会影响到主线程。**
 - 事实上，浏览器内部的运行机制是，先将通信内容串行化，然后把串行化后的字符串发给 Worker，后者再将它还原。
 
+- **注意不能传递Function**。
 
+  
 
 > 拷贝方式发送二进制数据，会造成性能问题。比如，主线程向 Worker 发送一个 500MB 文件，默认情况下浏览器会生成一个原文件的拷贝。
 
