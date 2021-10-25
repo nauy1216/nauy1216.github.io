@@ -294,15 +294,28 @@ Object.prototype.toString()
 - 什么是闭包?
 - 闭包的特点？
 
-# 浏览器地址栏输入地址唤醒桌面应用的原理。
 
 
 
 
+# 浏览器地址栏输入地址唤醒桌面应用的原理？
 
+### 文档
 
+- https://juejin.cn/post/6844903989155217421
 
+### 关键点
 
+- 实现原理是桌面应用使用了自定义协议(`URL Schemes`)。windows的桌面应用的自定义协议放在了注册表中，mac可通过包内容查看到。
+
+- 在网页中通过`a`标签使用。
+
+  ```html
+   <a href="xmind://">xmind</a>
+  ```
+
+- 如何判断自定义协议是否存在？
+  - 使用[protocolcheck.js](https://github.com/ismailhabib/custom-protocol-detection/blob/master/protocolcheck.js) 
 
 
 
