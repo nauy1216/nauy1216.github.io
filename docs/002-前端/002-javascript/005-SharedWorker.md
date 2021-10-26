@@ -1,6 +1,8 @@
 - https://www.cnblogs.com/imgss/p/14634577.html
 - https://segmentfault.com/a/1190000019699502
 - https://www.zhuwenlong.com/blog/article/590ea64fe55f0f385f9a12e5
+- https://www.cnblogs.com/zhwc-5w4/p/13915815.html
+
 ### 什么是ShareWorker？
 - 通过shareWorker我们可以创建共享线程，即不同的页面使用同一个ShareWorkder。
 - shareWorkder会在页面存在的生命周期内创建一个唯一的线程，并且开启多个页面也只会使用同一个进程，当所有的页面都关闭之后该线程也会随之被结束。
