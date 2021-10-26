@@ -309,3 +309,7 @@ Element.getBoundingClientRect() 方法返回元素的大小及其相对于视口
 var rect = obj.getBoundingClientRect();
 ```
 
+
+
+### 8、children和childNodes的区别
+
