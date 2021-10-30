@@ -45,6 +45,84 @@ https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context
 
 
 
+### 应用场景？
+
+- margin重叠问题。`overflow: hidden;`使得div1形成了`BFC`。本来div2的margin会跑到div1的外面，现在形成`BFC`后就不会了。
+
+```html
+<style>
+    .div1 {
+        overflow: hidden;
+        background: pink;
+    }
+    .div2 {
+        width: 200px;
+        height: 200px;
+        background: #e0e0e0;
+        margin: 20px;
+    }
+</style>
+<div class="div1">
+    <div class="div2"></div>
+</div>
+```
+
+- 清浮动。形成了`BFC`的元素的高度是计算浮动元素的高度在内的。下面的例子中，如果没加`overflow: hidden;`div1的高度就会是0，加了就是200px。
+
+```html
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .div1 {
+        overflow: hidden;
+        background: pink;
+    }
+    .div2 {
+        width: 200px;
+        height: 200px;
+        background: #e0e0e0;
+        float: left;
+    }
+</style>
+<div class="div1">
+    <div class="div2"></div>
+</div>
+```
+
+- 阻止普通文档流元素被浮动元素覆盖。如果没加`overflow: hidden;`的话demo1会浮在在demo2上，并且形成文字环绕的效果。加了之后demo1和demo2
+  互不干扰不会重叠在一起。下面的例子稍微改下就能成为两栏布局。
+
+```html
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .demo1 {
+        width: 100px;
+        height: 100px;
+        float: left;
+        background: pink
+    }
+    .demo2 {
+        width: 200px;
+        height: 200px;
+        background: blue;
+        overflow: hidden;
+    }
+</style>
+
+<div class="demo">
+    <div class="demo1">我是一个左侧浮动元素</div>
+    <div class="demo2">我是一个没有设置浮动, 也没有触发BFC的元素</div>
+</div>
+ 
+```
+
+
+
 
 
 # IFC
@@ -59,5 +137,9 @@ https://developer.mozilla.org/zh-CN/docs/Web/CSS/Inline_formatting_context
 
 
 # GFC
+
+
+
+
 
 # FFC

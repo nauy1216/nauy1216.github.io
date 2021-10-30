@@ -1,4 +1,96 @@
-# 1、利用box-shdow实现单边阴影？
+# 移动端1px
+### 产生1px问题的原因？
+由于`DPR(devicePixelRatio)`设备像素比不为1， 当css设置1px边框时，屏幕上对应的是2个或3个物理像素(具体多少个看设备像素比是多少)。
+所以一像素看起来会很粗。
+
+### 解决1px边框很粗的问题？
+- 使用0.5px
+    - 安卓有兼容问题。
+- 使用transform: scale(0.5)进行缩放
+- 使用viewport全局缩放
+- 使用box-shadow
+```css
+box-shadow: 0  -1px 1px -1px #e5e5e5,   //上边线
+            1px  0  1px -1px #e5e5e5,   //右边线
+            0  1px  1px -1px #e5e5e5,   //下边线
+            -1px 0  1px -1px #e5e5e5;   //左边线
+```
+- 使用图片
+
+> 新项目最好使用的是设置viewport的scale值，这个方法兼容性好，后期写起来方便。老项目的话，改起来可能比较多，用的比较多的方法就是伪元素+transform的方法。
+
+
+
+
+
+# postion
+
+- 有哪几种定位方式？
+- sticky?
+
+
+
+
+
+# flex
+
+### 容器属性
+- display
+- flex-direction
+- justify-content
+- align-items
+- flex-wrap
+- flex-flow
+- align-content
+### 项目属性
+- flex
+- flex-shrink
+- flex-grow
+- order
+- flex-basis
+- align-self
+
+
+
+# Css浏览器调试？
+
+
+
+
+
+# 实现水平垂直居中
+
+- 定宽高
+    - 绝对定位 + margin取负值
+    - 绝对定位 + translate
+    - 绝对定位 + top/right/bottom/left + margin
+    - grid
+    - flex
+    - table-cell + vertical-align + inline-block/margin: auto
+- 不定宽高
+    - 绝对定位 + translate
+    - table-cell + vertical-align + inline-block/margin: auto
+    - flex
+    - grid
+    
+    
+
+# 布局
+- 单列布局
+- 两列布局
+- 三栏布局
+    > 特点：中间列自适应宽度，旁边两侧固定宽度
+    - 圣杯布局
+    - 双飞翼布局
+    - 等高布局
+    - 表格布局
+    - 粘连布局
+
+
+
+
+
+# 利用box-shdow实现单边阴影？
 
 使用内阴影：
 
@@ -14,7 +106,9 @@
 
 下： box-shadow: 0 10px 10px -10px gray;
 
-# 2 、a 标签四大伪类？
+
+
+# a 标签四大伪类？
 
 ​    a:link，      定义正常链接的样式；
 
@@ -24,7 +118,11 @@
 
 ​    a:active，  定义鼠标点击链接时的样式。
 
-# 3、min-width 不起作用？
+
+
+
+
+# min-width 不起作用？
 
 在给li设置最小宽度时，代码如下， 但是不起作用：
 
