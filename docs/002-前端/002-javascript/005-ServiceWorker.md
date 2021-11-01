@@ -1,5 +1,14 @@
 - https://segmentfault.com/a/1190000012701843
 - https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers
+- https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API
+- https://segmentfault.com/a/1190000016446125
+- https://segmentfault.com/a/1190000017079828
+
+
+
+
+# 书籍
+- https://serviceworke.rs/
 
 # 1、出现SeriveWorker的背景
 有一个困扰 web 用户多年的难题——丢失网络连接。即使是世界上最好的 web app，如果下载不了它，也是非常糟糕的体验。如今虽然已经有很多种技术去尝试着解决这一问题。而随着离线页面的出现，一些问题已经得到了解决。但是，最重要的问题是，仍然没有一个好的统筹机制对资源缓存和自定义的网络请求进行控制。
@@ -14,6 +23,8 @@ Service worker 最终要去解决这些问题。
 - Service Worker 可以使你的应用先访问本地缓存资源，所以在离线状态时，在没有通过网络接收到更多的数据前，仍可以提供基本的功能（一般称之为 Offline First）。这是原生APP 本来就支持的功能，这也是相比于 web app，原生 app 更受青睐的主要原因。
 
 
+# 什么是ServiceWorker
+Service workers 本质上充当 Web 应用程序、浏览器与网络（可用时）之间的代理服务器。这个 API 旨在创建有效的离线体验，它会拦截网络请求并根据网络是否可用来采取适当的动作、更新来自服务器的的资源。它还提供入口以推送通知和访问后台同步 API。
 
 # 2、ServiceWorker和PWA的关系
 PWA是一种模式。
@@ -23,7 +34,8 @@ PWA是一种模式。
 对于` webview `来说，`Service Worker `是一个独立于js主线程的一种` Web Worker `线程， 一个独立于主线程的` Context`，但是面向开发者来说` Service Worker `的形态其实就是一个需要开发者自己维护的文件，我们假设这个文件叫做` sw.js`。通过` service worker `我们可以代理` webview `的请求相当于是一个`正向代理`的线程，fiddler也是干这些事情），在特定路径注册` service worker `后，可以拦截并处理该路径下所有的网络请求，进而实现页面资源的可编程式缓存，在弱网和无网情况下带来流畅的产品体验，所以 `service worker `可以看做是实现pwa模式的一项技术实现。
 
 
-
+# 为什么要舍弃AppCache?
+Service workers之所以优于AppCache，是因为AppCache无法支持当操作出错时终止操作。Service workers可以更细致地控制每一件事情。
 
 
 
@@ -44,6 +56,11 @@ PWA是一种模式。
 
 ### 生命周期
 
+- 使用 [`ServiceWorkerContainer.register()`](https://developer.mozilla.org/zh-CN/docs/Web/API/ServiceWorkerContainer/register) 方法首次注册service worker。如果注册成功，service worker就会被下载到客户端并尝试安装或激活。生命周期顺序：下载 -> 安装 -> 激活。
+- 用户首次访问service worker控制的网站或页面时，service worker会立刻被下载。
+- 如果这是首次启用service worker，页面会首先尝试安装，安装成功后它会被激活。
+- 如果现有service worker已启用，新版本会在后台安装，但不会被激活，这个时序称为worker in waiting。直到所有已加载的页面不再使用旧的service worker才会激活新的service worker。只要页面不再依赖旧的service worker，新的service worker会被激活（成为active worker）。
+
 ![img](image/sw-lifecycle.png)
 
 ### 事件
@@ -57,12 +74,13 @@ PWA是一种模式。
 1. service worker 是一种JS工作线程，无法直接访问DOM, 该线程通过postMessage接口消息形式来与其控制的页面进行通信;
 2. 目前并不是所有主流浏览器支持 service worker, 可以通过 navigator && navigator.serviceWorker 来进行特性探测;
 3. 在开发过程中，可以通过 localhost 使用服务工作线程，如若上线部署，必须要通过https来访问注册服务工作线程的页面，但有种场景是我们的测试环境可能并不支持https，这时就要通过更改host文件将localhost指向测试环境ip来巧妙绕过该问题（例如：192.168.22.144 localhost）;
-
+4. 它设计为完全异步，同步API（如XHR和localStorage (en-US)）不能在service worker中使用。
 
 
 
 # 6、ServiceWorker的使用
 ### 注册
+
 ```js
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw-test/sw.js', { scope: '/sw-test/' }).then(function(reg) {
@@ -244,3 +262,44 @@ self.addEventListener('activate', function(event) {
 # 7、开发者工具
 
 `Chrome `有一个` chrome://inspect/#service-workers `可以展示当前设备上激活和存储的` service worker`。还有个 `chrome://serviceworker-internals `可以展示更多细节来允许你开始/暂停/调试` worker `的进程。未来他们会支持流量调节控制/离线模式来模拟弱网或者没网状态，这也是非常好的。
+
+
+
+
+
+# 使用场景
+
+- 后台数据同步
+- 响应来自其它源的资源请求
+- 集中接收计算成本高的数据更新，比如地理位置和陀螺仪信息，这样多个页面就可以利用同一组数据
+- 在客户端进行CoffeeScript，LESS，CJS/AMD等模块编译和依赖管理（用于开发目的）
+- 后台服务钩子
+- 自定义模板用于特定URL模式
+- 性能增强，比如预取用户可能需要的资源，比如相册中的后面数张图片
+- [后台同步](https://github.com/slightlyoff/BackgroundSync)：启动一个service worker即使没有用户访问特定站点，也可以更新缓存
+- [响应推送](https://developer.mozilla.org/zh-CN/docs/Web/API/Push_API)：启动一个service worker向用户发送一条信息通知新的内容可用
+- 对时间或日期作出响应
+- 进入地理围栏
+
+
+
+
+
+# [API](https://developer.mozilla.org/zh-CN/docs/Web/API/FetchEvent)
+
+### Navigator.serviceWorker
+
+`Navigator.serviceWorker` 只读属性，返回 [关联文件](https://html.spec.whatwg.org/multipage/browsers.html#concept-document-window) 的 [`ServiceWorkerContainer`](https://developer.mozilla.org/zh-CN/docs/Web/API/ServiceWorkerContainer) 对象，它提供对[`ServiceWorker`](https://developer.mozilla.org/zh-CN/docs/Web/API/ServiceWorker) 的注册，删除，升级和通信的访问。。
+
+### Cache
+
+> **这是一个实验中的功能**
+
+用来管理缓存。
+
+### CacheStorage
+
+> **这是一个实验中的功能**
+
+**`CacheStorage`** 是用来管理Cache对象的。
+
