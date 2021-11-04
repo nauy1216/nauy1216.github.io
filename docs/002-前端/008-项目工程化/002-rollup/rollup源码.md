@@ -24,5 +24,6 @@ function rollup(rawInputOptions: GenericConfigObject): Promise<RollupBuild>
 # Graph.build()
 
 # hook
-1. resolveId
-2. load
+- resolveId
+- load
+- moduleParsed
