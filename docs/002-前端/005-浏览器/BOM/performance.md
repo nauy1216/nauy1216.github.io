@@ -1,3 +1,8 @@
+- https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp?hl=zh-cn
+- https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp?hl=zh-cn
+- https://web.dev/fid/
+
+
 ### Performance API是什么？
 Performance API用于精确度量、控制、增强浏览器的性能表现。这个API为测量网站性能，`提供以前没有办法做到的精度`。
 - 测量网站性能
