@@ -300,9 +300,23 @@ pollingWorker.postMessage('init');
 
 
 
-# SeviceWorker
+### worker运行环境
 
+1、navigator
 
+2、location
 
-# SharedWorker
+3、self：指向全局的worker对象
+
+4、所有的ECMA对象
+
+5、XMLHttpRequest构造器
+
+6、setInterval、serTimeout
+
+7、close():立即停止本线程
+
+8、importScripts():在后台线程引入一个js文件
+
+9、没有DOM操作
 

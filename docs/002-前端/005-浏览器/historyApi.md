@@ -2,6 +2,10 @@
 
 
 
+# history
+
+
+
 ### 什么是history?
 
 `window.history`属性指向 History 对象，它表示当前窗口的浏览历史。
@@ -121,3 +125,21 @@ URLSearchParams API 用于处理 URL 之中的查询字符串，即问号之后�
 ### 思考
 
 - react-router的history是怎么实现的？
+
+
+
+
+
+# hash
+
+#### onhashchange事件
+
+当hash值发生变化时触发。
+
+```js
+window.onhashchange=functiion(){
+	// window.location.hash
+	// 根据此时的hash值找到对应的历史内容。
+}
+```
+

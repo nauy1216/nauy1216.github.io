@@ -1,14 +1,18 @@
 ### FileReader
 
 作用：读取文件信息和内容。
-readAsDataURL
+**readAsDataURL**
 参数为要读取的文件对象，将文件读取为DataUrl。
 
-onload
+**onload**
 当读取文件成功完成的时候触发此事件。
 
-this. result
+**this. result**
 来获取读取的文件数据，如果是图片，将返回base64格式的图片数据。
+
+
+
+
 
 例子：拖放外部文件：
 
@@ -16,7 +20,7 @@ this. result
 
 
 
-```js
+```html
 <div id="div" style="width:200px;height:200px;background:red;">将文件拖放到这里</div>
 <ul id="ul"></ul>
 
