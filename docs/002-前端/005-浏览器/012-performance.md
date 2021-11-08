@@ -8,8 +8,8 @@
 
 ### Performance API是什么？
 Performance API用于精确度量、控制、增强浏览器的性能表现。这个API为测量网站性能，`提供以前没有办法做到的精度`。
-- 测量网站性能
-- 精度更高
+- **测量网站性能**
+- **精度更高**
 
 比如，为了得到脚本运行的准确耗时，需要一个高精度时间戳。传统的做法是使用Date对象的getTime方法。
 
@@ -74,7 +74,7 @@ console.log("任务运行时间：" + latency);
 - `loadEventEnd`：返回当前网页load事件的回调函数运行结束时的Unix毫秒时间戳。如果该事件还没有发生，返回0。
 
 ### performance.now()
-performance.now()方法返回当前网页自从performance.timing.navigationStart到当前时间之间的毫秒数。
+performance.now()方法返回当前网页自从`performance.timing.navigationStart`到当前时间之间的毫秒数。
 
 ```js
 performance.now()
@@ -84,10 +84,7 @@ Date.now() - (performance.timing.navigationStart + performance.now())
 // -0.64306640625
 ```
 
-
-### performance.now()
-
-通过两次调用performance.now()方法，可以得到间隔的准确时间，用来衡量某种操作的耗时。
+通过两次调用`performance.now()`方法，可以得到间隔的准确时间，用来衡量某种操作的耗时。
 
 ```js
 var start = performance.now();

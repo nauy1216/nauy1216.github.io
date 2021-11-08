@@ -454,7 +454,11 @@ HTTP 传输的报文必须是一发一收，但是，里面的任务被放在一
 
 - 可以使用Cookie来解决无状态的问题，Cookie就相当于一个通行证，第一次访问的时候给客户端发送一个Cookie，当客户端再次来的时候，拿着Cookie(通行证)，那么服务器就知道这个是"老用户"。
 
-### 3、URI和URL的区别
+### 23、URI和URL的区别
+
+- https://zhuanlan.zhihu.com/p/331816664
+
+- https://www.macxin.com/archives/10762.html
 
 **URI**
 
