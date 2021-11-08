@@ -1,7 +1,10 @@
 - https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp?hl=zh-cn
 - https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp?hl=zh-cn
 - https://web.dev/fid/
-
+- https://web.dev/vitals/
+- https://developers.google.com/web/fundamentals/performance/get-started?hl=zh-cn
+- https://developers.google.com/web/tools/chrome-user-experience-report/
+- [在线分析工具](https://developers.google.com/speed/pagespeed/insights/)
 
 ### Performance API是什么？
 Performance API用于精确度量、控制、增强浏览器的性能表现。这个API为测量网站性能，`提供以前没有办法做到的精度`。
@@ -99,8 +102,8 @@ console.log('耗时：' + (end - start) + '毫秒。');
 mark方法用于为相应的视点做标记。
 ```js
 window.performance.mark('mark_fully_loaded');
-clearMarks方法用于清除标记，如果不加参数，就表示清除所有标记。
 
+// clearMarks方法用于清除标记，如果不加参数，就表示清除所有标记。
 window.peformance.clearMarks('mark_fully_loaded');
 
 window.performance.clearMarks();

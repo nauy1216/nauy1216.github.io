@@ -276,14 +276,76 @@ ESLint递归地扩展配置，因此基本配置也可以具有 `extends` 属性
 
 
 
-# [插件](https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins)
+# [插件开发](https://cn.eslint.org/docs/developer-guide/working-with-plugins#configs-in-plugins)
 
 ### 创建插件
 
 [Yeoman generator](https://www.npmjs.com/package/generator-eslint)
 
 
+# [创建规则](https://cn.eslint.org/docs/developer-guide/working-with-rules)
+一个规则包含的东西：
+```js
+module.exports = {
+    meta: {
+        // 指示规则的类型，值为 "problem"、"suggestion" 或 "layout"
+        type: "suggestion", 
+        docs: {
+            description: "disallow unnecessary semicolons", // 提供规则的简短描述在规则首页展示
+            category: "Possible Errors",
+            recommended: true, //  配置文件中的 "extends": "eslint:recommended"属性是否启用该规则
+            url: "https://eslint.org/docs/rules/no-extra-semi"
+        },
+        // 如果没有 fixable 属性，即使规则实现了 fix 功能，ESLint 也不会进行修复。如果规则不是可修复的，就省略 fixable 属性。
+        fixable: "code",
+        // 参数数据协议
+        schema: [], // no options
+        // 消息模版
+        messages: {
+            avoidName: "Avoid using variables named '{{ name }}'"
+        }
+    },
+    // create (function) 返回一个对象，其中包含了 ESLint 在遍历 JavaScript 代码的抽象语法树 AST (ESTree 定义的 AST) 时，用来访问节点的方法。
+    create: function(context) {
+        return {
+            ReturnStatement: function(node) {
+                // at a ReturnStatement node while going down
+            },
+            // at a function expression node while going up:
+            "FunctionExpression:exit": checkLastSegment,
+            "ArrowFunctionExpression:exit": checkLastSegment,
+            onCodePathStart: function (codePath, node) {
+                // at the start of analyzing a code path
+            },
+            onCodePathEnd: function(codePath, node) {
+                // at the end of analyzing a code path
+            }
+        };
+    }
+};
+```
 
+### [context.report()](https://cn.eslint.org/docs/developer-guide/working-with-rules#contextreport)
+你将使用的主要方法是 context.report()，它用来发布警告或错误（取决于你所使用的配置）。
 
+[fix](https://cn.eslint.org/docs/developer-guide/working-with-rules#applying-fixes)
+如果你想让 ESLint 尝试去修复你所报告的问题，你可在使用 context.report() 时指定 fix 函数。fix 函数接收一个参数，即一个 fixer 对象，你可以用它来进行修复。例如：
+```js
+context.report({
+    node: node,
+    message: "Missing semicolon",
+    fix: function(fixer) {
+        return fixer.insertTextAfter(node, ";");
+    }
+});
+```
+
+### [context.options](https://cn.eslint.org/docs/developer-guide/working-with-rules#contextoptions)
+规则要求一些可选项才能正确运行。这些可选项出现在配置中（.eslintrc，命令行，或在注释中）。例如：
+```json
+{
+    "quotes": ["error", "double"]
+}
+```
 
 ###  [`RuleTester`](https://cn.eslint.org/docs/developer-guide/nodejs-api#ruletester)
