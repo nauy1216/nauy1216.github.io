@@ -444,7 +444,7 @@ oGc.translate(100,100);
 
 ## rotate
 
-```
+```js
 oGc.rotate(45/180*Math.PI);
 
 oGc.translate(100,100);//平移下面语句画的图形
@@ -772,6 +772,10 @@ oC.onmousedown = function(ev){
     }
 }
 ```
+
+
+
+
 
 # 库
 
