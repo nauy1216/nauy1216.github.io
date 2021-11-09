@@ -3,11 +3,11 @@
 - https://www.zhuwenlong.com/blog/article/590ea64fe55f0f385f9a12e5
 - https://www.cnblogs.com/zhwc-5w4/p/13915815.html
 
-### 什么是ShareWorker？
+# 什么是ShareWorker？
 - 通过shareWorker我们可以创建共享线程，即不同的页面使用同一个ShareWorkder。
 - shareWorkder会在页面存在的生命周期内创建一个唯一的线程，并且开启多个页面也只会使用同一个进程，当所有的页面都关闭之后该线程也会随之被结束。
 
-### 创建shareWorker
+# 创建shareWorker
 
 ```js
 let worker = new SharedWorker('sharedworkers.js', 'workerName');
@@ -16,7 +16,7 @@ let worker = new SharedWorker('sharedworkers.js', 'workerName');
 - 其中第一个参数是脚本的地址。
 - 第二个参数是子线程的名称，相同名字的线程会被共享（但必须符合同源策略）。
 
-### 消息传递
+# 消息传递
 `ShareWorker`实现于`SharedWorkerGlobalScope`，这个和`Webworker`有一点的使用上的区别。
 
 #### 主线程
@@ -60,7 +60,7 @@ onconnect = function (e) {
 - 这时候我们就可以使用 .onmessage 和 .postMessage 来处理和传递我们的数据了。
 
 
-### 调试
+# 调试
 开发sharedworkders的时候，可能会发现这样的问题，普通workder可以很方便的通过控制台来调试，但是sharedworkders是后台线程，很难去调试，我在开发的时候就遇到下面的问题：
 - sharedWorkder 的 console 信息不会在控制台中展示，怎么去打断点？
 - sharedWorkder 的缓存比较严重，修改了代码之后浏览器还是会运行之前的脚本，缓存该如何清除？

@@ -11,7 +11,7 @@
 # 书籍
 - https://serviceworke.rs/
 
-# 1、出现SeriveWorker的背景
+# 出现SeriveWorker的背景
 有一个困扰 web 用户多年的难题——丢失网络连接。即使是世界上最好的 web app，如果下载不了它，也是非常糟糕的体验。如今虽然已经有很多种技术去尝试着解决这一问题。而随着离线页面的出现，一些问题已经得到了解决。但是，最重要的问题是，仍然没有一个好的统筹机制对资源缓存和自定义的网络请求进行控制。
 
 之前的尝试 — AppCache — 看起来是个不错的方法，因为它可以很容易地指定需要离线缓存的资源。但是，它假定你使用时会遵循诸多规则，如果你不严格遵循这些规则，它会把你的APP搞得一团糟。关于APPCache的更多详情，请看Jake Archibald的文章： [Application Cache is a Douchebag.](https://alistapart.com/article/application-cache-is-a-douchebag/)
@@ -27,7 +27,10 @@ Service worker 最终要去解决这些问题。
 # 什么是ServiceWorker
 Service workers 本质上充当 Web 应用程序、浏览器与网络（可用时）之间的代理服务器。这个 API 旨在创建有效的离线体验，它会拦截网络请求并根据网络是否可用来采取适当的动作、更新来自服务器的的资源。它还提供入口以推送通知和访问后台同步 API。
 
-# 2、ServiceWorker和PWA的关系
+
+
+# ServiceWorker和PWA的关系
+
 PWA是一种模式。
 `PWA (Progressive Web Apps) `不是一项技术，也不是一个框架，我们可以把她理解为一种模式，一种通过应用一些技术将 Web App 在安全、性能和体验等方面带来渐进式的提升的一种 Web App的模式。
 
@@ -35,18 +38,20 @@ PWA是一种模式。
 对于` webview `来说，`Service Worker `是一个独立于js主线程的一种` Web Worker `线程， 一个独立于主线程的` Context`，但是面向开发者来说` Service Worker `的形态其实就是一个需要开发者自己维护的文件，我们假设这个文件叫做` sw.js`。通过` service worker `我们可以代理` webview `的请求相当于是一个`正向代理`的线程，fiddler也是干这些事情），在特定路径注册` service worker `后，可以拦截并处理该路径下所有的网络请求，进而实现页面资源的可编程式缓存，在弱网和无网情况下带来流畅的产品体验，所以 `service worker `可以看做是实现pwa模式的一项技术实现。
 
 
+
+
 # 为什么要舍弃AppCache?
 Service workers之所以优于AppCache，是因为AppCache无法支持当操作出错时终止操作。Service workers可以更细致地控制每一件事情。
 
 
 
-# 3、使用前的设置
+# 使用前的设置
 1. 在已经支持 serivce workers 的浏览器的版本中，很多特性没有默认开启。如果你发现示例代码在当前版本的浏览器中怎么样都无法正常运行，你可能需要开启一下浏览器的相关配置。
 2. 你需要通过 HTTPS 来访问你的页面 — 出于安全原因，Service Workers 要求必须在 HTTPS 下才能运行。Github 是个用来测试的好地方，因为它就支持HTTPS。为了便于本地开发，localhost 也被浏览器认为是安全源。
 
 
 
-# 4、基本架构
+# 基本架构
 1. `service worker URL `通过` serviceWorkerContainer.register() `来获取和注册。
 2. 如果注册成功，`service worker `就在` ServiceWorkerGlobalScope `环境中运行； 这是一个特殊类型的` worker `上下文运行环境，与主运行线程（执行脚本）相独立，同时也没有访问` DOM `的能力。
 3. 注册成功后，`service worker `现在可以处理事件了。
@@ -70,7 +75,7 @@ Service workers之所以优于AppCache，是因为AppCache无法支持当操作�
 
 
 
-# 5、注意事项
+# 注意事项
 
 1. service worker 是一种JS工作线程，无法直接访问DOM, 该线程通过postMessage接口消息形式来与其控制的页面进行通信;
 2. 目前并不是所有主流浏览器支持 service worker, 可以通过 navigator && navigator.serviceWorker 来进行特性探测;
@@ -79,7 +84,7 @@ Service workers之所以优于AppCache，是因为AppCache无法支持当操作�
 
 
 
-# 6、ServiceWorker的使用
+# ServiceWorker的使用
 ### 注册
 
 ```js
@@ -260,7 +265,7 @@ self.addEventListener('activate', function(event) {
 
 
 
-# 7、开发者工具
+# 开发者工具
 
 `Chrome `有一个` chrome://inspect/#service-workers `可以展示当前设备上激活和存储的` service worker`。还有个 `chrome://serviceworker-internals `可以展示更多细节来允许你开始/暂停/调试` worker `的进程。未来他们会支持流量调节控制/离线模式来模拟弱网或者没网状态，这也是非常好的。
 

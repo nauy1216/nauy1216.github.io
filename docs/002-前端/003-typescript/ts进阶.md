@@ -4,7 +4,7 @@
 
 
 
-# Generics(泛型)
+# 泛型（Generics）
 > type variable。一种特殊的作用于类型的变量。
 
 > 学习ts的时候学会从两个角度去看代码。一个是静态编译时，另一个是动态运行时。
@@ -79,7 +79,7 @@ function getProperty<Type, Key extends keyof Type>(obj: Type, key: Key) {
 }
 ```
 
-### 在构造函数和对象实例类型上使用泛型
+### 构造函数使用泛型
 ```ts
 interface MyConstructor<Type> {
   new (): Type 
@@ -90,7 +90,13 @@ function create<Type>(c: MyConstructor<Type>): Type {
 ```
 
 
-# !非空断言操作符
+
+
+
+
+
+# !（非空断言操作符）
+
 1. 忽略 undefined 和 null 类型
 ```ts
 function myFunc(maybeString: string | undefined | null) {
@@ -125,7 +131,7 @@ const b = a;
 console.log(b);
 ```
 
-# ?.可选链
+# ?. （可选链）
 有了可选链后，我们编写代码时如果遇到` null `或` undefined `就可以立即停止某些表达式的运行。可选链的核心是新的` ?. `运算符，它支持以下语法：
 ```ts
 obj?.prop 
@@ -160,7 +166,7 @@ if(a?.b){ }
 但需要注意的是，?. 与 && 运算符行为略有不同，&& 专门用于检测 falsy 值，比如空字符串、0、NaN、null 和 false 等。而 ?. 只会验证对象是否为 null 或 undefined，对于 0 或空字符串来说，并不会出现 “短路”。
 
 
-# ?? 空值合并运算符
+# ?? （空值合并运算符）
 当左侧操作数为 null 或 undefined 时，其返回右侧的操作数，否则返回左侧的操作数。
 
 与逻辑或 || 运算符不同，逻辑或会在左操作数为 falsy 值时返回右侧操作数。也就是说，如果你使用 || 来为某些变量设置默认的值时，你可能会遇到意料之外的行为。比如为 falsy 值（’’、NaN 或 0）时。
@@ -197,10 +203,10 @@ true && undefined ?? "foo"; // raises a SyntaxError
 (null || undefined ) ?? "foo"; // 返回 "foo"
 ```
 
-# ?: 可选属性
+# ?: （可选属性）
 把某个属性声明为可选的。
 
-# & 交叉类型
+# & （交叉类型）
 在` TypeScript `中交叉类型是将多个类型合并为一个类型。通过` & `运算符可以将现有的多种类型叠加到一起成为一种类型，它包含了所需的所有类型的特性。
 ```ts
 type PartialPointX = { x: number; };
@@ -261,7 +267,7 @@ let abc: ABC = {
 console.log('abc:', abc);
 ```
 
-# | 联合类型
+# | （联合类型）
 在 TypeScript 中联合类型（Union Types）表示取值可以为多种类型中的一种，联合类型使用 | 分隔每个类型。联合类型通常与 null 或 undefined 一起使用：
 ```ts
 const sayHello = (name: string | undefined) => { /* ... */ };
@@ -295,7 +301,7 @@ const a:A = 1 as any;
 (a as number).toFixed();
 ```
 
-# #XXX 私有字段
+# #XXX （私有字段）
 在 TypeScript 3.8 版本就开始支持 ECMAScript 私有字段，使用方式如下：
 ```ts
 class Person {

@@ -1,21 +1,19 @@
 - https://www.ruanyifeng.com/blog/2018/07/web-worker.html
 - 验证postMessage可传递的数据累型。
 
-# WebWorker
-
-### 出现的背景
+# 出现的背景
 
 - JavaScript 语言采用的是单线程模型。
 - 随着电脑计算能力的增强，尤其是多核 CPU 的出现，单线程带来很大的不便，无法充分发挥计算机的计算能力。
 
-### 作用
+# 作用
 
 - 为 JavaScript 创造多线程环境，允许主线程创建 Worker 线程，将一些任务分配给后者运行。
 - 在主线程运行的同时，Worker 线程在后台运行，两者互不干扰。等到 Worker 线程完成计算任务，再把结果返回给主线程。这样的好处是，一些计算密集型或高延迟的任务，被 Worker 线程负担了，主线程（通常负责 UI 交互）就会很流畅，不会被阻塞或拖慢。
 
 
 
-### 注意事项
+# 注意事项
 
 - Worker 线程一旦新建成功，就会始终运行，不会被主线程上的活动（比如用户点击按钮、提交表单）打断。这也造成了 Worker 比较耗费资源，不应该过度使用，而且一旦使用完毕，就应该**手动关闭**。
 - **同源限制**。分配给 Worker 线程运行的脚本文件，必须与主线程的脚本文件同源。
@@ -27,11 +25,11 @@
 
 
 
-### 使用
+# 使用
 
-#### 主线程
+### 主线程
 
-**新建一个 Worker 线程。**
+#### 新建一个 Worker 线程
 
 ```js
 var worker = new Worker('work.js', { name : 'myWorker' });
@@ -46,7 +44,7 @@ self.name // myWorker
 
 
 
-返回的worker实例的方法：
+#### **worker实例的方法**
 
 - worker.onerror：指定 error 事件的监听函数。
 - worker.onmessage：指定 message 事件的监听函数，发送过来的数据在`Event.data`属性中。
@@ -56,7 +54,7 @@ self.name // myWorker
 
 
 
-**主线程向Worker发送消息。**
+#### **主线程向Worker发送消息**
 
 ```js
 worker.postMessage('Hello World');
@@ -68,7 +66,7 @@ worker.postMessage({method: 'echo', args: ['Work']});
 
 
 
-**主线程接受Worker的消息。**
+#### **主线程接受Worker的消息**
 
 ```js
 worker.onmessage = function (event) {
@@ -84,7 +82,7 @@ function doSomething() {
 
 
 
-**关闭Worker。**
+#### **关闭Worker**
 
 ```js
 worker.terminate();
@@ -92,9 +90,9 @@ worker.terminate();
 
 
 
-#### Worker
+### Worker
 
-**接收主线程消息。**
+#### **接收主线程消息**
 
 ```js
 self.addEventListener('message', function (e) {
@@ -107,7 +105,7 @@ self.addEventListener('message', function (e) {
 
 
 
-**发消息给主线程。**
+#### **发消息给主线程**
 
 ```js
  self.postMessage('WORKER STARTED: ' + data.msg);
@@ -115,7 +113,7 @@ self.addEventListener('message', function (e) {
 
 
 
-**关闭Worker。**
+#### **关闭Worker**
 
 ```js
   self.close(); // Terminates the worker.
@@ -144,7 +142,7 @@ self.addEventListener('message', function (e) {
 
 
 
-**在worker内部的全局对象。**
+#### **在worker内部的全局对象**
 
 - self.name： Worker 的名字。该属性只读，由构造函数指定。
 - self.onmessage：指定`message`事件的监听函数。
@@ -173,7 +171,7 @@ importScripts('script1.js', 'script2.js');
 
 
 
-#### 错误处理
+### 错误处理
 
 如果发生错误，Worker 会触发主线程的`error`事件。
 
@@ -194,7 +192,7 @@ worker.addEventListener('error', function (event) {
 
 
 
-#### 通信需要注意的地方
+### 通信需要注意的地方
 
 - 主线程与 Worker 之间的通信内容，可以是文本，也可以是对象，也可以是二进制数据，比如 File、Blob、ArrayBuffer 等类型。
 - 需要注意的是，这种通信是**拷贝关系**，即是传值而不是传址，**Worker 对通信内容的修改，不会影响到主线程。**
@@ -222,7 +220,7 @@ worker.postMessage(ab, [ab]);
 
 
 
-#### Worker加载同一个页面的代码
+### Worker加载同一个页面的代码
 
 通常情况下，Worker 载入的是一个单独的 JavaScript 脚本文件，但是也可以载入与主线程在同一个网页的代码。
 
@@ -259,7 +257,7 @@ worker.onmessage = function (e) {
 
 
 
-### 应用场景
+# 应用场景
 
 > 轮询。下面代码中，Worker 每秒钟轮询一次数据，然后跟缓存做比较。如果不一致，就说明服务端有了新的变化，因此就要通知主线程。
 
@@ -300,7 +298,7 @@ pollingWorker.postMessage('init');
 
 
 
-### worker运行环境
+# worker运行环境
 
 1、navigator
 
