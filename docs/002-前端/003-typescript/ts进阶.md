@@ -644,3 +644,168 @@ type Person1 = TypeMapping<Person>
 //   age:string;
 // }
 ```
+
+
+#### 修饰符（Mapping Modifiers）
+- ?。可以加上`-?`或者`?`来增加或者移除`?`。
+- readonly。可以加上`-readonly`或者`readonly`来增加或者移除`readonly`。
+
+```ts
+type CreateMutable<Type> = {
+  -readonly [Property in keyof Type]: Type[Property];
+};
+ 
+type LockedAccount = {
+  readonly id: string;
+  readonly name: string;
+};
+ 
+type UnlockedAccount = CreateMutable<LockedAccount>;
+// type UnlockedAccount = {
+//     id: string;
+//     name: string;
+// }
+
+
+// Removes 'optional' attributes from a type's properties
+type Concrete<Type> = {
+  [Property in keyof Type]-?: Type[Property];
+};
+ 
+type MaybeUser = {
+  id: string;
+  name?: string;
+  age?: number;
+};
+ 
+type User = Concrete<MaybeUser>;
+```
+
+#### as（属性重命名）
+> 可以在映射的时候通过`as`子句来对类型的key重新命名。
+语法：
+```ts
+type MappedTypeWithNewProperties<Type> = {
+    [Properties in keyof Type as NewKeyType]: Type[Properties]
+}
+```
+
+修改key的一个示例： 
+```ts
+type Getters<Type> = {
+    [Property in keyof Type as `get${Capitalize<string & Property>}`]: () => Type[Property]
+};
+ 
+interface Person {
+    name: string;
+    age: number;
+    location: string;
+}
+ 
+type LazyPerson = Getters<Person>;
+// type LazyPerson = {
+//     getName: () => string;
+//     getAge: () => number;
+//     getLocation: () => string;
+// }
+```
+
+> 也可以在映射的过程中，过滤掉某些不要的key。
+> 如果使用as重新指定的key的类型是never就会被过滤掉。
+```ts
+// Remove the 'kind' property
+// Ysou can filter out keys by producing never via a conditional type:
+type RemoveKindField<Type> = {
+    [Property in keyof Type as Exclude<Property, "kind">]: Type[Property]
+};
+ 
+interface Circle {
+    kind: "circle";
+    radius: number;
+}
+ 
+type KindlessCircle = RemoveKindField<Circle>;
+// type KindlessCircle = {
+//     radius: number;
+// }
+```
+
+在对一个联合类型进行映射时，关键字`in`后面就不要再加上`keyof`了。
+因为在映射类型的时候本来就是对联合类型进行的遍历。
+```ts
+type TypeMapping<T extends string | number | symbol> = {
+  [K in T]:string
+}
+type Hello = TypeMapping<'hello' | 'world'>
+// type Hello = {
+//   hello: string;
+//   world: string;
+// }
+
+```
+
+如果联合类型中有除了`string`、`number`、`symbol`的其他类型，则会报错，因为
+对象的key的类型必须是`string`、`number`、`symbol`。
+可以通过`as`重新映射为`string`、`number`、`symbol`的类型。
+```ts
+type EventConfig<Events extends { kind: string }> = {
+  [E in Events as E["kind"]]: (event: E) => void;
+}
+
+type SquareEvent = { kind: "square", x: number, y: number };
+type CircleEvent = { kind: "circle", radius: number };
+
+type Config = EventConfig<SquareEvent | CircleEvent>
+```
+> 注意：
+> 字符串字面量类型也是可以赋值给`string`类型的，反过来则不行。
+```ts
+type A = 'string1'
+const a:string = 'string1';
+const b:A = 'string1';
+const c:string = b;
+const d:A = a; // Error: 不能将类型“string”分配给类型“"string1"”。
+```
+
+#### 与条件类型一起使用
+```ts
+type ExtractPII<Type> = {
+  [Property in keyof Type]: Type[Property] extends { pii: true } ? true : false;
+};
+ 
+type DBFields = {
+  id: { format: "incrementing" };
+  name: { type: string; pii: true };
+};
+ 
+type ObjectsNeedingGDPRDeletion = ExtractPII<DBFields>;
+// type ObjectsNeedingGDPRDeletion = {
+//     id: false;
+//     name: true;
+// }
+```
+
+### 字符模版类型（Template Literal Types）
+与`js`中的字符串模版的用法类似。
+```ts
+type World = "world";
+ 
+type Greeting = `hello ${World}`;
+// type Greeting = "hello world"
+```
+
+联合类型使用：
+```ts
+type EmailLocaleIDs = "welcome_email" | "email_heading";
+type FooterLocaleIDs = "footer_title" | "footer_sendoff";
+ 
+type AllLocaleIDs = `${EmailLocaleIDs | FooterLocaleIDs}_id`;
+// type AllLocaleIDs = "welcome_email_id" | "email_heading_id" | "footer_title_id" | "footer_sendoff_id"
+
+
+type Label = 'hello' | 'world'
+type Lang = "en" | "zh";
+ 
+type LocaleMessageIDs = `${Lang}_${Label}`;
+// type LocaleMessageIDs = "en_hello" | "en_world" | "zh_hello" | "zh_world"
+```
