@@ -1,3 +1,4 @@
+- https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status/302
 # 一、HTTP协议
 
 ### 1. GET和POST的请求的区别
