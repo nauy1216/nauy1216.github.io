@@ -103,7 +103,44 @@
 # 路由和代码分割
 1. 代码异步加载如何处理？
 
-# 服务端渲染时如何获取数据
+# 服务端渲染时如何获取异步数据
+在服务器端渲染(SSR)期间，我们本质上是在渲染我们应用程序的"快照"，所以如果应用程序依赖于一些异步数据，那么在开始渲染过程之前，需要先预取和解析好这些数据。
+
+另一个需要关注的问题是在客户端，在挂载 (mount) 到客户端应用程序之前，需要获取到与服务器端应用程序完全相同的数据 - 否则，客户端应用程序会因为使用与服务器端应用程序不同的状态，然后导致混合失败。
+
+### Vue ssr
+1. 在路由组件上暴露出一个自定义静态函数` asyncData`, 通过调用`asyncData`方法获取组件渲染需要的数据。注意，由于此函数会在组件实例化之前调用，所以它无法访问` this`。
+2. 通`vue-router`提供的方法获取到当前路由匹配到的组件，然后调用组建上的`asyncData`方法。
+```js
+    router.push(context.url)
+
+    router.onReady(() => {
+      const matchedComponents = router.getMatchedComponents()
+      if (!matchedComponents.length) {
+        return reject({ code: 404 })
+      }
+
+      // 对所有匹配的路由组件调用 `asyncData()`
+      Promise.all(matchedComponents.map(Component => {
+        if (Component.asyncData) {
+          return Component.asyncData({
+            store,
+            route: router.currentRoute
+          })
+        }
+      })).then(() => {
+        // 在所有预取钩子(preFetch hook) resolve 后，
+        // 我们的 store 现在已经填充入渲染应用程序所需的状态。
+        // 当我们将状态附加到上下文，
+        // 并且 `template` 选项用于 renderer 时，
+        // 状态将自动序列化为 `window.__INITIAL_STATE__`，并注入 HTML。
+        context.state = store.state
+
+        resolve(app)
+      }).catch(reject)
+    }, reject)
+```
+
 
 
 # 创建自己的SSR项目
