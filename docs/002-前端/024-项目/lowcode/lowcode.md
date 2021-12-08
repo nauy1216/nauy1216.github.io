@@ -22,7 +22,9 @@
 - 少儿前端？
 
 # 项目
-1. OI-editor (包含eltron + pc)
-2. OI-client (h5)
-3. OI-miniapp (uniapp)
-4. OI-server
+1. OI-editor (包含eltron + pc) 
+2. OI-editor-adapter-vue3 / OI-editor-adapter-react
+3. OI-client (h5)
+4. OI-components(组件)
+5. OI-miniapp (uniapp)
+6. OI-server
