@@ -1,3 +1,5 @@
+### 参考文档
+- [demo](https://github.com/electron/electron-api-demos.git)
 ### TODO
 
 - 怎么安装react-devtool
@@ -125,7 +127,7 @@ app.whenReady().then(() => {
 })
 ```
 
-
+> 一般而言，你可以使用 `进程` 全局的 [`platform`](https://nodejs.org/api/process.html#process_process_platform) 属性来专门为某些操作系统运行代码。
 
 
 
@@ -139,7 +141,7 @@ app.whenReady().then(() => {
 
 
 
-> 这是将 **预加载** 脚本连接到渲染器时派上用场的地方。 预加载脚本在渲染器进程加载之前加载，并有权访问两个 渲染器全局 (例如 `window` 和 `document`) 和 Node.js 环境。
+> 这是将 **预加载** 脚本连接到渲染器时派上用场的地方。 **预加载脚本在渲染器进程加载之前加载，并有权访问两个 渲染器全局 (例如 `window` 和 `document`) 和 Node.js 环境。**
 
 
 
