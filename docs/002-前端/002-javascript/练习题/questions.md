@@ -98,7 +98,7 @@ but, 对于 `undefined` 和 `null` 来说，这两个值的信息存储是有点
 -   null --> 0
 -   "0" --> 0, "" --> 0, "" --> 10, "1d" --> NaN
 -   Symbol.for("") --> 报错 Cannot convert a Symbol value to a number
--   [1, 2] --> NaN, [] --> 0
+-   [1, 2] --> NaN, [] --> 0, [3] --> 3,  原理是Number([3]), [3]会先转成字符串“3”, 然后再转成数字。
 -   {a: 1} --> NaN, {} --> NaN
 
 > 转布尔值,使用 Boolean()
@@ -189,6 +189,8 @@ if( a == 1 && a == 2 && a == 3 ) {
 - https://juejin.cn/post/6844903613584654344
 
   ```js
+  // leftValue: 实例对象
+  // rightValue: 构造函数
   function new_instance_of(leftVaule, rightVaule) { 
       let rightProto = rightVaule.prototype; // 取右表达式的 prototype 值
       leftVaule = leftVaule.__proto__; // 取左表达式的__proto__值
@@ -210,10 +212,10 @@ if( a == 1 && a == 2 && a == 3 ) {
 https://www.jianshu.com/p/4db4b2633dbe
 
 # 7、http2的多路复用是什么？
-1. http1.0每次请求都要建立一次http连接， 进行3次握手和4次挥手。
+1. http1.0每次请求都要建立一次tcp连接， 进行3次握手和4次挥手。
 2. http1.1为了解决重复建立连接，引入了keep-alive。允许我们建立一次连接，来返回多次请求的数据。
     - http1.1是基于串行文件传输数据，因此这些请求必须是有序的。由于队首阻塞的原因，实际上我们只是减少了连接的时间，但是并没有减少请求时间。
-    - http1.1在chrome浏览器里面限制每个域名最多开启6个http连接。
+    - http1.1在chrome浏览器里面限制每个域名最多开启6个tcp连接。
 3. http2.0引入二进制数据帧和流的概念，帧对数据进行顺序标识，浏览器接收到数据后可以按照序列对数据进行合并，而不会出现数据错乱的情况，这样服务器就可以并行的数据传输。 
     - http2.0同域名下所有通信都是在单个连接上完成。
     - 单个连接可以进行交错的请求和响应，之间互不干扰。
@@ -237,34 +239,37 @@ obj = Object.frezze(obj)
 // 3. Object.seal()
 ```
 
-# Object.seal()和Object.frezze()的区别？
-
-# == 和 === 的区别？
-
-# 判断数据类型的方法有哪些？
+# 10、Object.seal()和Object.frezze()的区别？
+	              添加 读取	更改	删除
+Object.freeze()	 ❌	✅	  ❌	   ❌
+Object.seal()	   ❌	✅	  ✅	   ❌
+# 11、== 和 === 、 Object.is()的区别？
+ 
+# 12、判断数据类型的方法有哪些？
 ```js
 typeof 
 instanceof
 Object.prototype.toString()
 ```
 
-# 隐式类型转换
+# 13、隐式类型转换
 
-# 虚拟列表的原理？
+# 14、虚拟列表的原理？
 
-# WebWorker的缺点是什么？WebWorker是怎样和主线程通信的？除此之外还有其他的方式解决主线程占用的问题吗？
+# 15、WebWorker的缺点是什么？WebWorker是怎样和主线程通信的？除此之外还有其他的方式解决主线程占用的问题吗？
 
-# react的时间切片的实现为什么不用generator实现？
+# 16、react的时间切片的实现为什么不用generator实现？
 
-# dom绑定的回调函数是宏任务还是微任务？
+# 17、dom绑定的回调函数是宏任务还是微任务？
 
-# 浏览器为什么要阻止跨域？跨域的条件？哪些资源涉及到跨域？如何解决跨域？跨域请求会到服务器吗？
+# 18、浏览器为什么要阻止跨域？跨域的条件？哪些资源涉及到跨域？如何解决跨域？跨域请求会到服务器吗？
 
-# js怎么实现多线程并发？ Concurrent.Thread.js
+# 19、js怎么实现多线程并发？ 
+使用Concurrent.Thread.js
 
-# 组件库设计有什么原则？
+# 20、组件库设计有什么原则？
 
-# commonjs的原理？
+# 21、commonjs的原理？
 
 # 对象深拷贝需要注意的问题？JSON.stringify有什么缺陷？
 
@@ -319,5 +324,6 @@ Object.prototype.toString()
 
 
 
-
+# BroadcastChannel
+`BroadcastChannel` 接口代理了一个命名频道，可以让指定 `origin` 下的任意` browsing context `来订阅它。它`允许同源`的不同浏览器窗口，Tab 页，frame 或者 iframe 下的不同文档之间相互通信。通过触发一个 message 事件，消息可以广播到所有监听了该频道的 BroadcastChannel 对象。
 

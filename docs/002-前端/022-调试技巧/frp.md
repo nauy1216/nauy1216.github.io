@@ -43,6 +43,10 @@ scp -r localfile.txt ubuntu@119.91.143.146:/tmp/files
 1. 输入命令netstat -tanlp
 ```shell
 netstat -tanlp
+
+ps aux | less -A
+
+ 19060
 ```
 2. 找到端口所占进程的pid，在kill掉
 ```shell
@@ -66,26 +70,57 @@ nohup ./frps -c frps.ini &
 #bind_addr = 0.0.0.0
 #服务器端监听的端口，默认是7000，可自定义
 bind_port = 7000
-vhost_http_port = 8080
+vhost_http_port = 80
+vhost_https_port = 443
 token=123
 ```
 
 # 客户端配置
 ```shell
 [common]
-# 服务器地址
 server_addr = 119.91.143.146
-# 服务器设置的bind_port
 server_port = 7000
-# 与服务器设置的一致
 token=123
 
 [web]
 type = tcp
 local_ip = 127.0.0.1
-# 本地服务端口
 local_port = 5000
-# 对应的远程服务端口
 remote_port = 5000
+
+[web2]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 5001
+remote_port = 5001
+
+[web3]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 5123
+remote_port = 5002
+
+# 设置80端口，记得在腾讯云防火墙开启端口
+[web4]
+type = http
+local_ip = 127.0.0.1
+local_port = 5001
+custom_domains = tt.codemao.cn # 设置访问的域名，
+remote_port = 80
+
+; 文档https://cloud.tencent.com/developer/article/1581948
+[web5]
+type = https
+local_port = 5001
+custom_domains = tt.codemao.cn
+plugin = https2http
+plugin_local_addr = 127.0.0.1:5001
+plugin_host_header_rewrite = 127.0.0.1
+plugin_header_X-From-Where = frp
+plugin_crt_path = ./cert/crt.crt
+plugin_key_path = ./cert/key.key
 ```
 访问`119.91.143.146:5000`就能访问到本地服务了。
+
+
+# 购买域名
