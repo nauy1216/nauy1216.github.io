@@ -67,7 +67,10 @@
 
 - 这个文件控制了**主进程**。
 - 它运行在一个完整的Node.js环境中。
-- 负责控制您应用的生命周期，显示原生界面，执行特殊操作并管理渲染器进程。
+- 负责控制您应用的生命周期
+- 显示原生界面
+- 执行特殊操作
+- 管理渲染器进程。
 
 
 
@@ -126,6 +129,8 @@ app.whenReady().then(() => {
   createWindow()
 })
 ```
+
+
 
 > 一般而言，你可以使用 `进程` 全局的 [`platform`](https://nodejs.org/api/process.html#process_process_platform) 属性来专门为某些操作系统运行代码。
 

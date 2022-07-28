@@ -3,6 +3,7 @@
 - https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API
 - https://segmentfault.com/a/1190000016446125
 - https://segmentfault.com/a/1190000017079828
+- https://developer.chrome.com/docs/workbox/
 
 # 开源库
 - [sw-toolbox](https://github.com/GoogleChromeLabs/sw-toolbox)
@@ -10,6 +11,10 @@
 
 # 书籍
 - https://serviceworke.rs/
+
+
+# 库
+- https://developer.chrome.com/docs/workbox/
 
 # 出现SeriveWorker的背景
 有一个困扰 web 用户多年的难题——丢失网络连接。即使是世界上最好的 web app，如果下载不了它，也是非常糟糕的体验。如今虽然已经有很多种技术去尝试着解决这一问题。而随着离线页面的出现，一些问题已经得到了解决。但是，最重要的问题是，仍然没有一个好的统筹机制对资源缓存和自定义的网络请求进行控制。
