@@ -493,5 +493,5 @@ git config --global user.email "liuchengyuan@qq.cn"
 
 # 设置指定仓库
 git config user.name "liuchengyuan"
-git config user.email "836623330@qq.com"
+git config user.email "liuchengyuan@codemao.cn"
 ```
