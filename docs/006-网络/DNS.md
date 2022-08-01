@@ -274,3 +274,18 @@ DNS劫持就是指用户访问一个被标记的地址时，DNS服务器故意�
 
 
 
+# 命令行修改DNS
+## MAC
+- https://blog.csdn.net/snowrain1108/article/details/51734553
+
+获取系统已有的DNS配置
+```shell
+networksetup -getdnsservers Wi-Fi
+```
+设置DNS, 可以同时设置多个, 会覆盖已有的配置
+```shell
+networksetup -setdnsservers Wi-Fi 8.8.8.8 114.114.114.114
+```
+
+## windows
+- https://www.cnblogs.com/freeweb/p/5061025.html
