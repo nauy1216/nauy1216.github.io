@@ -4,9 +4,6 @@
 # PwaInstaller
 
 # 开发工具
-
-
-
 1. react devtools
     1. github下载插件
     2. 安装插件
