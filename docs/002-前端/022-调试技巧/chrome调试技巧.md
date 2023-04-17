@@ -1,3 +1,15 @@
+# Coverage
+# Animations
+# Snippets
+# Overrides
+# Changes
+配合Overrides，对比修改前后的文件
+
+# CSS Overview 
+
+# 查看页面使用内存
+## 任务管理器
+
 # 查看fps
 打开` More tools => Rendering`, 勾选` Frame Rendering Stats`
 
